@@ -5,7 +5,9 @@ import 'package:collection/collection.dart';
 import 'package:kompositum/data/database.dart';
 
 import '../data/compound.dart';
+import '../data/data_source.dart';
 
+final datasource = MockDatabase();
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -20,6 +22,8 @@ class _MyHomePageState extends State<MyHomePage> {
   final int maxFrequencyClass = 18;
   final List<String> components = [];
 
+  int score = 0;
+
 
   @override
   void initState() {
@@ -29,14 +33,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> initComponents() async {
     // Print the number of compounds in the database
-    final compounds = await DatabaseHelper.getAllCompounds();
+    final compounds = await datasource.getAllCompounds();
     print("Number of compounds: ${compounds.length}");
-    print("Number of compounds with sql: ${await DatabaseHelper.countCompounds()}");
+    print("Number of compounds with sql: ${await datasource.countCompounds()}");
 
 
     final List<String> unshuffledComponents = [];
     for (var i = 0; i < 5; i++) {
-      final compound = await DatabaseHelper.getRandomCompound(maxFrequencyClass);
+      final compound = await datasource.getRandomCompound(maxFrequencyClass);
       if (compound != null) {
         unshuffledComponents.add(compound.modifier);
         unshuffledComponents.add(compound.head);
@@ -97,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void checkCompoundCompletion() async {
     if (selectedModifier != null && selectedHead != null) {
-      final compound = await DatabaseHelper.getCompound(selectedModifier!, selectedHead!);
+      final compound = await datasource.getCompound(selectedModifier!, selectedHead!);
       if (compound != null) {
         compoundFound(compound);
       }
@@ -105,6 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void compoundFound(Compound compound) {
+    score++;
     emitWordCompletionEvent(compound.name);
 
     // Without caching here, the selectedHead would be invalid after removing
@@ -122,7 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void addNewComponents() async {
     final List<String> newComponents = [];
-    final compound = await DatabaseHelper.getRandomCompound(maxFrequencyClass);
+    final compound = await datasource.getRandomCompound(maxFrequencyClass);
     if (compound != null) {
       newComponents.add(compound.modifier);
       newComponents.add(compound.head);
@@ -156,6 +161,16 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            SizedBox(height: 16.0),
+            // A text in a circle indicating the current score
+            CircleAvatar(
+              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+              radius: 30,
+              child: Text(
+                score.toString(),
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+            ),
             AnimatedTextFadeOut(textStream: wordCompletionEventStream.stream),
 
             // A row containing the selected modifier and head separated by a plus icon
