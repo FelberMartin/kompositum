@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:collection/collection.dart';
 
 import 'Compound.dart';
 
@@ -91,7 +94,41 @@ class _MyHomePageState extends State<MyHomePage> {
     } else {
       selectionTypeToIndex[SelectionType.head] = index;
     }
+    checkCompoundCompletion();
     setState(() {});
+  }
+
+  void checkCompoundCompletion() {
+    if (selectedModifier != null && selectedHead != null) {
+      final compound = compounds.firstWhereOrNull((element) =>
+          element.modifier == selectedModifier && element.head == selectedHead);
+      if (compound != null) {
+        compoundFound(compound);
+      }
+    }
+  }
+
+  void compoundFound(Compound compound) {
+    emitWordCompletionEvent(compound.name);
+    resetSelection(SelectionType.modifier);
+    resetSelection(SelectionType.head);
+    compounds.remove(compound);
+    compounds.add(compound);  // For testing purposes
+    setState(() {});
+  }
+
+  final StreamController<String> wordCompletionEventStream =
+      StreamController<String>();
+
+  @override
+  void dispose() {
+    wordCompletionEventStream.close();
+    super.dispose();
+  }
+
+  void emitWordCompletionEvent(String word) {
+    print("emitWordCompletionEvent: $word");
+    wordCompletionEventStream.sink.add(word);
   }
 
   @override
@@ -105,7 +142,8 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Expanded(child: Container()),
+            AnimatedTextFadeOut(textStream: wordCompletionEventStream.stream),
+
             // A row containing the selected modifier and head separated by a plus icon
             CompoundMergeRow(
                 selectedModifier: selectedModifier,
@@ -134,6 +172,71 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class AnimatedTextFadeOut extends StatefulWidget {
+  const AnimatedTextFadeOut({super.key, required this.textStream});
+
+  final Stream<String> textStream;
+
+  @override
+  AnimatedTextFadeOutState createState() => AnimatedTextFadeOutState();
+}
+
+class AnimatedTextFadeOutState extends State<AnimatedTextFadeOut>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<AlignmentGeometry> _alignAnimation;
+  late CurvedAnimation curve;
+
+  String _displayText = "";
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      reverseDuration: const Duration(seconds: 1),
+    );
+
+    _alignAnimation = Tween<AlignmentGeometry>(
+      begin: Alignment.topCenter,   // Changed because the controller is reversed
+      end: Alignment.bottomCenter,
+    ).animate(
+        CurvedAnimation(
+          parent: _controller,
+          curve: Curves.decelerate.flipped,
+        )
+    );
+
+    widget.textStream.listen((text) {
+      _displayText = text;
+      _controller.reverse(from: 1.0);
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 200,
+      child: AlignTransition(
+        alignment: _alignAnimation,
+        child: FadeTransition(
+          opacity: _controller,
+          child: Text(
+            _displayText,
+            style: Theme.of(context).textTheme.headlineLarge,
+          ),
+        ),
+      )
     );
   }
 }
