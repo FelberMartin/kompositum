@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
+import 'package:kompositum/data/database.dart';
 
-import '../Compound.dart';
+import '../data/compound.dart';
+
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -15,21 +17,35 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  // A list of compounds with random german compounds
-  final List<Compound> compounds = [
-    const Compound(name: 'Krankenhaus', modifier: 'krank', head: 'Haus'),
-    const Compound(name: 'Apfelbaum', modifier: 'Apfel', head: 'Baum'),
-    const Compound(name: 'Türschloss', modifier: 'Tür', head: 'Schloss'),
-    const Compound(name: 'Hundehütte', modifier: 'Hund', head: 'Hütte'),
-    const Compound(name: 'Küchentisch', modifier: 'Küche', head: 'Tisch'),
-  ];
+  final int maxFrequencyClass = 18;
+  final List<String> components = [];
 
-  List<String> getAllCompoundComponents() {
-    final List<String> allComponents = [];
-    for (final Compound compound in compounds) {
-      allComponents.addAll(compound.getComponents());
+
+  @override
+  void initState() {
+    super.initState();
+    initComponents();
+  }
+
+  Future<void> initComponents() async {
+    // Print the number of compounds in the database
+    final compounds = await DatabaseHelper.getAllCompounds();
+    print("Number of compounds: ${compounds.length}");
+    print("Number of compounds with sql: ${await DatabaseHelper.countCompounds()}");
+
+
+    final List<String> unshuffledComponents = [];
+    for (var i = 0; i < 5; i++) {
+      final compound = await DatabaseHelper.getRandomCompound(maxFrequencyClass);
+      if (compound != null) {
+        unshuffledComponents.add(compound.modifier);
+        unshuffledComponents.add(compound.head);
+        print("Added compound: $compound");
+      }
     }
-    return allComponents;
+    unshuffledComponents.shuffle();
+    components.addAll(unshuffledComponents);
+    setState(() {});
   }
 
   Map<SelectionType, int> selectionTypeToIndex = {
@@ -40,12 +56,12 @@ class _MyHomePageState extends State<MyHomePage> {
   String? get selectedModifier =>
       selectionTypeToIndex[SelectionType.modifier] !=
           -1
-          ? getAllCompoundComponents()[
+          ? components[
       selectionTypeToIndex[SelectionType.modifier]!]
           : null;
 
   String? get selectedHead => selectionTypeToIndex[SelectionType.head] != -1
-      ? getAllCompoundComponents()[selectionTypeToIndex[SelectionType.head]!]
+      ? components[selectionTypeToIndex[SelectionType.head]!]
       : null;
 
   SelectionType? getSelectionTypeForIndex(int index) {
@@ -59,12 +75,14 @@ class _MyHomePageState extends State<MyHomePage> {
     return null;
   }
 
-  void resetSelection(SelectionType selectionType) {
+  void resetSelection(SelectionType selectionType, {bool updateState = true}) {
     selectionTypeToIndex[selectionType] = -1;
-    setState(() {});
+    if (updateState) {
+      setState(() {});
+    }
   }
 
-  void toggleSelection(int index) {
+  void toggleSelection(int index) async {
     final selectionType = getSelectionTypeForIndex(index);
     if (selectionType != null) {
       selectionTypeToIndex[selectionType] = -1;
@@ -77,10 +95,9 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {});
   }
 
-  void checkCompoundCompletion() {
+  void checkCompoundCompletion() async {
     if (selectedModifier != null && selectedHead != null) {
-      final compound = compounds.firstWhereOrNull((element) =>
-      element.modifier == selectedModifier && element.head == selectedHead);
+      final compound = await DatabaseHelper.getCompound(selectedModifier!, selectedHead!);
       if (compound != null) {
         compoundFound(compound);
       }
@@ -89,10 +106,29 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void compoundFound(Compound compound) {
     emitWordCompletionEvent(compound.name);
-    resetSelection(SelectionType.modifier);
-    resetSelection(SelectionType.head);
-    compounds.remove(compound);
-    compounds.add(compound);  // For testing purposes
+
+    // Without caching here, the selectedHead would be invalid after removing
+    // the selectedModifier.
+    final cachedSelectedHead = selectedHead;
+    components.remove(selectedModifier);
+    components.remove(cachedSelectedHead);
+
+    // Do not update the state here, to avoid inconsistencies in the UI
+    resetSelection(SelectionType.modifier, updateState: false);
+    resetSelection(SelectionType.head, updateState: false);
+
+    addNewComponents();
+  }
+
+  void addNewComponents() async {
+    final List<String> newComponents = [];
+    final compound = await DatabaseHelper.getRandomCompound(maxFrequencyClass);
+    if (compound != null) {
+      newComponents.add(compound.modifier);
+      newComponents.add(compound.head);
+    }
+
+    components.addAll(newComponents);
     setState(() {});
   }
 
@@ -106,7 +142,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void emitWordCompletionEvent(String word) {
-    print("emitWordCompletionEvent: $word");
     wordCompletionEventStream.sink.add(word);
   }
 
@@ -137,7 +172,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 alignment: WrapAlignment.center,
                 children: [
                   for (final (index, component)
-                  in getAllCompoundComponents().indexed)
+                  in components.indexed)
                     WordWrapper(
                         text: component,
                         selectionType: getSelectionTypeForIndex(index),
