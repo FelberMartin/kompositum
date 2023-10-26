@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 
-import 'Compound.dart';
+import 'compound.dart';
 
 void main() {
   runApp(const MyApp());
