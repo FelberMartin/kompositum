@@ -25,6 +25,21 @@ class Compound {
     );
   }
 
+  static Compound fromCsvLine(String line) {
+    final values = line.split(",");
+    return Compound(
+      name: values[0],
+      modifier: values[1],
+      head: values[2],
+      frequencyClass: int.tryParse(values[3]),
+    );
+  }
+
+  static List<Compound> fromCsvFile(String csv_content) {
+    final lines = csv_content.split("\n").skip(1);
+    return lines.map((line) => Compound.fromCsvLine(line)).toList();
+  }
+
   const Compound({
     required this.name,
     required this.modifier,
@@ -49,6 +64,16 @@ class Compound {
   String toString() {
     return 'Compound{name: $name, modifier: $modifier, head: $head, frequencyClass: $frequencyClass}';
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Compound &&
+          runtimeType == other.runtimeType &&
+          name == other.name &&
+          modifier == other.modifier &&
+          head == other.head &&
+          frequencyClass == other.frequencyClass;
 
 
 }

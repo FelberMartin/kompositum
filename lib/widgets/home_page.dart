@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
-import 'package:kompositum/data/database.dart';
+import 'package:kompositum/data/database_initializer.dart';
 
 import '../data/compound.dart';
 import '../data/data_source.dart';
