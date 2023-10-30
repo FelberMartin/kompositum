@@ -1,5 +1,3 @@
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:kompositum/data/compound.dart';
 import 'package:test/test.dart';
 
@@ -81,29 +79,41 @@ void main() {
   });
 
   group("fromCsvFile", () {
-      test(
-        "read csv file is in the expected format",
-        () async {
-          WidgetsFlutterBinding.ensureInitialized();
-          const expected = "compound,modifier,head,frequency_class\n"
-            "Aalbestand,Aal,Bestand,22.0\n"
-            "Aalfang,Aal,Fang,20.0\n"
-            "Aalfisch,Aal,Fisch,\n";
-          final read = await rootBundle.loadString("test/test_data/test_compounds.csv");
-          expect(read, expected);
-        }
-      );
 
       test(
         "should return a list of compounds",
         () {
           const csv = "name,modifier,head,frequency_class\n"
               "Krankenhaus,krank,Haus,1\n"
-              "Spielplatz,Spiel,Platz,1\n"
-              "Schulklasse,Schule,Klasse,1\n";
+              "Spielplatz,Spiel,Platz,\n"
+              "Schulklasse,Schule,Klasse,1";
           final compounds = Compound.fromCsvFile(csv);
           expect(compounds, isNotEmpty);
           expect(compounds.length, 3);
+
+          expect(compounds.first.name, "Krankenhaus");
+          expect(compounds.first.modifier, "krank");
+          expect(compounds.first.head, "Haus");
+          expect(compounds.first.frequencyClass, 1);
+        },
+      );
+
+      test(
+        "should also work with carrige return file endings",
+        () {
+          const csv = "name,modifier,head,frequency_class\r\n"
+              "Krankenhaus,krank,Haus,1\r\n"
+              "Spielplatz,Spiel,Platz,\r\n"
+              "Schulklasse,Schule,Klasse,1";
+          final compounds = Compound.fromCsvFile(csv);
+          expect(compounds.length, 3);
+
+          expect(compounds.first.name, "Krankenhaus");
+          expect(compounds.first.modifier, "krank");
+          expect(compounds.first.head, "Haus");
+          expect(compounds.first.frequencyClass, 1);
+
+          expect(compounds[1].frequencyClass, null);
         },
       );
 

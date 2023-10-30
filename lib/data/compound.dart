@@ -36,7 +36,8 @@ class Compound {
   }
 
   static List<Compound> fromCsvFile(String csv_content) {
-    final lines = csv_content.split("\n").skip(1);
+    var lines = csv_content.split("\n").skip(1);
+    lines = lines.where((line) => line.isNotEmpty);
     return lines.map((line) => Compound.fromCsvLine(line)).toList();
   }
 
