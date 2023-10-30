@@ -25,22 +25,6 @@ class Compound {
     );
   }
 
-  static Compound fromCsvLine(String line) {
-    final values = line.split(",");
-    return Compound(
-      name: values[0],
-      modifier: values[1],
-      head: values[2],
-      frequencyClass: int.tryParse(values[3]),
-    );
-  }
-
-  static List<Compound> fromCsvFile(String csv_content) {
-    var lines = csv_content.split("\n").skip(1);
-    lines = lines.where((line) => line.isNotEmpty);
-    return lines.map((line) => Compound.fromCsvLine(line)).toList();
-  }
-
   const Compound({
     required this.name,
     required this.modifier,

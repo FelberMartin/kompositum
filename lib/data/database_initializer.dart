@@ -6,6 +6,11 @@ import 'package:sqflite/sqflite.dart';
 import 'compound.dart';
 
 class DatabaseInitializer {
+
+  final CompoundOrigin compoundOrigin;
+
+  DatabaseInitializer(this.compoundOrigin);
+
   Future<Database> getInitializedDatabase() {
     WidgetsFlutterBinding.ensureInitialized();
     return getDatabasesPath().then((dbPath) {
@@ -15,7 +20,6 @@ class DatabaseInitializer {
         version: 1,
         onCreate: (db, version) async {
           await createCompoundsTable(db);
-          await importCompoundsFromCsv(db, "assets/compounds.csv");
         },
       );
     });
@@ -32,7 +36,7 @@ class DatabaseInitializer {
     );
   }
 
-  Future<void> importCompoundsFromCsv(Database db, String csvFilePath) {
+  Future<void> insertCompounds(Database db, List<Compound> compounds) {
     // return rootBundle.loadString(csvFilePath).then((csv) {
     //   final lines = csv.split("\n");
     //   final compounds = lines.map((line) => Compound.fromCsvLine(line));

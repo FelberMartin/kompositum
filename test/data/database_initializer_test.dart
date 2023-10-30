@@ -1,3 +1,4 @@
+import 'package:kompositum/data/compound.dart';
 import 'package:kompositum/data/database_initializer.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:test/test.dart';
@@ -50,20 +51,30 @@ void main() async {
     );
   });
 
-  group("importCompoundsFromCsv", () {
+  group("insertCompounds", () {
       test(
-        "should import compounds from csv file",
+        "should insert the given compounds into the database",
         () async {
-          final database = await sut.getInitializedDatabase();
-          await sut.importCompoundsFromCsv(database, "test/test_data/test_compounds.csv");
-          final compounds = await database.query("compounds");
-          expect(compounds, isNotEmpty);
+          final database = await openDatabase(inMemoryDatabasePath);
+          final compounds = [
+            const Compound(
+              name: "Krankenhaus",
+              modifier: "krank",
+              head: "Haus",
+              frequencyClass: 1,
+            ),
+          ];
+          await sut.insertCompounds(database, compounds);
+          final result = await database.query("compounds");
+          expect(result, isNotEmpty);
+          expect(result.length, 1);
+          expect(result.first["name"], "Krankenhaus");
+          expect(result.first["modifier"], "krank");
+          expect(result.first["head"], "Haus");
+          expect(result.first["frequencyClass"], 1);
         },
       );
 
-      test(
-        "should "
-      )
 
     });
 
