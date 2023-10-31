@@ -23,6 +23,7 @@ class CompoundPoolGenerator {
     required CompactFrequencyClass frequencyClass,
     required int compoundCount,
   }) async {
+    assert(compoundCount > 0);
     final List<Compound> compounds = [];
     final List<String> forbiddenComponents = [];
 
