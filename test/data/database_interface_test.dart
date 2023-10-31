@@ -16,8 +16,8 @@ void main() {
   setUp(() {
     WidgetsFlutterBinding.ensureInitialized();
     compoundOrigin = MockCompoundOrigin();
-    databaseInitializer =
-        DatabaseInitializer(compoundOrigin, useInMemoryDatabase: true, reset: true);
+    databaseInitializer = DatabaseInitializer(compoundOrigin,
+        useInMemoryDatabase: true, reset: true);
     sut = DatabaseInterface(databaseInitializer);
   });
 
@@ -103,7 +103,7 @@ void main() {
         when(() => compoundOrigin.getCompounds()).thenAnswer(
             (_) async => [Compounds.Krankenhaus.withFrequencyClass(1)]);
         final compound =
-        await sut.getRandomCompoundRestricted(maxFrequencyClass: null);
+            await sut.getRandomCompoundRestricted(maxFrequencyClass: null);
         expect(compound, Compounds.Krankenhaus);
       },
     );
@@ -153,6 +153,7 @@ void main() {
           (_) async => [Compounds.Apfelkuchen, Compounds.Kuchenform]);
       final returnedCompounds = [];
       for (var i = 0; i < 20; i++) {
+        // this test will fail once in 2^20 / 2 times ~ 1 in 0.5 million times
         final compound =
             await sut.getRandomCompoundRestricted(maxFrequencyClass: null);
         returnedCompounds.add(compound);

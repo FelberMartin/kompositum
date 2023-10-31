@@ -62,6 +62,7 @@ class DatabaseInterface {
     final List<Map<String, dynamic>> maps = await db.query(
       'compounds',
       orderBy: 'RANDOM()',
+      limit: 1,
       where: whereCondition,
       whereArgs: whereArgs,
     );
@@ -70,12 +71,7 @@ class DatabaseInterface {
     if (maps.isEmpty) {
       return null;
     }
-    final List<Compound> compounds = maps.map((map) => Compound.fromMap(map)).toList();
-    compounds.removeWhere((compound) => forbiddenComponents.contains(compound.modifier.toUpperCase()) || forbiddenComponents.contains(compound.head.toUpperCase()));
-    if (compounds.isEmpty) {
-      return null;
-    }
-    return compounds.first;
+    return Compound.fromMap(maps.first);
   }
 
   
