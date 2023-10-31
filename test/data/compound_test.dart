@@ -1,3 +1,4 @@
+import 'package:kompositum/compound_pool_generator.dart';
 import 'package:kompositum/data/compound.dart';
 import 'package:test/test.dart';
 
@@ -66,4 +67,17 @@ void main() {
       expect(compoundWithFrequencyClass.frequencyClass, 2);
     },
   );
+
+  test(
+    "withCompactFrequencyClass works as expected",
+    () {
+      const compound = Compound(
+        name: "Krankenhaus",
+        modifier: "krank",
+        head: "Haus",
+        frequencyClass: 1,
+      );
+      final compoundWithFrequencyClass = compound.withCompactFrequencyClass(CompactFrequencyClass.easy);
+      expect(compoundWithFrequencyClass.frequencyClass, lessThanOrEqualTo(CompactFrequencyClass.easy.maxFrequencyClass!));
+    });
 }

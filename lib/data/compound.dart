@@ -3,6 +3,8 @@
 // - modifier (String)
 // - head (double)
 
+import '../compound_pool_generator.dart';
+
 class Compound {
   // The full name of the compound e.g. "Krankenhaus"
   final String name;
@@ -42,6 +44,15 @@ class Compound {
       modifier: modifier,
       head: head,
       frequencyClass: frequencyClass,
+    );
+  }
+
+  Compound withCompactFrequencyClass(CompactFrequencyClass frequencyClass) {
+    return Compound(
+      name: name,
+      modifier: modifier,
+      head: head,
+      frequencyClass: frequencyClass.maxFrequencyClass,
     );
   }
 
