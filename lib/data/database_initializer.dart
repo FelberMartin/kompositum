@@ -8,11 +8,13 @@ import 'compound_origin.dart';
 
 class DatabaseInitializer {
   final CompoundOrigin compoundOrigin;
+  final bool useInMemoryDatabase;
+  final bool reset;
 
-  DatabaseInitializer(this.compoundOrigin);
+  DatabaseInitializer(this.compoundOrigin,
+      {this.useInMemoryDatabase = false, this.reset = false});
 
-  Future<Database> getInitializedDatabase(
-      {bool reset = false, bool useInMemoryDatabase = false}) async {
+  Future<Database> getInitializedDatabase() async {
     String path = await _getPath(useInMemoryDatabase);
     final db = await openDatabase(
       path,

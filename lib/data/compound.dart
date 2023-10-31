@@ -36,6 +36,15 @@ class Compound {
     return [modifier, head];
   }
 
+  Compound withFrequencyClass(int? frequencyClass) {
+    return Compound(
+      name: name,
+      modifier: modifier,
+      head: head,
+      frequencyClass: frequencyClass,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'name': name,

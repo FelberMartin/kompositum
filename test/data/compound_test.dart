@@ -53,4 +53,17 @@ void main() {
     },
   );
 
+  test(
+    "withFrequencyClass works as expected",
+    () {
+      const compound = Compound(
+        name: "Krankenhaus",
+        modifier: "krank",
+        head: "Haus",
+        frequencyClass: 1,
+      );
+      final compoundWithFrequencyClass = compound.withFrequencyClass(2);
+      expect(compoundWithFrequencyClass.frequencyClass, 2);
+    },
+  );
 }

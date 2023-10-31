@@ -5,36 +5,18 @@ import 'package:mocktail/mocktail.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:test/test.dart';
 
+import '../test_data/compounds.dart';
+
 class MockCompoundOrigin extends Mock implements CompoundOrigin {}
 
 void main() async {
   late CompoundOrigin compoundOrigin;
   late DatabaseInitializer sut;
 
-  final compoundsFromOrigin = [
-    const Compound(
-      name: "Krankenhaus",
-      modifier: "krank",
-      head: "Haus",
-      frequencyClass: 1,
-    ),
-  ];
+  final compoundsFromOrigin = [Compounds.Krankenhaus];
 
   // A different list of compounds to test if the database is initialized correctly
-  final compoundsFromOrigin2 = [
-    const Compound(
-      name: "Spielplatz",
-      modifier: "Spiel",
-      head: "Platz",
-      frequencyClass: 1,
-    ),
-    const Compound(
-      name: "Apfelbaum",
-      modifier: "Apfel",
-      head: "Baum",
-      frequencyClass: 1,
-    ),
-  ];
+  final compoundsFromOrigin2 = [Compounds.Spielplatz, Compounds.Apfelbaum];
 
   // Setup sqflite_common_ffi for flutter test
   setUpAll(() {
@@ -48,7 +30,7 @@ void main() async {
     compoundOrigin = MockCompoundOrigin();
     when(() => compoundOrigin.getCompounds())
         .thenAnswer((_) async => compoundsFromOrigin);
-    sut = DatabaseInitializer(compoundOrigin);
+    sut = DatabaseInitializer(compoundOrigin, useInMemoryDatabase: true);
   });
 
   /// For testing the ffi test framework
@@ -72,7 +54,7 @@ void main() async {
     test(
       "should return a database",
       () async {
-        final database = await sut.getInitializedDatabase(useInMemoryDatabase: true);
+        final database = await sut.getInitializedDatabase();
         expect(database, isNotNull);
       },
     );
@@ -80,7 +62,7 @@ void main() async {
     test(
       "should return a database with the compounds table",
       () async {
-        final database = await sut.getInitializedDatabase(useInMemoryDatabase: true);
+        final database = await sut.getInitializedDatabase();
         final tables =
             await database.query("sqlite_master", where: "type = 'table'");
         expect(tables, isNotEmpty);
@@ -91,7 +73,7 @@ void main() async {
     test(
       "should return a database with the compounds from the origin",
       () async {
-        final database = await sut.getInitializedDatabase(useInMemoryDatabase: true);
+        final database = await sut.getInitializedDatabase();
 
         final compounds = await database.query("compounds");
         expect(compounds, isNotEmpty);
@@ -104,10 +86,12 @@ void main() async {
     test(
       "should leave the current compounds if reset is false ",
       () async {
-        await sut.getInitializedDatabase(useInMemoryDatabase: true);
+        sut = DatabaseInitializer(compoundOrigin,
+            useInMemoryDatabase: true, reset: false);
+        await sut.getInitializedDatabase();
         when(() => compoundOrigin.getCompounds())
             .thenAnswer((_) async => compoundsFromOrigin2);
-        final database = await sut.getInitializedDatabase(useInMemoryDatabase: true, reset: false);
+        final database = await sut.getInitializedDatabase();
 
         final compounds = await database.query("compounds");
         expect(compounds, isNotEmpty);
@@ -118,10 +102,12 @@ void main() async {
     test(
       "should reset the current compounds if reset is true ",
       () async {
-        await sut.getInitializedDatabase(useInMemoryDatabase: true);
+        sut = DatabaseInitializer(compoundOrigin,
+            useInMemoryDatabase: true, reset: true);
+        await sut.getInitializedDatabase();
         when(() => compoundOrigin.getCompounds())
             .thenAnswer((_) async => compoundsFromOrigin2);
-        final database = await sut.getInitializedDatabase(useInMemoryDatabase: true, reset: true);
+        final database = await sut.getInitializedDatabase();
 
         final compounds = await database.query("compounds");
         expect(compounds, isNotEmpty);
