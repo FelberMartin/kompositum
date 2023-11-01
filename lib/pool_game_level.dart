@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:kompositum/compound_pool_generator.dart';
+import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
 
 import 'data/compound.dart';
 
@@ -34,20 +35,15 @@ class PoolGameLevel {
     }
   }
 
-  bool checkCompound(String modifier, String head) {
-    if (_isCorrectCompound(modifier, head)) {
-      shownComponents.remove(modifier);
-      shownComponents.remove(head);
-      _unsolvedCompounds.removeWhere(
-          (compound) => compound.modifier == modifier && compound.head == head);
-      _fillShownComponents();
-      return true;
-    }
-    return false;
+  void removeCompoundFromShown(Compound compound) {
+    shownComponents.remove(compound.modifier);
+    shownComponents.remove(compound.head);
+    _unsolvedCompounds.remove(compound);
+    _fillShownComponents();
   }
 
-  bool _isCorrectCompound(String modifier, String head) {
-    return _allCompounds.any(
+  Compound? getCompoundIfExisting(String modifier, String head) {
+    return _allCompounds.firstWhereOrNull(
         (compound) => compound.modifier == modifier && compound.head == head);
   }
 

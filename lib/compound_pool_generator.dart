@@ -27,7 +27,14 @@ class CompoundPoolGenerator {
     final List<Compound> compounds = [];
     final List<String> forbiddenComponents = [];
 
+    final count = await databaseInterface.getAllCompounds().then((value) => value.length);
+    if (count < compoundCount) {
+      throw Exception("Not enough compounds in database. "
+          "Only $count compounds found, but $compoundCount compounds required.");
+    }
+
     for (var i = 0; i < compoundCount; i++) {
+      print("Generating compound ${i + 1} of $compoundCount");
       final compound = await databaseInterface.getRandomCompoundRestricted(
         maxFrequencyClass: frequencyClass.maxFrequencyClass,
         forbiddenComponents: forbiddenComponents,

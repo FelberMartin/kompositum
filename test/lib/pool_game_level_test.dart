@@ -15,26 +15,43 @@ void main() {
     sut = PoolGameLevel([Compounds.Krankenhaus]);
   });
 
-  group("checkCompound", () {
+  group("getCompoundIfExisting", () {
     test(
-        "should return true and remove the compound's components from list of shown components if it is correct",
+        "should return true if the compound exists",
         () {
-      final result = sut.checkCompound("krank", "Haus");
-      expect(result, isTrue);
-      expect(sut.shownComponents, []);
+      final result = sut.getCompoundIfExisting("krank", "Haus");
+      expect(result, isNotNull);
+      expect(result, Compounds.Krankenhaus);
     });
 
     test(
-        "should not add the compound to the list of solved compounds if it is not correct",
+        "should return false if the compound does not exist",
         () {
-      sut.checkCompound("krank", "Baum");
-      expect(sut.shownComponents, containsAll(["krank", "Haus"]));
+      final result = sut.getCompoundIfExisting("krank", "Baum");
+      expect(result, isNull);
+    });
+  });
+
+  group("removeCompoundFromShown", () {
+    test(
+        "should remove the compound from the shown components",
+        () {
+      sut.removeCompoundFromShown(Compounds.Krankenhaus);
+      expect(sut.shownComponents, isEmpty);
+    });
+
+    test(
+        "should fill the shown components with new components",
+        () {
+      sut = PoolGameLevel([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 2);
+      sut.removeCompoundFromShown(Compounds.Krankenhaus);
+      expect(sut.shownComponents, isNotEmpty);
     });
   });
 
   group("isLevelFinished", () {
     test("should return true if all compounds are solved", () {
-      sut.checkCompound("krank", "Haus");
+      sut.removeCompoundFromShown(Compounds.Krankenhaus);
       expect(sut.isLevelFinished(), isTrue);
     });
 

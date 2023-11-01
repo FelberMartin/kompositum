@@ -2,12 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
+import 'package:kompositum/data/compound_origin.dart';
 import 'package:kompositum/data/database_initializer.dart';
+import 'package:kompositum/data/database_interface.dart';
+import 'package:kompositum/level_provider.dart';
 
+import '../compound_pool_generator.dart';
 import '../data/compound.dart';
-import '../data/data_source.dart';
-
-final datasource = MockDatabase();
+import '../pool_game_level.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -19,11 +21,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final int maxFrequencyClass = 18;
-  final List<String> components = [];
 
-  int score = 0;
+  late LevelProvider _levelProvider;
+  late PoolGameLevel _poolGameLevel;
 
+  int levelNumber = 1;
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -32,24 +35,28 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> initComponents() async {
-    // Print the number of compounds in the database
-    final compounds = await datasource.getAllCompounds();
-    print("Number of compounds: ${compounds.length}");
-    print("Number of compounds with sql: ${await datasource.countCompounds()}");
+    isLoading = true;
+    levelNumber = 1;
+    print("Initializing database");
+    final databaseInitializer = DatabaseInitializer(CompoundOrigin("assets/filtered_compounds.csv"));
+    final databaseInterface = DatabaseInterface(databaseInitializer);
+    final compoundPoolGenerator = CompoundPoolGenerator(databaseInterface);
+    _levelProvider = BasicLevelProvider(compoundPoolGenerator);
 
+    updateGameToNewLevel();
+  }
 
-    final List<String> unshuffledComponents = [];
-    for (var i = 0; i < 5; i++) {
-      final compound = await datasource.getRandomCompound(maxFrequencyClass);
-      if (compound != null) {
-        unshuffledComponents.add(compound.modifier);
-        unshuffledComponents.add(compound.head);
-        print("Added compound: $compound");
-      }
-    }
-    unshuffledComponents.shuffle();
-    components.addAll(unshuffledComponents);
-    setState(() {});
+  void updateGameToNewLevel() async {
+    setState(() {
+      isLoading = true;
+    });
+    print("Generating new pool for new level");
+    final compounds = await _levelProvider.generateCompoundPool(levelNumber);
+    print("Finished new pool for new level");
+    _poolGameLevel = PoolGameLevel(compounds);
+    setState(() {
+      isLoading = false;
+    });
   }
 
   Map<SelectionType, int> selectionTypeToIndex = {
@@ -60,12 +67,12 @@ class _MyHomePageState extends State<MyHomePage> {
   String? get selectedModifier =>
       selectionTypeToIndex[SelectionType.modifier] !=
           -1
-          ? components[
+          ? _poolGameLevel.shownComponents[
       selectionTypeToIndex[SelectionType.modifier]!]
           : null;
 
   String? get selectedHead => selectionTypeToIndex[SelectionType.head] != -1
-      ? components[selectionTypeToIndex[SelectionType.head]!]
+      ? _poolGameLevel.shownComponents[selectionTypeToIndex[SelectionType.head]!]
       : null;
 
   SelectionType? getSelectionTypeForIndex(int index) {
@@ -101,40 +108,26 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void checkCompoundCompletion() async {
     if (selectedModifier != null && selectedHead != null) {
-      final compound = await datasource.getCompound(selectedModifier!, selectedHead!);
+      final compound =
+      _poolGameLevel.getCompoundIfExisting(selectedModifier!, selectedHead!);
       if (compound != null) {
-        compoundFound(compound);
+        compoundFound(compound.name);
+        _poolGameLevel.removeCompoundFromShown(compound);
+        setState(() {});
+        if (_poolGameLevel.isLevelFinished()) {
+          levelNumber++;
+          updateGameToNewLevel();
+        }
       }
     }
   }
 
-  void compoundFound(Compound compound) {
-    score++;
-    emitWordCompletionEvent(compound.name);
-
-    // Without caching here, the selectedHead would be invalid after removing
-    // the selectedModifier.
-    final cachedSelectedHead = selectedHead;
-    components.remove(selectedModifier);
-    components.remove(cachedSelectedHead);
+  void compoundFound(String compoundName) {
+    emitWordCompletionEvent(compoundName);
 
     // Do not update the state here, to avoid inconsistencies in the UI
     resetSelection(SelectionType.modifier, updateState: false);
     resetSelection(SelectionType.head, updateState: false);
-
-    addNewComponents();
-  }
-
-  void addNewComponents() async {
-    final List<String> newComponents = [];
-    final compound = await datasource.getRandomCompound(maxFrequencyClass);
-    if (compound != null) {
-      newComponents.add(compound.modifier);
-      newComponents.add(compound.head);
-    }
-
-    components.addAll(newComponents);
-    setState(() {});
   }
 
   final StreamController<String> wordCompletionEventStream =
@@ -158,7 +151,9 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
+        child: isLoading ? CircularProgressIndicator(
+
+        ) : Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             SizedBox(height: 16.0),
@@ -167,7 +162,7 @@ class _MyHomePageState extends State<MyHomePage> {
               backgroundColor: Theme.of(context).colorScheme.primaryContainer,
               radius: 30,
               child: Text(
-                score.toString(),
+                levelNumber.toString(),
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
             ),
@@ -187,7 +182,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 alignment: WrapAlignment.center,
                 children: [
                   for (final (index, component)
-                  in components.indexed)
+                  in _poolGameLevel.shownComponents.indexed)
                     WordWrapper(
                         text: component,
                         selectionType: getSelectionTypeForIndex(index),

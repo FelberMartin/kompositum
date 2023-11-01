@@ -29,6 +29,9 @@ class DatabaseInitializer {
       await db.delete("compounds");
       await _insertCompoundsFromCompoundData(db);
     }
+
+    final count = await db.query("compounds").then((value) => value.length);
+    print("Database initialized with $count compounds");
     return db;
   }
 
