@@ -8268,7 +8268,6 @@ Baustart,Bau,Start,18.0
 Baustatik,Bau,Statik,20.0
 Baustaub,Bau,Staub,21.0
 Baustein,Bau,Stein,14.0
-Baustein,Bau,Stein,16.0
 Bausteinmetz,Bau,Steinmetz,
 Bausteinprinzip,Baustein,Prinzip,23.0
 Baustelle,Bau,Stelle,12.0
@@ -19219,7 +19218,6 @@ Eichenwald,Eiche,Wald,18.0
 Eichenzweig,Eiche,Zweig,22.0
 Eichgesetz,eichen,Gesetz,22.0
 Eichhorn,Eiche,Horn,15.0
-Eichhorn,Eiche,Horn,17.0
 Eichhörnchen,Eiche,Hörnchen,16.0
 Eichhörnchennest,Eichhörnchen,Nest,
 Eichmeister,eichen,Meister,22.0
@@ -26133,7 +26131,6 @@ Fernwasserversorgung,fern,Wasserversorgung,22.0
 Fernweh,Ferne,Weh,17.0
 Fernwirkung,Ferne,Wirkung,19.0
 Fernziel,Ferne,Ziel,16.0
-Fernziel,fern,Ziel,16.0
 Fernzone,Ferne,Zone,21.0
 Fernzug,Ferne,Zug,17.0
 Fernzugang,Ferne,Zugang,
@@ -26701,7 +26698,6 @@ Filialnetz,Filiale,Netz,16.0
 Filialschließung,Filiale,Schließung,19.0
 Filialunternehmen,Filiale,Unternehmen,21.0
 Filigranarbeit,Filigran,Arbeit,21.0
-Filigranarbeit,filigran,Arbeit,21.0
 Filmabend,Film,Abend,17.0
 Filmabteilung,Film,Abteilung,21.0
 Filmadaption,Film,Adaption,21.0
@@ -29755,7 +29751,6 @@ Freistoßtor,Freistoß,Tor,17.0
 Freistoßtreffer,Freistoß,Treffer,18.0
 Freistunde,frei,Stunde,18.0
 Freitag,frei,Tag,8.0
-Freitag,frei,Tag,15.0
 Freitagabend,Freitag,Abend,12.0
 Freitagausgabe,Freitag,Ausgabe,18.0
 Freitagmittag,Freitag,Mittag,16.0
@@ -36278,7 +36273,6 @@ Goldschatz,Gold,Schatz,17.0
 Goldschicht,Gold,Schicht,22.0
 Goldschmied,Gold,Schmied,16.0
 Goldschmiedearbeit,Goldschmiede,Arbeit,19.0
-Goldschmiedearbeit,Goldschmied,Arbeit,19.0
 Goldschmiedehandwerk,Goldschmiede,Handwerk,22.0
 Goldschmiedehaus,Goldschmiede,Haus,20.0
 Goldschmiedekunst,Goldschmied,Kunst,19.0
@@ -37362,7 +37356,6 @@ Grundlehre,grund,Lehre,21.0
 Grundlehrgang,grund,Lehrgang,18.0
 Grundleistung,grund,Leistung,19.0
 Grundlinie,grund,Linie,16.0
-Grundlinie,Grund,Linie,16.0
 Grundlohn,grund,Lohn,19.0
 Grundmandat,grund,Mandat,18.0
 Grundmandatsklausel,Grundmandat,Klausel,22.0
@@ -39494,7 +39487,6 @@ Hauptmacht,haupt,Macht,21.0
 Hauptmahlzeit,haupt,Mahlzeit,19.0
 Hauptmanko,haupt,Manko,20.0
 Hauptmann,haupt,Mann,14.0
-Hauptmann,haupt,Mann,15.0
 Hauptmarke,haupt,Marke,19.0
 Hauptmarkt,haupt,Markt,15.0
 Hauptmasse,haupt,Masse,21.0
@@ -47659,7 +47651,6 @@ Kaufleute,Kauf,Leute,15.0
 Kaufliste,Kauf,Liste,20.0
 Kauflust,Kauf,Lust,17.0
 Kaufmann,Kauf,Mann,13.0
-Kaufmann,Kauf,Mann,14.0
 Kaufmannsberuf,Kaufmann,Beruf,
 Kaufmannsfamilie,Kaufmann,Familie,18.0
 Kaufmannsgehilfe,Kaufmann,Gehilfe,22.0
@@ -49359,7 +49350,6 @@ Kleingartengelände,Kleingarten,Gelände,20.0
 Kleingartenkolonie,Kleingarten,Kolonie,19.0
 Kleingartenverein,Kleingarten,Verein,17.0
 Kleingärtner,klein,Gärtner,16.0
-Kleingärtner,klein,Gärtner,17.0
 Kleingärtnerverein,Kleingärtner,Verein,17.0
 Kleingebäck,klein,Gebäck,20.0
 Kleingeist,klein,Geist,18.0
@@ -55539,7 +55529,6 @@ Landsitz,Land,Sitz,16.0
 Landsknecht,Land,Knecht,18.0
 Landsleute,Land,Leute,14.0
 Landsmann,Land,Mann,13.0
-Landsmann,Land,Mann,14.0
 Landspitze,Land,Spitze,22.0
 Landstadt,Land,Stadt,21.0
 Landstädtchen,Land,Städtchen,
@@ -55985,7 +55974,6 @@ Laufwasserkraftwerk,Lauf,Wasserkraftwerk,21.0
 Laufweg,Lauf,Weg,
 Laufweite,Lauf,Weite,
 Laufwerk,Lauf,Werk,16.0
-Laufwerk,laufen,Werk,16.0
 Laufwerksbuchstabe,Laufwerk,Buchstabe,
 Laufwettbewerb,Lauf,Wettbewerb,19.0
 Laufzeit,Lauf,Zeit,13.0
@@ -56655,7 +56643,6 @@ Lehrberechtigung,Lehre,Berechtigung,22.0
 Lehrberuf,Lehre,Beruf,16.0
 Lehrbetrieb,Lehre,Betrieb,16.0
 Lehrbrief,lehren,Brief,20.0
-Lehrbrief,Lehre,Brief,20.0
 Lehrbuch,Lehre,Buch,15.0
 Lehrbuchsammlung,Lehrbuch,Sammlung,21.0
 Lehreinheit,Lehre,Einheit,
@@ -59440,7 +59427,6 @@ Maiabend,Mai,Abend,21.0
 Maiandacht,Mai,Andacht,16.0
 Maiausgabe,Mai,Ausgabe,23.0
 Maibaum,Mai,Baum,15.0
-Maibaum,Mai,Baum,17.0
 Maiblume,Mai,Blume,23.0
 Maibock,Mai,Bock,21.0
 Maibowle,Mai,Bowle,19.0
@@ -67942,7 +67928,6 @@ Nummernschilderkennung,Nummernschild,Erkennung,
 Nummernvergabe,Nummer,Vergabe,19.0
 Nurhausfrau,nur,Hausfrau,
 Nussbaum,Nuss,Baum,16.0
-Nussbaum,Nuss,Baum,16.0
 Nussbaumholz,Nussbaum,Holz,21.0
 Nussecke,Nuss,Ecke,
 Nusseis,Nuss,Eis,
@@ -70162,7 +70147,6 @@ Parfümprobe,Parfüm,Probe,
 Parierstange,parieren,Stange,
 Parkanlage,Park,Anlage,15.0
 Parkareal,parken,Areal,21.0
-Parkareal,Park,Areal,21.0
 Parkausweis,parken,Ausweis,19.0
 Parkautomat,parken,Automat,18.0
 Parkbahn,parken,Bahn,23.0
@@ -70188,7 +70172,6 @@ Parkettkleber,Parkett,Kleber,21.0
 Parkettleger,Parkett,Leger,21.0
 Parkfest,Park,Fest,17.0
 Parkfläche,parken,Fläche,16.0
-Parkfläche,Park,Fläche,16.0
 Parkfriedhof,Park,Friedhof,
 Parkgarage,parken,Garage,17.0
 Parkgebühr,parken,Gebühr,16.0
@@ -75892,7 +75875,6 @@ Ratsgremium,Rat,Gremium,18.0
 Ratsherr,Rat,Herr,15.0
 Ratskammer,Rat,Kammer,
 Ratskeller,Rat,Keller,16.0
-Ratskeller,Rat,Keller,17.0
 Ratskollege,Rat,Kollege,17.0
 Ratsmandat,Rat,Mandat,18.0
 Ratsmehrheit,Rat,Mehrheit,17.0
@@ -76041,7 +76023,6 @@ Rauchverhalten,rauchen,Verhalten,20.0
 Rauchwacke,Rauch,Wacke,
 Rauchwand,Rauch,Wand,
 Rauchware,rauchen,Ware,19.0
-Rauchware,rauch,Ware,19.0
 Rauchwerk,rauch,Werk,22.0
 Rauchwolke,Rauch,Wolke,16.0
 Rauchzeichen,Rauch,Zeichen,18.0
@@ -76678,7 +76659,6 @@ Rechtsverfolgung,Recht,Verfolgung,21.0
 Rechtsvergleichung,Recht,Vergleichung,21.0
 Rechtsverhältnis,Recht,Verhältnis,19.0
 Rechtsverkehr,Recht,Verkehr,19.0
-Rechtsverkehr,rechts,Verkehr,19.0
 Rechtsverletzung,Recht,Verletzung,18.0
 Rechtsverordnung,Recht,Verordnung,17.0
 Rechtsverschiebung,rechts,Verschiebung,23.0
@@ -79584,7 +79564,6 @@ Rosenkavalier,Rose,Kavalier,17.0
 Rosenknospe,Rose,Knospe,21.0
 Rosenkohl,Rose,Kohl,18.0
 Rosenkranz,Rose,Kranz,15.0
-Rosenkranz,Rose,Kranz,17.0
 Rosenkranzfest,Rosenkranz,Fest,
 Rosenkranzgebet,Rosenkranz,Gebet,16.0
 Rosenkrieg,Rose,Krieg,17.0
@@ -80519,7 +80498,6 @@ Sägevorgang,Säge,Vorgang,
 Sägewerk,Säge,Werk,16.0
 Sägewerksbesitzer,Sägewerk,Besitzer,20.0
 Sägezahn,sägen,Zahn,21.0
-Sägezahn,Säge,Zahn,21.0
 Saharasand,Sahara,Sand,23.0
 Sahnebonbon,Sahne,Bonbon,21.0
 Sahneeis,Sahne,Eis,21.0
@@ -80894,7 +80872,6 @@ Sandkresse,Sand,Kresse,
 Sandkuchen,Sand,Kuchen,21.0
 Sandkuhle,Sand,Kuhle,21.0
 Sandlaufkäfer,Sand,Laufkäfer,22.0
-Sandmann,Sand,Mann,17.0
 Sandmann,Sand,Mann,17.0
 Sandmännchen,Sand,Männchen,17.0
 Sandmasse,Sand,Masse,21.0
@@ -83456,7 +83433,6 @@ Schnupfenvirus,Schnupfen,Virus,21.0
 Schnupftabak,schnupfen,Tabak,20.0
 Schnupperstunde,schnuppern,Stunde,17.0
 Schnürboden,Schnur,Boden,18.0
-Schnürboden,schnüren,Boden,18.0
 Schnurkeramik,Schnur,Keramik,
 Schnurlostelefon,schnurlos,Telefon,19.0
 Schnurrbart,Schnurr,Bart,17.0
@@ -83904,7 +83880,6 @@ Schuhladen,Schuh,Laden,19.0
 Schuhleder,Schuh,Leder,
 Schuhlöffel,Schuh,Löffel,20.0
 Schuhmacher,Schuh,Macher,16.0
-Schuhmacher,Schuh,Macher,20.0
 Schuhmacherhandwerk,Schuhmacher,Handwerk,21.0
 Schuhmachermeister,Schuhmacher,Meister,19.0
 Schuhmarke,Schuh,Marke,21.0
@@ -85310,7 +85285,6 @@ Seelsorgeeinheit,Seelsorge,Einheit,15.0
 Seeluft,See,Luft,19.0
 Seemacht,See,Macht,19.0
 Seemann,See,Mann,15.0
-Seemann,See,Mann,16.0
 Seemannsamt,Seemann,Amt,
 Seemannsbraut,Seemann,Braut,22.0
 Seemannsgarn,Seemann,Garn,18.0
@@ -87743,7 +87717,6 @@ Solonummer,Solo,Nummer,20.0
 Solooboist,solo,Oboist,
 Solopart,Solo,Part,17.0
 Solopartie,Solo,Partie,18.0
-Solopartie,solo,Partie,18.0
 Solopassage,Solo,Passage,20.0
 Soloplatte,solo,Platte,20.0
 Soloprogramm,solo,Programm,16.0
@@ -87756,7 +87729,6 @@ Solosonate,Solo,Sonate,20.0
 Solospiel,solo,Spiel,21.0
 Solostimme,Solo,Stimme,18.0
 Solostück,solo,Stück,18.0
-Solostück,Solo,Stück,18.0
 Solotanz,solo,Tanz,18.0
 Solotänzer,solo,Tänzer,19.0
 Solotour,solo,Tour,
@@ -88068,7 +88040,6 @@ Sonnenwind,Sonne,Wind,18.0
 Sonnenzeit,Sonne,Zeit,21.0
 Sonnenzyklus,Sonne,Zyklus,22.0
 Sonntag,Sonne,Tag,8.0
-Sonntag,Sonne,Tag,13.0
 Sonntagabend,Sonntag,Abend,13.0
 Sonntagausgabe,Sonntag,Ausgabe,20.0
 Sonntagmittag,Sonntag,Mittag,16.0
@@ -89249,7 +89220,6 @@ Spiellust,Spiel,Lust,19.0
 Spielmacher,Spiel,Macher,14.0
 Spielmanipulation,Spiel,Manipulation,19.0
 Spielmann,Spiel,Mann,17.0
-Spielmann,Spiel,Mann,18.0
 Spielmannszug,Spielmann,Zug,14.0
 Spielmarke,Spiel,Marke,21.0
 Spielmaterial,Spiel,Material,18.0
@@ -89333,7 +89303,6 @@ Spieltrieb,Spiel,Trieb,17.0
 Spielturm,Spiel,Turm,
 Spielübersicht,Spiel,Übersicht,20.0
 Spieluhr,Spiel,Uhr,18.0
-Spieluhr,spielen,Uhr,18.0
 Spielunterbrechung,Spiel,Unterbrechung,19.0
 Spielvariante,Spiel,Variante,19.0
 Spielverbot,Spiel,Verbot,19.0
@@ -89542,7 +89511,6 @@ Spitzennote,spitzen,Note,21.0
 Spitzenorchester,spitzen,Orchester,19.0
 Spitzenorganisation,spitzen,Organisation,19.0
 Spitzenpapier,spitzen,Papier,
-Spitzenpapier,Spitze,Papier,
 Spitzenpartie,spitzen,Partie,19.0
 Spitzenpersonal,spitzen,Personal,19.0
 Spitzenpferd,spitzen,Pferd,18.0
@@ -91365,7 +91333,6 @@ Stammbeteiligung,Stamm,Beteiligung,
 Stammbetrieb,Stamm,Betrieb,20.0
 Stammblatt,Stamm,Blatt,
 Stammbuch,stammen,Buch,16.0
-Stammbuch,Stamm,Buch,16.0
 Stammburg,stammen,Burg,20.0
 Stammcafé,Stamm,Café,21.0
 Stammchatter,Stamm,Chatter,
@@ -91414,7 +91381,6 @@ Stammgruppe,Stamm,Gruppe,20.0
 Stammgut,Stamm,Gut,24.0
 Stammhalter,Stamm,Halter,19.0
 Stammhaus,Stamm,Haus,16.0
-Stammhaus,stammen,Haus,16.0
 Stammhirn,Stamm,Hirn,20.0
 Stammholz,Stamm,Holz,19.0
 Stammhörer,Stamm,Hörer,21.0
@@ -92049,7 +92015,6 @@ Steinbildhauerhandwerk,Steinbildhauer,Handwerk,
 Steinbildwerk,Stein,Bildwerk,
 Steinblock,Stein,Block,18.0
 Steinbock,Stein,Bock,16.0
-Steinbock,Stein,Bock,16.0
 Steinboden,Stein,Boden,19.0
 Steinbogen,Stein,Bogen,21.0
 Steinbohrer,Stein,Bohrer,23.0
@@ -92561,7 +92526,6 @@ Steuerleistung,Steuer,Leistung,19.0
 Steuerleitung,steuern,Leitung,
 Steuerleute,Steuer,Leute,
 Steuerliste,Steuer,Liste,22.0
-Steuermann,Steuer,Mann,16.0
 Steuermann,Steuer,Mann,16.0
 Steuermarke,Steuer,Marke,20.0
 Steuermechanismus,steuern,Mechanismus,22.0
@@ -93076,7 +93040,6 @@ Stolperdraht,stolpern,Draht,21.0
 Stolperfalle,stolpern,Falle,19.0
 Stolpergefahr,stolpern,Gefahr,
 Stolperstein,stolpern,Stein,16.0
-Stolperstein,stolpern,Stein,17.0
 Stolperstelle,stolpern,Stelle,22.0
 Stopfgarn,stopfen,Garn,24.0
 Stopfkissen,stopfen,Kissen,
@@ -94680,7 +94643,6 @@ Südostseite,Südosten,Seite,
 Südostufer,Südosten,Ufer,
 Südostwind,Südosten,Wind,20.0
 Südpazifik,Süden,Pazifik,17.0
-Südpazifik,Süden,Pazifik,18.0
 Südpfalz,Süden,Pfalz,
 Südpfälzer,Süden,Pfälzer,19.0
 Südpol,Süden,Pol,16.0
@@ -105071,7 +105033,6 @@ Vorderladergewehr,Vorderlader,Gewehr,
 Vorderlauf,vordere,Lauf,20.0
 Vorderleute,vordere,Leute,17.0
 Vordermann,vordere,Mann,15.0
-Vordermann,vordere,Mann,15.0
 Vorderpfote,vordere,Pfote,19.0
 Vorderrad,vordere,Rad,16.0
 Vorderradantrieb,Vorderrad,Antrieb,19.0
@@ -107078,7 +107039,6 @@ Wasserlöslichkeit,Wasser,Löslichkeit,
 Wassermanagement,Wasser,Management,20.0
 Wassermangel,Wasser,Mangel,17.0
 Wassermann,Wasser,Mann,15.0
-Wassermann,Wasser,Mann,16.0
 Wassermasse,Wasser,Masse,15.0
 Wassermelone,Wasser,Melone,18.0
 Wassermenge,Wasser,Menge,16.0
@@ -107782,7 +107742,6 @@ Weinbecher,Wein,Becher,23.0
 Weinbeere,Wein,Beere,21.0
 Weinbereitung,Wein,Bereitung,20.0
 Weinberg,Wein,Berg,13.0
-Weinberg,Wein,Berg,18.0
 Weinberglauch,Weinberg,Lauch,
 Weinbergpfirsich,Weinberg,Pfirsich,
 Weinbergschnecke,Weinberg,Schnecke,19.0
@@ -107810,7 +107769,6 @@ Weinfreund,Wein,Freund,16.0
 Weinführer,Wein,Führer,19.0
 Weingarten,Wein,Garten,15.0
 Weingärtner,Wein,Gärtner,17.0
-Weingärtner,Wein,Gärtner,18.0
 Weingebiet,Wein,Gebiet,20.0
 Weingegend,Wein,Gegend,20.0
 Weingeist,Wein,Geist,20.0
