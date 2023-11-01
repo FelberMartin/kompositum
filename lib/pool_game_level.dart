@@ -7,32 +7,19 @@ import 'data/compound.dart';
 class PoolGameLevel {
   final Random random = Random();
 
-  final CompoundPoolGenerator poolGenerator;
-  final int initialCompoundCount;
   final int maxShownComponentCount;
-  final CompactFrequencyClass frequencyClass = CompactFrequencyClass.easy;
 
   final _allCompounds = <Compound>[];
   final _unsolvedCompounds = <Compound>[];
   final shownComponents = <String>[];
   final hiddenComponents = <String>[];
 
-  PoolGameLevel(
-      {required this.poolGenerator,
-      required this.initialCompoundCount,
-      this.maxShownComponentCount = 10}) {}
-
-  Future<void> init() async {
-    poolGenerator
-        .generate(
-            frequencyClass: frequencyClass, compoundCount: initialCompoundCount)
-        .then((compounds) {
-      _allCompounds.addAll(compounds);
-      _unsolvedCompounds.addAll(compounds);
-      hiddenComponents
-          .addAll(compounds.expand((compound) => compound.getComponents()));
-      _fillShownComponents();
-    });
+  PoolGameLevel(List<Compound> allCompounds, {this.maxShownComponentCount = 10}) {
+    _allCompounds.addAll(allCompounds);
+    _unsolvedCompounds.addAll(allCompounds);
+    hiddenComponents
+        .addAll(allCompounds.expand((compound) => compound.getComponents()));
+    _fillShownComponents();
   }
 
   void _fillShownComponents() {
@@ -47,14 +34,16 @@ class PoolGameLevel {
     }
   }
 
-  void checkCompound(String modifier, String head) {
+  bool checkCompound(String modifier, String head) {
     if (_isCorrectCompound(modifier, head)) {
       shownComponents.remove(modifier);
       shownComponents.remove(head);
       _unsolvedCompounds.removeWhere(
           (compound) => compound.modifier == modifier && compound.head == head);
       _fillShownComponents();
+      return true;
     }
+    return false;
   }
 
   bool _isCorrectCompound(String modifier, String head) {
