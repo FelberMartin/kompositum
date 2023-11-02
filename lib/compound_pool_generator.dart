@@ -1,4 +1,3 @@
-
 import 'package:kompositum/data/database_interface.dart';
 
 import 'data/compound.dart';

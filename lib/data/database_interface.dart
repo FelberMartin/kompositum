@@ -1,4 +1,3 @@
-
 import 'package:kompositum/data/database_initializer.dart';
 import 'package:sqflite/sqflite.dart';
 
