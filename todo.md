@@ -5,6 +5,8 @@
 - Speed up level loading
 - Add tips feature
 - Make random depend on a seed (levelNumber)
+- Store level progress on device
+- Advanced LevelProvider (use different difficulties)
 - Optimize database loading speed
 
 ### UI Design
@@ -21,4 +23,4 @@
 
 
 # Bugs
-- App is blackscreen when restarting it on phone (without wired connection)
+- App is blackscreen when restarting it on phone (just a long loading time?)

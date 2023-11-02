@@ -12,6 +12,7 @@ abstract class LevelProvider {
     return _compoundPoolGenerator.generate(
       frequencyClass: frequencyClass,
       compoundCount: compoundCount,
+      seed: levelNumber,
     );
   }
 

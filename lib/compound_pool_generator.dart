@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:kompositum/data/database_interface.dart';
 
 import 'data/compound.dart';
@@ -21,29 +23,21 @@ class CompoundPoolGenerator {
   Future<List<Compound>> generate({
     required CompactFrequencyClass frequencyClass,
     required int compoundCount,
+    int? seed,
   }) async {
     assert(compoundCount > 0);
-    final List<Compound> compounds = [];
-    final List<String> forbiddenComponents = [];
 
-    final count = await databaseInterface.getAllCompounds().then((value) => value.length);
+    final count = await databaseInterface.getCompoundCount();
     if (count < compoundCount) {
       throw Exception("Not enough compounds in database. "
           "Only $count compounds found, but $compoundCount compounds required.");
     }
 
-    for (var i = 0; i < compoundCount; i++) {
-      print("Generating compound ${i + 1} of $compoundCount");
-      final compound = await databaseInterface.getRandomCompoundRestricted(
-        maxFrequencyClass: frequencyClass.maxFrequencyClass,
-        forbiddenComponents: forbiddenComponents,
-      );
-      if (compound != null) {
-        compounds.add(compound);
-        forbiddenComponents.add(compound.modifier);
-        forbiddenComponents.add(compound.head);
-      }
-    }
+    final compounds = await databaseInterface.getRandomCompounds(
+      count: compoundCount,
+      maxFrequencyClass: frequencyClass.maxFrequencyClass,
+      seed: seed,
+    );
 
     if (compounds.isEmpty) {
       throw Exception("No compounds found for the given frequency class");

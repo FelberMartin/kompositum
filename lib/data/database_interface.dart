@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:kompositum/data/database_initializer.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../random_util.dart';
 import 'compound.dart';
 
 class DatabaseInterface {
@@ -9,6 +12,13 @@ class DatabaseInterface {
 
   DatabaseInterface(this.databaseInitializer) {
     _database = databaseInitializer.getInitializedDatabase();
+  }
+
+  /// Get the number of compounds stored in the database
+  Future<int> getCompoundCount() async {
+    final db = await _database;
+    return Sqflite.firstIntValue(
+        await db.rawQuery('SELECT COUNT(*) FROM compounds'))!;
   }
 
   /// Get all the compounds stored in the database
@@ -41,17 +51,19 @@ class DatabaseInterface {
   /// If [maxFrequencyClass] is null, the frequency class is not restricted.
   /// If no compound with the given restrictions exists, null is returned.
   Future<Compound?> getRandomCompoundRestricted({
-    required int? maxFrequencyClass, List<String> forbiddenComponents = const [],
+    required int? maxFrequencyClass,
+    List<String> forbiddenComponents = const [],
   }) async {
-   final db = await _database;
+    final db = await _database;
 
-   // Query setup
-   var whereCondition = 'UPPER(modifier) NOT IN (${forbiddenComponents.map((_) => '?').join(',')}) '
-       'AND UPPER(head) NOT IN (${forbiddenComponents.map((_) => '?').join(',')})';
+    // Query setup
+    var whereCondition =
+        'UPPER(modifier) NOT IN (${forbiddenComponents.map((_) => '?').join(',')}) '
+        'AND UPPER(head) NOT IN (${forbiddenComponents.map((_) => '?').join(',')})';
     var whereArgs = [
-        ...forbiddenComponents.map((component) => component.toUpperCase()),
-        ...forbiddenComponents.map((component) => component.toUpperCase())
-      ];
+      ...forbiddenComponents.map((component) => component.toUpperCase()),
+      ...forbiddenComponents.map((component) => component.toUpperCase())
+    ];
     if (maxFrequencyClass != null) {
       whereCondition += ' AND frequencyClass <= ?';
       whereArgs.add(maxFrequencyClass.toString());
@@ -73,5 +85,28 @@ class DatabaseInterface {
     return Compound.fromMap(maps.first);
   }
 
-  
+  /// Get a random compound with a frequency class lower or equal to the given
+  /// frequency class. If [maxFrequencyClass] is null, the frequency class is
+  /// not restricted.
+  /// If fewer compounds than [count] match the given restrictions, a smaller
+  /// number of compounds is returned.
+  Future<List<Compound>> getRandomCompounds(
+      {required int count, required int? maxFrequencyClass, int? seed}) async {
+    final db = await _database;
+    final random = Random(seed);
+    var compoundDataMaps = <Map<String, dynamic>>[];
+    if (maxFrequencyClass == null) {
+      compoundDataMaps = await db.query('compounds');
+    } else {
+      compoundDataMaps = await db.query(
+        'compounds',
+        where: 'frequencyClass <= ?',
+        whereArgs: [maxFrequencyClass],
+      );
+    }
+
+    final sample = randomSampleWithoutReplacement(
+        compoundDataMaps, min(count, compoundDataMaps.length), random: random);
+    return sample.map((map) => Compound.fromMap(map)).toList();
+  }
 }

@@ -26,6 +26,18 @@ void main() {
     databaseFactory = databaseFactoryFfi;
   });
 
+  group("getCompoundCount", () {
+    test(
+      "should return the number of compounds",
+      () async {
+        when(() => compoundOrigin.getCompounds())
+            .thenAnswer((_) async => Compounds.all);
+        final count = await sut.getCompoundCount();
+        expect(count, Compounds.all.length);
+      },
+    );
+  });
+
   group("getAllCompounds", () {
     test(
       "should return all compounds",
@@ -160,6 +172,62 @@ void main() {
       }
       expect(returnedCompounds,
           containsAll([Compounds.Apfelkuchen, Compounds.Kuchenform]));
+    });
+  });
+
+  group("getRandomCompounds", () {
+    test("should return the given number of compounds", () async {
+      when(() => compoundOrigin.getCompounds()).thenAnswer(
+          (_) async => [Compounds.Apfelkuchen, Compounds.Kuchenform]);
+      final compounds = await sut.getRandomCompounds(count: 2, maxFrequencyClass: null);
+      expect(compounds.length, 2);
+    });
+
+    test("should return a smaller number of compounds if there are no more fitting the requirements", () async {
+      when(() => compoundOrigin.getCompounds()).thenAnswer(
+          (_) async => [
+            Compounds.Apfelkuchen.withFrequencyClass(1),
+            Compounds.Kuchenform.withFrequencyClass(5)
+          ]);
+      final compounds = await sut.getRandomCompounds(count: 2, maxFrequencyClass: 1);
+      expect(compounds.length, 1);
+    });
+
+    test("should return compounds with all frequency classes if maxFrequencyClass is null", () async {
+      when(() => compoundOrigin.getCompounds()).thenAnswer(
+          (_) async => [
+            Compounds.Apfelkuchen.withFrequencyClass(1),
+            Compounds.Kuchenform.withFrequencyClass(5),
+            Compounds.Krankenhaus.withFrequencyClass(null),
+          ]);
+      final compounds = await sut.getRandomCompounds(count: 3, maxFrequencyClass: null);
+      expect(compounds.length, 3);
+    });
+
+    test("should return random compounds", () async {
+      when(() => compoundOrigin.getCompounds()).thenAnswer(
+          (_) async => [Compounds.Apfelkuchen, Compounds.Kuchenform]);
+      final returnedCompounds = [];
+      for (var i = 0; i < 20; i++) {
+        // this test will fail once in 2^20 / 2 times ~ 1 in 0.5 million times
+        final compounds =
+            await sut.getRandomCompounds(count: 1, maxFrequencyClass: null);
+        returnedCompounds.add(compounds.first);
+      }
+      expect(returnedCompounds,
+          containsAll([Compounds.Apfelkuchen, Compounds.Kuchenform]));
+    });
+
+    test("should return the same random compounds in the same order if called multiple times with the same seed", () async {
+      when(() => compoundOrigin.getCompounds()).thenAnswer(
+          (_) async => Compounds.all);
+      final returnedCompounds = [];
+      for (var i = 0; i < 20; i++) {
+        final compounds =
+        await sut.getRandomCompounds(count: 3, maxFrequencyClass: null, seed: 1);
+        returnedCompounds.add(compounds.first);
+      }
+      expect(returnedCompounds.toSet().length, 1);
     });
   });
 }

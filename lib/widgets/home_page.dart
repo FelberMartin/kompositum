@@ -200,6 +200,7 @@ class AnimatedTextFadeOutState extends State<AnimatedTextFadeOut>
   late AnimationController _controller;
   late Animation<AlignmentGeometry> _alignAnimation;
   late CurvedAnimation curve;
+  late StreamSubscription<String> _textStreamSubscription;
 
   String _displayText = "";
 
@@ -221,7 +222,7 @@ class AnimatedTextFadeOutState extends State<AnimatedTextFadeOut>
         )
     );
 
-    widget.textStream.listen((text) {
+    _textStreamSubscription = widget.textStream.listen((text) {
       _displayText = text;
       _controller.reverse(from: 1.0);
     });
@@ -229,8 +230,8 @@ class AnimatedTextFadeOutState extends State<AnimatedTextFadeOut>
 
   @override
   void dispose() {
+    _textStreamSubscription.cancel();
     _controller.dispose();
-    widget.textStream.drain();
     super.dispose();
   }
 

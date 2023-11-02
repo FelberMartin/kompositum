@@ -80,5 +80,13 @@ class Compound {
           head == other.head &&
           frequencyClass == other.frequencyClass;
 
+  @override
+  int get hashCode =>
+      name.hashCode ^
+      modifier.hashCode ^
+      head.hashCode ^
+      frequencyClass.hashCode;
+
+
 
 }
