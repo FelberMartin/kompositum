@@ -1,7 +1,6 @@
 # TODOs    
 ## 1.0 Release
 ### Ad hoc
-- Dependency injection
 - See bug below
 - Redesign pool generation (with less/no restrictons)
 - Speed up level loading

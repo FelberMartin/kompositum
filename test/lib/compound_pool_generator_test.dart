@@ -10,6 +10,11 @@ class MockDatabaseInterface extends Mock implements DatabaseInterface {
   var compounds = <Compound>[];
 
   @override
+  Future<List<Compound>> getAllCompounds() {
+    return Future.value(compounds);
+  }
+
+  @override
   Future<Compound?> getRandomCompoundRestricted(
       {required int? maxFrequencyClass,
       List<String> forbiddenComponents = const []}) {
