@@ -1,8 +1,8 @@
 # TODOs    
 ## 1.0 Release
 ### Ad hoc
-- Add test that new components are shown when entering new level
 - Dependency injection
+- Redesign pool generation (with less/no restrictons)
 - Speed up level loading
 - Add tips feature
 - Make random depend on a seed (levelNumber)
@@ -21,4 +21,5 @@
 
 
 # Bugs
+- There are still "duplicates" in the data e.g. Dienstagausgabe and Dienstagsausgabe
 - App is blackscreen when restarting it on phone (without wired connection)

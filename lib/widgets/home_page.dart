@@ -12,15 +12,16 @@ import '../data/compound.dart';
 import '../pool_game_level.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key, required this.title, required this.levelProvider});
 
   final String title;
+  final LevelProvider levelProvider;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MyHomePage> createState() => MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class MyHomePageState extends State<MyHomePage> {
 
   late LevelProvider _levelProvider;
   late PoolGameLevel _poolGameLevel;
@@ -35,13 +36,14 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> initComponents() async {
+    _levelProvider = widget.levelProvider;
     isLoading = true;
     levelNumber = 1;
-    print("Initializing database");
-    final databaseInitializer = DatabaseInitializer(CompoundOrigin("assets/filtered_compounds.csv"));
-    final databaseInterface = DatabaseInterface(databaseInitializer);
-    final compoundPoolGenerator = CompoundPoolGenerator(databaseInterface);
-    _levelProvider = BasicLevelProvider(compoundPoolGenerator);
+    // print("Initializing database");
+    // final databaseInitializer = DatabaseInitializer(CompoundOrigin("assets/filtered_compounds.csv"));
+    // final databaseInterface = DatabaseInterface(databaseInitializer);
+    // final compoundPoolGenerator = CompoundPoolGenerator(databaseInterface);
+    // _levelProvider = BasicLevelProvider(compoundPoolGenerator);
 
     updateGameToNewLevel();
   }
@@ -131,7 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   final StreamController<String> wordCompletionEventStream =
-  StreamController<String>();
+  StreamController<String>.broadcast();
 
   @override
   void dispose() {
@@ -244,6 +246,7 @@ class AnimatedTextFadeOutState extends State<AnimatedTextFadeOut>
   @override
   void dispose() {
     _controller.dispose();
+    widget.textStream.drain();
     super.dispose();
   }
 

@@ -25,7 +25,7 @@ class BasicLevelProvider extends LevelProvider {
 
   @override
   int getCompoundCountByLevel(int level) {
-    return 5;
+    return 2 + level ~/ 2;
   }
 
   @override
