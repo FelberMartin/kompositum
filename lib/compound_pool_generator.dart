@@ -3,9 +3,9 @@ import 'package:kompositum/data/database_interface.dart';
 import 'data/compound.dart';
 
 enum CompactFrequencyClass {
-  easy(15),
-  medium(18),
-  hard(null);
+  easy(12),
+  medium(16),
+  hard(20);
 
   const CompactFrequencyClass(this.maxFrequencyClass);
 

@@ -22,17 +22,22 @@ class DatabaseInitializer {
       onCreate: (db, version) async {
         await _createCompoundsTable(db);
         await _insertCompoundsFromCompoundData(db);
+        print("Database created");
       },
     );
 
     if (reset) {
-      await db.delete("compounds");
-      await _insertCompoundsFromCompoundData(db);
+      await _resetDatabase(db);
     }
 
     final count = await db.query("compounds").then((value) => value.length);
     print("Database initialized with $count compounds");
     return db;
+  }
+
+  Future<void> _resetDatabase(Database db) async {
+    await db.delete("compounds");
+    await _insertCompoundsFromCompoundData(db);
   }
 
   Future<String> _getPath(bool useInMemoryDatabase) async {
@@ -58,11 +63,20 @@ class DatabaseInitializer {
     );
   }
 
-  Future<void> _insertCompoundsFromCompoundData(Database db) async {
-    await compoundOrigin.getCompounds().then((compoundData) {
-      final batch = db.batch();
-      for (final compound in compoundData) {
+  /// The default batch size of 100 was found empirically to be the fastest
+  Future<void> _insertCompoundsFromCompoundData(Database db, {batchSize = 100}) async {
+    final count = await db.query("compounds").then((value) => value.length);
+    assert(count == 0);
+
+    await compoundOrigin.getCompounds().then((compoundData) async {
+      var batch = db.batch();
+      for (final (index, compound) in compoundData.indexed) {
         batch.insert("compounds", compound.toMap());
+        if (index % batchSize == 0) {
+          await batch.commit();
+          batch = db.batch();
+          // print("Inserted $index compounds");
+        }
       }
       return batch.commit();
     });

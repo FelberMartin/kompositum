@@ -1,11 +1,11 @@
 # TODOs    
 ## 1.0 Release
 ### Ad hoc
-- See bug below
 - Redesign pool generation (with less/no restrictons)
 - Speed up level loading
 - Add tips feature
 - Make random depend on a seed (levelNumber)
+- Optimize database loading speed
 
 ### UI Design
 - Decide for a color scheme
@@ -21,5 +21,4 @@
 
 
 # Bugs
-- There are still "duplicates" in the data e.g. Dienstagausgabe and Dienstagsausgabe
 - App is blackscreen when restarting it on phone (without wired connection)
