@@ -132,14 +132,13 @@ class MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 221, 233, 239),
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
       body: Center(
-        child: isLoading ? CircularProgressIndicator(
-
-        ) : Column(
+        child: isLoading ? CircularProgressIndicator() : Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             SizedBox(height: 16.0),
@@ -149,7 +148,7 @@ class MyHomePageState extends State<MyHomePage> {
               radius: 30,
               child: Text(
                 levelNumber.toString(),
-                style: Theme.of(context).textTheme.headlineLarge,
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
             ),
             AnimatedTextFadeOut(textStream: wordCompletionEventStream.stream),
@@ -179,9 +178,41 @@ class MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Expanded(child: Container()),
+            HiddenComponentsIndicator(hiddenComponentsCount: _poolGameLevel.hiddenComponents.length),
           ],
         ),
       ),
+    );
+  }
+}
+
+class HiddenComponentsIndicator extends StatelessWidget {
+  const HiddenComponentsIndicator({
+    super.key,
+    required this.hiddenComponentsCount,
+  });
+
+  final int hiddenComponentsCount;
+
+  @override
+  Widget build(BuildContext context) {
+    if (hiddenComponentsCount == 0) {
+      return Container();
+    }
+    return Container(
+      alignment: Alignment.bottomLeft,
+      padding: const EdgeInsets.only(left: 16.0, bottom: 16.0),
+      child: Chip(
+        label: SizedBox(
+          width: 40,
+          child: Center(
+            child: Text(
+              "$hiddenComponentsCount",
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
+          ),
+        ),
+      )
     );
   }
 }

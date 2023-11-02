@@ -1,10 +1,10 @@
 # TODOs    
 ## 1.0 Release
 ### Ad hoc
-- Redesign pool generation (with less/no restrictons)
-- Speed up level loading
 - Add tips feature
-- Make random depend on a seed (levelNumber)
+- Make the shuffling of the components in the UI dependent on seed?
+  + Different experience from user to user
+  - When exiting the app and doing the same level again, other components are shown
 - Store level progress on device
 - Advanced LevelProvider (use different difficulties)
 - Optimize database loading speed
