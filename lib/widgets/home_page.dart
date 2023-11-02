@@ -23,28 +23,31 @@ class MyHomePage extends StatefulWidget {
 
 class MyHomePageState extends State<MyHomePage> {
 
-  late LevelProvider _levelProvider;
+  late final LevelProvider _levelProvider = widget.levelProvider;
   late PoolGameLevel _poolGameLevel;
 
   int levelNumber = 1;
   bool isLoading = true;
 
+  final StreamController<String> wordCompletionEventStream =
+  StreamController<String>.broadcast();
+
+  Map<SelectionType, int> selectionTypeToIndex = {
+    SelectionType.modifier: -1,
+    SelectionType.head: -1,
+  };
+  String? get selectedModifier =>
+      selectionTypeToIndex[SelectionType.modifier] != -1
+    ? _poolGameLevel.shownComponents[selectionTypeToIndex[SelectionType.modifier]!]
+    : null;
+  String? get selectedHead =>
+      selectionTypeToIndex[SelectionType.head] != -1
+    ? _poolGameLevel.shownComponents[selectionTypeToIndex[SelectionType.head]!]
+    : null;
+
   @override
   void initState() {
     super.initState();
-    initComponents();
-  }
-
-  Future<void> initComponents() async {
-    _levelProvider = widget.levelProvider;
-    isLoading = true;
-    levelNumber = 1;
-    // print("Initializing database");
-    // final databaseInitializer = DatabaseInitializer(CompoundOrigin("assets/filtered_compounds.csv"));
-    // final databaseInterface = DatabaseInterface(databaseInitializer);
-    // final compoundPoolGenerator = CompoundPoolGenerator(databaseInterface);
-    // _levelProvider = BasicLevelProvider(compoundPoolGenerator);
-
     updateGameToNewLevel();
   }
 
@@ -60,22 +63,6 @@ class MyHomePageState extends State<MyHomePage> {
       isLoading = false;
     });
   }
-
-  Map<SelectionType, int> selectionTypeToIndex = {
-    SelectionType.modifier: -1,
-    SelectionType.head: -1,
-  };
-
-  String? get selectedModifier =>
-      selectionTypeToIndex[SelectionType.modifier] !=
-          -1
-          ? _poolGameLevel.shownComponents[
-      selectionTypeToIndex[SelectionType.modifier]!]
-          : null;
-
-  String? get selectedHead => selectionTypeToIndex[SelectionType.head] != -1
-      ? _poolGameLevel.shownComponents[selectionTypeToIndex[SelectionType.head]!]
-      : null;
 
   SelectionType? getSelectionTypeForIndex(int index) {
     for (MapEntry<SelectionType, int> entry in selectionTypeToIndex.entries) {
@@ -132,17 +119,14 @@ class MyHomePageState extends State<MyHomePage> {
     resetSelection(SelectionType.head, updateState: false);
   }
 
-  final StreamController<String> wordCompletionEventStream =
-  StreamController<String>.broadcast();
+  void emitWordCompletionEvent(String word) {
+    wordCompletionEventStream.sink.add(word);
+  }
 
   @override
   void dispose() {
     wordCompletionEventStream.close();
     super.dispose();
-  }
-
-  void emitWordCompletionEvent(String word) {
-    wordCompletionEventStream.sink.add(word);
   }
 
   @override
