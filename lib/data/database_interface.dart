@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:kompositum/data/database_initializer.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../random_util.dart';
+import '../util/random_util.dart';
 import 'compound.dart';
 
 class DatabaseInterface {

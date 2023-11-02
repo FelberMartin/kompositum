@@ -1,5 +1,6 @@
 import 'package:kompositum/compound_pool_generator.dart';
 import 'package:kompositum/data/compound.dart';
+import 'package:kompositum/util/random_util.dart';
 
 abstract class LevelProvider {
   final CompoundPoolGenerator _compoundPoolGenerator;
@@ -12,17 +13,22 @@ abstract class LevelProvider {
     return _compoundPoolGenerator.generate(
       frequencyClass: frequencyClass,
       compoundCount: compoundCount,
-      seed: levelNumber,
+      seed: getSeedForLevel(levelNumber),
     );
   }
 
   int getCompoundCountByLevel(int level);
 
   CompactFrequencyClass getFrequencyClassByLevel(int level);
+
+  int getSeedForLevel(int level) {
+    return level + 1;
+  }
 }
 
 class BasicLevelProvider extends LevelProvider {
-  BasicLevelProvider(super.compoundPoolGenerator);
+  BasicLevelProvider(CompoundPoolGenerator compoundPoolGenerator)
+      : super(compoundPoolGenerator);
 
   @override
   int getCompoundCountByLevel(int level) {

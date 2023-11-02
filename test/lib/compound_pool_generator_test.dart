@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:kompositum/compound_pool_generator.dart';
 import 'package:kompositum/data/compound.dart';
 import 'package:kompositum/data/database_interface.dart';
-import 'package:kompositum/random_util.dart';
+import 'package:kompositum/util/random_util.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
