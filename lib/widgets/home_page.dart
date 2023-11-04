@@ -5,11 +5,9 @@ import 'package:collection/collection.dart';
 import 'package:kompositum/data/compound_origin.dart';
 import 'package:kompositum/data/database_initializer.dart';
 import 'package:kompositum/data/database_interface.dart';
-import 'package:kompositum/level_provider.dart';
-
-import '../compound_pool_generator.dart';
 import '../data/compound.dart';
-import '../pool_game_level.dart';
+import '../game/level_provider.dart';
+import '../game/pool_game_level.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title, required this.levelProvider});

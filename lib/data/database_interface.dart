@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:kompositum/data/database_initializer.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../compound_pool_generator.dart';
+import '../game/compound_pool_generator.dart';
 import '../util/random_util.dart';
 import 'compound.dart';
 

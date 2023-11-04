@@ -1,6 +1,7 @@
-import 'package:kompositum/compound_pool_generator.dart';
 import 'package:kompositum/data/compound.dart';
 import 'package:kompositum/util/random_util.dart';
+
+import 'compound_pool_generator.dart';
 
 abstract class LevelProvider {
   final CompoundPoolGenerator _compoundPoolGenerator;

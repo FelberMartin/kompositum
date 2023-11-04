@@ -1,5 +1,5 @@
-import 'package:kompositum/compound_pool_generator.dart';
 import 'package:kompositum/data/compound.dart';
+import 'package:kompositum/game/compound_pool_generator.dart';
 import 'package:test/test.dart';
 
 void main() {

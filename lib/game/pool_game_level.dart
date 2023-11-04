@@ -1,9 +1,8 @@
 import 'dart:math';
 
-import 'package:kompositum/compound_pool_generator.dart';
 import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
 
-import 'data/compound.dart';
+import '../data/compound.dart';
 
 class PoolGameLevel {
   final Random random = Random();

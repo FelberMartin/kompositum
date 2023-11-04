@@ -3,7 +3,7 @@
 // - modifier (String)
 // - head (double)
 
-import '../compound_pool_generator.dart';
+import '../game/compound_pool_generator.dart';
 
 class Compound {
   // The full name of the compound e.g. "Krankenhaus"

@@ -1,7 +1,6 @@
 import 'dart:io';
 
-import 'package:kompositum/compound_pool_generator.dart';
-import 'package:kompositum/pool_game_level.dart';
+import 'package:kompositum/game/pool_game_level.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 

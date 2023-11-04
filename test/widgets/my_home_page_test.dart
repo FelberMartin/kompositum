@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kompositum/compound_pool_generator.dart';
-import 'package:kompositum/level_provider.dart';
+import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/widgets/home_page.dart';
 import 'package:mocktail/mocktail.dart';
 

@@ -1,10 +1,10 @@
 import 'package:get_it/get_it.dart';
 
-import 'compound_pool_generator.dart';
 import 'data/compound_origin.dart';
 import 'data/database_initializer.dart';
 import 'data/database_interface.dart';
-import 'level_provider.dart';
+import 'game/compound_pool_generator.dart';
+import 'game/level_provider.dart';
 
 final locator = GetIt.instance;
 
