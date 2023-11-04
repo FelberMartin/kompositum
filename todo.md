@@ -2,6 +2,9 @@
 ## 1.0 Release
 ### Ad hoc
 - Explore no conflict possibilities
+  - Checking each new compound in the pool for conflicts -> too slow
+  - Iterative Resolver -> too slow
+  - With graphs?
 - Add tips feature
 - Make the shuffling of the components in the UI dependent on seed?
   + Different experience from user to user

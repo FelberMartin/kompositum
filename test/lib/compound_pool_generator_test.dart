@@ -252,7 +252,7 @@ void main() {
         databaseFactory = databaseFactoryFfi;
 
         setupLocator();
-        final poolGenerator = IterativeNoConflictCompoundPoolGenerator(locator<DatabaseInterface>());
+        final poolGenerator = NoConflictCompoundPoolGenerator(locator<DatabaseInterface>());
         final levelProvider = BasicLevelProvider(poolGenerator);
 
         for (int level = 1; level < 30; level++) {
