@@ -1,9 +1,7 @@
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-import 'compound.dart';
 import 'compound_origin.dart';
 
 class DatabaseInitializer {

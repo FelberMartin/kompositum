@@ -1,5 +1,4 @@
 import 'package:kompositum/data/compound.dart';
-import 'package:kompositum/util/random_util.dart';
 
 import 'compound_pool_generator.dart';
 

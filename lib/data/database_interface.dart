@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:async';
 import 'dart:math';
 
 import 'package:kompositum/data/database_initializer.dart';

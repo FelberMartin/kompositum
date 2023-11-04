@@ -2,9 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:kompositum/widgets/home_page.dart';
 
-import 'data/compound_origin.dart';
-import 'data/database_initializer.dart';
-import 'data/database_interface.dart';
 import 'game/level_provider.dart';
 import 'locator.dart';
 
