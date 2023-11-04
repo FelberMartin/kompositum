@@ -22,7 +22,7 @@ abstract class LevelProvider {
   CompactFrequencyClass getFrequencyClassByLevel(int level);
 
   int getSeedForLevel(int level) {
-    return level + 1;
+    return level + 8;
   }
 }
 

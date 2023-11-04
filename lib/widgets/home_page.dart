@@ -52,6 +52,8 @@ class MyHomePageState extends State<MyHomePage> {
   }
 
   void updateGameToNewLevel() async {
+    // wait 1 second
+    await Future.delayed(Duration(milliseconds: 500));
     setState(() {
       isLoading = true;
     });

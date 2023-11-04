@@ -1,6 +1,7 @@
 # TODOs    
 ## 1.0 Release
 ### Ad hoc
+- Explore no conflict possibilities
 - Add tips feature
 - Make the shuffling of the components in the UI dependent on seed?
   + Different experience from user to user

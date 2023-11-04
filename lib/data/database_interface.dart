@@ -1,8 +1,11 @@
+import 'dart:async';
+import 'dart:async';
 import 'dart:math';
 
 import 'package:kompositum/data/database_initializer.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../compound_pool_generator.dart';
 import '../util/random_util.dart';
 import 'compound.dart';
 
@@ -25,6 +28,25 @@ class DatabaseInterface {
   Future<List<Compound>> getAllCompounds() async {
     final db = await _database;
     final List<Map<String, dynamic>> maps = await db.query('compounds');
+    return maps.map((map) => Compound.fromMap(map)).toList();
+  }
+
+  /// Get all the compound within the given compact frequency class.
+  Future<List<Compound>> getCompoundsByCompactFrequencyClass(
+      CompactFrequencyClass frequencyClass) async {
+    return getCompoundsByFrequencyClass(frequencyClass.maxFrequencyClass);
+  }
+
+  /// Get all compounds within the given frequency class. If [frequencyClass]
+  /// is null, all compounds are returned.
+  Future<List<Compound>> getCompoundsByFrequencyClass(
+      int? frequencyClass) async {
+    final db = await _database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      'compounds',
+      where: frequencyClass == null ? null : 'frequencyClass <= ?',
+      whereArgs: frequencyClass == null ? null : [frequencyClass],
+    );
     return maps.map((map) => Compound.fromMap(map)).toList();
   }
 

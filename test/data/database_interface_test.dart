@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:kompositum/compound_pool_generator.dart';
 import 'package:kompositum/data/database_initializer.dart';
 import 'package:kompositum/data/database_interface.dart';
 import 'package:mocktail/mocktail.dart';
@@ -179,28 +180,33 @@ void main() {
     test("should return the given number of compounds", () async {
       when(() => compoundOrigin.getCompounds()).thenAnswer(
           (_) async => [Compounds.Apfelkuchen, Compounds.Kuchenform]);
-      final compounds = await sut.getRandomCompounds(count: 2, maxFrequencyClass: null);
+      final compounds =
+          await sut.getRandomCompounds(count: 2, maxFrequencyClass: null);
       expect(compounds.length, 2);
     });
 
-    test("should return a smaller number of compounds if there are no more fitting the requirements", () async {
-      when(() => compoundOrigin.getCompounds()).thenAnswer(
-          (_) async => [
+    test(
+        "should return a smaller number of compounds if there are no more fitting the requirements",
+        () async {
+      when(() => compoundOrigin.getCompounds()).thenAnswer((_) async => [
             Compounds.Apfelkuchen.withFrequencyClass(1),
             Compounds.Kuchenform.withFrequencyClass(5)
           ]);
-      final compounds = await sut.getRandomCompounds(count: 2, maxFrequencyClass: 1);
+      final compounds =
+          await sut.getRandomCompounds(count: 2, maxFrequencyClass: 1);
       expect(compounds.length, 1);
     });
 
-    test("should return compounds with all frequency classes if maxFrequencyClass is null", () async {
-      when(() => compoundOrigin.getCompounds()).thenAnswer(
-          (_) async => [
+    test(
+        "should return compounds with all frequency classes if maxFrequencyClass is null",
+        () async {
+      when(() => compoundOrigin.getCompounds()).thenAnswer((_) async => [
             Compounds.Apfelkuchen.withFrequencyClass(1),
             Compounds.Kuchenform.withFrequencyClass(5),
             Compounds.Krankenhaus.withFrequencyClass(null),
           ]);
-      final compounds = await sut.getRandomCompounds(count: 3, maxFrequencyClass: null);
+      final compounds =
+          await sut.getRandomCompounds(count: 3, maxFrequencyClass: null);
       expect(compounds.length, 3);
     });
 
@@ -218,16 +224,56 @@ void main() {
           containsAll([Compounds.Apfelkuchen, Compounds.Kuchenform]));
     });
 
-    test("should return the same random compounds in the same order if called multiple times with the same seed", () async {
-      when(() => compoundOrigin.getCompounds()).thenAnswer(
-          (_) async => Compounds.all);
+    test(
+        "should return the same random compounds in the same order if called multiple times with the same seed",
+        () async {
+      when(() => compoundOrigin.getCompounds())
+          .thenAnswer((_) async => Compounds.all);
       final returnedCompounds = [];
       for (var i = 0; i < 20; i++) {
-        final compounds =
-        await sut.getRandomCompounds(count: 3, maxFrequencyClass: null, seed: 1);
+        final compounds = await sut.getRandomCompounds(
+            count: 3, maxFrequencyClass: null, seed: 1);
         returnedCompounds.add(compounds.first);
       }
       expect(returnedCompounds.toSet().length, 1);
+    });
+  });
+
+  group("getCompoundsByFrequencyClass", () {
+    test("should return all compounds with the given frequency class",
+        () async {
+      when(() => compoundOrigin.getCompounds()).thenAnswer((_) async => [
+            Compounds.Apfelkuchen.withFrequencyClass(1),
+            Compounds.Kuchenform.withFrequencyClass(5),
+            Compounds.Krankenhaus.withFrequencyClass(null),
+          ]);
+      final compounds = await sut.getCompoundsByFrequencyClass(5);
+      expect(compounds, [
+        Compounds.Apfelkuchen.withFrequencyClass(1),
+        Compounds.Kuchenform.withFrequencyClass(5)
+      ]);
+    });
+  });
+
+  group("getCompoundsByCompactFrequencyClass", () {
+    test("should return all compounds with the given frequency class",
+        () async {
+      when(() => compoundOrigin.getCompounds()).thenAnswer((_) async => [
+            Compounds.Apfelkuchen.withCompactFrequencyClass(
+                CompactFrequencyClass.easy),
+            Compounds.Kuchenform.withCompactFrequencyClass(
+                CompactFrequencyClass.medium),
+            Compounds.Krankenhaus.withCompactFrequencyClass(
+                CompactFrequencyClass.hard),
+          ]);
+      final compounds = await sut
+          .getCompoundsByCompactFrequencyClass(CompactFrequencyClass.medium);
+      expect(compounds, [
+        Compounds.Apfelkuchen.withCompactFrequencyClass(
+            CompactFrequencyClass.easy),
+        Compounds.Kuchenform.withCompactFrequencyClass(
+            CompactFrequencyClass.medium)
+      ]);
     });
   });
 }

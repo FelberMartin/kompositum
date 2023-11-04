@@ -37,6 +37,13 @@ class Compounds {
     frequencyClass: 1,
   );
 
+  static const Formsache = Compound(
+    name: "Formsache",
+    modifier: "Form",
+    head: "Sache",
+    frequencyClass: 1,
+  );
+
   static const Schneemann = Compound(
     name: "Schneemann",
     modifier: "Schnee",

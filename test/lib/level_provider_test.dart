@@ -1,4 +1,5 @@
 import 'package:kompositum/compound_pool_generator.dart';
+import 'package:kompositum/data/database_interface.dart';
 import 'package:kompositum/level_provider.dart';
 import 'package:kompositum/locator.dart';
 import 'package:kompositum/util/random_util.dart';
@@ -31,7 +32,7 @@ void main() {
   });
 
   /// This test is only here to manually find good seeds for the compounds generation.
-  test(skip: true, "find good seeds", () async {
+  test(skip: false, "find good seeds", () async {
     final poolGenerator = locator<CompoundPoolGenerator>();
     for (int i = 0; i < 10; i++) {
       print("\nSeed addition $i");
@@ -43,6 +44,43 @@ void main() {
         print("Level $level: $compoundNames");
       }
     }
+
+    expect(true, true);
+  });
+
+  /// Findings:
+  /// - The chance of having no duplicates at level 6 is only ~30%.
+  test("how many duplicates are there within the first 20 levels", () async {
+    final poolGenerator = locator<CompoundPoolGenerator>();
+    sut = BasicLevelProvider(poolGenerator);
+
+    // Print the number of compounds in the easy frequency class
+    final databaseInterface = locator<DatabaseInterface>();
+    final allCompounds = await databaseInterface.getAllCompounds();
+    final easyCompounds = allCompounds.where((compound) => compound.frequencyClass != null && compound.frequencyClass! <= CompactFrequencyClass.easy.maxFrequencyClass!).toList();
+    print("Easy compounds: ${easyCompounds.length}");
+
+    final overallCompounds = <String>[];
+    for (int level = 1; level < 20; level++) {
+      final compounds = await sut.generateCompoundPool(level);
+      final compoundNames = compounds.map((compound) => compound.name).toList();
+      print("Level $level: $compoundNames");
+
+      final duplicates = compoundNames.where((name) => overallCompounds.contains(name)).toList();
+      print("Duplicates: $duplicates");
+      overallCompounds.addAll(compoundNames);
+    }
+
+    print("Overall compounds: ${overallCompounds.length}");
+
+    // Print an overview of how often each compound occurs
+    final compoundCountMap = <String, int>{};
+    for (final compound in overallCompounds) {
+      compoundCountMap[compound] = (compoundCountMap[compound] ?? 0) + 1;
+    }
+    // Remove where count is only 1
+    compoundCountMap.removeWhere((key, value) => value == 1);
+    print("Compound count map: $compoundCountMap");
 
     expect(true, true);
   });
