@@ -5,6 +5,7 @@ import 'package:kompositum/data/compound_origin.dart';
 import 'package:kompositum/data/database_initializer.dart';
 import 'package:kompositum/data/database_interface.dart';
 import 'package:kompositum/game/compound_pool_generator.dart';
+import 'package:kompositum/game/graph_based_pool_generator.dart';
 import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/locator.dart';
 import 'package:kompositum/util/random_util.dart';
@@ -244,26 +245,48 @@ void main() {
             noConflictSut.isConflict(
                 compound, selectedCompounds, allCompounds), false);
       });
-
-      // This is a exploratory test, it does not test a specific behavior
-      test(skip: false, "print the generation times for the first 30 levels", () async {
-        // Init ffi database
-        sqfliteFfiInit();
-        databaseFactory = databaseFactoryFfi;
-
-        setupLocator();
-        final poolGenerator = NoConflictCompoundPoolGenerator(locator<DatabaseInterface>());
-        final levelProvider = BasicLevelProvider(poolGenerator);
-
-        for (int level = 1; level < 30; level++) {
-          final stopwatch = Stopwatch()..start();
-          final compounds = await levelProvider.generateCompoundPool(level);
-          print("Level $level: ${stopwatch.elapsedMilliseconds}ms");
-        }
-
-        expect(true, true);
-      });
-
     });
   });
+
+  group(skip: false, "GraphBasedPoolGenerator", () {
+    late CompoundPoolGenerator sut;
+
+    setUp(() {
+      sut = GraphBasedPoolGenerator(databaseInterface);
+    });
+
+    test("should return a smaller pool if there would otherwise be conflicts",
+            () async {
+          databaseInterface.compounds = [
+            Compounds.Apfelkuchen,
+            Compounds.Kuchenform,
+            Compounds.Formsache
+          ];
+          final compounds = await sut.generate(
+            frequencyClass: CompactFrequencyClass.easy,
+            compoundCount: 3,
+          );
+          expect(compounds.length, 1);
+        });
+  });
+
+  // This is a exploratory test, it does not test a specific behavior
+  test(skip: false, "print the generation times for the first 30 levels", () async {
+    // Init ffi database
+    sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;
+
+    setupLocator();
+    final poolGenerator = GraphBasedPoolGenerator(locator<DatabaseInterface>());
+    final levelProvider = BasicLevelProvider(poolGenerator);
+
+    for (int level = 1; level < 30; level++) {
+      final stopwatch = Stopwatch()..start();
+      final compounds = await levelProvider.generateCompoundPool(level);
+      print("Level $level: ${stopwatch.elapsedMilliseconds}ms");
+    }
+
+    expect(true, true);
+  });
+
 }

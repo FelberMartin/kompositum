@@ -16,6 +16,13 @@ class Compounds {
     frequencyClass: 1,
   );
 
+  static const Adamsapfel = Compound(
+    name: "Adamsapfel",
+    modifier: "Adam",
+    head: "Apfel",
+    frequencyClass: 1,
+  );
+
   static const Apfelbaum = Compound(
     name: "Apfelbaum",
     modifier: "Apfel",
@@ -41,6 +48,13 @@ class Compounds {
     name: "Formsache",
     modifier: "Form",
     head: "Sache",
+    frequencyClass: 1,
+  );
+
+  static const SachSchaden = Compound(
+    name: "Sachschaden",
+    modifier: "Sach",
+    head: "Schaden",
     frequencyClass: 1,
   );
 
