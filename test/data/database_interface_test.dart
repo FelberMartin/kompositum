@@ -88,6 +88,13 @@ void main() {
         expect(compound, Compounds.Apfelbaum);
       },
     );
+
+    test("edgecase: Frühschoppen", () async {
+      when(() => compoundOrigin.getCompounds())
+          .thenAnswer((_) async => [Compounds.Fruehschoppen]);
+      final compound = await sut.getCompound("früh", "Schoppen");
+      expect(compound, Compounds.Fruehschoppen);
+    });
   });
 
   group("getRandomCompoundRestricted", () {

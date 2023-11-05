@@ -12,25 +12,29 @@ class GraphBasedPoolGenerator extends CompoundPoolGenerator {
   @override
   Future<List<Compound>> generateWithoutValidation(int compoundCount,
       CompactFrequencyClass frequencyClass, int? seed) async {
-    final allCompounds = await databaseInterface.getCompoundsByFrequencyClass(18);
-    final graph = CompoundGraph.fromCompounds(allCompounds);
+    final allCompounds = await databaseInterface.getCompoundsByFrequencyClass(null);
+    final stopWatch = Stopwatch()..start();
+    final fullGraph = CompoundGraph.fromCompounds(allCompounds);
+    print("Graph creation took ${stopWatch.elapsedMilliseconds} ms\n");
+
+    var selectableCompounds = await databaseInterface.getCompoundsByCompactFrequencyClass(frequencyClass);
+    final selectableGraph = CompoundGraph.fromCompounds(selectableCompounds);
 
     final compounds = <Compound>[];
     final random = seed == null ? Random() : Random(seed);
     for (int i = 0; i < compoundCount; i++) {
-      final compoundsWithoutConflict = graph.getCompounds();
-      final selectableCompounds = compoundsWithoutConflict
-          .where((compound) =>
-              compound.frequencyClass != null &&
-              compound.frequencyClass! <= frequencyClass.maxFrequencyClass!)
-          .toList();
-      if (selectableCompounds.isEmpty) {
+      print("Selecatble compounds: ${selectableGraph.getAllComponents().length}");
+      final pair = selectableGraph.getRandomModifierHeadPair(random);
+      if (pair == null) {
         break;
       }
-      final compound =
-          selectableCompounds[random.nextInt(selectableCompounds.length)];
+      final compound = await databaseInterface.getCompound(pair.$1, pair.$2);
+      if (compound == null) {
+        throw Exception("Compound not found: ${pair.$1}+${pair.$2}");
+      }
       compounds.add(compound);
-      graph.removeCompoundAndConflicts(compound);
+      final conflicts = fullGraph.getConflictingComponents(compound);
+      selectableGraph.removeComponents(conflicts);
     }
 
     return compounds;

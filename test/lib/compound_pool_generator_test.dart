@@ -12,6 +12,8 @@ import 'package:kompositum/util/random_util.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:test/test.dart';
+import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
+
 
 import '../test_data/compounds.dart';
 
@@ -21,6 +23,23 @@ class MockDatabaseInterface extends Mock implements DatabaseInterface {
   @override
   Future<int> getCompoundCount() {
     return Future.value(compounds.length);
+  }
+
+  @override
+  Future<Compound?> getCompound(String modifier, String head) {
+    return Future.value(compounds.firstWhereOrNull((compound) =>
+        compound.modifier == modifier && compound.head == head));
+  }
+
+  @override
+  Future<List<Compound>> getCompoundsByFrequencyClass(
+      int? frequencyClass) {
+    if (frequencyClass == null) {
+      return Future.value(compounds);
+    }
+    return Future.value(compounds
+        .where((compound) => compound.frequencyClass != null && compound.frequencyClass! <= frequencyClass)
+        .toList());
   }
 
   @override
@@ -247,6 +266,8 @@ void main() {
       });
     });
   });
+
+  // ------------------- GraphBasedPoolGenerator -------------------
 
   group(skip: false, "GraphBasedPoolGenerator", () {
     late CompoundPoolGenerator sut;

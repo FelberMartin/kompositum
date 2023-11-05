@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:flutter/widgets.dart';
 import 'package:kompositum/data/database_initializer.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -54,11 +55,24 @@ class DatabaseInterface {
   /// If no compound with the given modifier and head exists, null is returned.
   Future<Compound?> getCompound(String modifier, String head) async {
     final db = await _database;
-    final List<Map<String, dynamic>> maps = await db.query(
+    List<Map<String, dynamic>> maps;
+
+    const edgeCases = ["ä", "Ä", "ö", "Ö", "ü", "Ü", "ß"];
+    if (modifier.characters.any((char) => edgeCases.contains(char)) ||
+        head.characters.any((char) => edgeCases.contains(char))) {
+      maps = await db.query(
+      'compounds',
+      where: 'modifier = ? AND head = ?',
+      whereArgs: [modifier, head],
+      );
+    } else {
+      maps = await db.query(
       'compounds',
       where: 'UPPER(modifier) = ? AND UPPER(head) = ?',
       whereArgs: [modifier.toUpperCase(), head.toUpperCase()],
-    );
+      );
+    }
+
     if (maps.isEmpty) {
       return null;
     }

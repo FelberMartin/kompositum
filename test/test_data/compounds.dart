@@ -65,12 +65,23 @@ class Compounds {
     frequencyClass: 1,
   );
 
+  static const Fruehschoppen = Compound(
+    name: "Frühschoppen",
+    modifier: "früh",
+    head: "Schoppen",
+    frequencyClass: 1,
+  );
+
   static const all = [
     Krankenhaus,
     Spielplatz,
+    Adamsapfel,
     Apfelbaum,
     Apfelkuchen,
     Kuchenform,
+    Formsache,
+    SachSchaden,
     Schneemann,
+    Fruehschoppen,
   ];
 }
