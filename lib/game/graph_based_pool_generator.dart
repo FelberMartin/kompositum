@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:graph_collection/graph.dart';
 import 'package:kompositum/game/compound_pool_generator.dart';
 
@@ -7,15 +8,22 @@ import '../data/compound.dart';
 import 'compound_graph.dart';
 
 class GraphBasedPoolGenerator extends CompoundPoolGenerator {
-  GraphBasedPoolGenerator(super.databaseInterface);
+
+  late final Future<CompoundGraph> _fullGraph;
+
+  GraphBasedPoolGenerator(super.databaseInterface) {
+    _fullGraph = _getFullGraph();
+  }
+
+  Future<CompoundGraph> _getFullGraph() async {
+    return CompoundGraph.fromCompounds(await databaseInterface.getAllCompounds());
+  }
 
   @override
   Future<List<Compound>> generateWithoutValidation(int compoundCount,
       CompactFrequencyClass frequencyClass, int? seed) async {
-    final allCompounds = await databaseInterface.getCompoundsByFrequencyClass(null);
     final stopWatch = Stopwatch()..start();
-    final fullGraph = CompoundGraph.fromCompounds(allCompounds);
-    print("Graph creation took ${stopWatch.elapsedMilliseconds} ms\n");
+    final fullGraph = await _fullGraph;
 
     var selectableCompounds = await databaseInterface.getCompoundsByCompactFrequencyClass(frequencyClass);
     final selectableGraph = CompoundGraph.fromCompounds(selectableCompounds);
@@ -23,7 +31,7 @@ class GraphBasedPoolGenerator extends CompoundPoolGenerator {
     final compounds = <Compound>[];
     final random = seed == null ? Random() : Random(seed);
     for (int i = 0; i < compoundCount; i++) {
-      print("Selecatble compounds: ${selectableGraph.getAllComponents().length}");
+      // print("Selectable compounds: ${selectableGraph.getAllComponents().length}");
       final pair = selectableGraph.getRandomModifierHeadPair(random);
       if (pair == null) {
         break;
@@ -37,6 +45,7 @@ class GraphBasedPoolGenerator extends CompoundPoolGenerator {
       selectableGraph.removeComponents(conflicts);
     }
 
+    debugPrint("Graph based pool generation took ${stopWatch.elapsedMilliseconds} ms");
     return compounds;
   }
 }
