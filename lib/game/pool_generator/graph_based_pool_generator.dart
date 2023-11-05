@@ -13,7 +13,7 @@ class GraphBasedPoolGenerator extends CompoundPoolGenerator {
 
   late final Future<CompoundGraph> _fullGraph;
 
-  GraphBasedPoolGenerator(super.databaseInterface) {
+  GraphBasedPoolGenerator(databaseInterface, {int blockLastN = 50}) : super(databaseInterface, blockLastN: blockLastN) {
     _fullGraph = _getFullGraph();
   }
 

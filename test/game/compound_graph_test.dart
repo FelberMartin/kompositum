@@ -61,8 +61,9 @@ void main() {
 
   group("getConflictingComponents", () {
     test("should return the components of the given compound", () {
-      final compoundGraph = CompoundGraph.fromCompounds(Compounds.all);
+      final compoundGraph = CompoundGraph.fromCompounds([Compounds.Apfelbaum]);
       final conflicts = compoundGraph.getConflictingComponents(Compounds.Apfelbaum);
+      expect(conflicts, isNotEmpty);
       expect(conflicts, containsAll(["Apfel", "Baum"]));
     });
 

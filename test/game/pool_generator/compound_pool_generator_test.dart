@@ -35,24 +35,29 @@ class MockCompoundPoolGenerator extends CompoundPoolGenerator {
 }
 
 void main() {
+  runGeneralPoolGeneratorTests((databaseInterface, {int blockLastN = 50}) => MockCompoundPoolGenerator(databaseInterface, blockLastN: blockLastN));
+}
+
+void runGeneralPoolGeneratorTests(Function(DatabaseInterface, {int blockLastN}) createSut) {
   late CompoundPoolGenerator sut;
   late MockDatabaseInterface databaseInterface;
 
   setUp(() {
     databaseInterface = MockDatabaseInterface();
-    sut = MockCompoundPoolGenerator(databaseInterface);
+    sut = createSut(databaseInterface, blockLastN: 0);
   });
 
   group("generate", () {
     test(
       "should throw an error if there are no compounds under the given frequency class",
-      () {
+          () {
         databaseInterface.compounds = [
           Compounds.Apfelkuchen.withCompactFrequencyClass(
               CompactFrequencyClass.medium),
           Compounds.Apfelbaum.withCompactFrequencyClass(
               CompactFrequencyClass.hard),
         ];
+        sut = createSut(databaseInterface, blockLastN: 0);
         expect(
             sut.generate(
               frequencyClass: CompactFrequencyClass.easy,
@@ -64,13 +69,14 @@ void main() {
 
     test(
       "should return the given number of compounds",
-      () async {
+          () async {
         databaseInterface.compounds = [
           Compounds.Krankenhaus.withCompactFrequencyClass(
               CompactFrequencyClass.easy),
           Compounds.Apfelbaum.withCompactFrequencyClass(
               CompactFrequencyClass.easy),
         ];
+        sut = createSut(databaseInterface, blockLastN: 0);
         final compounds = await sut.generate(
           frequencyClass: CompactFrequencyClass.easy,
           compoundCount: 2,
@@ -81,7 +87,7 @@ void main() {
 
     test(
       "should return also compounds with frequency classes lower than the given one",
-      () async {
+          () async {
         databaseInterface.compounds = [
           Compounds.Krankenhaus.withCompactFrequencyClass(
               CompactFrequencyClass.easy),
@@ -90,6 +96,7 @@ void main() {
           Compounds.Schneemann.withCompactFrequencyClass(
               CompactFrequencyClass.hard),
         ];
+        sut = createSut(databaseInterface, blockLastN: 0);
         final compounds = await sut.generate(
           frequencyClass: CompactFrequencyClass.hard,
           compoundCount: 3,
@@ -100,7 +107,7 @@ void main() {
 
     test(
       "should return only compounds with frequency classes lower or equal than the given one",
-      () async {
+          () async {
         databaseInterface.compounds = [
           Compounds.Krankenhaus.withCompactFrequencyClass(
               CompactFrequencyClass.easy),
@@ -109,6 +116,7 @@ void main() {
           Compounds.Schneemann.withCompactFrequencyClass(
               CompactFrequencyClass.hard),
         ];
+        sut = createSut(databaseInterface, blockLastN: 0);
         final compounds = await sut.generate(
           frequencyClass: CompactFrequencyClass.medium,
           compoundCount: 3,
@@ -119,13 +127,13 @@ void main() {
 
     test(
       "should return the same compounds for multiple calls with the same seed",
-      () async {
-        sut = MockCompoundPoolGenerator(databaseInterface, blockLastN: 0);
+          () async {
         databaseInterface.compounds = [
           Compounds.Krankenhaus,
           Compounds.Apfelbaum,
           Compounds.Schneemann
         ];
+        sut = createSut(databaseInterface, blockLastN: 0);
         final returnedPools = <Compound>[];
         for (var i = 0; i < 10; i++) {
           final pool = await sut.generate(
@@ -141,12 +149,13 @@ void main() {
 
     test(
       "should return different results for multiple calls without a seed",
-      () async {
-        sut = MockCompoundPoolGenerator(databaseInterface, blockLastN: 0);
+          () async {
         databaseInterface.compounds = [
           Compounds.Krankenhaus,
           Compounds.Apfelbaum
         ];
+        sut = createSut(databaseInterface, blockLastN: 0);
+
         final returnedCompounds = [];
         for (var i = 0; i < 10; i++) {
           final pool = await sut.generate(
@@ -164,7 +173,7 @@ void main() {
   group("blocking", () {
     test("should return a smaller list if it would lead to repetitions", () async {
       databaseInterface.compounds = [Compounds.Apfelbaum];
-      sut = MockCompoundPoolGenerator(databaseInterface, blockLastN: 1);
+      sut = createSut(databaseInterface, blockLastN: 1);
       final compounds1 = await sut.generate(
         frequencyClass: CompactFrequencyClass.easy,
         compoundCount: 1,
@@ -179,7 +188,7 @@ void main() {
 
     test("should return the same element if rememberLastN is zero", () async {
       databaseInterface.compounds = [Compounds.Apfelbaum];
-      sut = MockCompoundPoolGenerator(databaseInterface, blockLastN: 0);
+      sut = createSut(databaseInterface, blockLastN: 0);
       final compounds1 = await sut.generate(
         frequencyClass: CompactFrequencyClass.easy,
         compoundCount: 1,
@@ -211,5 +220,4 @@ void main() {
 
     expect(true, true);
   });
-
 }
