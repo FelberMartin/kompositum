@@ -4,8 +4,8 @@ import 'package:kompositum/data/compound.dart';
 import 'package:kompositum/data/compound_origin.dart';
 import 'package:kompositum/data/database_initializer.dart';
 import 'package:kompositum/data/database_interface.dart';
-import 'package:kompositum/game/compound_pool_generator.dart';
-import 'package:kompositum/game/graph_based_pool_generator.dart';
+import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
+import 'package:kompositum/game/pool_generator/graph_based_pool_generator.dart';
 import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/locator.dart';
 import 'package:kompositum/util/random_util.dart';
@@ -15,7 +15,7 @@ import 'package:test/test.dart';
 import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
 
 
-import '../test_data/compounds.dart';
+import '../../test_data/compounds.dart';
 
 class MockDatabaseInterface extends Mock implements DatabaseInterface {
   var compounds = <Compound>[];

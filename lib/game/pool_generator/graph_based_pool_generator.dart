@@ -3,10 +3,10 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:graph_collection/graph.dart';
-import 'package:kompositum/game/compound_pool_generator.dart';
+import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 
-import '../data/compound.dart';
-import 'compound_graph.dart';
+import '../../data/compound.dart';
+import '../compound_graph.dart';
 
 class GraphBasedPoolGenerator extends CompoundPoolGenerator {
 

@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:kompositum/data/database_initializer.dart';
 import 'package:kompositum/data/database_interface.dart';
-import 'package:kompositum/game/compound_pool_generator.dart';
+import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:test/test.dart';

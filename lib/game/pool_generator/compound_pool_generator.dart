@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:kompositum/data/database_interface.dart';
 
-import '../data/compound.dart';
+import '../../data/compound.dart';
 
 enum CompactFrequencyClass {
   easy(12),
