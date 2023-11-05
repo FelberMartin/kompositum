@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
@@ -10,8 +11,10 @@ import 'compound_graph.dart';
 class GraphBasedPoolGenerator extends CompoundPoolGenerator {
 
   late final Future<CompoundGraph> _fullGraph;
+  final int rememberLastN;
+  final Queue<Compound> _lastNCompounds = Queue();
 
-  GraphBasedPoolGenerator(super.databaseInterface) {
+  GraphBasedPoolGenerator(super.databaseInterface, {this.rememberLastN = 50}) {
     _fullGraph = _getFullGraph();
   }
 
@@ -20,13 +23,17 @@ class GraphBasedPoolGenerator extends CompoundPoolGenerator {
   }
 
   @override
-  Future<List<Compound>> generateWithoutValidation(int compoundCount,
-      CompactFrequencyClass frequencyClass, int? seed) async {
+  Future<List<Compound>> generateWithoutValidation({required int compoundCount, required CompactFrequencyClass frequencyClass, int? seed}) async {
     final stopWatch = Stopwatch()..start();
     final fullGraph = await _fullGraph;
 
     var selectableCompounds = await databaseInterface.getCompoundsByCompactFrequencyClass(frequencyClass);
     final selectableGraph = CompoundGraph.fromCompounds(selectableCompounds);
+
+    // Remove compounds that were already used in the last N compounds
+    for (var compound in _lastNCompounds) {
+      selectableGraph.removeCompound(compound);
+    }
 
     final compounds = <Compound>[];
     final random = seed == null ? Random() : Random(seed);
@@ -45,7 +52,18 @@ class GraphBasedPoolGenerator extends CompoundPoolGenerator {
       selectableGraph.removeComponents(conflicts);
     }
 
-    debugPrint("Graph based pool generation took ${stopWatch.elapsedMilliseconds} ms");
+    print("Remaining selectable compounds: ${selectableGraph.getAllComponents().length} (took ${stopWatch.elapsedMilliseconds} ms)");
+
+    _updateLastCompounds(compounds);
+
     return compounds;
+  }
+
+  void _updateLastCompounds(List<Compound> compounds) {
+    _lastNCompounds.addAll(compounds);
+    final takeCount = max(0, _lastNCompounds.length - rememberLastN);
+    for (int i = 0; i < takeCount; i++) {
+      _lastNCompounds.removeFirst();
+    }
   }
 }

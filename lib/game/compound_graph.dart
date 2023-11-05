@@ -38,6 +38,10 @@ class CompoundGraph {
     return [...linkedHeads, ...linkedModifiers];
   }
 
+  void removeCompound(Compound compound) {
+    _graph.unLinkTo(compound.modifier, compound.head);
+  }
+
   void removeComponents(List<String> components) {
     for (final component in components) {
       _graph.remove(component);

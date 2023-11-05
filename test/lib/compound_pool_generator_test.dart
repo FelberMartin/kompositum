@@ -269,12 +269,8 @@ void main() {
 
   // ------------------- GraphBasedPoolGenerator -------------------
 
-  group(skip: false, "GraphBasedPoolGenerator", () {
+  group("GraphBasedPoolGenerator", () {
     late CompoundPoolGenerator sut;
-
-    setUp(() {
-      sut = GraphBasedPoolGenerator(databaseInterface);
-    });
 
     test("should return a smaller pool if there would otherwise be conflicts",
             () async {
@@ -283,13 +279,50 @@ void main() {
             Compounds.Kuchenform,
             Compounds.Formsache
           ];
+          sut = GraphBasedPoolGenerator(databaseInterface);
           final compounds = await sut.generate(
             frequencyClass: CompactFrequencyClass.easy,
             compoundCount: 3,
           );
           expect(compounds.length, 1);
         });
+
+    test("should return a smaller list if it would lead to repetitions", () async {
+      databaseInterface.compounds = [Compounds.Apfelbaum];
+      sut = GraphBasedPoolGenerator(databaseInterface, rememberLastN: 1);
+      final compounds1 = await sut.generateWithoutValidation(
+        frequencyClass: CompactFrequencyClass.easy,
+        compoundCount: 1,
+      );
+      final compounds2 = await sut.generateWithoutValidation(
+        frequencyClass: CompactFrequencyClass.easy,
+        compoundCount: 1,
+      );
+      final compounds3 = await sut.generateWithoutValidation(
+        frequencyClass: CompactFrequencyClass.easy,
+        compoundCount: 1,
+      );
+      expect(compounds1.length, 1);
+      expect(compounds2.length, 0);
+    });
+
+    test("should return the same element if rememberLastN is zero", () async {
+      databaseInterface.compounds = [Compounds.Apfelbaum];
+      sut = GraphBasedPoolGenerator(databaseInterface, rememberLastN: 0);
+      final compounds1 = await sut.generateWithoutValidation(
+        frequencyClass: CompactFrequencyClass.easy,
+        compoundCount: 1,
+      );
+      final compounds2 = await sut.generateWithoutValidation(
+        frequencyClass: CompactFrequencyClass.easy,
+        compoundCount: 1,
+      );
+      expect(compounds1.length, 1);
+      expect(compounds2.length, 1);
+    });
   });
+
+
 
   // This is a exploratory test, it does not test a specific behavior
   test(skip: false, "print the generation times for the first 30 levels", () async {

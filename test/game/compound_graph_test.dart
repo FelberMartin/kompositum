@@ -29,6 +29,17 @@ void main() {
     });
   });
 
+  group("removeCompound", () {
+    test("should remove a compound from the graph", () {
+      final compoundGraph = CompoundGraph.fromCompounds([
+        Compounds.Apfelbaum
+      ]);
+      compoundGraph.removeCompound(Compounds.Apfelbaum);
+      final compound = compoundGraph.getRandomModifierHeadPair(Random());
+      expect(compound, isNull);
+    });
+  });
+
   group("removeComponents", () {
     test("should remove all connected compounds from the graph", () {
       final compoundGraph = CompoundGraph.fromCompounds([
@@ -52,7 +63,7 @@ void main() {
     test("should return the components of the given compound", () {
       final compoundGraph = CompoundGraph.fromCompounds(Compounds.all);
       final conflicts = compoundGraph.getConflictingComponents(Compounds.Apfelbaum);
-      expect(conflicts, isNot(contains(["Apfel", "Baum"])));
+      expect(conflicts, containsAll(["Apfel", "Baum"]));
     });
 
     test("should remove conflicting compounds from the graph", () {

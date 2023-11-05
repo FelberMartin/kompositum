@@ -33,7 +33,7 @@ class CompoundPoolGenerator {
           "Only $count compounds found, but $compoundCount compounds required.");
     }
 
-    List<Compound> compounds = await generateWithoutValidation(compoundCount, frequencyClass, seed);
+    List<Compound> compounds = await generateWithoutValidation(compoundCount: compoundCount, frequencyClass: frequencyClass, seed: seed);
 
     if (compounds.isEmpty) {
       throw Exception("No compounds found for the given frequency class");
@@ -45,7 +45,7 @@ class CompoundPoolGenerator {
     return compounds;
   }
 
-  Future<List<Compound>> generateWithoutValidation(int compoundCount, CompactFrequencyClass frequencyClass, int? seed) async {
+  Future<List<Compound>> generateWithoutValidation({required int compoundCount, required CompactFrequencyClass frequencyClass, int? seed}) async {
     final compounds = await databaseInterface.getRandomCompounds(
       count: compoundCount,
       maxFrequencyClass: frequencyClass.maxFrequencyClass,
@@ -61,8 +61,7 @@ class NoConflictCompoundPoolGenerator extends CompoundPoolGenerator {
   NoConflictCompoundPoolGenerator(DatabaseInterface databaseInterface) : super(databaseInterface);
 
   @override
-  Future<List<Compound>> generateWithoutValidation(int compoundCount, CompactFrequencyClass frequencyClass, int? seed) async {
-    // measure the time it takes to generate the compounds
+  Future<List<Compound>> generateWithoutValidation({required int compoundCount, required CompactFrequencyClass frequencyClass, int? seed}) async {    // measure the time it takes to generate the compounds
     final stopwatch = Stopwatch()..start();
     final allCompounds = await databaseInterface.getAllCompounds();
     final allSelectableCompounds = await databaseInterface.getCompoundsByCompactFrequencyClass(frequencyClass);
@@ -138,8 +137,7 @@ class IterativeNoConflictCompoundPoolGenerator extends NoConflictCompoundPoolGen
   IterativeNoConflictCompoundPoolGenerator(super.databaseInterface);
 
   @override
-  Future<List<Compound>> generateWithoutValidation(int compoundCount, CompactFrequencyClass frequencyClass, int? seed) async {
-    final allCompounds = await databaseInterface.getCompoundsByFrequencyClass(18);
+  Future<List<Compound>> generateWithoutValidation({required int compoundCount, required CompactFrequencyClass frequencyClass, int? seed}) async {    final allCompounds = await databaseInterface.getCompoundsByFrequencyClass(18);
     final allSelectableCompounds = await databaseInterface.getCompoundsByCompactFrequencyClass(frequencyClass);
     final random = seed == null ? Random() : Random(seed);
 
