@@ -34,7 +34,7 @@ void main() {
   });
 
   /// This test is only here to manually find good seeds for the compounds generation.
-  test(skip: false, "find good seeds", () async {
+  test(skip: true, "find good seeds", () async {
     final poolGenerator = locator<CompoundPoolGenerator>();
     for (int i = 0; i < 10; i++) {
       print("\nSeed addition $i");
@@ -52,7 +52,7 @@ void main() {
 
   /// Findings:
   /// - The chance of having no duplicates at level 6 is only ~30%.
-  test("how many duplicates are there within the first 20 levels", () async {
+  test(skip: true, "how many duplicates are there within the first 20 levels", () async {
     final poolGenerator = GraphBasedPoolGenerator(locator<DatabaseInterface>());
     sut = BasicLevelProvider(poolGenerator);
 
