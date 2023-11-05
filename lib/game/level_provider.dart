@@ -1,5 +1,6 @@
 import 'package:kompositum/data/compound.dart';
 
+import 'compact_frequency_class.dart';
 import 'pool_generator/compound_pool_generator.dart';
 
 abstract class LevelProvider {

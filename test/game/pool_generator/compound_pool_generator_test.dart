@@ -4,6 +4,7 @@ import 'package:kompositum/data/compound.dart';
 import 'package:kompositum/data/compound_origin.dart';
 import 'package:kompositum/data/database_initializer.dart';
 import 'package:kompositum/data/database_interface.dart';
+import 'package:kompositum/game/compact_frequency_class.dart';
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 import 'package:kompositum/game/pool_generator/graph_based_pool_generator.dart';
 import 'package:kompositum/game/level_provider.dart';

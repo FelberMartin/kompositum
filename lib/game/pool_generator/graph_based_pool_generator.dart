@@ -6,6 +6,7 @@ import 'package:graph_collection/graph.dart';
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 
 import '../../data/compound.dart';
+import '../compact_frequency_class.dart';
 import '../compound_graph.dart';
 
 class GraphBasedPoolGenerator extends CompoundPoolGenerator {
