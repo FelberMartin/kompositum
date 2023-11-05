@@ -1,8 +1,6 @@
 import 'dart:math';
 
-import 'package:flutter/foundation.dart';
 import 'package:graph_collection/graph.dart';
-import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
 
 import '../data/compound.dart';
 

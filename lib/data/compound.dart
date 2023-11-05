@@ -4,7 +4,6 @@
 // - head (double)
 
 import '../game/compact_frequency_class.dart';
-import '../game/pool_generator/compound_pool_generator.dart';
 
 class Compound {
   // The full name of the compound e.g. "Krankenhaus"

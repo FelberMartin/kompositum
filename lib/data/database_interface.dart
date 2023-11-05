@@ -6,7 +6,6 @@ import 'package:kompositum/data/database_initializer.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../game/compact_frequency_class.dart';
-import '../game/pool_generator/compound_pool_generator.dart';
 import '../util/random_util.dart';
 import 'compound.dart';
 

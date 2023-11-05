@@ -1,8 +1,5 @@
-import 'dart:collection';
 import 'dart:math';
 
-import 'package:flutter/foundation.dart';
-import 'package:graph_collection/graph.dart';
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 
 import '../../data/compound.dart';
