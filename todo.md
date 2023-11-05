@@ -1,13 +1,13 @@
 # TODOs    
 ## 1.0 Release
-### Ad hoc
+### Next up
 
 - Add tips feature
-- Make the shuffling of the components in the UI dependent on seed?
-  + Different experience from user to user
-  - When exiting the app and doing the same level again, other components are shown
 - Store level progress on device
 - Advanced LevelProvider (use different difficulties)
+
+
+### Later
 - Optimize database loading speed
 
 ### UI Design
@@ -22,6 +22,14 @@
 - New home screen
 - Calendar
 
+### Misc
+- Make the shuffling of the components in the UI dependent on seed?
+    + Different experience from user to user
+    - When exiting the app and doing the same level again, other components are shown
+- Feature idea: when selecting a compound that is not recognized, option to send report
+  - eg via firebase take request and store unknown compounds
+  - UI: "an + Sicht should result in which compound? _____ Submit"
+- English compounds?
 
 # Bugs
 - App is blackscreen when restarting it on phone (just a long loading time?)
