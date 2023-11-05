@@ -16,64 +16,22 @@ import 'package:test/test.dart';
 import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
 
 
+import '../../data/mock_database_interface.dart';
 import '../../test_data/compounds.dart';
 
-class MockDatabaseInterface extends Mock implements DatabaseInterface {
-  var compounds = <Compound>[];
+class MockCompoundPoolGenerator extends CompoundPoolGenerator {
+  MockCompoundPoolGenerator(databaseInterface, {int blockLastN = 50}) : super(databaseInterface, blockLastN: blockLastN);
+
 
   @override
-  Future<int> getCompoundCount() {
-    return Future.value(compounds.length);
-  }
-
-  @override
-  Future<Compound?> getCompound(String modifier, String head) {
-    return Future.value(compounds.firstWhereOrNull((compound) =>
-        compound.modifier == modifier && compound.head == head));
-  }
-
-  @override
-  Future<List<Compound>> getCompoundsByFrequencyClass(
-      int? frequencyClass) {
-    if (frequencyClass == null) {
-      return Future.value(compounds);
-    }
-    return Future.value(compounds
-        .where((compound) => compound.frequencyClass != null && compound.frequencyClass! <= frequencyClass)
-        .toList());
-  }
-
-  @override
-  Future<List<Compound>> getAllCompounds() {
-    return Future.value(compounds);
-  }
-
-  @override
-  Future<List<Compound>> getCompoundsByCompactFrequencyClass(
-      CompactFrequencyClass frequencyClass) {
-    if (frequencyClass.maxFrequencyClass == null) {
-      return Future.value(compounds);
-    }
-    return Future.value(compounds
-        .where((compound) =>
-            compound.frequencyClass != null &&
-            compound.frequencyClass! <= frequencyClass.maxFrequencyClass!)
-        .toList());
-  }
-
-  @override
-  Future<List<Compound>> getRandomCompounds(
-      {required int count, required int? maxFrequencyClass, int? seed}) async {
+  Future<List<Compound>> generateRestricted({required int compoundCount, required CompactFrequencyClass frequencyClass, List<Compound> blockedCompounds = const [], int? seed}) async {
+    var possibleCompounds = await databaseInterface.getCompoundsByCompactFrequencyClass(frequencyClass);
+    possibleCompounds = possibleCompounds.where((compound) => !blockedCompounds.contains(compound)).toList();
     final random = seed == null ? Random() : Random(seed);
-    final compoundsFiltered = maxFrequencyClass == null
-        ? compounds
-        : compounds
-            .where((compound) => compound.frequencyClass! <= maxFrequencyClass)
-            .toList();
-    final sample = randomSampleWithoutReplacement(compoundsFiltered, count,
-        random: random);
+    final sample = randomSampleWithoutReplacement(possibleCompounds, compoundCount, random: random);
     return Future.value(sample);
   }
+
 }
 
 void main() {
@@ -82,7 +40,7 @@ void main() {
 
   setUp(() {
     databaseInterface = MockDatabaseInterface();
-    sut = CompoundPoolGenerator(databaseInterface);
+    sut = MockCompoundPoolGenerator(databaseInterface);
   });
 
   group("generate", () {
@@ -162,6 +120,7 @@ void main() {
     test(
       "should return the same compounds for multiple calls with the same seed",
       () async {
+        sut = MockCompoundPoolGenerator(databaseInterface, blockLastN: 0);
         databaseInterface.compounds = [
           Compounds.Krankenhaus,
           Compounds.Apfelbaum,
@@ -183,6 +142,7 @@ void main() {
     test(
       "should return different results for multiple calls without a seed",
       () async {
+        sut = MockCompoundPoolGenerator(databaseInterface, blockLastN: 0);
         databaseInterface.compounds = [
           Compounds.Krankenhaus,
           Compounds.Apfelbaum
@@ -201,120 +161,30 @@ void main() {
     );
   });
 
-  group(skip: false, "NoConflictCompoundPoolGenerator", () {
-    late NoConflictCompoundPoolGenerator noConflictSut;
-
-    setUp(() {
-      noConflictSut = IterativeNoConflictCompoundPoolGenerator(databaseInterface);
-    });
-
-    test("should return a smaller pool if there would otherwise be conflicts",
-        () async {
-      databaseInterface.compounds = [
-        Compounds.Apfelkuchen,
-        Compounds.Kuchenform,
-        Compounds.Formsache
-      ];
-      final compounds = await noConflictSut.generate(
-        frequencyClass: CompactFrequencyClass.easy,
-        compoundCount: 3,
-      );
-      expect(compounds.length, 1);
-    });
-
-    group("isConflict", () {
-      test(
-          "should return true if the components could create another valid compound",
-          () {
-        final compound = Compounds.Formsache;
-        final selectedCompounds = [Compounds.Apfelkuchen];
-        final allCompounds = [Compounds.Apfelkuchen, Compounds.Kuchenform, Compounds.Formsache];
-
-        expect(
-            noConflictSut.isConflict(
-                compound, selectedCompounds, allCompounds),
-            true);
-      });
-
-      test(
-          "should return true if the components could create another valid compound",
-              () {
-            final compound = Compounds.Formsache;
-            final selectedCompounds = [Compounds.Apfelkuchen, Compounds.Kuchenform];
-            final allCompounds = [Compounds.Apfelkuchen, Compounds.Kuchenform, Compounds.Formsache];
-            expect(
-                noConflictSut.isConflict(
-                    compound, selectedCompounds, allCompounds),
-                true);
-          });
-
-      test("should return true for simplicity, if components overlap", () {
-        final compound = Compounds.Kuchenform;
-        final selectedCompounds = [Compounds.Apfelkuchen];
-        final allCompounds = [Compounds.Apfelkuchen, Compounds.Kuchenform, Compounds.Formsache];
-        expect(
-            noConflictSut.isConflict(
-                compound, selectedCompounds, allCompounds), true);
-      });
-
-      test("should return false if there is no conflict", () {
-        final compound = Compounds.Schneemann;
-        final selectedCompounds = [Compounds.Apfelkuchen];
-        final allCompounds = [Compounds.Apfelkuchen, Compounds.Schneemann];
-        expect(
-            noConflictSut.isConflict(
-                compound, selectedCompounds, allCompounds), false);
-      });
-    });
-  });
-
-  // ------------------- GraphBasedPoolGenerator -------------------
-
-  group("GraphBasedPoolGenerator", () {
-    late CompoundPoolGenerator sut;
-
-    test("should return a smaller pool if there would otherwise be conflicts",
-            () async {
-          databaseInterface.compounds = [
-            Compounds.Apfelkuchen,
-            Compounds.Kuchenform,
-            Compounds.Formsache
-          ];
-          sut = GraphBasedPoolGenerator(databaseInterface);
-          final compounds = await sut.generate(
-            frequencyClass: CompactFrequencyClass.easy,
-            compoundCount: 3,
-          );
-          expect(compounds.length, 1);
-        });
-
+  group("blocking", () {
     test("should return a smaller list if it would lead to repetitions", () async {
       databaseInterface.compounds = [Compounds.Apfelbaum];
-      sut = GraphBasedPoolGenerator(databaseInterface, rememberLastN: 1);
-      final compounds1 = await sut.generateWithoutValidation(
+      sut = MockCompoundPoolGenerator(databaseInterface, blockLastN: 1);
+      final compounds1 = await sut.generate(
         frequencyClass: CompactFrequencyClass.easy,
         compoundCount: 1,
       );
-      final compounds2 = await sut.generateWithoutValidation(
-        frequencyClass: CompactFrequencyClass.easy,
-        compoundCount: 1,
-      );
-      final compounds3 = await sut.generateWithoutValidation(
+      final compounds2 = sut.generate(
         frequencyClass: CompactFrequencyClass.easy,
         compoundCount: 1,
       );
       expect(compounds1.length, 1);
-      expect(compounds2.length, 0);
+      expect(compounds2, throwsException);
     });
 
     test("should return the same element if rememberLastN is zero", () async {
       databaseInterface.compounds = [Compounds.Apfelbaum];
-      sut = GraphBasedPoolGenerator(databaseInterface, rememberLastN: 0);
-      final compounds1 = await sut.generateWithoutValidation(
+      sut = MockCompoundPoolGenerator(databaseInterface, blockLastN: 0);
+      final compounds1 = await sut.generate(
         frequencyClass: CompactFrequencyClass.easy,
         compoundCount: 1,
       );
-      final compounds2 = await sut.generateWithoutValidation(
+      final compounds2 = await sut.generate(
         frequencyClass: CompactFrequencyClass.easy,
         compoundCount: 1,
       );
@@ -322,8 +192,6 @@ void main() {
       expect(compounds2.length, 1);
     });
   });
-
-
 
   // This is a exploratory test, it does not test a specific behavior
   test(skip: true, "print the generation times for the first 30 levels", () async {

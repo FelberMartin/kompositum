@@ -2,10 +2,7 @@
 ## 1.0 Release
 ### Ad hoc
 
-- Remove unused generators
 - Add tips feature
-- Remove compounds with no frequency data (NaN) 
-  - maybe also remove eg >= 25
 - Make the shuffling of the components in the UI dependent on seed?
   + Different experience from user to user
   - When exiting the app and doing the same level again, other components are shown

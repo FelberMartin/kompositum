@@ -12,10 +12,8 @@ import '../compound_graph.dart';
 class GraphBasedPoolGenerator extends CompoundPoolGenerator {
 
   late final Future<CompoundGraph> _fullGraph;
-  final int rememberLastN;
-  final Queue<Compound> _lastNCompounds = Queue();
 
-  GraphBasedPoolGenerator(super.databaseInterface, {this.rememberLastN = 50}) {
+  GraphBasedPoolGenerator(super.databaseInterface) {
     _fullGraph = _getFullGraph();
   }
 
@@ -24,16 +22,19 @@ class GraphBasedPoolGenerator extends CompoundPoolGenerator {
   }
 
   @override
-  Future<List<Compound>> generateWithoutValidation({required int compoundCount, required CompactFrequencyClass frequencyClass, int? seed}) async {
+  Future<List<Compound>> generateRestricted(
+      {required int compoundCount,
+        required CompactFrequencyClass frequencyClass,
+        List<Compound> blockedCompounds = const [],
+        int? seed}) async {
     final stopWatch = Stopwatch()..start();
     final fullGraph = await _fullGraph;
 
     var selectableCompounds = await databaseInterface.getCompoundsByCompactFrequencyClass(frequencyClass);
     final selectableGraph = CompoundGraph.fromCompounds(selectableCompounds);
 
-    // Remove compounds that were already used in the last N compounds
-    for (var compound in _lastNCompounds) {
-      selectableGraph.removeCompound(compound);
+    for (final blockedCompound in blockedCompounds) {
+      selectableGraph.removeCompound(blockedCompound);
     }
 
     final compounds = <Compound>[];
@@ -55,16 +56,8 @@ class GraphBasedPoolGenerator extends CompoundPoolGenerator {
 
     print("Remaining selectable compounds: ${selectableGraph.getAllComponents().length} (took ${stopWatch.elapsedMilliseconds} ms)");
 
-    _updateLastCompounds(compounds);
-
     return compounds;
   }
 
-  void _updateLastCompounds(List<Compound> compounds) {
-    _lastNCompounds.addAll(compounds);
-    final takeCount = max(0, _lastNCompounds.length - rememberLastN);
-    for (int i = 0; i < takeCount; i++) {
-      _lastNCompounds.removeFirst();
-    }
-  }
+
 }
