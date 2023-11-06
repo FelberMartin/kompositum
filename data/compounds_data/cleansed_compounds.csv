@@ -956,10 +956,10 @@ Achtelfinalhinspiel,Achtelfinale,Hinspiel
 Achtelfinalrückspiel,Achtelfinale,Rückspiel
 Achtelfinalspiel,Achtelfinale,Spiel
 Achtelnote,Achtel,Note
-Achterbahn,Achter,Bahn
+Achterbahn,achter,Bahn
 Achterbahnfahrt,Achterbahn,Fahrt
 Achterdeck,achter,Deck
-Achterreihe,acht,Reihe
+Achterreihe,achter,Reihe
 Achterschiff,achter,Schiff
 Achtersteven,achter,Steven
 Achtkampf,acht,Kampf
@@ -25437,7 +25437,7 @@ Fahrwerkstuning,Fahrwerk,Tuning
 Fahrwiderstand,fahren,Widerstand
 Fahrzeit,fahren,Zeit
 Fahrzeitverkürzung,Fahrzeit,Verkürzung
-Fahrzeug,fahren,zeug
+Fahrzeug,fahren,Zeug
 Fahrzeugart,Fahrzeug,Art
 Fahrzeugausstattung,Fahrzeug,Ausstattung
 Fahrzeugbatterie,Fahrzeug,Batterie
@@ -38250,6 +38250,7 @@ Grenzsituation,Grenze,Situation
 Grenzsoldat,Grenze,Soldat
 Grenzstaat,Grenze,Staat
 Grenzstadt,Grenze,Stadt
+Grenzstädtchen,Grenze,Städtchen
 Grenzstation,Grenze,Station
 Grenzstein,Grenze,Stein
 Grenzsteuersatz,Grenze,Steuersatz
@@ -72520,7 +72521,7 @@ Ostermesse,Ostern,Messe
 Ostermontag,Ostern,Montag
 Ostermorgen,Ostern,Morgen
 Ostermotiv,Ostern,Motiv
-Osternacht,Ostern,Acht
+Osternacht,Ostern,Nacht
 Osterparty,Ostern,Party
 Osterpause,Ostern,Pause
 Osterpredigt,Ostern,Predigt

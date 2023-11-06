@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <gexf xmlns="http://www.gexf.net/1.2draft" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd" version="1.2">
-  <meta lastmodifieddate="2023-11-04">
+  <meta lastmodifieddate="2023-11-06">
     <creator>NetworkX 3.2.1</creator>
   </meta>
   <graph defaultedgetype="undirected" mode="static" name="">
@@ -213,9 +213,8 @@
       <node id="Handel" label="Handel" />
       <node id="Hockey" label="Hockey" />
       <node id="Hochschule" label="Hochschule" />
-      <node id="zeug" label="zeug" />
-      <node id="Hafen" label="Hafen" />
       <node id="Zeug" label="Zeug" />
+      <node id="Hafen" label="Hafen" />
       <node id="Chef" label="Chef" />
       <node id="Vorsitzende" label="Vorsitzende" />
       <node id="Stoß" label="Stoß" />
@@ -729,7 +728,7 @@
           <attvalue for="1" value="12.0" />
         </attvalues>
       </edge>
-      <edge source="fahren" target="zeug" id="71">
+      <edge source="fahren" target="Zeug" id="71">
         <attvalues>
           <attvalue for="0" value="Fahrzeug" />
           <attvalue for="1" value="10.0" />

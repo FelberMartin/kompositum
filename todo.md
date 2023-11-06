@@ -2,10 +2,9 @@
 ## 1.0 Release
 ### Next up
 
-- Add tips feature
 - Store level progress on device
 - Advanced LevelProvider (use different difficulties)
-
+- Add second csv file with manually added compounds that were not in the dataset
 
 ### Later
 - Optimize database loading speed
