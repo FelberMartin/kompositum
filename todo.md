@@ -32,6 +32,7 @@
 - English compounds?
 
 # Bugs
+- How to deal with "Maschinenbau" <-> "Baumaschinen" ?
 - App is blackscreen when restarting it on phone (just a long loading time?)
 - When restarting the app the lastNCompounds of the Pool generator are not remembered
   -> The levels are now different too, because the input compounds are different depending on 

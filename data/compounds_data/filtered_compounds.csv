@@ -927,10 +927,10 @@ Achtelfinalhinspiel,Achtelfinale,Hinspiel,
 Achtelfinalrückspiel,Achtelfinale,Rückspiel,
 Achtelfinalspiel,Achtelfinale,Spiel,18.0
 Achtelnote,Achtel,Note,22.0
-Achterbahn,Achter,Bahn,16.0
+Achterbahn,achter,Bahn,16.0
 Achterbahnfahrt,Achterbahn,Fahrt,17.0
 Achterdeck,achter,Deck,20.0
-Achterreihe,acht,Reihe,24.0
+Achterreihe,achter,Reihe,24.0
 Achterschiff,achter,Schiff,22.0
 Achtersteven,achter,Steven,24.0
 Achtkampf,acht,Kampf,20.0
@@ -24167,7 +24167,7 @@ Fahrwerkstechnik,Fahrwerk,Technik,21.0
 Fahrwiderstand,fahren,Widerstand,
 Fahrzeit,fahren,Zeit,15.0
 Fahrzeitverkürzung,Fahrzeit,Verkürzung,20.0
-Fahrzeug,fahren,zeug,10.0
+Fahrzeug,fahren,Zeug,10.0
 Fahrzeugart,Fahrzeug,Art,21.0
 Fahrzeugausstattung,Fahrzeug,Ausstattung,
 Fahrzeugbatterie,Fahrzeug,Batterie,
@@ -68876,7 +68876,7 @@ Ostermesse,Ostern,Messe,20.0
 Ostermontag,Ostern,Montag,14.0
 Ostermorgen,Ostern,Morgen,19.0
 Ostermotiv,Ostern,Motiv,
-Osternacht,Ostern,Acht,17.0
+Osternacht,Ostern,Nacht,17.0
 Osterparty,Ostern,Party,
 Osterpause,Ostern,Pause,19.0
 Osterpredigt,Ostern,Predigt,20.0
