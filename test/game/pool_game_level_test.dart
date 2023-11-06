@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:kompositum/game/hints/hint.dart';
 import 'package:kompositum/game/pool_game_level.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
@@ -89,6 +90,39 @@ void main() {
         final nextComponent = sut.getNextShownComponent();
         expect(nextComponent, "Haus");
       }
+    });
+  });
+
+  group("Hints", () {
+    test("should add a hint when getHint is called", () {
+      sut.requestHint();
+      expect(sut.hints, hasLength(1));
+    });
+
+    test("should not add a hint when getHint is called and there are already two hints", () {
+      sut.requestHint();
+      sut.requestHint();
+      sut.requestHint();
+      expect(sut.hints, hasLength(2));
+    });
+
+    test("should remove the hint if the hinted component is solved", () {
+      sut = PoolGameLevel([Compounds.Krankenhaus], maxShownComponentCount: 2);
+      sut.requestHint();
+      expect(sut.hints, hasLength(1));
+      expect(sut.hints.first.hintedComponent, equals("krank"));
+      expect(sut.hints.first.type, equals(HintComponentType.modifier));
+
+      sut.removeCompoundFromShown(Compounds.Krankenhaus);
+      expect(sut.hints, isEmpty);
+    });
+
+    test("should not remove the hint if the hinted component is not solved", () {
+      sut = PoolGameLevel([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 4);
+      sut.hints.add(Hint("krank", HintComponentType.modifier));
+
+      sut.removeCompoundFromShown(Compounds.Apfelbaum);
+      expect(sut.hints, hasLength(1));
     });
   });
 }

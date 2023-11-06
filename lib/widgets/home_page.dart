@@ -1,12 +1,16 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
 
+
+import '../game/hints/hint.dart';
 import '../game/level_provider.dart';
 import '../game/pool_game_level.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title, required this.levelProvider});
+  const MyHomePage(
+      {super.key, required this.title, required this.levelProvider});
 
   final String title;
   final LevelProvider levelProvider;
@@ -16,7 +20,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomePageState extends State<MyHomePage> {
-
   late final LevelProvider _levelProvider = widget.levelProvider;
   late PoolGameLevel _poolGameLevel;
 
@@ -24,20 +27,24 @@ class MyHomePageState extends State<MyHomePage> {
   bool isLoading = true;
 
   final StreamController<String> wordCompletionEventStream =
-  StreamController<String>.broadcast();
+      StreamController<String>.broadcast();
 
   Map<SelectionType, int> selectionTypeToIndex = {
     SelectionType.modifier: -1,
     SelectionType.head: -1,
   };
+
   String? get selectedModifier =>
-      selectionTypeToIndex[SelectionType.modifier] != -1
-    ? _poolGameLevel.shownComponents[selectionTypeToIndex[SelectionType.modifier]!]
-    : null;
-  String? get selectedHead =>
-      selectionTypeToIndex[SelectionType.head] != -1
-    ? _poolGameLevel.shownComponents[selectionTypeToIndex[SelectionType.head]!]
-    : null;
+      selectionTypeToIndex[SelectionType.modifier] !=
+              -1
+          ? _poolGameLevel
+              .shownComponents[selectionTypeToIndex[SelectionType.modifier]!]
+          : null;
+
+  String? get selectedHead => selectionTypeToIndex[SelectionType.head] != -1
+      ? _poolGameLevel
+          .shownComponents[selectionTypeToIndex[SelectionType.head]!]
+      : null;
 
   @override
   void initState() {
@@ -93,8 +100,8 @@ class MyHomePageState extends State<MyHomePage> {
 
   void checkCompoundCompletion() async {
     if (selectedModifier != null && selectedHead != null) {
-      final compound =
-      _poolGameLevel.getCompoundIfExisting(selectedModifier!, selectedHead!);
+      final compound = _poolGameLevel.getCompoundIfExisting(
+          selectedModifier!, selectedHead!);
       if (compound != null) {
         compoundFound(compound.name);
         _poolGameLevel.removeCompoundFromShown(compound);
@@ -134,12 +141,85 @@ class MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: isLoading ? CircularProgressIndicator() : Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(height: 16.0),
-            // A text in a circle indicating the current score
-            CircleAvatar(
+        child: isLoading
+            ? CircularProgressIndicator()
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(height: 16.0),
+                  TopRow(
+                      levelNumber: levelNumber,
+                      isHintAvailable: _poolGameLevel.canRequestHint(),
+                      onHintPressed: () {
+                        _poolGameLevel.requestHint();
+                        setState(() {});
+                      }
+                      ),
+
+                  AnimatedTextFadeOut(
+                      textStream: wordCompletionEventStream.stream),
+
+                  // A row containing the selected modifier and head separated by a plus icon
+                  CompoundMergeRow(
+                      selectedModifier: selectedModifier,
+                      selectedHead: selectedHead,
+                      onResetSelection: resetSelection),
+                  Expanded(child: Container()),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 36.0),
+                    child: Wrap(
+                      spacing: 8.0,
+                      runSpacing: 8.0,
+                      alignment: WrapAlignment.center,
+                      children: [
+                        for (final (index, component)
+                            in _poolGameLevel.shownComponents.indexed)
+                          WordWrapper(
+                              text: component,
+                              selectionType: getSelectionTypeForIndex(index),
+                              onSelectionChanged: (selected) {
+                                toggleSelection(index);
+                              },
+                              hint: _poolGameLevel.hints.firstWhereOrNull(
+                                  (hint) =>
+                                      hint.hintedComponent == component)?.type
+                          ),
+                      ],
+                    ),
+                  ),
+                  Expanded(child: Container()),
+                  HiddenComponentsIndicator(
+                      hiddenComponentsCount:
+                          _poolGameLevel.hiddenComponents.length),
+                ],
+              ),
+      ),
+    );
+  }
+}
+
+class TopRow extends StatelessWidget {
+  const TopRow({
+    super.key,
+    required this.levelNumber,
+    required this.isHintAvailable,
+    required this.onHintPressed,
+  });
+
+  final int levelNumber;
+  final bool isHintAvailable;
+  final Function onHintPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(children: [
+        Expanded(child: Container()),
+        Expanded(
+            child: Align(
+            alignment: Alignment.center,
+            child: CircleAvatar(
               backgroundColor: Theme.of(context).colorScheme.primaryContainer,
               radius: 30,
               child: Text(
@@ -147,37 +227,16 @@ class MyHomePageState extends State<MyHomePage> {
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
             ),
-            AnimatedTextFadeOut(textStream: wordCompletionEventStream.stream),
-
-            // A row containing the selected modifier and head separated by a plus icon
-            CompoundMergeRow(
-                selectedModifier: selectedModifier,
-                selectedHead: selectedHead,
-                onResetSelection: resetSelection),
-            Expanded(child: Container()),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 36.0),
-              child: Wrap(
-                spacing: 8.0,
-                runSpacing: 8.0,
-                alignment: WrapAlignment.center,
-                children: [
-                  for (final (index, component)
-                  in _poolGameLevel.shownComponents.indexed)
-                    WordWrapper(
-                        text: component,
-                        selectionType: getSelectionTypeForIndex(index),
-                        onSelectionChanged: (selected) {
-                          toggleSelection(index);
-                        })
-                ],
-              ),
+        )),
+        Expanded(
+            child: Align(
+            alignment: Alignment.centerRight,
+            child: OutlinedButton(
+              onPressed: isHintAvailable ? () { onHintPressed(); } : null,
+              child: Text("Hinweis"),
             ),
-            Expanded(child: Container()),
-            HiddenComponentsIndicator(hiddenComponentsCount: _poolGameLevel.hiddenComponents.length),
-          ],
-        ),
-      ),
+        ))
+      ]),
     );
   }
 }
@@ -196,20 +255,19 @@ class HiddenComponentsIndicator extends StatelessWidget {
       return Container();
     }
     return Container(
-      alignment: Alignment.bottomLeft,
-      padding: const EdgeInsets.only(left: 16.0, bottom: 16.0),
-      child: Chip(
-        label: SizedBox(
-          width: 40,
-          child: Center(
-            child: Text(
-              "$hiddenComponentsCount",
-              style: Theme.of(context).textTheme.labelLarge,
+        alignment: Alignment.bottomLeft,
+        padding: const EdgeInsets.only(left: 16.0, bottom: 16.0),
+        child: Chip(
+          label: SizedBox(
+            width: 40,
+            child: Center(
+              child: Text(
+                "$hiddenComponentsCount",
+                style: Theme.of(context).textTheme.labelLarge,
+              ),
             ),
           ),
-        ),
-      )
-    );
+        ));
   }
 }
 
@@ -240,14 +298,12 @@ class AnimatedTextFadeOutState extends State<AnimatedTextFadeOut>
     );
 
     _alignAnimation = Tween<AlignmentGeometry>(
-      begin: Alignment.topCenter,   // Changed because the controller is reversed
+      begin: Alignment.topCenter, // Changed because the controller is reversed
       end: Alignment.bottomCenter,
-    ).animate(
-        CurvedAnimation(
-          parent: _controller,
-          curve: Curves.decelerate.flipped,
-        )
-    );
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.decelerate.flipped,
+    ));
 
     _textStreamSubscription = widget.textStream.listen((text) {
       _displayText = text;
@@ -275,8 +331,7 @@ class AnimatedTextFadeOutState extends State<AnimatedTextFadeOut>
               style: Theme.of(context).textTheme.headlineLarge,
             ),
           ),
-        )
-    );
+        ));
   }
 }
 
@@ -335,11 +390,15 @@ class WordWrapper extends StatelessWidget {
     required this.text,
     required this.selectionType,
     required this.onSelectionChanged,
+    this.hint,
   });
 
   final String text;
   final SelectionType? selectionType;
   final ValueChanged<bool> onSelectionChanged;
+  final HintComponentType? hint;
+
+  final hintColor = const Color.fromARGB(255, 243, 233, 177);
 
   @override
   Widget build(BuildContext context) {
@@ -350,6 +409,12 @@ class WordWrapper extends StatelessWidget {
       selectedColor: selectionType == SelectionType.modifier
           ? Theme.of(context).colorScheme.primaryContainer
           : Theme.of(context).colorScheme.secondaryContainer,
+      elevation: hint != null ? 6.0 : 0.0,
+      backgroundColor: hint != null
+          ? hintColor
+          : Theme.of(context).colorScheme.background,
+      shadowColor: hintColor,
+      selectedShadowColor: hintColor,
       label: Text(
         text,
         style: Theme.of(context).textTheme.labelLarge,

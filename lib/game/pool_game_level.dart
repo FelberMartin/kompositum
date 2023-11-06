@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
 
 import '../data/compound.dart';
+import 'hints/hint.dart';
 
 class PoolGameLevel {
   final Random random = Random();
@@ -14,7 +15,10 @@ class PoolGameLevel {
   final shownComponents = <String>[];
   final hiddenComponents = <String>[];
 
-  PoolGameLevel(List<Compound> allCompounds, {this.maxShownComponentCount = 10}) {
+  final hints = <Hint>[];
+
+  PoolGameLevel(List<Compound> allCompounds,
+      {this.maxShownComponentCount = 10}) {
     _allCompounds.addAll(allCompounds);
     _unsolvedCompounds.addAll(allCompounds);
     hiddenComponents
@@ -35,10 +39,19 @@ class PoolGameLevel {
   }
 
   void removeCompoundFromShown(Compound compound) {
+    _removeHintsForCompound(compound);
     shownComponents.remove(compound.modifier);
     shownComponents.remove(compound.head);
     _unsolvedCompounds.remove(compound);
     _fillShownComponents();
+  }
+
+  void _removeHintsForCompound(Compound compound) {
+    hints.removeWhere((hint) =>
+        (hint.type == HintComponentType.modifier &&
+            hint.hintedComponent == compound.modifier) ||
+        (hint.type == HintComponentType.head &&
+            hint.hintedComponent == compound.head));
   }
 
   Compound? getCompoundIfExisting(String modifier, String head) {
@@ -70,9 +83,11 @@ class PoolGameLevel {
   }
 
   String _findMissingComponentForRandomCompound() {
-    final compundsCurrentlyCompletable = _unsolvedCompounds.where((compound) =>
-        shownComponents.contains(compound.modifier) ||
-        shownComponents.contains(compound.head)).toList();
+    final compundsCurrentlyCompletable = _unsolvedCompounds
+        .where((compound) =>
+            shownComponents.contains(compound.modifier) ||
+            shownComponents.contains(compound.head))
+        .toList();
     final compound = compundsCurrentlyCompletable[
         random.nextInt(compundsCurrentlyCompletable.length)];
     if (shownComponents.contains(compound.modifier)) {
@@ -80,5 +95,17 @@ class PoolGameLevel {
     } else {
       return compound.modifier;
     }
+  }
+
+  void requestHint() {
+    if (canRequestHint()) {
+      final hint = Hint.generate(_allCompounds, shownComponents, hints);
+      hints.add(hint);
+      print("Hint: ${hint.hintedComponent} (${hint.type})");
+    }
+  }
+
+  bool canRequestHint() {
+    return hints.length < 2;
   }
 }
