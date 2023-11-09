@@ -3,24 +3,23 @@ import 'package:kompositum/data/compound.dart';
 import 'compact_frequency_class.dart';
 import 'pool_generator/compound_pool_generator.dart';
 
+class LevelSetup {
+  final int compoundCount;
+  final int poolGenerationSeed;
+  final int maxShownComponentCount;
+  final CompactFrequencyClass frequencyClass;
+
+  LevelSetup({
+    required this.compoundCount,
+    required this.poolGenerationSeed,
+    this.frequencyClass = CompactFrequencyClass.easy,
+    this.maxShownComponentCount = 11,
+  });
+}
+
 abstract class LevelProvider {
-  final CompoundPoolGenerator _compoundPoolGenerator;
 
-  LevelProvider(this._compoundPoolGenerator);
-
-  Future<List<Compound>> generateCompoundPool(int levelNumber) {
-    final frequencyClass = getFrequencyClassByLevel(levelNumber);
-    final compoundCount = getCompoundCountByLevel(levelNumber);
-    return _compoundPoolGenerator.generate(
-      frequencyClass: frequencyClass,
-      compoundCount: compoundCount,
-      seed: getSeedForLevel(levelNumber),
-    );
-  }
-
-  int getCompoundCountByLevel(int level);
-
-  CompactFrequencyClass getFrequencyClassByLevel(int level);
+  LevelSetup generateLevelSetup(int levelNumber);
 
   int getSeedForLevel(int level) {
     return level + 8;
@@ -28,16 +27,11 @@ abstract class LevelProvider {
 }
 
 class BasicLevelProvider extends LevelProvider {
-  BasicLevelProvider(CompoundPoolGenerator compoundPoolGenerator)
-      : super(compoundPoolGenerator);
-
   @override
-  int getCompoundCountByLevel(int level) {
-    return 2 + level ~/ 2;
-  }
-
-  @override
-  CompactFrequencyClass getFrequencyClassByLevel(int level) {
-    return CompactFrequencyClass.easy;
+  LevelSetup generateLevelSetup(int levelNumber) {
+    return LevelSetup(
+      compoundCount: 2 + levelNumber~/2,
+      poolGenerationSeed: getSeedForLevel(levelNumber),
+    );
   }
 }

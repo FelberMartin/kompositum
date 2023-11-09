@@ -3,18 +3,21 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
 import 'package:kompositum/data/key_value_store.dart';
+import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 
 
 import '../game/hints/hint.dart';
 import '../game/level_provider.dart';
 import '../game/pool_game_level.dart';
+import '../locator.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage(
-      {super.key, required this.title, required this.levelProvider});
+      {super.key, required this.title, required this.levelProvider, required this.poolGenerator});
 
   final String title;
   final LevelProvider levelProvider;
+  final CompoundPoolGenerator poolGenerator;
 
   @override
   State<MyHomePage> createState() => MyHomePageState();
@@ -22,6 +25,7 @@ class MyHomePage extends StatefulWidget {
 
 class MyHomePageState extends State<MyHomePage> {
   late final LevelProvider _levelProvider = widget.levelProvider;
+  late final CompoundPoolGenerator _poolGenerator = widget.poolGenerator;
   late PoolGameLevel _poolGameLevel;
   late final KeyValueStore _keyValueStore;
 
@@ -66,9 +70,10 @@ class MyHomePageState extends State<MyHomePage> {
     });
     levelNumber = newLevelNumber;
     print("Generating new pool for new level");
-    final compounds = await _levelProvider.generateCompoundPool(levelNumber);
+    final levelSetup = _levelProvider.generateLevelSetup(levelNumber);
+    final compounds = await _poolGenerator.generateFromLevelSetup(levelSetup);
     print("Finished new pool for new level");
-    _poolGameLevel = PoolGameLevel(compounds);
+    _poolGameLevel = PoolGameLevel(compounds, maxShownComponentCount: levelSetup.maxShownComponentCount);
     setState(() {
       isLoading = false;
     });

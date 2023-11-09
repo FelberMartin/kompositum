@@ -11,12 +11,11 @@ import 'package:test/test.dart';
 
 class TestBasicLevelProvider extends BasicLevelProvider {
   final int i;
-  TestBasicLevelProvider(CompoundPoolGenerator compoundPoolGenerator, this.i)
-      : super(compoundPoolGenerator);
+  TestBasicLevelProvider(this.i);
 
   @override
   int getSeedForLevel(int level) {
-    return level + 1;
+    return level + i;
   }
 }
 
@@ -39,10 +38,11 @@ void main() {
     final poolGenerator = locator<CompoundPoolGenerator>();
     for (int i = 0; i < 10; i++) {
       print("\nSeed addition $i");
-      sut = TestBasicLevelProvider(poolGenerator, i);
+      sut = TestBasicLevelProvider(i);
 
       for (int level = 1; level < 6; level++) {
-        final compounds = await sut.generateCompoundPool(level);
+        final levelSetup = sut.generateLevelSetup(level);
+        final compounds = await poolGenerator.generateFromLevelSetup(levelSetup);
         final compoundNames = compounds.map((compound) => compound.name).toList();
         print("Level $level: $compoundNames");
       }
@@ -55,7 +55,7 @@ void main() {
   /// - The chance of having no duplicates at level 6 is only ~30%.
   test(skip: true, "how many duplicates are there within the first 20 levels", () async {
     final poolGenerator = GraphBasedPoolGenerator(locator<DatabaseInterface>());
-    sut = BasicLevelProvider(poolGenerator);
+    sut = BasicLevelProvider();
 
     // Print the number of compounds in the easy frequency class
     final databaseInterface = locator<DatabaseInterface>();
@@ -65,7 +65,8 @@ void main() {
 
     final overallCompounds = <String>[];
     for (int level = 1; level < 20; level++) {
-      final compounds = await sut.generateCompoundPool(level);
+      final levelSetup = sut.generateLevelSetup(level);
+      final compounds = await poolGenerator.generateFromLevelSetup(levelSetup);
       final compoundNames = compounds.map((compound) => compound.name).toList();
       print("Level $level: $compoundNames");
 

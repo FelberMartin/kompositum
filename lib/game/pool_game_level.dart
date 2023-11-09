@@ -16,7 +16,7 @@ class PoolGameLevel {
   final hints = <Hint>[];
 
   PoolGameLevel(List<Compound> allCompounds,
-      {this.maxShownComponentCount = 10}) {
+      {this.maxShownComponentCount = 11}) {
     _allCompounds.addAll(allCompounds);
     _unsolvedCompounds.addAll(allCompounds);
     hiddenComponents

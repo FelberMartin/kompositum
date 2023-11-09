@@ -1,10 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:kompositum/widgets/home_page.dart';
 
 import 'game/level_provider.dart';
+import 'game/pool_generator/compound_pool_generator.dart';
 import 'locator.dart';
-
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,9 +23,11 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
         useMaterial3: true,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page', levelProvider: locator<LevelProvider>()),
+      home: MyHomePage(
+          title: 'Flutter Demo Home Page',
+          levelProvider: locator<LevelProvider>(),
+          poolGenerator: locator<CompoundPoolGenerator>()
+      ),
     );
   }
 }
-
-

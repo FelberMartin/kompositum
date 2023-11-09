@@ -210,11 +210,12 @@ void runGeneralPoolGeneratorTests(Function(DatabaseInterface, {int blockLastN}) 
 
     setupLocator();
     final poolGenerator = GraphBasedPoolGenerator(locator<DatabaseInterface>());
-    final levelProvider = BasicLevelProvider(poolGenerator);
+    final levelProvider = BasicLevelProvider();
 
     for (int level = 1; level < 30; level++) {
       final stopwatch = Stopwatch()..start();
-      final compounds = await levelProvider.generateCompoundPool(level);
+      final levelSetup = levelProvider.generateLevelSetup(level);
+      final compounds = await poolGenerator.generateFromLevelSetup(levelSetup);
       print("Level $level: ${stopwatch.elapsedMilliseconds}ms");
     }
 

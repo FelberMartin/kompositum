@@ -5,6 +5,7 @@ import 'package:kompositum/data/database_interface.dart';
 
 import '../../data/compound.dart';
 import '../compact_frequency_class.dart';
+import '../level_provider.dart';
 
 abstract class CompoundPoolGenerator {
   final DatabaseInterface databaseInterface;
@@ -13,6 +14,14 @@ abstract class CompoundPoolGenerator {
   final Queue<Compound> _blockedCompounds = Queue();
 
   CompoundPoolGenerator(this.databaseInterface, {this.blockLastN = 50});
+
+  Future<List<Compound>> generateFromLevelSetup(LevelSetup levelSetup) {
+    return generate(
+      compoundCount: levelSetup.compoundCount,
+      frequencyClass: levelSetup.frequencyClass,
+      seed: levelSetup.poolGenerationSeed,
+    );
+  }
 
   Future<List<Compound>> generate({
     required CompactFrequencyClass frequencyClass,
