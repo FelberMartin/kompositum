@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:kompositum/game/hints/hint.dart';
 import 'package:kompositum/game/pool_game_level.dart';
@@ -90,6 +91,22 @@ void main() {
         final nextComponent = sut.getNextShownComponent();
         expect(nextComponent, "Haus");
       }
+    });
+
+    test("should return the same component for the same passed seed", () {
+      sut = PoolGameLevel([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 2);
+      final firstComponent = sut.getNextShownComponent(seed: 1);
+      final secondComponent = sut.getNextShownComponent(seed: 1);
+      expect(firstComponent, equals(secondComponent));
+    });
+
+    test("should return different components if no seed is passed", () {
+      sut = PoolGameLevel([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 2);
+      final components = <String>[];
+      for (var i = 0; i < 10; i++) {
+        components.add(sut.getNextShownComponent());
+      }
+      expect(components.toSet().length, 2);
     });
   });
 

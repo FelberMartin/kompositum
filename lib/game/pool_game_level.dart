@@ -6,8 +6,6 @@ import '../data/compound.dart';
 import 'hints/hint.dart';
 
 class PoolGameLevel {
-  final Random random = Random();
-
   final int maxShownComponentCount;
 
   final _allCompounds = <Compound>[];
@@ -32,7 +30,7 @@ class PoolGameLevel {
       if (hiddenComponents.isEmpty) {
         break;
       }
-      final nextComponent = getNextShownComponent();
+      final nextComponent = getNextShownComponent(seed: 0);
       shownComponents.add(nextComponent);
       hiddenComponents.remove(nextComponent);
     }
@@ -63,13 +61,14 @@ class PoolGameLevel {
     return shownComponents.isEmpty;
   }
 
-  String getNextShownComponent() {
+  String getNextShownComponent({int? seed}) {
+    final random = seed == null ? Random() : Random(seed);
     final refillCount = maxShownComponentCount - shownComponents.length;
     if (refillCount > 1 || _isCompoundInShownComponents()) {
       return hiddenComponents[random.nextInt(hiddenComponents.length)];
     }
 
-    return _findMissingComponentForRandomCompound();
+    return _findMissingComponentForRandomCompound(random);
   }
 
   bool _isCompoundInShownComponents() {
@@ -82,7 +81,7 @@ class PoolGameLevel {
     return false;
   }
 
-  String _findMissingComponentForRandomCompound() {
+  String _findMissingComponentForRandomCompound(Random random) {
     final compundsCurrentlyCompletable = _unsolvedCompounds
         .where((compound) =>
             shownComponents.contains(compound.modifier) ||
