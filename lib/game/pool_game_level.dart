@@ -109,4 +109,8 @@ class PoolGameLevel {
   bool canRequestHint() {
     return hints.length < 2;
   }
+
+  double getLevelProgress() {
+    return 1 - _unsolvedCompounds.length / _allCompounds.length;
+  }
 }

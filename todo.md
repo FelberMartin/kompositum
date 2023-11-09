@@ -2,7 +2,6 @@
 ## 1.0 Release
 ### Next up
 
-- Add level progress indicator
 - Save blocked components to key Value store and load them at app start
 - Add attempts counter 
 - Add second csv file with manually added compounds that were not in the dataset

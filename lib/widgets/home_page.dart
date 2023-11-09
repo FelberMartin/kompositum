@@ -173,6 +173,7 @@ class MyHomePageState extends State<MyHomePage> {
                   TopRow(
                       displayedDifficulty: _poolGameLevel.displayedDifficulty,
                       levelNumber: levelNumber,
+                      levelProgress: _poolGameLevel.getLevelProgress(),
                       isHintAvailable: _poolGameLevel.canRequestHint(),
                       onHintPressed: () {
                         _poolGameLevel.requestHint();
@@ -226,12 +227,14 @@ class TopRow extends StatelessWidget {
     super.key,
     required this.displayedDifficulty,
     required this.levelNumber,
+    required this.levelProgress,
     required this.isHintAvailable,
     required this.onHintPressed,
   });
 
   final Difficulty displayedDifficulty;
   final int levelNumber;
+  final double levelProgress;
   final bool isHintAvailable;
   final Function onHintPressed;
 
@@ -248,14 +251,30 @@ class TopRow extends StatelessWidget {
         Expanded(
             child: Align(
           alignment: Alignment.center,
-          child: CircleAvatar(
-            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-            radius: 30,
-            child: Text(
-              levelNumber.toString(),
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ),
+          // Add a loading indicator around the circle avatar, indicating the current level progress
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              CircleAvatar(
+                backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                radius: 30,
+                child: Text(
+                  levelNumber.toString(),
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+              ),
+
+              Center(
+                child: SizedBox(
+                  height: 60,
+                  width: 60,
+                  child: CircularProgressIndicator(
+                    value: levelProgress > 0 ? levelProgress : 0.03,
+                    strokeWidth: 5,
+                  ),
+                ),
+              ),
+        ]),
         )),
         Expanded(
             child: Align(
