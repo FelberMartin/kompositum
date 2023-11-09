@@ -4,6 +4,7 @@ import 'package:kompositum/game/pool_generator/graph_based_pool_generator.dart';
 import 'data/compound_origin.dart';
 import 'data/database_initializer.dart';
 import 'data/database_interface.dart';
+import 'data/key_value_store.dart';
 import 'game/level_provider.dart';
 import 'game/pool_generator/compound_pool_generator.dart';
 
@@ -19,4 +20,5 @@ void setupLocator({env = "prod"}) {
   locator.registerSingleton<DatabaseInterface>(DatabaseInterface(locator<DatabaseInitializer>()));
   locator.registerSingleton<CompoundPoolGenerator>(GraphBasedPoolGenerator(locator<DatabaseInterface>()));
   locator.registerSingleton<LevelProvider>(BasicLevelProvider(locator<CompoundPoolGenerator>()));
+  locator.registerSingleton<KeyValueStore>(KeyValueStore());
 }

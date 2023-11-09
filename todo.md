@@ -2,7 +2,6 @@
 ## 1.0 Release
 ### Next up
 
-- Store level progress on device
 - Advanced LevelProvider (use different difficulties)
 - Add attempts counter 
 - Add second csv file with manually added compounds that were not in the dataset

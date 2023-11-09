@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
+import 'package:kompositum/data/key_value_store.dart';
 
 
 import '../game/hints/hint.dart';
@@ -22,8 +23,9 @@ class MyHomePage extends StatefulWidget {
 class MyHomePageState extends State<MyHomePage> {
   late final LevelProvider _levelProvider = widget.levelProvider;
   late PoolGameLevel _poolGameLevel;
+  late final KeyValueStore _keyValueStore;
 
-  int levelNumber = 1;
+  late int levelNumber;
   bool isLoading = true;
 
   final StreamController<String> wordCompletionEventStream =
@@ -49,15 +51,20 @@ class MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    updateGameToNewLevel();
+    _keyValueStore = KeyValueStore();
+    _keyValueStore.getLevel().then((value) {
+      levelNumber = value;
+      updateGameToNewLevel(levelNumber);
+    });
   }
 
-  void updateGameToNewLevel() async {
-    // wait 1 second
+  void updateGameToNewLevel(int newLevelNumber) async {
+    _keyValueStore.storeLevel(newLevelNumber);
     await Future.delayed(Duration(milliseconds: 500));
     setState(() {
       isLoading = true;
     });
+    levelNumber = newLevelNumber;
     print("Generating new pool for new level");
     final compounds = await _levelProvider.generateCompoundPool(levelNumber);
     print("Finished new pool for new level");
@@ -107,8 +114,7 @@ class MyHomePageState extends State<MyHomePage> {
         _poolGameLevel.removeCompoundFromShown(compound);
         setState(() {});
         if (_poolGameLevel.isLevelFinished()) {
-          levelNumber++;
-          updateGameToNewLevel();
+          updateGameToNewLevel(levelNumber + 1);
         }
       }
     }
