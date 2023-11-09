@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: MyHomePage(
-          title: 'Flutter Demo Home Page',
+          title: 'Komposita: Wörter zusammensetzen',
           levelProvider: locator<LevelProvider>(),
           poolGenerator: locator<CompoundPoolGenerator>()
       ),

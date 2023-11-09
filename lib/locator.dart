@@ -20,7 +20,7 @@ void setupLocator({env = "prod"}) {
   }
   locator.registerSingleton<DatabaseInterface>(DatabaseInterface(locator<DatabaseInitializer>()));
   locator.registerSingleton<CompoundPoolGenerator>(GraphBasedPoolGenerator(locator<DatabaseInterface>()));
-  locator.registerSingleton<LevelProvider>(BasicLevelProvider());
+  locator.registerSingleton<LevelProvider>(LogarithmicLevelProvider());
   // SharedPreferences.setMockInitialValues({"level": 1});
   locator.registerSingleton<KeyValueStore>(KeyValueStore());
 }

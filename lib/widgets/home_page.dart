@@ -154,6 +154,14 @@ class MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: () {
+              updateGameToNewLevel(1);
+            },
+          )
+        ],
       ),
       body: Center(
         child: isLoading
@@ -277,7 +285,7 @@ class DifficultyContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(4.0),
+      padding: const EdgeInsets.all(6.0),
       // Make the container with rounded corners and a background color depending on the difficulty
       decoration: BoxDecoration(
         color: difficultyToColor(displayedDifficulty),
