@@ -3,6 +3,7 @@
 ### Next up
 
 - Advanced LevelProvider (use different difficulties)
+- Add level progress indicator
 - Add attempts counter 
 - Add second csv file with manually added compounds that were not in the dataset
 

@@ -5,7 +5,6 @@ import 'package:collection/collection.dart'; // You have to add this manually, f
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 
-
 import '../game/hints/hint.dart';
 import '../game/level_provider.dart';
 import '../game/pool_game_level.dart';
@@ -13,7 +12,10 @@ import '../locator.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage(
-      {super.key, required this.title, required this.levelProvider, required this.poolGenerator});
+      {super.key,
+      required this.title,
+      required this.levelProvider,
+      required this.poolGenerator});
 
   final String title;
   final LevelProvider levelProvider;
@@ -73,7 +75,9 @@ class MyHomePageState extends State<MyHomePage> {
     final levelSetup = _levelProvider.generateLevelSetup(levelNumber);
     final compounds = await _poolGenerator.generateFromLevelSetup(levelSetup);
     print("Finished new pool for new level");
-    _poolGameLevel = PoolGameLevel(compounds, maxShownComponentCount: levelSetup.maxShownComponentCount);
+    _poolGameLevel = PoolGameLevel(compounds,
+        maxShownComponentCount: levelSetup.maxShownComponentCount,
+        displayedDifficulty: levelSetup.displayedDifficulty);
     setState(() {
       isLoading = false;
     });
@@ -159,13 +163,13 @@ class MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
                   SizedBox(height: 16.0),
                   TopRow(
+                      displayedDifficulty: _poolGameLevel.displayedDifficulty,
                       levelNumber: levelNumber,
                       isHintAvailable: _poolGameLevel.canRequestHint(),
                       onHintPressed: () {
                         _poolGameLevel.requestHint();
                         setState(() {});
-                      }
-                      ),
+                      }),
 
                   AnimatedTextFadeOut(
                       textStream: wordCompletionEventStream.stream),
@@ -191,10 +195,10 @@ class MyHomePageState extends State<MyHomePage> {
                               onSelectionChanged: (selected) {
                                 toggleSelection(index);
                               },
-                              hint: _poolGameLevel.hints.firstWhereOrNull(
-                                  (hint) =>
-                                      hint.hintedComponent == component)?.type
-                          ),
+                              hint: _poolGameLevel.hints
+                                  .firstWhereOrNull((hint) =>
+                                      hint.hintedComponent == component)
+                                  ?.type),
                       ],
                     ),
                   ),
@@ -212,11 +216,13 @@ class MyHomePageState extends State<MyHomePage> {
 class TopRow extends StatelessWidget {
   const TopRow({
     super.key,
+    required this.displayedDifficulty,
     required this.levelNumber,
     required this.isHintAvailable,
     required this.onHintPressed,
   });
 
+  final Difficulty displayedDifficulty;
   final int levelNumber;
   final bool isHintAvailable;
   final Function onHintPressed;
@@ -226,29 +232,70 @@ class TopRow extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(8.0),
       child: Row(children: [
-        Expanded(child: Container()),
+        Expanded(child:
+          Row(children:[
+            DifficultyContainer(displayedDifficulty: displayedDifficulty),
+          ])
+        ),
         Expanded(
             child: Align(
-            alignment: Alignment.center,
-            child: CircleAvatar(
-              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-              radius: 30,
-              child: Text(
-                levelNumber.toString(),
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
+          alignment: Alignment.center,
+          child: CircleAvatar(
+            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+            radius: 30,
+            child: Text(
+              levelNumber.toString(),
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
+          ),
         )),
         Expanded(
             child: Align(
-            alignment: Alignment.centerRight,
-            child: OutlinedButton(
-              onPressed: isHintAvailable ? () { onHintPressed(); } : null,
-              child: Text("Hinweis"),
-            ),
+          alignment: Alignment.centerRight,
+          child: OutlinedButton(
+            onPressed: isHintAvailable
+                ? () {
+                    onHintPressed();
+                  }
+                : null,
+            child: Text("Hinweis"),
+          ),
         ))
       ]),
     );
+  }
+}
+
+class DifficultyContainer extends StatelessWidget {
+  const DifficultyContainer({
+    super.key,
+    required this.displayedDifficulty,
+  });
+
+  final Difficulty displayedDifficulty;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(4.0),
+      // Make the container with rounded corners and a background color depending on the difficulty
+      decoration: BoxDecoration(
+        color: difficultyToColor(displayedDifficulty),
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: Center(child: Text(displayedDifficulty.toUiString()))
+    );
+  }
+
+  Color difficultyToColor(Difficulty difficulty) {
+    switch (difficulty) {
+      case Difficulty.easy:
+        return Color.fromARGB(255, 171, 238, 171);
+      case Difficulty.medium:
+        return Color.fromARGB(255, 225, 225, 152);
+      case Difficulty.hard:
+        return Color.fromARGB(255, 253, 190, 190);
+    }
   }
 }
 
@@ -421,9 +468,8 @@ class WordWrapper extends StatelessWidget {
           ? Theme.of(context).colorScheme.primaryContainer
           : Theme.of(context).colorScheme.secondaryContainer,
       elevation: hint != null ? 6.0 : 0.0,
-      backgroundColor: hint != null
-          ? hintColor
-          : Theme.of(context).colorScheme.background,
+      backgroundColor:
+          hint != null ? hintColor : Theme.of(context).colorScheme.background,
       shadowColor: hintColor,
       selectedShadowColor: hintColor,
       label: Text(

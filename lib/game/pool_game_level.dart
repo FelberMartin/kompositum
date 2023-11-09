@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
+import 'package:kompositum/game/level_provider.dart';
 
 import '../data/compound.dart';
 import 'hints/hint.dart';
@@ -12,11 +13,12 @@ class PoolGameLevel {
   final _unsolvedCompounds = <Compound>[];
   final shownComponents = <String>[];
   final hiddenComponents = <String>[];
+  final Difficulty displayedDifficulty;
 
   final hints = <Hint>[];
 
   PoolGameLevel(List<Compound> allCompounds,
-      {this.maxShownComponentCount = 11}) {
+      {this.maxShownComponentCount = 11, this.displayedDifficulty = Difficulty.easy}) {
     _allCompounds.addAll(allCompounds);
     _unsolvedCompounds.addAll(allCompounds);
     hiddenComponents
