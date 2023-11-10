@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:kompositum/data/compound.dart';
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
@@ -10,7 +11,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../test_data/compounds.dart';
 
-class MockPoolGenerator extends Mock implements CompoundPoolGenerator {}
+class MockPoolGenerator extends Mock implements CompoundPoolGenerator {
+  @override
+  List<Compound> getBlockedCompounds() {
+    return [];
+  }
+
+  @override
+  Future<void> setBlockedCompounds(List<String> blockedCompoundNames) {
+    return Future.value();
+  }
+}
 
 void main() {
   late MockPoolGenerator poolGenerator;

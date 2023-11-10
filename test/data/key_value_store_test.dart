@@ -58,6 +58,13 @@ void main() {
       final result = await sut.getBlockedCompounds(nameToCompound);
       expect(result, []);
     });
+
+    test("should return a list of the names of the compounds", () async {
+      final compounds = [Compounds.Apfelbaum, Compounds.Schneemann];
+      await sut.storeBlockedCompounds(compounds);
+      final result = await sut.getBlockedCompoundNames();
+      expect(result, ["Apfelbaum", "Schneemann"]);
+    });
   });
 
 }

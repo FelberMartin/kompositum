@@ -10,22 +10,12 @@ import '../level_provider.dart';
 
 abstract class CompoundPoolGenerator {
   final DatabaseInterface databaseInterface;
-  final KeyValueStore keyValueStore;
 
   final int blockLastN;
   final Queue<Compound> _blockedCompounds = Queue();
-  late Future<void> _loadingBlockedCompounds;
 
-  CompoundPoolGenerator(this.databaseInterface, this.keyValueStore,
-      {this.blockLastN = 50}){
-    _loadingBlockedCompounds = loadBlockedCompounds();
-  }
-
-  Future<void> loadBlockedCompounds() async {
-    final nameToCompound = databaseInterface.getCompoundByName;
-    final blockedCompounds = await keyValueStore.getBlockedCompounds(nameToCompound);
-    _blockedCompounds.addAll(blockedCompounds);
-  }
+  CompoundPoolGenerator(this.databaseInterface,
+      {this.blockLastN = 50});
 
   Future<List<Compound>> generateFromLevelSetup(LevelSetup levelSetup) {
     return generate(
@@ -41,15 +31,12 @@ abstract class CompoundPoolGenerator {
     int? seed,
   }) async {
     assert(compoundCount > 0);
-    await _loadingBlockedCompounds;
 
     final count = await databaseInterface.getCompoundCount();
     if (count < compoundCount) {
       throw Exception("Not enough compounds in database. "
           "Only $count compounds found, but $compoundCount compounds required.");
     }
-
-    keyValueStore.storeBlockedCompounds(_blockedCompounds.toList());
 
     final blockedCompounds = _blockedCompounds.toList();
     List<Compound> compounds = await generateRestricted(
@@ -82,5 +69,19 @@ abstract class CompoundPoolGenerator {
     for (int i = 0; i < removeCount; i++) {
       _blockedCompounds.removeFirst();
     }
+  }
+
+  Future<void> setBlockedCompounds(List<String> blockedCompoundNames) async {
+    _blockedCompounds.clear();
+    for (final blockedCompoundName in blockedCompoundNames) {
+      final compound = await databaseInterface.getCompoundByName(blockedCompoundName);
+      if (compound != null) {
+        _blockedCompounds.add(compound);
+      }
+    }
+  }
+
+  List<Compound> getBlockedCompounds() {
+    return _blockedCompounds.toList();
   }
 }

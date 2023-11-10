@@ -21,7 +21,7 @@ import '../../data/mock_database_interface.dart';
 import '../../test_data/compounds.dart';
 
 class MockCompoundPoolGenerator extends CompoundPoolGenerator {
-  MockCompoundPoolGenerator(super.databaseInterface, super.keyValueStore,
+  MockCompoundPoolGenerator(super.databaseInterface,
       {super.blockLastN});
 
   @override
@@ -62,18 +62,15 @@ class MockKeyValueStore extends Mock implements KeyValueStore {
 
 void main() {
   runGeneralPoolGeneratorTests((databaseInterface,
-          {KeyValueStore? keyValueStore,
-          int blockLastN = 50}) =>
+          {int blockLastN = 50}) =>
       MockCompoundPoolGenerator(
           databaseInterface,
-          keyValueStore ?? MockKeyValueStore(),
           blockLastN: blockLastN));
 }
 
 void runGeneralPoolGeneratorTests(
     Function(DatabaseInterface,
-            {KeyValueStore? keyValueStore,
-            int blockLastN})
+            {int blockLastN})
         createSut) {
   late CompoundPoolGenerator sut;
   late MockDatabaseInterface databaseInterface;
@@ -238,17 +235,12 @@ void runGeneralPoolGeneratorTests(
       expect(compounds2.length, 1);
     });
 
-    test("should not return a compound from the blocked compounds from the keyvalue store",
-        () async {
-      databaseInterface.compounds = [Compounds.Apfelbaum, Compounds.Schneemann];
-      final keyValueStore = MockKeyValueStore();
-      keyValueStore._blockedCompounds.add(Compounds.Apfelbaum);
-      sut = createSut(databaseInterface, keyValueStore: keyValueStore, blockLastN: 1);
-      final compounds1 = await sut.generate(
-        frequencyClass: CompactFrequencyClass.easy,
-        compoundCount: 1,
-      );
-      expect(compounds1.first, Compounds.Schneemann);
+    test("should set the compounds via the given list of names", () async {
+      databaseInterface.compounds = [Compounds.Apfelbaum];
+      sut = createSut(databaseInterface, blockLastN: 0);
+      await sut.setBlockedCompounds(["Apfelbaum"]);
+      final blockedCompounds = sut.getBlockedCompounds();
+      expect(blockedCompounds, [Compounds.Apfelbaum]);
     });
   });
 
@@ -261,7 +253,7 @@ void runGeneralPoolGeneratorTests(
 
     setupLocator();
     final poolGenerator = GraphBasedPoolGenerator(
-        locator<DatabaseInterface>(), MockKeyValueStore());
+        locator<DatabaseInterface>());
     final levelProvider = BasicLevelProvider();
 
     for (int level = 1; level < 30; level++) {

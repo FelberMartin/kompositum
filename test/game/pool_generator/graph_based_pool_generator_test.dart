@@ -11,18 +11,15 @@ import 'compound_pool_generator_test.dart';
 
 void main() {
   final databaseInterface = MockDatabaseInterface();
-  final keyValueStore = MockKeyValueStore();
   late CompoundPoolGenerator sut;
 
   runGeneralPoolGeneratorTests((
     databaseInterface,
     {
-      KeyValueStore? keyValueStore,
       int blockLastN = 50
     }) =>
       GraphBasedPoolGenerator(
           databaseInterface,
-          keyValueStore ?? MockKeyValueStore(),
           blockLastN: blockLastN
       )
   );
@@ -34,7 +31,7 @@ void main() {
       Compounds.Kuchenform,
       Compounds.Formsache
     ];
-    sut = GraphBasedPoolGenerator(databaseInterface, keyValueStore);
+    sut = GraphBasedPoolGenerator(databaseInterface);
     final compounds = await sut.generate(
       frequencyClass: CompactFrequencyClass.easy,
       compoundCount: 3,
@@ -44,7 +41,7 @@ void main() {
 
   test("should not return duplicates", () async {
     databaseInterface.compounds = [Compounds.Apfelkuchen, Compounds.Schneemann];
-    sut = GraphBasedPoolGenerator(databaseInterface, keyValueStore);
+    sut = GraphBasedPoolGenerator(databaseInterface);
     final compounds = await sut.generateRestricted(
       frequencyClass: CompactFrequencyClass.easy,
       compoundCount: 3,

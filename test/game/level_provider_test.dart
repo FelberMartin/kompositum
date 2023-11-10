@@ -55,7 +55,7 @@ void main() {
   /// Findings:
   /// - The chance of having no duplicates at level 6 is only ~30%.
   test(skip: true, "how many duplicates are there within the first 20 levels", () async {
-    final poolGenerator = GraphBasedPoolGenerator(locator<DatabaseInterface>(), locator<KeyValueStore>());
+    final poolGenerator = GraphBasedPoolGenerator(locator<DatabaseInterface>());
     sut = BasicLevelProvider();
 
     // Print the number of compounds in the easy frequency class

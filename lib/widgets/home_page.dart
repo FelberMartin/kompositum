@@ -64,10 +64,17 @@ class MyHomePageState extends State<MyHomePage> {
       levelNumber = value;
       updateGameToNewLevel(levelNumber);
     });
+    _keyValueStore.getBlockedCompoundNames().then((value) {
+      _poolGenerator.setBlockedCompounds(value);
+    });
   }
 
   void updateGameToNewLevel(int newLevelNumber) async {
     _keyValueStore.storeLevel(newLevelNumber);
+    // Save the blocked compounds BEFORE the generation of the new level,
+    // so that when regenerating the same level later, the same compounds
+    // are blocked.
+    _keyValueStore.storeBlockedCompounds(_poolGenerator.getBlockedCompounds());
     await Future.delayed(Duration(milliseconds: 500));
     setState(() {
       isLoading = true;

@@ -9,7 +9,7 @@ import '../compound_graph.dart';
 class GraphBasedPoolGenerator extends CompoundPoolGenerator {
   late final Future<CompoundGraph> _fullGraph;
 
-  GraphBasedPoolGenerator(super.databaseInterface, super.keyValueStore,
+  GraphBasedPoolGenerator(super.databaseInterface,
       {super.blockLastN}) {
     _fullGraph = _getFullGraph();
   }

@@ -2,7 +2,6 @@
 ## 1.0 Release
 ### Next up
 
-- Save blocked components to key Value store and load them at app start
 - How to deal with "Maschinenbau" <-> "Baumaschinen" ?
 - Add attempts counter 
 - Add second csv file with manually added compounds that were not in the dataset
