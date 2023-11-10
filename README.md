@@ -1,3 +1,5 @@
+[![test-my-app](https://github.com/FelberMartin/kompositum/actions/workflows/tests.yml/badge.svg)](https://github.com/FelberMartin/kompositum/actions/workflows/tests.yml)
+
 # app
 
 A new Flutter project.
