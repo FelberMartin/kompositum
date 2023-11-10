@@ -15,11 +15,14 @@ class MyHomePage extends StatefulWidget {
       {super.key,
       required this.title,
       required this.levelProvider,
-      required this.poolGenerator});
+      required this.poolGenerator,
+      required this.keyValueStore
+      });
 
   final String title;
   final LevelProvider levelProvider;
   final CompoundPoolGenerator poolGenerator;
+  final KeyValueStore keyValueStore;
 
   @override
   State<MyHomePage> createState() => MyHomePageState();
@@ -28,8 +31,8 @@ class MyHomePage extends StatefulWidget {
 class MyHomePageState extends State<MyHomePage> {
   late final LevelProvider _levelProvider = widget.levelProvider;
   late final CompoundPoolGenerator _poolGenerator = widget.poolGenerator;
+  late final KeyValueStore _keyValueStore = widget.keyValueStore;
   late PoolGameLevel _poolGameLevel;
-  late final KeyValueStore _keyValueStore;
 
   late int levelNumber;
   bool isLoading = true;
@@ -57,7 +60,6 @@ class MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    _keyValueStore = KeyValueStore();
     _keyValueStore.getLevel().then((value) {
       levelNumber = value;
       updateGameToNewLevel(levelNumber);

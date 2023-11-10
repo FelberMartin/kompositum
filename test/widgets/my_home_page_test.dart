@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 import 'package:kompositum/locator.dart';
@@ -14,6 +15,7 @@ class MockPoolGenerator extends Mock implements CompoundPoolGenerator {}
 void main() {
   late MockPoolGenerator poolGenerator;
   final levelProvider = BasicLevelProvider();
+  final keyValueStore = KeyValueStore();
 
   setUp(() {
     SharedPreferences.setMockInitialValues({});
@@ -25,7 +27,7 @@ void main() {
 
   testWidgets("After loading, the components are shown", (tester) async {
     await tester.pumpWidget(MaterialApp(
-        home: MyHomePage(title: "title", levelProvider: levelProvider, poolGenerator: poolGenerator)
+        home: MyHomePage(title: "title", levelProvider: levelProvider, poolGenerator: poolGenerator, keyValueStore: keyValueStore)
     ));
     await tester.pumpAndSettle();
 
@@ -34,7 +36,7 @@ void main() {
 
   // Test passes even if components are not shown in the app :(
   testWidgets(skip: true, "After finished the first level and waiting for loading, the seconds level's components are shown", (tester) async {
-    final homePage = MyHomePage(title: "title", levelProvider: levelProvider, poolGenerator: poolGenerator);
+    final homePage = MyHomePage(title: "title", levelProvider: levelProvider, poolGenerator: poolGenerator, keyValueStore: keyValueStore);
     await tester.pumpWidget(MaterialApp(home: homePage));
     await tester.pumpAndSettle();
 

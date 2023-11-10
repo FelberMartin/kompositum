@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kompositum/widgets/home_page.dart';
 
+import 'data/key_value_store.dart';
 import 'game/level_provider.dart';
 import 'game/pool_generator/compound_pool_generator.dart';
 import 'locator.dart';
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
       home: MyHomePage(
           title: 'Komposita: Wörter zusammensetzen',
           levelProvider: locator<LevelProvider>(),
-          poolGenerator: locator<CompoundPoolGenerator>()
+          poolGenerator: locator<CompoundPoolGenerator>(),
+          keyValueStore: locator<KeyValueStore>()
       ),
     );
   }

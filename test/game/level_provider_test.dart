@@ -1,5 +1,6 @@
 import 'package:graph_collection/graph.dart';
 import 'package:kompositum/data/database_interface.dart';
+import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/game/compact_frequency_class.dart';
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 import 'package:kompositum/game/pool_generator/graph_based_pool_generator.dart';
@@ -54,7 +55,7 @@ void main() {
   /// Findings:
   /// - The chance of having no duplicates at level 6 is only ~30%.
   test(skip: true, "how many duplicates are there within the first 20 levels", () async {
-    final poolGenerator = GraphBasedPoolGenerator(locator<DatabaseInterface>());
+    final poolGenerator = GraphBasedPoolGenerator(locator<DatabaseInterface>(), locator<KeyValueStore>());
     sut = BasicLevelProvider();
 
     // Print the number of compounds in the easy frequency class
