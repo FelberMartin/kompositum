@@ -21,18 +21,6 @@ class KeyValueStore {
     await prefs.setStringList("blockedCompounds", blockedCompoundNames);
   }
 
-  Future<List<Compound>> getBlockedCompounds(Future<Compound?> Function(String) nameToCompound) async {
-    final blockedCompoundNames = await getBlockedCompoundNames();
-    final blockedCompounds = <Compound>[];
-    for (final blockedCompoundName in blockedCompoundNames) {
-      final blockedCompound = await nameToCompound(blockedCompoundName);
-      if (blockedCompound != null) {
-        blockedCompounds.add(blockedCompound);
-      }
-    }
-    return blockedCompounds;
-  }
-
   Future<List<String>> getBlockedCompoundNames() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getStringList("blockedCompounds") ?? [];

@@ -37,25 +37,19 @@ void main() {
     test("should return the saved compound names", () async {
       final compounds = [Compounds.Apfelbaum, Compounds.Schneemann];
       await sut.storeBlockedCompounds(compounds);
-      nameToCompound(String name) =>
-          Future.value(Compounds.all.firstWhere((compound) => compound.name == name));
-      final result = await sut.getBlockedCompounds(nameToCompound);
-      expect(result, compounds);
+      final result = await sut.getBlockedCompoundNames();
+      expect(result, ["Apfelbaum", "Schneemann"]);
     });
 
     test("should return the saved compound names after startup", () async {
       SharedPreferences.setMockInitialValues({"blockedCompounds": ["Apfelbaum", "Schneemann"]});
-      nameToCompound(String name) =>
-          Future.value(Compounds.all.firstWhere((compound) => compound.name == name));
-      final result = await sut.getBlockedCompounds(nameToCompound);
-      expect(result, [Compounds.Apfelbaum, Compounds.Schneemann]);
+      final result = await sut.getBlockedCompoundNames();
+      expect(result, ["Apfelbaum", "Schneemann"]);
     });
 
     test("should return an empty list as a default value", () async {
       SharedPreferences.setMockInitialValues({});
-      nameToCompound(String name) =>
-          Future.value(Compounds.all.firstWhere((compound) => compound.name == name));
-      final result = await sut.getBlockedCompounds(nameToCompound);
+      final result = await sut.getBlockedCompoundNames();
       expect(result, []);
     });
 
