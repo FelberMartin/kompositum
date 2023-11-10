@@ -53,7 +53,7 @@ class DatabaseInterface {
   /// Get a compound with the given modifier and head. The modifier and
   /// head are not case sensitive.
   /// If no compound with the given modifier and head exists, null is returned.
-  Future<Compound?> getCompound(String modifier, String head) async {
+  Future<Compound?> getCompoundCaseInsensitive(String modifier, String head) async {
     final db = await _database;
     List<Map<String, dynamic>> maps;
 
@@ -68,10 +68,26 @@ class DatabaseInterface {
     } else {
       maps = await db.query(
       'compounds',
-      where: 'UPPER(modifier) = ? AND UPPER(head) = ?',
-      whereArgs: [modifier.toUpperCase(), head.toUpperCase()],
+      where: 'LOWER(modifier) = ? AND LOWER(head) = ?',
+      whereArgs: [modifier.toLowerCase(), head.toLowerCase()],
       );
     }
+
+    if (maps.isEmpty) {
+      return null;
+    }
+    return Compound.fromMap(maps.first);
+  }
+
+  /// Get a compound with the given modifier and head.
+  /// If no compound with the given modifier and head exists, null is returned.
+  Future<Compound?> getCompound(String modifier, String head) async {
+    final db = await _database;
+    final maps = await db.query(
+      'compounds',
+      where: 'modifier = ? AND head = ?',
+      whereArgs: [modifier, head],
+    );
 
     if (maps.isEmpty) {
       return null;

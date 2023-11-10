@@ -53,6 +53,38 @@ void main() {
   });
 
   group("getCompound", () {
+    setUp(() =>
+    {
+      when(() => compoundOrigin.getCompounds())
+          .thenAnswer((_) async => [Compounds.Apfelbaum])
+    });
+
+    test(
+      "should return the compound with the given modifier and head",
+          () async {
+        final compound = await sut.getCompound("Apfel", "Baum");
+        expect(compound, Compounds.Apfelbaum);
+      },
+    );
+
+    test(
+      "should return null if no compound with the given modifier and head exists",
+          () async {
+        final compound = await sut.getCompound("Sand", "Burg");
+        expect(compound, isNull);
+      },
+    );
+
+    test(
+      "should return null if the modifier is empty",
+          () async {
+        final compound = await sut.getCompound("", "Baum");
+        expect(compound, isNull);
+      },
+    );
+  });
+
+  group("getCompoundCaseInsensitive", () {
     setUp(() => {
           when(() => compoundOrigin.getCompounds())
               .thenAnswer((_) async => [Compounds.Apfelbaum])
@@ -61,7 +93,7 @@ void main() {
     test(
       "should return the compound with the given modifier and head",
       () async {
-        final compound = await sut.getCompound("Apfel", "Baum");
+        final compound = await sut.getCompoundCaseInsensitive("Apfel", "Baum");
         expect(compound, Compounds.Apfelbaum);
       },
     );
@@ -69,7 +101,7 @@ void main() {
     test(
       "should return null if no compound with the given modifier and head exists",
       () async {
-        final compound = await sut.getCompound("Sand", "Burg");
+        final compound = await sut.getCompoundCaseInsensitive("Sand", "Burg");
         expect(compound, isNull);
       },
     );
@@ -77,7 +109,7 @@ void main() {
     test(
       "should return null if the modifier is empty",
       () async {
-        final compound = await sut.getCompound("", "Baum");
+        final compound = await sut.getCompoundCaseInsensitive("", "Baum");
         expect(compound, isNull);
       },
     );
@@ -85,16 +117,23 @@ void main() {
     test(
       "should not be case sensitive",
       () async {
-        final compound = await sut.getCompound("apfel", "baum");
+        final compound = await sut.getCompoundCaseInsensitive("apfel", "baum");
         expect(compound, Compounds.Apfelbaum);
       },
     );
 
-    test("edgecase: Frühschoppen", () async {
+    test("edgecase: Frühschoppen, should not crash", () async {
       when(() => compoundOrigin.getCompounds())
           .thenAnswer((_) async => [Compounds.Fruehschoppen]);
-      final compound = await sut.getCompound("früh", "Schoppen");
+      final compound = await sut.getCompoundCaseInsensitive("früh", "Schoppen");
       expect(compound, Compounds.Fruehschoppen);
+    });
+
+    test("edgecase: Überdachung, should not crash", () async {
+      when(() => compoundOrigin.getCompounds())
+          .thenAnswer((_) async => [Compounds.Ueberdachung]);
+      final compound = await sut.getCompoundCaseInsensitive("Über", "Dach");
+      expect(compound, Compounds.Ueberdachung);
     });
   });
 

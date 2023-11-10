@@ -17,7 +17,7 @@ class MockDatabaseInterface implements DatabaseInterface {
   }
 
   @override
-  Future<Compound?> getCompound(String modifier, String head) {
+  Future<Compound?> getCompoundCaseInsensitive(String modifier, String head) {
     return Future.value(compounds.firstWhereOrNull((compound) =>
     compound.modifier == modifier && compound.head == head));
   }
@@ -73,5 +73,11 @@ class MockDatabaseInterface implements DatabaseInterface {
   Future<Compound?> getRandomCompoundRestricted({required int? maxFrequencyClass, List<String> forbiddenComponents = const []}) {
     // TODO: implement getRandomCompoundRestricted
     throw UnimplementedError();
+  }
+
+  @override
+  Future<Compound?> getCompound(String modifier, String head) {
+    return Future.value(compounds.firstWhereOrNull((compound) =>
+    compound.modifier == modifier && compound.head == head));
   }
 }

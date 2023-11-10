@@ -72,6 +72,13 @@ class Compounds {
     frequencyClass: 1,
   );
 
+  static const Ueberdachung = Compound(
+    name: "Überdachung",
+    modifier: "Über",
+    head: "Dach",
+    frequencyClass: 1,
+  );
+
   static const all = [
     Krankenhaus,
     Spielplatz,

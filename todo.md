@@ -3,8 +3,11 @@
 ### Next up
 
 - Save blocked components to key Value store and load them at app start
+- How to deal with "Maschinenbau" <-> "Baumaschinen" ?
 - Add attempts counter 
 - Add second csv file with manually added compounds that were not in the dataset
+- Make the graph case insensitive?
+- Collect stars with each word + level
 
 ### Later
 - Optimize database loading speed
@@ -15,6 +18,7 @@
 - Implement design in flutter
 - App icon
 - App name
+- Large Texts in the Chips/Animation
 
 ### Daily levels
 - Prepare backend
@@ -31,7 +35,6 @@
 - English compounds?
 
 # Bugs
-- How to deal with "Maschinenbau" <-> "Baumaschinen" ?
 - App is blackscreen when restarting it on phone (just a long loading time?)
 - When restarting the app the lastNCompounds of the Pool generator are not remembered
   -> The levels are now different too, because the input compounds are different depending on 
