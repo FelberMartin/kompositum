@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
 import 'package:kompositum/game/level_provider.dart';
+import 'package:kompositum/game/swappable_detector.dart';
 
 import '../data/compound.dart';
 import 'hints/hint.dart';
@@ -11,14 +12,20 @@ class PoolGameLevel {
 
   final _allCompounds = <Compound>[];
   final _unsolvedCompounds = <Compound>[];
+  final List<Swappable> swappableCompounds;
+
   final shownComponents = <String>[];
   final hiddenComponents = <String>[];
-  final Difficulty displayedDifficulty;
 
+  final Difficulty displayedDifficulty;
   final hints = <Hint>[];
 
-  PoolGameLevel(List<Compound> allCompounds,
-      {this.maxShownComponentCount = 11, this.displayedDifficulty = Difficulty.easy}) {
+  PoolGameLevel(
+      List<Compound> allCompounds,
+      { this.maxShownComponentCount = 11,
+        this.displayedDifficulty = Difficulty.easy,
+        this.swappableCompounds = const []
+      }) {
     _allCompounds.addAll(allCompounds);
     _unsolvedCompounds.addAll(allCompounds);
     hiddenComponents
@@ -39,11 +46,24 @@ class PoolGameLevel {
   }
 
   void removeCompoundFromShown(Compound compound) {
-    _removeHintsForCompound(compound);
-    shownComponents.remove(compound.modifier);
-    shownComponents.remove(compound.head);
-    _unsolvedCompounds.remove(compound);
+    final compoundToRemove = _findCompoundToRemove(compound);
+    if (compoundToRemove == null) {
+      return;
+    }
+    _removeHintsForCompound(compoundToRemove);
+    shownComponents.remove(compoundToRemove.modifier);
+    shownComponents.remove(compoundToRemove.head);
+    _unsolvedCompounds.remove(compoundToRemove);
     _fillShownComponents();
+  }
+
+  Compound? _findCompoundToRemove(Compound compound) {
+    Compound? compoundToRemove = _allCompounds.firstWhereOrNull((comp) => comp == compound);
+    if (compoundToRemove != null) {
+      return compoundToRemove;
+    }
+    return swappableCompounds
+        .firstWhereOrNull((swappable) => swappable.swapped == compound)?.original;
   }
 
   void _removeHintsForCompound(Compound compound) {
@@ -55,8 +75,17 @@ class PoolGameLevel {
   }
 
   Compound? getCompoundIfExisting(String modifier, String head) {
-    return _allCompounds.firstWhereOrNull(
+    final originalCompound = _allCompounds.firstWhereOrNull(
         (compound) => compound.modifier == modifier && compound.head == head);
+    if (originalCompound != null) {
+      return originalCompound;
+    }
+    final swappedCompound = swappableCompounds.firstWhereOrNull(
+        (swappable) => swappable.swapped.modifier == modifier && swappable.swapped.head == head);
+    if (swappedCompound != null) {
+      return swappedCompound.swapped;
+    }
+    return null;
   }
 
   bool isLevelFinished() {

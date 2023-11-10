@@ -2,10 +2,8 @@
 ## 1.0 Release
 ### Next up
 
-- How to deal with "Maschinenbau" <-> "Baumaschinen" ?
 - Add attempts counter 
 - Add second csv file with manually added compounds that were not in the dataset
-- Make the graph case insensitive?
 - Collect stars with each word + level
 
 ### Later
@@ -25,9 +23,7 @@
 - Calendar
 
 ### Misc
-- Make the shuffling of the components in the UI dependent on seed?
-    + Different experience from user to user
-    - When exiting the app and doing the same level again, other components are shown
+- Make the graph case insensitive? Would maybe result in less reported conflicts
 - Feature idea: when selecting a compound that is not recognized, option to send report
   - eg via firebase take request and store unknown compounds
   - UI: "an + Sicht should result in which compound? _____ Submit"

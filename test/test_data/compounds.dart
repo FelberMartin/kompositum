@@ -79,6 +79,20 @@ class Compounds {
     frequencyClass: 1,
   );
 
+  static const Maschinenbau = Compound(
+    name: "Maschinenbau",
+    modifier: "Maschine",
+    head: "Bau",
+    frequencyClass: 1,
+  );
+
+  static const Baumaschine = Compound(
+    name: "Baumaschine",
+    modifier: "Bau",
+    head: "Maschine",
+    frequencyClass: 1,
+  );
+
   static const all = [
     Krankenhaus,
     Spielplatz,

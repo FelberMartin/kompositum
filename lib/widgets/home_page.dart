@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
+import 'package:kompositum/game/swappable_detector.dart';
 
 import '../game/hints/hint.dart';
 import '../game/level_provider.dart';
@@ -33,6 +34,7 @@ class MyHomePageState extends State<MyHomePage> {
   late final CompoundPoolGenerator _poolGenerator = widget.poolGenerator;
   late final KeyValueStore _keyValueStore = widget.keyValueStore;
   late PoolGameLevel _poolGameLevel;
+  late final SwappableDetector _swappableDetector = locator<SwappableDetector>();
 
   late int levelNumber;
   bool isLoading = true;
@@ -83,10 +85,13 @@ class MyHomePageState extends State<MyHomePage> {
     print("Generating new pool for new level");
     final levelSetup = _levelProvider.generateLevelSetup(levelNumber);
     final compounds = await _poolGenerator.generateFromLevelSetup(levelSetup);
+    final swappables = await _swappableDetector.getSwappables(compounds);
     print("Finished new pool for new level");
     _poolGameLevel = PoolGameLevel(compounds,
         maxShownComponentCount: levelSetup.maxShownComponentCount,
-        displayedDifficulty: levelSetup.displayedDifficulty);
+        displayedDifficulty: levelSetup.displayedDifficulty,
+        swappableCompounds: swappables,
+    );
     setState(() {
       isLoading = false;
     });

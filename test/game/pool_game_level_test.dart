@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:kompositum/game/hints/hint.dart';
 import 'package:kompositum/game/pool_game_level.dart';
+import 'package:kompositum/game/swappable_detector.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
@@ -31,6 +32,20 @@ void main() {
       final result = sut.getCompoundIfExisting("krank", "Baum");
       expect(result, isNull);
     });
+
+    test("should return the swapped compound if it exists", () {
+      sut = PoolGameLevel([Compounds.Maschinenbau], swappableCompounds: [Swappable(Compounds.Maschinenbau, Compounds.Baumaschine)]);
+      final result = sut.getCompoundIfExisting("Bau", "Maschine");
+      expect(result, isNotNull);
+      expect(result, Compounds.Baumaschine);
+    });
+
+    test("should return the compound and not the swapped version if entered non-swapped", () {
+      sut = PoolGameLevel([Compounds.Maschinenbau], swappableCompounds: [Swappable(Compounds.Maschinenbau, Compounds.Baumaschine)]);
+      final result = sut.getCompoundIfExisting("Maschine", "Bau");
+      expect(result, isNotNull);
+      expect(result, Compounds.Maschinenbau);
+    });
   });
 
   group("removeCompoundFromShown", () {
@@ -47,6 +62,12 @@ void main() {
       sut = PoolGameLevel([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 2);
       sut.removeCompoundFromShown(Compounds.Krankenhaus);
       expect(sut.shownComponents, isNotEmpty);
+    });
+
+    test("should remove the original of the swapped compound if it exists", () {
+      sut = PoolGameLevel([Compounds.Maschinenbau], swappableCompounds: [Swappable(Compounds.Maschinenbau, Compounds.Baumaschine)]);
+      sut.removeCompoundFromShown(Compounds.Baumaschine);
+      expect(sut.shownComponents, isEmpty);
     });
   });
 
