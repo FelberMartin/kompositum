@@ -1,4 +1,4 @@
-<a href="https://github.com/FelberMartin/kompositum/actions"><img src="https://github.com/[USER_NAME]/[REPO_NAME]/workflows/test-my-app/badge.svg" alt="Build Status"></a>
+[![test-my-app](https://github.com/FelberMartin/kompositum/actions/workflows/tests.yml/badge.svg)](https://github.com/FelberMartin/kompositum/actions/workflows/tests.yml)
 
 # app
 
