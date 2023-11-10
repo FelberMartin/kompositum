@@ -95,6 +95,22 @@ class DatabaseInterface {
     return Compound.fromMap(maps.first);
   }
 
+  /// Get the compound with the given name. If no compound with the given name
+  /// exists, null is returned.
+  Future<Compound?> getCompoundByName(String name) async {
+    final db = await _database;
+    final maps = await db.query(
+      'compounds',
+      where: 'name = ?',
+      whereArgs: [name],
+    );
+
+    if (maps.isEmpty) {
+      return null;
+    }
+    return Compound.fromMap(maps.first);
+  }
+
   /// Get a random compound with a frequency class lower or equal to the given
   /// frequency class. Additionally, the compound must not contain any of the
   /// given forbidden components in the head or modifier. These [forbiddenComponents]

@@ -13,7 +13,11 @@ abstract class CompoundPoolGenerator {
   final int blockLastN;
   final Queue<Compound> _blockedCompounds = Queue();
 
-  CompoundPoolGenerator(this.databaseInterface, {this.blockLastN = 50});
+  CompoundPoolGenerator(this.databaseInterface,
+      {List<Compound> blockedCompounds = const [],
+      this.blockLastN = 50}) {
+    _blockedCompounds.addAll(blockedCompounds);
+  }
 
   Future<List<Compound>> generateFromLevelSetup(LevelSetup levelSetup) {
     return generate(

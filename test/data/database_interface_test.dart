@@ -137,6 +137,29 @@ void main() {
     });
   });
 
+  group("getCompoundByName", () {
+    setUp(() => {
+      when(() => compoundOrigin.getCompounds())
+          .thenAnswer((_) async => [Compounds.Apfelbaum])
+    });
+
+    test(
+      "should return the compound with the given name",
+      () async {
+        final compound = await sut.getCompoundByName("Apfelbaum");
+        expect(compound, Compounds.Apfelbaum);
+      },
+    );
+
+    test(
+      "should return null if no compound with the given name exists",
+      () async {
+        final compound = await sut.getCompoundByName("Sandburg");
+        expect(compound, isNull);
+      },
+    );
+  });
+
   group("getRandomCompoundRestricted", () {
     test("should return null if no compound with the given restrictions exists",
         () async {

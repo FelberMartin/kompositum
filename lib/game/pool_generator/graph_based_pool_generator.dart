@@ -7,27 +7,30 @@ import '../compact_frequency_class.dart';
 import '../compound_graph.dart';
 
 class GraphBasedPoolGenerator extends CompoundPoolGenerator {
-
   late final Future<CompoundGraph> _fullGraph;
 
-  GraphBasedPoolGenerator(databaseInterface, {int blockLastN = 50}) : super(databaseInterface, blockLastN: blockLastN) {
+  GraphBasedPoolGenerator(databaseInterface,
+      {int blockLastN = 50, List<Compound> blockedCompounds = const []})
+      : super(databaseInterface, blockLastN: blockLastN) {
     _fullGraph = _getFullGraph();
   }
 
   Future<CompoundGraph> _getFullGraph() async {
-    return CompoundGraph.fromCompounds(await databaseInterface.getAllCompounds());
+    return CompoundGraph.fromCompounds(
+        await databaseInterface.getAllCompounds());
   }
 
   @override
   Future<List<Compound>> generateRestricted(
       {required int compoundCount,
-        required CompactFrequencyClass frequencyClass,
-        List<Compound> blockedCompounds = const [],
-        int? seed}) async {
+      required CompactFrequencyClass frequencyClass,
+      List<Compound> blockedCompounds = const [],
+      int? seed}) async {
     final stopWatch = Stopwatch()..start();
     final fullGraph = await _fullGraph;
 
-    var selectableCompounds = await databaseInterface.getCompoundsByCompactFrequencyClass(frequencyClass);
+    var selectableCompounds = await databaseInterface
+        .getCompoundsByCompactFrequencyClass(frequencyClass);
     final selectableGraph = CompoundGraph.fromCompounds(selectableCompounds);
 
     for (final blockedCompound in blockedCompounds) {
@@ -42,7 +45,8 @@ class GraphBasedPoolGenerator extends CompoundPoolGenerator {
       if (pair == null) {
         break;
       }
-      final compound = await databaseInterface.getCompoundCaseInsensitive(pair.$1, pair.$2);
+      final compound =
+          await databaseInterface.getCompoundCaseInsensitive(pair.$1, pair.$2);
       if (compound == null) {
         throw Exception("Compound not found: ${pair.$1}+${pair.$2}");
       }
@@ -51,10 +55,9 @@ class GraphBasedPoolGenerator extends CompoundPoolGenerator {
       selectableGraph.removeComponents(conflicts);
     }
 
-    print("Remaining selectable compounds: ${selectableGraph.getAllComponents().length} (took ${stopWatch.elapsedMilliseconds} ms)");
+    print(
+        "Remaining selectable compounds: ${selectableGraph.getAllComponents().length} (took ${stopWatch.elapsedMilliseconds} ms)");
 
     return compounds;
   }
-
-
 }

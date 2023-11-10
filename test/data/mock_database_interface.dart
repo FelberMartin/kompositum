@@ -80,4 +80,11 @@ class MockDatabaseInterface implements DatabaseInterface {
     return Future.value(compounds.firstWhereOrNull((compound) =>
     compound.modifier == modifier && compound.head == head));
   }
+
+  @override
+  Future<Compound?> getCompoundByName(String name) {
+    return Future.value(compounds.firstWhereOrNull((compound) =>
+    compound.name == name));
+  }
+
 }

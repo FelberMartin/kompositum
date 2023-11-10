@@ -20,25 +20,40 @@ import '../../data/mock_database_interface.dart';
 import '../../test_data/compounds.dart';
 
 class MockCompoundPoolGenerator extends CompoundPoolGenerator {
-  MockCompoundPoolGenerator(databaseInterface, {int blockLastN = 50}) : super(databaseInterface, blockLastN: blockLastN);
+  MockCompoundPoolGenerator(databaseInterface,
+      {List<Compound> blockedCompounds = const [], int blockLastN = 50})
+      : super(databaseInterface, blockedCompounds: blockedCompounds,
+      blockLastN: blockLastN);
 
 
   @override
-  Future<List<Compound>> generateRestricted({required int compoundCount, required CompactFrequencyClass frequencyClass, List<Compound> blockedCompounds = const [], int? seed}) async {
-    var possibleCompounds = await databaseInterface.getCompoundsByCompactFrequencyClass(frequencyClass);
-    possibleCompounds = possibleCompounds.where((compound) => !blockedCompounds.contains(compound)).toList();
+  Future<List<Compound>> generateRestricted(
+      {required int compoundCount, required CompactFrequencyClass frequencyClass, List<
+          Compound> blockedCompounds = const [], int? seed}) async {
+    var possibleCompounds = await databaseInterface
+        .getCompoundsByCompactFrequencyClass(frequencyClass);
+    possibleCompounds =
+        possibleCompounds.where((compound) => !blockedCompounds.contains(
+            compound)).toList();
     final random = seed == null ? Random() : Random(seed);
-    final sample = randomSampleWithoutReplacement(possibleCompounds, compoundCount, random: random);
+    final sample = randomSampleWithoutReplacement(
+        possibleCompounds, compoundCount, random: random);
     return Future.value(sample);
   }
 
 }
 
 void main() {
-  runGeneralPoolGeneratorTests((databaseInterface, {int blockLastN = 50}) => MockCompoundPoolGenerator(databaseInterface, blockLastN: blockLastN));
+  runGeneralPoolGeneratorTests(
+          (databaseInterface,
+          {List<Compound> blockedCompounds = const[], int blockLastN = 50}) =>
+          MockCompoundPoolGenerator(
+              databaseInterface, blockedCompounds: blockedCompounds,
+              blockLastN: blockLastN));
 }
 
-void runGeneralPoolGeneratorTests(Function(DatabaseInterface, {int blockLastN}) createSut) {
+void runGeneralPoolGeneratorTests(Function(DatabaseInterface, {List<
+    Compound> blockedCompounds, int blockLastN}) createSut) {
   late CompoundPoolGenerator sut;
   late MockDatabaseInterface databaseInterface;
 
@@ -143,7 +158,9 @@ void runGeneralPoolGeneratorTests(Function(DatabaseInterface, {int blockLastN}) 
           );
           returnedPools.add(pool.first);
         }
-        expect(returnedPools.toSet().length, 1);
+        expect(returnedPools
+            .toSet()
+            .length, 1);
       },
     );
 
@@ -171,7 +188,8 @@ void runGeneralPoolGeneratorTests(Function(DatabaseInterface, {int blockLastN}) 
   });
 
   group("blocking", () {
-    test("should return a smaller list if it would lead to repetitions", () async {
+    test(
+        "should return a smaller list if it would lead to repetitions", () async {
       databaseInterface.compounds = [Compounds.Apfelbaum];
       sut = createSut(databaseInterface, blockLastN: 1);
       final compounds1 = await sut.generate(
@@ -200,25 +218,41 @@ void runGeneralPoolGeneratorTests(Function(DatabaseInterface, {int blockLastN}) 
       expect(compounds1.length, 1);
       expect(compounds2.length, 1);
     });
+
+    test("should not return a compound in the blocked compounds list", () async {
+      databaseInterface.compounds = [Compounds.Apfelbaum, Compounds.Schneemann];
+      sut = createSut(databaseInterface, blockLastN: 1, blockedCompounds: [
+        Compounds.Apfelbaum
+      ]);
+      final compounds1 = await sut.generate(
+        frequencyClass: CompactFrequencyClass.easy,
+        compoundCount: 1,
+      );
+      expect(compounds1.first, Compounds.Schneemann);
+    });
   });
 
   // This is a exploratory test, it does not test a specific behavior
-  test(skip: true, "print the generation times for the first 30 levels", () async {
-    // Init ffi database
-    sqfliteFfiInit();
-    databaseFactory = databaseFactoryFfi;
+  test(skip: true,
+      "print the generation times for the first 30 levels", () async {
+        // Init ffi database
+        sqfliteFfiInit();
+        databaseFactory = databaseFactoryFfi;
 
-    setupLocator();
-    final poolGenerator = GraphBasedPoolGenerator(locator<DatabaseInterface>());
-    final levelProvider = BasicLevelProvider();
+        setupLocator();
+        final poolGenerator = GraphBasedPoolGenerator(
+            locator<DatabaseInterface>());
+        final levelProvider = BasicLevelProvider();
 
-    for (int level = 1; level < 30; level++) {
-      final stopwatch = Stopwatch()..start();
-      final levelSetup = levelProvider.generateLevelSetup(level);
-      final compounds = await poolGenerator.generateFromLevelSetup(levelSetup);
-      print("Level $level: ${stopwatch.elapsedMilliseconds}ms");
-    }
+        for (int level = 1; level < 30; level++) {
+          final stopwatch = Stopwatch()
+            ..start();
+          final levelSetup = levelProvider.generateLevelSetup(level);
+          final compounds = await poolGenerator.generateFromLevelSetup(
+              levelSetup);
+          print("Level $level: ${stopwatch.elapsedMilliseconds}ms");
+        }
 
-    expect(true, true);
-  });
+        expect(true, true);
+      });
 }
