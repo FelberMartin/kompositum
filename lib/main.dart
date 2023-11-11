@@ -4,6 +4,7 @@ import 'package:kompositum/widgets/home_page.dart';
 import 'data/key_value_store.dart';
 import 'game/level_provider.dart';
 import 'game/pool_generator/compound_pool_generator.dart';
+import 'game/swappable_detector.dart';
 import 'locator.dart';
 
 void main() {
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
           title: 'Komposita: Wörter zusammensetzen',
           levelProvider: locator<LevelProvider>(),
           poolGenerator: locator<CompoundPoolGenerator>(),
-          keyValueStore: locator<KeyValueStore>()
+          keyValueStore: locator<KeyValueStore>(),
+          swappableDetector: locator<SwappableDetector>(),
       ),
     );
   }

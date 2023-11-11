@@ -17,13 +17,15 @@ class MyHomePage extends StatefulWidget {
       required this.title,
       required this.levelProvider,
       required this.poolGenerator,
-      required this.keyValueStore
+      required this.keyValueStore,
+      required this.swappableDetector
       });
 
   final String title;
   final LevelProvider levelProvider;
   final CompoundPoolGenerator poolGenerator;
   final KeyValueStore keyValueStore;
+  final SwappableDetector swappableDetector;
 
   @override
   State<MyHomePage> createState() => MyHomePageState();
@@ -32,9 +34,9 @@ class MyHomePage extends StatefulWidget {
 class MyHomePageState extends State<MyHomePage> {
   late final LevelProvider _levelProvider = widget.levelProvider;
   late final CompoundPoolGenerator _poolGenerator = widget.poolGenerator;
+  late final SwappableDetector _swappableDetector = widget.swappableDetector;
   late final KeyValueStore _keyValueStore = widget.keyValueStore;
   late PoolGameLevel _poolGameLevel;
-  late final SwappableDetector _swappableDetector = locator<SwappableDetector>();
 
   late int levelNumber;
   bool isLoading = true;
