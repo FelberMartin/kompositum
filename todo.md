@@ -16,6 +16,7 @@
 - App icon
 - App name
 - Large Texts in the Chips/Animation
+- Sound Design
 
 ### Daily levels
 - Prepare backend
