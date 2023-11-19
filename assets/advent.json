@@ -1,0 +1,143 @@
+[
+  {
+    "day": 1,
+    "image": "antlers_poster",
+    "data": [
+      [
+        ["Kinofilm", "Kino", "Film"],
+        ["Erstes Date 🥰", "erster", "Date"],
+        ["Gruselfilm", "gruseln", "Film"],
+        ["Autofahrt", "Auto", "Fahrt"],
+        ["Baustelle", "bauen", "Stelle"],
+        ["Ingolstadt wollt ich dir eh mal zeigen", "Ingol", "Stadt"],
+        ["Jumpscare", "jump", "scare"],
+        ["Umweg quasi nicht vorhanden 🌚", "um", "Weg"],
+        ["Antlers", "ant", "lers"],
+        ["Pfaffenhofen", "Pfaffe", "Hof"]
+      ]
+    ]
+  },
+  {
+    "day": 2,
+    "image": "schlittschuh",
+    "data": [
+      [
+        ["Schlittschuh", "Schlitten", "Schuh"],
+        ["Moosburg", "Moos", "Burg"],
+        ["Schlittschuhverleih war zu :(", "Schlittschuh", "Verleih"],
+        ["Isarspaziergang", "Isar", "Spaziergang"],
+        ["ich bin nie hingefallen 🌚", "nie", "hinfallen"],
+        ["Freising", "frei", "singen"],
+        ["Einsteinkarten vom Broksch", "Einstein", "Karte"],
+        ["eiskalt", "eis", "kalt"]
+      ]
+    ],
+    "sentence": {
+      "separator": "-",
+      "total": "Glyco-syl-phosphat-idyl-ino-sitol-Anker"
+    }
+  },
+  {
+    "day": 3,
+    "image": "sylvester2021",
+    "data": [
+      [
+        ["Spaziergang", "spazieren", "Gang"],
+        ["Wastlhund", "Wastl", "Hund"],
+        ["ich bin ein Navigationstalent", "Navigation", "Talent"],
+        ["Waldweg", "Wald", "Weg"],
+        ["Bettkuscheln", "Bett", "kuscheln"],
+        ["Abiturzeitung", "Abitur", "Zeitung"],
+        ["in Grünberg", "grün", "Berg"]
+      ],
+      [
+        ["Sylvester 2021", "Sylvester", "2021"],
+        ["Partynacht", "Party", "Nacht"],
+        ["Feuerwerk", "Feuer", "Werk"],
+        ["in Reichertshausen", "reich", "Haus"],
+        ["1. Bussibuidl", "Bussi", "Buidl"],
+        ["Frohes Neues", "froh", "Neu"],
+        ["1. nebeneinander aufwachen 💞", "nebeneinander", "aufwachen"]
+      ]
+    ]
+  },
+  {
+    "day": 4,
+    "image": "skifahren_arber",
+    "data": [
+      [
+        ["Skifahren", "Ski", "fahren"],
+        ["Großer Arber", "groß", "aber"],
+        ["meine persönliche Skilehrerin 😍", "persönlich", "Skilehrerin"],
+        ["bin 4mal Hingefallen", "hin", "fallen"],
+        ["Bayerischer Wald", "bayerisch", "Wald"],
+        ["Skihose von deinem Papa", "Skihose", "Papa"],
+        ["früh aufstehen", "früh", "aufstehen"],
+        ["Muskelkater", "Muskel", "Kater"]
+      ]
+    ]
+  },
+  {
+    "day": 5,
+    "image": "ball_nandlstadt",
+    "data": [
+      [
+        ["Faschingsball", "Fasching", "Ball"],
+        ["Sonnenbrand", "Sonne", "Brand"],
+        ["unterm Hopfenausputzen", "Hopfen", "ausputzen"],
+        ["Nandlstadt", "Nandl", "Stadt"],
+        ["Tanzbein schwingen", "Tanz", "Bein"],
+        ["Hammerkleid 😍", "Hammer", "Kleid"],
+        ["Discofox", "Diskothek", "Fuchs"],
+        ["Hab extra an neuen Anzug gekauft", "an", "ziehen"]
+      ],
+      [
+        ["Herbarium", "Herr", "barium"],
+        ["Blumensammeln", "Blume", "sammeln"],
+        ["Viele Spaziergänge", "spazieren", "Gang"],
+        ["Spitz- und Breitwegerich :D", "Weg", "Erik"],
+        ["Zimmer voller Fotoalben", "Foto", "Album"],
+        ["Hamma de scho?", "Hammer", "schon"],
+        ["Habichtskraut", "Habicht", "Kraut"],
+        ["rote Spornblume", "Sporn", "Blume"]
+      ]
+    ]
+  },
+  {
+    "day": 6,
+    "image": "friends",
+    "data": [
+      [
+        ["in Freising", "frei", "singen"],
+        ["Kletterzentrum", "klettern", "Zentrum"],
+        ["Keksteig", "kek", "Steig"],
+        ["Muskelkater", "Muskel", "Kater"],
+        ["mit Boulder-Begeisterung anstecken", "Boulder", "Begeisterung"],
+        ["Du bist wirklich mitgekommen 🥰", "mit", "kommen"],
+        ["mit dem Blümchenbus", "Blume", "Bus"],
+        ["Henkelgriffe", "Henkel", "Griff"],
+        ["Fußtritt", "Fuß", "Tritt"]
+      ],
+      [
+        ["Fernsehen", "fern", "sehen"],
+        ["manchmal gabs Ablenkungen ^^", "ab", "lenken"],
+        ["Netflix", "Netz", "zackig"],
+        ["Rachel Green", "Rachel", "Green"],
+        ["Phoebe Buffay", "Phoebe", "Buffay"],
+        ["Chandler Bing", "Chandler", "Bing"],
+        ["Ross Geller", "Ross", "Geller"],
+        ["Monica Geller", "Monica", "Geller"],
+        ["Joey Tribbiani", "Joey", "Tribbiani"]
+      ]
+    ]
+  },
+  {
+    "day": 7,
+    "image": "bodensee",
+    "data": [
+      [
+
+      ]
+    ]
+  }
+]
