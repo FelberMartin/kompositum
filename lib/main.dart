@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kompositum/widgets/advent_page.dart';
 import 'package:kompositum/widgets/home_page.dart';
 
 import 'data/key_value_store.dart';
@@ -25,13 +26,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
         useMaterial3: true,
       ),
-      home: MyHomePage(
-          title: 'Komposita: Wörter zusammensetzen',
-          levelProvider: locator<LevelProvider>(),
-          poolGenerator: locator<CompoundPoolGenerator>(),
-          keyValueStore: locator<KeyValueStore>(),
-          swappableDetector: locator<SwappableDetector>(),
-      ),
+      home: AdventPage(),
     );
   }
 }

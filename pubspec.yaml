@@ -71,6 +71,7 @@ flutter:
   assets:
     - assets/filtered_compounds.csv
     - test/test_data/test_compounds.csv
+    - assets/background.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:
