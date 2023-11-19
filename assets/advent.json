@@ -133,10 +133,46 @@
   },
   {
     "day": 7,
-    "image": "bodensee",
+    "image": "chiemsee",
     "data": [
       [
-
+        ["Chiemsee", "Kiemen", "See"],
+        ["Wimmer Maschinenbau", "Wimmer", "Maschinenbau"],
+        ["Wolfi's Geburtstagsfeier", "Geburtstag", "Feier"],
+        ["Wasser war bissl kalt", "Wasser", "kalt"],
+        ["Schwimmzeug", "schwimmen", "Zeug"],
+        ["Danach mein 20. Geburtstag", "Geburt", "Tag"],
+        ["Wildsaustrecke beim heimfahren", "Wildsau", "Strecke"],
+        ["Stretch-Limo", "Stretch", "Limo"],
+        ["Hotelzimmer", "Hotel", "Zimmer"],
+        ["Sind bissl zu spät gekommen 🙃", "spät", "kommen"],
+        ["Lasershow", "Laser", "Show"],
+        ["Brum-brum Autos 👀", "Brum", "Brum"]
+      ]
+    ]
+  },
+  {
+    "day": 8,
+    "image": "weltenburg",
+    "data": [
+      [
+        ["Weltenburg", "Welt", "Burg"],
+        ["Donaudurchbruch", "Donau", "Durchbruch"],
+        ["Wanderausflug", "wandern", "Ausflug"],
+        ["Steinehüpfen :D", "Stein", "hüpfen"],
+        ["Start und Ziel: Kelheim", "Kehle", "Heim"],
+        ["Schiffalfohn", "Schiff", "fahren"],
+        ["Kiesstrand", "Kies", "Strand"],
+        ["1. Wanderung zsm 🥰", "erster", "Wanderung"]
+      ],
+      [
+        ["Hochseilgarten", "hoch", "Seilgarten"],
+        ["in Jetzendorf", "jetzt", "Dorf"],
+        ["Kletterspaß", "klettern", "Spaß"],
+        ["Flying fox", "fliegen", "Fuchs"],
+        ["Sicherungsseil", "Sicherung", "Seil"],
+        ["NICHT runterfallen", "runter", "fallen"],
+        ["Höhenangst nicht vorhanden", "Höhe", "Angst"]
       ]
     ]
   }
