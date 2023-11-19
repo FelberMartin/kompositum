@@ -26,5 +26,29 @@ class KeyValueStore {
     return prefs.getStringList("blockedCompounds") ?? [];
   }
 
+  Future<void> storeAdventOpened(List<bool> isDayOpened) async {
+    final stringList = isDayOpened.map((e) => e.toString()).toList();
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList("adventOpened", stringList);
+  }
+
+  Future<List<bool>> getAdventOpened() async {
+    final prefs = await SharedPreferences.getInstance();
+    final stringList = prefs.getStringList("adventOpened") ?? List.generate(24, (index) => "false");
+    return stringList.map((e) => e == "true").toList();
+  }
+
+  Future<void> storeAdventCompleted(List<bool> isDayCompleted) async {
+    final stringList = isDayCompleted.map((e) => e.toString()).toList();
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList("adventCompleted", stringList);
+  }
+
+  Future<List<bool>> getAdventCompleted() async {
+    final prefs = await SharedPreferences.getInstance();
+    final stringList = prefs.getStringList("adventCompleted") ?? List.generate(24, (index) => "false");
+    return stringList.map((e) => e == "true").toList();
+  }
+
 
 }
