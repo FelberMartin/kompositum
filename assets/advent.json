@@ -175,5 +175,61 @@
         ["Höhenangst nicht vorhanden", "Höhe", "Angst"]
       ]
     ]
+  },
+  {
+    "day": 9,
+    "image": "regensburg",
+    "data": [
+      [
+        ["in Regensburg", "Regen", "Burg"],
+        ["mein Geburtstagsgeschenk 🥰", "Geburtstag", "Geschenk"],
+        ["L'Osteria", "lost", "Arier"],
+        ["Pizzaessen", "Pizza", "essen"],
+        ["Steinerne Brücke", "Stein", "Brücke"],
+        ["Überraschung", "über", "rasch"],
+        ["Boulderwelt", "bouldern", "Welt"],
+        ["üble Knieverletzung 😘", "Knie", "Verletzung"],
+        ["Busfahren", "Bus", "fahren"],
+        ["Walhalla", "Wall", "Halle"],
+        ["Kiefernbaum", "Kiefer", "Baum"],
+        ["Parkautomat", "parken", "Automat"],
+        ["ein Gewitter", "geh", "Widder"],
+        ["Steintreppen", "Stein", "Treppe"]
+      ]
+    ]
+  },
+  {
+    "day": 10,
+    "image": "wandern_jura",
+    "data": [
+      [
+        ["Jura"], // TODO: wie heißt das gebirge?
+        ["Wanderkarten sind überflüssig 🙃", "wandern", "Karte"],
+        ["Coole Sonnenbrille", "Sonne", "Brille"],
+        ["steile Straßen", "steil", "Straße"],
+        ["viele Kiefernbäume 🥰", "Kiefer", "Baum"],
+        ["Trampelpfad", "trampeln", "Pfad"],
+        ["Wanderweg", "wandern", "Weg"],
+        ["Wegmakierungen", "Weg", "Markierung"],
+        ["Felshöhlen", "Fels", "Höhle"]
+      ],
+      [
+        ["50. Geburtstag Sibylle", "Geburt", "Tag"],
+        ["Barkeeper", "Bar", "behalten"],
+        ["Cocktails", "cock", "tail"],
+        ["Lagerfeuer", "Lager", "Feuer"],
+        []// TODO
+        []
+      ]
+    ]
+  },
+  {
+    "day": 11,
+    "image": "jahrestag",
+    "data": [
+      [
+
+      ]
+    ]
   }
 ]
