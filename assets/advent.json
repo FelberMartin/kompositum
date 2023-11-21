@@ -26,7 +26,7 @@
         ["Moosburg", "Moos", "Burg"],
         ["Schlittschuhverleih war zu :(", "Schlittschuh", "Verleih"],
         ["Isarspaziergang", "Isar", "Spaziergang"],
-        ["ich bin nie hingefallen 🌚", "nie", "hinfallen"],
+        ["ich bin nie hingefallen 🙃", "nie", "hinfallen"],
         ["Freising", "frei", "singen"],
         ["Einsteinkarten vom Broksch", "Einstein", "Karte"],
         ["eiskalt", "eis", "kalt"]
@@ -233,15 +233,82 @@
       [
         ["in Pfaffenhofen", "Pfaffe", "Hof"],
         ["Schlittschuhlaufen", "Schlittschuh", "laufen"],
-        ["Jahrestag", "Jahr", "Tag"], // TODO emoji
+        ["Jahrestag ❤️", "Jahr", "Tag"],
         ["Pizzaessen", "Pizza", "essen"],
         ["La Locanda di Nino", "Wirtshaus", "Nino"],
         ["Blumenstrauß", "Blume", "Strauß"],
         ["12 Monate", "zwölf", "Monat"],
         ["Schlittschuhverleih funktioniert diesmal", "Schlittschuh", "Verleih"],
         ["Cappuccino-Tasse", "Cappuccino", "Tasse"],
-        ["Herr Reichelt?", "Herr", "Reich"]
+        ["Herr Reichelt? 👀", "Herr", "Reich"]
       ]
     ]
+  },
+  {
+    "day": 12,
+    "image": "therme_erding",
+    "data": [
+      [
+        ["Christkindlmarkt", "Christkind", "Markt"],
+        ["Abensberg", "abends", "Berg"],
+        ["mit Franzi und Hans", "Franzi", "Hans"],
+        ["Glühwein", "glühen", "Wein"],
+        ["Hundertwasser", "hundert", "Wasser"],
+        ["Brotzeitbrettl", "Brotzeit", "Brett"],
+        ["aufdringlicher Verkäufer", "aufdringlich", "Verkäufer"],
+        ["Weihnachten", "weihen", "Nacht"]
+      ],
+      [
+        ["Therme Erding", "Therme", "Erding"],
+        ["Warmes Wasser", "warm", "Wasser"],
+        ["Wellenbad", "Welle", "Bad"],
+        ["knappes Wettrutschen 😘", "Wette", "rutschen"],
+        ["Wasserrutschen", "Wasser", "rutschen"],
+        ["Whirlpool", "wirbeln", "Schwimmbecken"],
+        ["Entspannung pur 🥰", "Ente", "Spannung"],
+        ["Strudellaufen", "Strudel", "laufen"],
+        ["Rückenmassagedüsen", "Rückenmassage", "Düse"]
+      ]
+    ]
+  },
+  {
+    "day": 13,
+    "image": "faschingsball",
+    "data": [
+      [
+        ["Faschingsball", "Fasching", "Ball"],
+        ["in Elsendorf", "Else", "Dorf"],
+        ["in Nandlstadt", "Nandl", "Kaff"],
+        ["meine Rehlein 😍", "Reh", "Leine"],
+        ["Jägerkostüm", "Jäger", "Kostüm"],
+        ["krankes Gewehr", "gehen", "wehren"],
+        ["Tanzbein schwingen", "tanzen", "Bein"],
+        ["Verkleidungsmeister", "Verkleidung", "Meister"],
+        ["Gummistiefel", "Gummi", "Stiefel"],
+        ["Disco Fox", "Geltl's", "Fuchs"]
+      ]
+    ]
+  },
+  {
+    "day": 14,
+    "image": "skifahren_lengries",
+    "data": [
+      [
+        ["Skifahren", "Ski", "fahren"],
+        ["in Lengries", "lang", "Reis"],
+        ["Sitzheizung", "sitzen", "Heizung"],
+        ["Spinatknödel", "Spinat", "Knödel"],
+        ["Schlepplift", "schleppen", "Lift"],
+        ["Pistenraupe", "Piste", "Raupe"],
+        ["Knoppersriegel", "Knopper", "Riegel"],
+        ["Nebelschwaden", "Nebel", "Schwade"],
+        ["schwarze Piste", "schwarz", "Piste"],
+        ["kostenloser Skiunterrichts 🥰", "Ski", "Unterricht"]
+      ]
+    ],
+    "sentence": {
+      "separator": ", ",
+      "total": "Ente, Auge, Zickzack, Zickzack, Schlange, Stern, Eule, Angelspirale, Auge, Auge, Messerschneide, Fische, Halbmond, tanzender Mann im Profil"
+    }
   }
 ]
