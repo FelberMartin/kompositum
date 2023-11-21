@@ -203,7 +203,7 @@
     "image": "wandern_jura",
     "data": [
       [
-        ["Jura"], // TODO: wie heißt das gebirge?
+        ["Jurasteig", "Jura", "Steig"],
         ["Wanderkarten sind überflüssig 🙃", "wandern", "Karte"],
         ["Coole Sonnenbrille", "Sonne", "Brille"],
         ["steile Straßen", "steil", "Straße"],
@@ -218,8 +218,11 @@
         ["Barkeeper", "Bar", "behalten"],
         ["Cocktails", "cock", "tail"],
         ["Lagerfeuer", "Lager", "Feuer"],
-        []// TODO
-        []
+        ["Spatzentraum", "Spatz", "Traum"],
+        ["Aperol Spritz", "Aperol", "spritzen"],
+        ["Komposition", "kommen", "Position"],
+        ["Wild Berry Lillet", "wild", "Beere"],
+        ["Eiswürfel", "Eis", "Würfl"]
       ]
     ]
   },
@@ -228,7 +231,16 @@
     "image": "jahrestag",
     "data": [
       [
-
+        ["in Pfaffenhofen", "Pfaffe", "Hof"],
+        ["Schlittschuhlaufen", "Schlittschuh", "laufen"],
+        ["Jahrestag", "Jahr", "Tag"], // TODO emoji
+        ["Pizzaessen", "Pizza", "essen"],
+        ["La Locanda di Nino", "Wirtshaus", "Nino"],
+        ["Blumenstrauß", "Blume", "Strauß"],
+        ["12 Monate", "zwölf", "Monat"],
+        ["Schlittschuhverleih funktioniert diesmal", "Schlittschuh", "Verleih"],
+        ["Cappuccino-Tasse", "Cappuccino", "Tasse"],
+        ["Herr Reichelt?", "Herr", "Reich"]
       ]
     ]
   }
