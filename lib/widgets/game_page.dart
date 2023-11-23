@@ -58,7 +58,7 @@ class GamePageState extends State<GamePage> {
   }
 
   void updateGameToNewLevel(int newLevelIndex) async {
-    await Future.delayed(const Duration(milliseconds: 1000));
+    await Future.delayed(const Duration(milliseconds: 2000));
     setState(() {
       isLoading = true;
     });
@@ -68,6 +68,7 @@ class GamePageState extends State<GamePage> {
       adventCompleted[_adventDay.day - 1] = true;
       await _keyValueStore.storeAdventCompleted(adventCompleted);
       Navigator.of(context).pop();
+      return;
     }
     gameLevelIndex = newLevelIndex;
     _gameLevel = _adventDay.levelConfigs[newLevelIndex].getLevel();
@@ -341,6 +342,7 @@ class AnimatedTextFadeOutState extends State<AnimatedTextFadeOut>
 
     _textStreamSubscription = widget.textStream.listen((text) {
       _displayText = text;
+      _controller.reverseDuration = Duration(milliseconds: 1000 + text.length * 100);
       _controller.reverse(from: 1.0);
     });
   }

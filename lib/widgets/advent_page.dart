@@ -58,6 +58,11 @@ class _AdventPageState extends State<AdventPage> {
     });
   }
 
+  Future<void> reload() async {
+    isDayCompleted = await keyValStore.getAdventCompleted();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,26 +92,28 @@ class _AdventPageState extends State<AdventPage> {
                 padding: EdgeInsets.all(10),
                 children: List.generate(24, (index) {
                   final number = shuffledNumbers[index];
-                  // final number = index + 1;
+                  final dayIndex = number - 1;
                   return Tile(
                     number: number,
                     visible: number <= todayNumber,
-                    isOpen: isDayOpened[index],
-                    isCompleted: isDayCompleted[index],
+                    isOpen: isDayOpened[dayIndex],
+                    isCompleted: isDayCompleted[dayIndex],
                     finishedBackground: "assets/finished/$number.jpg",
                     onSetOpen: (open) {
                       setState(() {
-                        isDayOpened[index] = open;
+                        isDayOpened[dayIndex] = open;
                       });
                       keyValStore.storeAdventOpened(isDayOpened);
                     },
                     onPlayLevel: () {
-                      final day = adventDays[number - 1];
+                      final day = adventDays[dayIndex];
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => GamePage(adventDay: day)
                         ),
-                      );
+                      ).then((value) {
+                        reload();
+                      });
                       print("Play level $number");
                     },
                   );
