@@ -310,5 +310,46 @@
       "separator": ", ",
       "total": "Ente, Auge, Zickzack, Zickzack, Schlange, Stern, Eule, Angelspirale, Auge, Auge, Messerschneide, Fische, Halbmond, tanzender Mann im Profil"
     }
+  },
+  {
+    "day": 15,
+    "image": "pfingstrosen",
+    "data": [
+      [
+        ["Pfingstrosen", "Pfingsten", "Rosen"],
+        ["Tream - Rosi ", "Traum", "Rosi"],
+        ["Pfeffistamperl", "Pfefferminz", "Stamperl"],
+        ["VW-Bus", "Volkswagen", "Bus"],
+        ["Komplimente vergeben 😘", "kommen", "Plimente"],
+        ["Aufstellung der Größe nach", "auf", "stellen"],
+        ["Weinschorle", "Wein", "Schorle"],
+        ["Wastl als Klobewacher", "Klo", "bewachen"]
+      ]
+    ]
+  },
+  {
+    "day": 16,
+    "image": "strassenfest",
+    "data": [
+      [
+        ["Straßenfest", "Straße", "Fest"],
+        ["in Elsendorf", "Else", "Dorf"],
+        ["Biergarnitur", "Bier", "Garnitur"],
+        ["Erdbeerlimes", "Erdbeere", "Limes"],
+        ["Nachbarn", "nach", "Bar"],
+        ["Valentin bespaßen", "Valentin", "Spaß"],
+        ["Maikäfer", "Mai", "Käfer"],
+        ["Fledermäuse", "Leder", "Maus"]
+      ],
+      [
+        ["Duolingo", "zwei", "Sprache"],
+        ["Schwedisch", "Schweh", "Tisch"],
+        ["100+ Streak", "hundert", "Strähne"],
+        ["Emerald league 💪", "Smaragd", "Liga"],
+        ["zusammen lernen 💞", "zusammen", "lernen"],
+        ["grüner Vogel", "grün", "Vogel"],
+        ["Jag älskar dig", "jag älskar", "dig"]
+      ]
+    ]
   }
 ]
