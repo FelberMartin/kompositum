@@ -7,24 +7,58 @@ import 'package:kompositum/game/swappable_detector.dart';
 import '../data/compound.dart';
 import 'hints/hint.dart';
 
-class PoolGameLevel {
-  final int maxShownComponentCount;
 
-  final _allCompounds = <Compound>[];
-  final _unsolvedCompounds = <Compound>[];
-  final List<Swappable> swappableCompounds;
+abstract class GameLevel {
 
   final shownComponents = <String>[];
   final hiddenComponents = <String>[];
+  final _allCompounds = <Compound>[];
+
+  final hints = <Hint>[];
+
+  void removeCompoundFromShown(Compound compound);
+
+  Compound? getCompoundIfExisting(String modifier, String head) {
+    final originalCompound = _allCompounds.firstWhereOrNull(
+            (compound) => compound.modifier == modifier && compound.head == head);
+    return originalCompound;
+  }
+
+  bool isLevelFinished() {
+    return shownComponents.isEmpty;
+  }
+
+  bool canRequestHint() {
+    return hints.length < 2;
+  }
+
+  void requestHint() {
+    if (canRequestHint()) {
+      final hint = generateHint();
+      hints.add(hint);
+      print("Hint: ${hint.hintedComponent} (${hint.type})");
+    }
+  }
+
+  Hint generateHint() {
+    return Hint.generate(_allCompounds, shownComponents, hints);
+  }
+
+  double getLevelProgress();
+
+}
+
+class PoolGameLevel extends GameLevel {
+  final int maxShownComponentCount;
+
+  final _unsolvedCompounds = <Compound>[];
 
   final Difficulty displayedDifficulty;
-  final hints = <Hint>[];
 
   PoolGameLevel(
       List<Compound> allCompounds,
       { this.maxShownComponentCount = 11,
         this.displayedDifficulty = Difficulty.easy,
-        this.swappableCompounds = const []
       }) {
     _allCompounds.addAll(allCompounds);
     _unsolvedCompounds.addAll(allCompounds);
@@ -59,11 +93,7 @@ class PoolGameLevel {
 
   Compound? _findCompoundToRemove(Compound compound) {
     Compound? compoundToRemove = _allCompounds.firstWhereOrNull((comp) => comp == compound);
-    if (compoundToRemove != null) {
-      return compoundToRemove;
-    }
-    return swappableCompounds
-        .firstWhereOrNull((swappable) => swappable.swapped == compound)?.original;
+    return compoundToRemove;
   }
 
   void _removeHintsForCompound(Compound compound) {
@@ -72,24 +102,6 @@ class PoolGameLevel {
             hint.hintedComponent == compound.modifier) ||
         (hint.type == HintComponentType.head &&
             hint.hintedComponent == compound.head));
-  }
-
-  Compound? getCompoundIfExisting(String modifier, String head) {
-    final originalCompound = _allCompounds.firstWhereOrNull(
-        (compound) => compound.modifier == modifier && compound.head == head);
-    if (originalCompound != null) {
-      return originalCompound;
-    }
-    final swappedCompound = swappableCompounds.firstWhereOrNull(
-        (swappable) => swappable.swapped.modifier == modifier && swappable.swapped.head == head);
-    if (swappedCompound != null) {
-      return swappedCompound.swapped;
-    }
-    return null;
-  }
-
-  bool isLevelFinished() {
-    return shownComponents.isEmpty;
   }
 
   String getNextShownComponent({int? seed}) {
@@ -127,19 +139,93 @@ class PoolGameLevel {
     }
   }
 
-  void requestHint() {
-    if (canRequestHint()) {
-      final hint = Hint.generate(_allCompounds, shownComponents, hints);
-      hints.add(hint);
-      print("Hint: ${hint.hintedComponent} (${hint.type})");
-    }
-  }
-
-  bool canRequestHint() {
-    return hints.length < 2;
-  }
-
+  @override
   double getLevelProgress() {
     return 1 - _unsolvedCompounds.length / _allCompounds.length;
   }
+}
+
+class SentenceGameLevel extends GameLevel {
+
+  final String sentence;
+  final List<String> sentenceComponents;
+  final String separator;
+
+  SentenceGameLevel(this.sentence, this.sentenceComponents, this.separator) {
+    final sentenceComponentsToAssign = sentenceComponents.toList();
+    while (shownComponents.length < 11) {
+      if (sentenceComponentsToAssign.isEmpty) {
+        break;
+      }
+      shownComponents.add(sentenceComponentsToAssign.removeAt(Random().nextInt(sentenceComponentsToAssign.length)));
+    }
+    for (final component in sentenceComponentsToAssign) {
+      hiddenComponents.add(component);
+    }
+
+    for (int i = 0; i < sentenceComponents.length - 1; i++) {
+      final modifier = sentenceComponents[i];
+      final head = sentenceComponents[i + 1];
+      final compound = Compound(name: "$modifier$separator$head", modifier: modifier, head: head);
+      _allCompounds.add(compound);
+    }
+  }
+
+  @override
+  double getLevelProgress() {
+    final remaining = shownComponents.length + hiddenComponents.length;
+    final total = sentenceComponents.length;
+    return 1 - remaining / total;
+  }
+
+  @override
+  void removeCompoundFromShown(Compound compound) {
+    final compoundToRemove = _findCompoundToRemove(compound);
+    if (compoundToRemove == null) {
+      return;
+    }
+    _removeHintsForCompound(compoundToRemove);
+    shownComponents.remove(compoundToRemove.modifier);
+    shownComponents.remove(compoundToRemove.head);
+
+    // Add the component and the new resulting compounds
+    final newComponent = compoundToRemove.name;
+    _addNewCompounds(newComponent);
+    shownComponents.add(newComponent);
+
+
+    // Fill up with a new component
+    if (hiddenComponents.isNotEmpty) {
+      final nextComponent = hiddenComponents.removeAt(Random().nextInt(hiddenComponents.length));
+      shownComponents.add(nextComponent);
+    }
+  }
+
+  void _addNewCompounds(String newComponent) {
+    final allComponents = shownComponents + hiddenComponents;
+    for (final component in allComponents) {
+      final newCompound1 = "$component$separator$newComponent";
+      if (sentence.contains(newCompound1)) {
+        _allCompounds.add(Compound(name: newCompound1, modifier: component, head: newComponent));
+      }
+      final newCompound2 = "$newComponent$separator$component";
+      if (sentence.contains(newCompound2)) {
+        _allCompounds.add(Compound(name: newCompound2, modifier: newComponent, head: component));
+      }
+    }
+  }
+
+  Compound? _findCompoundToRemove(Compound compound) {
+    Compound? compoundToRemove = _allCompounds.firstWhereOrNull((comp) => comp == compound);
+    return compoundToRemove;
+  }
+
+  void _removeHintsForCompound(Compound compound) {
+    hints.removeWhere((hint) =>
+    (hint.type == HintComponentType.modifier &&
+        hint.hintedComponent == compound.modifier) ||
+        (hint.type == HintComponentType.head &&
+            hint.hintedComponent == compound.head));
+  }
+
 }

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
 import 'package:kompositum/data/key_value_store.dart';
+import 'package:kompositum/game/advent_day.dart';
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 
@@ -11,35 +12,25 @@ import '../game/level_provider.dart';
 import '../game/pool_game_level.dart';
 import '../locator.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage(
+class GamePage extends StatefulWidget {
+  const GamePage(
       {super.key,
-      required this.title,
-      required this.levelProvider,
-      required this.poolGenerator,
-      required this.keyValueStore,
-      required this.swappableDetector
+      required this.adventDay,
       });
 
-  final String title;
-  final LevelProvider levelProvider;
-  final CompoundPoolGenerator poolGenerator;
-  final KeyValueStore keyValueStore;
-  final SwappableDetector swappableDetector;
+  final AdventDay adventDay;
 
   @override
-  State<MyHomePage> createState() => MyHomePageState();
+  State<GamePage> createState() => GamePageState();
 }
 
-class MyHomePageState extends State<MyHomePage> {
-  late final LevelProvider _levelProvider = widget.levelProvider;
-  late final CompoundPoolGenerator _poolGenerator = widget.poolGenerator;
-  late final SwappableDetector _swappableDetector = widget.swappableDetector;
-  late final KeyValueStore _keyValueStore = widget.keyValueStore;
-  late PoolGameLevel _poolGameLevel;
+class GamePageState extends State<GamePage> {
+  late final KeyValueStore _keyValueStore = locator<KeyValueStore>();
+  late final AdventDay _adventDay = widget.adventDay;
+  late GameLevel _gameLevel = _adventDay.levelConfigs[0].getLevel();
 
-  late int levelNumber;
-  bool isLoading = true;
+  int gameLevelIndex = 0;
+  bool isLoading = false;
 
   final StreamController<String> wordCompletionEventStream =
       StreamController<String>.broadcast();
@@ -52,48 +43,34 @@ class MyHomePageState extends State<MyHomePage> {
   String? get selectedModifier =>
       selectionTypeToIndex[SelectionType.modifier] !=
               -1
-          ? _poolGameLevel
+          ? _gameLevel
               .shownComponents[selectionTypeToIndex[SelectionType.modifier]!]
           : null;
 
   String? get selectedHead => selectionTypeToIndex[SelectionType.head] != -1
-      ? _poolGameLevel
+      ? _gameLevel
           .shownComponents[selectionTypeToIndex[SelectionType.head]!]
       : null;
 
   @override
   void initState() {
     super.initState();
-    _keyValueStore.getLevel().then((value) {
-      levelNumber = value;
-      updateGameToNewLevel(levelNumber);
-    });
-    _keyValueStore.getBlockedCompoundNames().then((value) {
-      _poolGenerator.setBlockedCompounds(value);
-    });
   }
 
-  void updateGameToNewLevel(int newLevelNumber) async {
-    _keyValueStore.storeLevel(newLevelNumber);
-    // Save the blocked compounds BEFORE the generation of the new level,
-    // so that when regenerating the same level later, the same compounds
-    // are blocked.
-    _keyValueStore.storeBlockedCompounds(_poolGenerator.getBlockedCompounds());
-    await Future.delayed(Duration(milliseconds: 500));
+  void updateGameToNewLevel(int newLevelIndex) async {
+    await Future.delayed(const Duration(milliseconds: 1000));
     setState(() {
       isLoading = true;
     });
-    levelNumber = newLevelNumber;
-    print("Generating new pool for new level");
-    final levelSetup = _levelProvider.generateLevelSetup(levelNumber);
-    final compounds = await _poolGenerator.generateFromLevelSetup(levelSetup);
-    final swappables = await _swappableDetector.getSwappables(compounds);
-    print("Finished new pool for new level");
-    _poolGameLevel = PoolGameLevel(compounds,
-        maxShownComponentCount: levelSetup.maxShownComponentCount,
-        displayedDifficulty: levelSetup.displayedDifficulty,
-        swappableCompounds: swappables,
-    );
+    if (newLevelIndex >= _adventDay.levelConfigs.length) {
+      // Set the advent day as completed
+      final adventCompleted = await _keyValueStore.getAdventCompleted();
+      adventCompleted[_adventDay.day - 1] = true;
+      await _keyValueStore.storeAdventCompleted(adventCompleted);
+      Navigator.of(context).pop();
+    }
+    gameLevelIndex = newLevelIndex;
+    _gameLevel = _adventDay.levelConfigs[newLevelIndex].getLevel();
     setState(() {
       isLoading = false;
     });
@@ -132,14 +109,14 @@ class MyHomePageState extends State<MyHomePage> {
 
   void checkCompoundCompletion() async {
     if (selectedModifier != null && selectedHead != null) {
-      final compound = _poolGameLevel.getCompoundIfExisting(
+      final compound = _gameLevel.getCompoundIfExisting(
           selectedModifier!, selectedHead!);
       if (compound != null) {
         compoundFound(compound.name);
-        _poolGameLevel.removeCompoundFromShown(compound);
+        _gameLevel.removeCompoundFromShown(compound);
         setState(() {});
-        if (_poolGameLevel.isLevelFinished()) {
-          updateGameToNewLevel(levelNumber + 1);
+        if (_gameLevel.isLevelFinished()) {
+          updateGameToNewLevel(gameLevelIndex + 1);
         }
       }
     }
@@ -167,18 +144,6 @@ class MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 221, 233, 239),
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.refresh),
-            onPressed: () {
-              updateGameToNewLevel(1);
-            },
-          )
-        ],
-      ),
       body: Center(
         child: isLoading
             ? CircularProgressIndicator()
@@ -187,12 +152,12 @@ class MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
                   SizedBox(height: 16.0),
                   TopRow(
-                      displayedDifficulty: _poolGameLevel.displayedDifficulty,
-                      levelNumber: levelNumber,
-                      levelProgress: _poolGameLevel.getLevelProgress(),
-                      isHintAvailable: _poolGameLevel.canRequestHint(),
+                      title: "Tag ${_adventDay.day}",
+                      subtitle: "Teil ${gameLevelIndex + 1}",
+                      levelProgress: _gameLevel.getLevelProgress(),
+                      isHintAvailable: _gameLevel.canRequestHint(),
                       onHintPressed: () {
-                        _poolGameLevel.requestHint();
+                        _gameLevel.requestHint();
                         setState(() {});
                       }),
 
@@ -213,14 +178,14 @@ class MyHomePageState extends State<MyHomePage> {
                       alignment: WrapAlignment.center,
                       children: [
                         for (final (index, component)
-                            in _poolGameLevel.shownComponents.indexed)
+                            in _gameLevel.shownComponents.indexed)
                           WordWrapper(
                               text: component,
                               selectionType: getSelectionTypeForIndex(index),
                               onSelectionChanged: (selected) {
                                 toggleSelection(index);
                               },
-                              hint: _poolGameLevel.hints
+                              hint: _gameLevel.hints
                                   .firstWhereOrNull((hint) =>
                                       hint.hintedComponent == component)
                                   ?.type),
@@ -230,7 +195,7 @@ class MyHomePageState extends State<MyHomePage> {
                   Expanded(child: Container()),
                   HiddenComponentsIndicator(
                       hiddenComponentsCount:
-                          _poolGameLevel.hiddenComponents.length),
+                          _gameLevel.hiddenComponents.length),
                 ],
               ),
       ),
@@ -241,15 +206,15 @@ class MyHomePageState extends State<MyHomePage> {
 class TopRow extends StatelessWidget {
   const TopRow({
     super.key,
-    required this.displayedDifficulty,
-    required this.levelNumber,
+    required this.title,
+    required this.subtitle,
     required this.levelProgress,
     required this.isHintAvailable,
     required this.onHintPressed,
   });
 
-  final Difficulty displayedDifficulty;
-  final int levelNumber;
+  final String title;
+  final String subtitle;
   final double levelProgress;
   final bool isHintAvailable;
   final Function onHintPressed;
@@ -260,9 +225,10 @@ class TopRow extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Row(children: [
         Expanded(child:
-          Row(children:[
-            DifficultyContainer(displayedDifficulty: displayedDifficulty),
-          ])
+          Text(
+            subtitle,
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
         ),
         Expanded(
             child: Align(
@@ -275,7 +241,7 @@ class TopRow extends StatelessWidget {
                 backgroundColor: Theme.of(context).colorScheme.primaryContainer,
                 radius: 30,
                 child: Text(
-                  levelNumber.toString(),
+                  title,
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
               ),
@@ -306,39 +272,6 @@ class TopRow extends StatelessWidget {
         ))
       ]),
     );
-  }
-}
-
-class DifficultyContainer extends StatelessWidget {
-  const DifficultyContainer({
-    super.key,
-    required this.displayedDifficulty,
-  });
-
-  final Difficulty displayedDifficulty;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(6.0),
-      // Make the container with rounded corners and a background color depending on the difficulty
-      decoration: BoxDecoration(
-        color: difficultyToColor(displayedDifficulty),
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: Center(child: Text(displayedDifficulty.toUiString()))
-    );
-  }
-
-  Color difficultyToColor(Difficulty difficulty) {
-    switch (difficulty) {
-      case Difficulty.easy:
-        return Color.fromARGB(255, 171, 238, 171);
-      case Difficulty.medium:
-        return Color.fromARGB(255, 225, 225, 152);
-      case Difficulty.hard:
-        return Color.fromARGB(255, 253, 190, 190);
-    }
   }
 }
 
@@ -395,7 +328,7 @@ class AnimatedTextFadeOutState extends State<AnimatedTextFadeOut>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      reverseDuration: const Duration(seconds: 1),
+      reverseDuration: const Duration(seconds: 2),
     );
 
     _alignAnimation = Tween<AlignmentGeometry>(
@@ -427,9 +360,12 @@ class AnimatedTextFadeOutState extends State<AnimatedTextFadeOut>
           alignment: _alignAnimation,
           child: FadeTransition(
             opacity: _controller,
-            child: Text(
-              _displayText,
-              style: Theme.of(context).textTheme.headlineLarge,
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child:Text(
+                _displayText,
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
             ),
           ),
         ));

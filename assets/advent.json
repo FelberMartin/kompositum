@@ -13,7 +13,7 @@
         ["Jumpscare", "jump", "scare"],
         ["Umweg quasi nicht vorhanden 🌚", "um", "Weg"],
         ["Antlers", "ant", "lers"],
-        ["Pfaffenhofen", "Pfaffe", "Hof"]
+        ["in Pfaffenhofen", "Pfaffe", "Hof"]
       ]
     ]
   },
@@ -23,11 +23,11 @@
     "data": [
       [
         ["Schlittschuh", "Schlitten", "Schuh"],
-        ["Moosburg", "Moos", "Burg"],
+        ["in Moosburg", "Moos", "Burg"],
         ["Schlittschuhverleih war zu :(", "Schlittschuh", "Verleih"],
         ["Isarspaziergang", "Isar", "Spaziergang"],
         ["ich bin nie hingefallen 🙃", "nie", "hinfallen"],
-        ["Freising", "frei", "singen"],
+        ["in Freising", "frei", "singen"],
         ["Einsteinkarten vom Broksch", "Einstein", "Karte"],
         ["eiskalt", "eis", "kalt"]
       ]

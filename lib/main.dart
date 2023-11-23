@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kompositum/widgets/advent_page.dart';
-import 'package:kompositum/widgets/home_page.dart';
 
 import 'data/key_value_store.dart';
 import 'game/level_provider.dart';

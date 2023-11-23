@@ -57,7 +57,7 @@ void main() {
 
   testWidgets(skip: false, "After loading, the components are shown", (tester) async {
     await tester.pumpWidget(MaterialApp(
-        home: MyHomePage(title: "title", levelProvider: levelProvider, poolGenerator: poolGenerator, keyValueStore: keyValueStore, swappableDetector: swappableDetector)
+        home: GamePage(title: "title", levelProvider: levelProvider, poolGenerator: poolGenerator, keyValueStore: keyValueStore, swappableDetector: swappableDetector)
     ));
     await tester.pumpAndSettle();
 
@@ -66,7 +66,7 @@ void main() {
 
   // Test passes even if components are not shown in the app :(
   testWidgets(skip: true, "After finished the first level and waiting for loading, the seconds level's components are shown", (tester) async {
-    final homePage = MyHomePage(title: "title", levelProvider: levelProvider, poolGenerator: poolGenerator, keyValueStore: keyValueStore, swappableDetector: swappableDetector);
+    final homePage = GamePage(title: "title", levelProvider: levelProvider, poolGenerator: poolGenerator, keyValueStore: keyValueStore, swappableDetector: swappableDetector);
     await tester.pumpWidget(MaterialApp(home: homePage));
     await tester.pumpAndSettle();
 
@@ -74,7 +74,7 @@ void main() {
 
     when(() => poolGenerator.generateFromLevelSetup(any()))
         .thenAnswer((_) => Future.value([Compounds.Schneemann]));
-    final MyHomePageState state = tester.state(find.byType(MyHomePage));
+    final GamePageState state = tester.state(find.byType(GamePage));
     state.toggleSelection(0);
     state.toggleSelection(1);
     await tester.pump(Duration(milliseconds: 1));

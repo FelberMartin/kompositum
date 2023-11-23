@@ -1,10 +1,14 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 import '../data/key_value_store.dart';
+import '../game/advent_day.dart';
 import '../locator.dart';
+import 'game_page.dart';
 
 class AdventPage extends StatefulWidget {
   const AdventPage({Key? key}) : super(key: key);
@@ -23,6 +27,8 @@ class _AdventPageState extends State<AdventPage> {
   late List<bool> isDayCompleted;
   bool isLoading = true;
 
+  late List<AdventDay> adventDays;
+
   _AdventPageState() {
     var beforeDecember2023 = DateTime.now().month < DateTime.december && DateTime.now().year == 2023;
     var duringDecember2023 = DateTime.now().month == DateTime.december && DateTime.now().year == 2023;
@@ -40,6 +46,11 @@ class _AdventPageState extends State<AdventPage> {
   }
 
   Future<void> load() async {
+    final assetData = await rootBundle.loadString("assets/advent.json");
+    final jsonData = jsonDecode(assetData) as List<dynamic>;
+    adventDays = jsonData.map((e) => AdventDay.fromJson(e)).toList();
+    print("Loaded ${adventDays.length} advent days");
+
     isDayOpened = await keyValStore.getAdventOpened();
     isDayCompleted = await keyValStore.getAdventCompleted();
     setState(() {
@@ -90,7 +101,13 @@ class _AdventPageState extends State<AdventPage> {
                       keyValStore.storeAdventOpened(isDayOpened);
                     },
                     onPlayLevel: () {
-                      // TODO: Navigate to level
+                      final day = adventDays[number - 1];
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => GamePage(adventDay: day)
+                        ),
+                      );
+                      print("Play level $number");
                     },
                   );
                 }),
@@ -160,15 +177,16 @@ class Tile extends StatelessWidget {
       return Center(
         child: IconButton(
           color: Theme.of(context).colorScheme.primary,
-          onPressed: () => onPlayLevel,
+          onPressed: () => onPlayLevel(),
           icon: const Icon(Icons.play_arrow),
         )
       );
     }
 
-    return Image(
-      image: AssetImage(finishedBackground),
-      fit: BoxFit.cover,
-    );
+    return Icon(Icons.check, color: Theme.of(context).colorScheme.primary);
+    // return Image(
+    //   image: AssetImage(finishedBackground),
+    //   fit: BoxFit.cover,
+    // );
   }
 }
