@@ -188,10 +188,14 @@ class SentenceGameLevel extends GameLevel {
     shownComponents.remove(compoundToRemove.modifier);
     shownComponents.remove(compoundToRemove.head);
 
+    if (shownComponents.isEmpty) {
+      return;
+    }
+
     // Add the component and the new resulting compounds
     final newComponent = compoundToRemove.name;
     _addNewCompounds(newComponent);
-    shownComponents.add(newComponent);
+    shownComponents.insert(0, newComponent);
 
 
     // Fill up with a new component
