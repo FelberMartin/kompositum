@@ -9,7 +9,7 @@
         ["Gruselfilm", "gruseln", "Film"],
         ["Autofahrt", "Auto", "Fahrt"],
         ["Baustelle", "bauen", "Stelle"],
-        ["Ingolstadt wollt ich dir eh mal zeigen", "Ingol", "Stadt"],
+        ["Ingolstadt wollt ich dir eh mal zeigen", "Iglo", "Stadt"],
         ["Jumpscare", "jump", "scare"],
         ["Umweg quasi nicht vorhanden 🌚", "um", "Weg"],
         ["Antlers", "ant", "lers"],
@@ -349,6 +349,152 @@
         ["zusammen lernen 💞", "zusammen", "lernen"],
         ["grüner Vogel", "grün", "Vogel"],
         ["Jag älskar dig", "jag älskar", "dig"]
+      ]
+    ]
+  },
+  {
+    "day": 17,
+    "image": "volksfest_rudelzhausen",
+    "data": [
+      [
+        ["Volksfest", "Volk", "Fest"],
+        ["Bierbank", "Bier", "Bank"],
+        ["in Rudelzhausen", "Rudel", "Haus"],
+        ["warn glei zweimal ^^", "zwei", "mal"],
+        ["bestes Buidl 🥰", "bester", "Bild"],
+        ["Lederhose", "Leder", "Hose"],
+        ["Trachtendirndl 😍", "Tracht", "Dirndl"],
+        ["\"Party\"band Highhaufa", "hoch", "Haufen"],
+        ["Weinschorle wurde geschmuggelt 👮", "Wein", "Schorle"]
+      ],
+      [
+        ["Kinofilm", "Kino", "Film"],
+        ["Barbie", "bar", "bi"],
+        ["tiptop Film", "tip", "top"],
+        ["Fiebertraum", "Fieber", "Traum"],
+        ["Barbieland", "Barbie", "Land"],
+        ["Johannes mit pinke Fingernägel", "pink", "Fingernagel"],
+        ["My job is beach", "Job", "beach"]
+      ]
+    ]
+  },
+  {
+    "day": 18,
+    "image": "burg_arnsberg",
+    "data": [
+      [
+        ["in Arnsberg", "Arn", "Berg"],
+        ["Burg auf Berg", "Burg", "Berg"],
+        ["Wanderausflug", "wandern", "Ausflug"],
+        ["an der Altmühl", "alt", "Mühle"],
+        ["1. mal BMW-fahren 🥰", "BMW", "fahren"],
+        ["Pizza Telefonterror", "Telefon", "Terror"],
+        ["wildes Navi", "wild", "Navi"],
+        ["Handyakku ☠️", "Handy", "Akku"],
+        ["auch in Kipfenberg", "Kipfen", "Berg"],
+        ["alte Ruine", "alt", "Ruine"],
+        ["steiler Anstieg", "an", "steigen"],
+        ["super Aussicht", "aus", "Sicht"],
+        ["Radlweg", "Rad", "Weg"],
+        ["Bundesstraße", "Bund", "Straße"],
+        ["Google Maps", "Google", "Karte"],
+        ["innovative Routenplanung 🙃", "Route", "Planung"]
+      ]
+    ]
+  },
+  {
+    "day": 19,
+    "image": "gardasee",
+    "data": [
+      [
+        ["Gardasee", "Garda", "See"],
+        ["1. Urlaub ❤️", "Uhr", "Laub"],
+        ["italienisches Radio", "italienisch", "Radio"],
+        ["Wasserschleppen", "Wasser", "schleppen"],
+        ["Chillen am Pool 😎", "Chillen", "Pool"],
+        ["Sonnencreme", "Sonne", "Creme"],
+        ["Monte Baldo", "Berg", "bald"],
+        ["Paraglider", "para", "gleiten"],
+        ["leeeecker Essen", "lecker", "Essen"],
+        ["ganz viel Pizza", "viel", "Pizza"],
+        ["Schifffahrt nach Limone", "Schiff", "Fahrt"],
+        ["Feuerwerk", "Feuer", "Werk"],
+        ["Schokoeis", "Schoko", "Eis"],
+        ["Bruschetta 😋", "Bruh", "Schette"],
+        ["Schmetterling", "schmettern", "Linge"],
+        ["Burgbesichtigung", "Burg", "besichtigen"],
+        ["in Malcesine", "Malle", "Käse"],
+        ["Autoscheibe", "Auto", "Scheibe"],
+        ["Gondelfahrt", "Gondel", "Fahrt"],
+        ["illegales Schwimmen bei Nacht", "schwimmen", "Nacht"]
+      ]
+    ]
+  },
+  {
+    "day": 20,
+    "image": "gillamos",
+    "data": [
+      [
+        ["Gillamoos", "Gilla", "Moos"],
+        ["Bierzelt", "Bier", "Zelt"],
+        ["dein Geburtstag 😘", "Geburt", "Tag"],
+        ["in Abensberg", "abends", "Berg"],
+        ["Hofbräuzelt", "Hof", "brauen"],
+        ["Fotobuch", "Foto", "Buch"],
+        ["mit Miri und Vroni", "Miri", "Vroni"],
+        ["Weinschorle", "Wein", "Schorle"],
+        ["Maßkrug", "Maß", "Krug"]
+      ]
+    ],
+    "sentence": {
+      "separator": " ",
+      "total": "Uh ehh uh ah aah ting tang walla walla bing bang"
+    }
+  },
+  {
+    "day": 21,
+    "image": "dahoam is dahoam",
+    "data": [
+      [
+        ["Hopfenbrock", "Hopfen", "brocken"],
+        ["Sepperl fohn", "Joseph", "fahren"],
+        ["Stuzel schneiden", "Stuzel", "schneiden"],
+        ["Zamglaum", "zusammen", "klauben"],
+        ["Reisgerät", "reißen", "Gerät"],
+        ["Ladewong", "laden", "Wagen"],
+        ["Hopfenreben runterreißen", "Hopfen", "Rebe"],
+        ["Hopfensträußel", "Hopfen", "Streusel"],
+        ["meine Lieblings Hilfskraft 🥰", "helfen", "Kraft"],
+        ["Hopfendarre", "Hopfen", "dürr"]
+      ],
+      [
+        ["Dahoam is dahoam", "zuhause", "zuhause"],
+        ["Fernsehen", "fern", "sehen"],
+        ["bayerischer Rundfunk", "rund", "funken"],
+        ["Donnerstag abends", "Donner", "Tag"],
+        ["Mediathek", "Medien", "Theke"],
+        ["Lansing", "Land", "singen"],
+        ["Margot Gerstl", "Margot", "Gerstl"],
+        ["Pfarrer Naveen", "Pfarrer", "Naveen"],
+        ["Till Brenner", "Till", "Brenner"],
+        ["Kathi Benninger", "Katharina", "Benninger"],
+        ["Monika Vogl", "Monika", "Vogl"],
+        ["Gregor Brunner", "Gregor", "Brunner"],
+        ["Theres Brunner", "Theresa", "Brunner"],
+        ["Roland Bamberger", "Roland", "Bamberger"],
+        ["Hubert Kirchleitner", "Hubert", "Kirchleitner"],
+        ["Annalena Brunner", "Annalena", "Brunner"],
+        ["Mike Preissinger", "Michael", "Preissinger"],
+        ["Lien Thi Groß", "Lien", "Thi Groß"]
+      ]
+    ]
+  },
+  {
+    "day": 22,
+    "image": "hopfenfest_nandlstadt",
+    "data": [
+      [
+
       ]
     ]
   }
