@@ -33,7 +33,7 @@ class _AdventPageState extends State<AdventPage> {
     var beforeDecember2023 = DateTime.now().month < DateTime.december && DateTime.now().year == 2023;
     var duringDecember2023 = DateTime.now().month == DateTime.december && DateTime.now().year == 2023;
     beforeDecember2023 = false;
-    duringDecember2023 = true;
+    duringDecember2023 = true; // TODO: remove this
     if (beforeDecember2023) {
       todayNumber = 0;
     } else if (duringDecember2023) {

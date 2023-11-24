@@ -500,7 +500,7 @@
         ["Stehtisch", "Steh", "Tisch"],
         ["Barraum", "Bar", "Raum"],
         ["Longdrinks", "lang", "Getränke"],
-        ["Jacke aufn Kopf", "Jacke", "Kopf"],
+        ["Jacke aufn Kopf 🥰", "Jacke", "Kopf"],
         ["Postkeller", "Post", "Keller"],
         ["Feuerwürz", "Feuer", "Würz"]
       ]
@@ -513,14 +513,13 @@
       [
         ["Miri Geburtstag", "Miriam", "Geburtstag"],
         ["mit Vronebone", "Veronika", "Bohne"],
-        ["in Kainrad", "kein", "Rad"], // TODO: Band nane
+        ["in Kainrad", "kein", "Rad"],
         ["Tanzfläche", "tanzen", "Fläche"],
         ["Hopfensäcke", "Hopfen", "Sack"],
-        ["Male-male", "malen", "malen"],
+        ["Male-male 💞", "malen", "malen"],
         ["Saufspiel", "saufen", "Spiel"],
         ["crazy dance moves", "tanzen", "Bewegung"],
         ["lange aufbleiben", "auf", "bleiben"]
-        // TODO: emojis
       ]
     ],
     "sentence": {
@@ -533,13 +532,22 @@
     "image": "weihnachten",
     "data": [
       [
-        
+        ["Weihnachten", "weihen", "Nacht"],
+        ["Christbaum", "Christ", "Baum"],
+        ["Geburt Jesu", "Geburt", "Jesus"],
+        ["Adventskalendar ❤️", "Advent", "Kalendar"],
+        ["Kuschelwetter", "kuscheln", "Wetter"],
+        ["Krippenspiel", "Krippe", "Spiel"],
+        ["mein Lieblingsochse 🥰", "Liebling", "Ochse"],
+        ["Feiertage", "feiern", "Tag"],
+        ["Christkind", "Christ", "Kind"],
+        ["Frohe Weihnachten 😘", "froh", "Weihnacht"],
+        ["Top Gun", "top", "Gewehr"]
       ]
     ],
     "sentence": {
       "separator": " + ",
       "total": "Du + Ich"
     }
-  23: miri geburtstag + mal sehen was wird, was wird
-  24: weihnachten; Du + Ich
+  }
 ]
