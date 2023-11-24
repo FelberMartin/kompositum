@@ -491,13 +491,55 @@
   },
   {
     "day": 22,
-    "image": "hopfenfest_nandlstadt", + feuerwürz
+    "image": "hopfenfest_nandlstadt",
     "data": [
       [
-
+        ["Hopfenfest", "Hopfen", "Fest"],
+        ["in Nandlstadt", "Nandl", "Stadt"],
+        ["Lederhose", "Leder", "Hose"],
+        ["Stehtisch", "Steh", "Tisch"],
+        ["Barraum", "Bar", "Raum"],
+        ["Longdrinks", "lang", "Getränke"],
+        ["Jacke aufn Kopf", "Jacke", "Kopf"],
+        ["Postkeller", "Post", "Keller"],
+        ["Feuerwürz", "Feuer", "Würz"]
       ]
     ]
-  }
+  },
+  {
+    "day": 23,
+    "image": "miri_geburtstag",
+    "data": [
+      [
+        ["Miri Geburtstag", "Miriam", "Geburtstag"],
+        ["mit Vronebone", "Veronika", "Bohne"],
+        ["in Kainrad", "kein", "Rad"], // TODO: Band nane
+        ["Tanzfläche", "tanzen", "Fläche"],
+        ["Hopfensäcke", "Hopfen", "Sack"],
+        ["Male-male", "malen", "malen"],
+        ["Saufspiel", "saufen", "Spiel"],
+        ["crazy dance moves", "tanzen", "Bewegung"],
+        ["lange aufbleiben", "auf", "bleiben"]
+        // TODO: emojis
+      ]
+    ],
+    "sentence": {
+      "separator": " ",
+      "total": "Mal sehen was wird, was wird"
+    }
+  },
+  {
+    "day": 24,
+    "image": "weihnachten",
+    "data": [
+      [
+        
+      ]
+    ],
+    "sentence": {
+      "separator": " + ",
+      "total": "Du + Ich"
+    }
   23: miri geburtstag + mal sehen was wird, was wird
   24: weihnachten; Du + Ich
 ]
