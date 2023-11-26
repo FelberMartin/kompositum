@@ -7,6 +7,7 @@ import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 import 'package:kompositum/main.dart';
 import 'package:kompositum/theme.dart';
+import 'package:kompositum/util/clip_shadow_path.dart';
 import 'package:kompositum/widgets/buttons.dart';
 import 'package:kompositum/widgets/topbar.dart';
 
@@ -14,17 +15,17 @@ import '../game/hints/hint.dart';
 import '../game/level_provider.dart';
 import '../game/pool_game_level.dart';
 import '../locator.dart';
+import '../util/rounded_edge_clipper.dart';
 import 'icon_button.dart';
 
 class GamePage extends StatefulWidget {
-  const GamePage(
-      {super.key,
-      required this.title,
-      required this.levelProvider,
-      required this.poolGenerator,
-      required this.keyValueStore,
-      required this.swappableDetector
-      });
+  const GamePage({super.key,
+    required this.title,
+    required this.levelProvider,
+    required this.poolGenerator,
+    required this.keyValueStore,
+    required this.swappableDetector
+  });
 
   final String title;
   final LevelProvider levelProvider;
@@ -47,7 +48,7 @@ class GamePageState extends State<GamePage> {
   bool isLoading = true;
 
   final StreamController<String> wordCompletionEventStream =
-      StreamController<String>.broadcast();
+  StreamController<String>.broadcast();
 
   Map<SelectionType, int> selectionTypeToIndex = {
     SelectionType.modifier: -1,
@@ -56,15 +57,16 @@ class GamePageState extends State<GamePage> {
 
   String? get selectedModifier =>
       selectionTypeToIndex[SelectionType.modifier] !=
-              -1
+          -1
           ? _poolGameLevel
-              .shownComponents[selectionTypeToIndex[SelectionType.modifier]!]
+          .shownComponents[selectionTypeToIndex[SelectionType.modifier]!]
           : null;
 
-  String? get selectedHead => selectionTypeToIndex[SelectionType.head] != -1
-      ? _poolGameLevel
+  String? get selectedHead =>
+      selectionTypeToIndex[SelectionType.head] != -1
+          ? _poolGameLevel
           .shownComponents[selectionTypeToIndex[SelectionType.head]!]
-      : null;
+          : null;
 
   @override
   void initState() {
@@ -84,7 +86,7 @@ class GamePageState extends State<GamePage> {
     // so that when regenerating the same level later, the same compounds
     // are blocked.
     _keyValueStore.storeBlockedCompounds(_poolGenerator.getBlockedCompounds());
-    await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(Duration(milliseconds: 2000));
     setState(() {
       isLoading = true;
     });
@@ -95,9 +97,9 @@ class GamePageState extends State<GamePage> {
     final swappables = await _swappableDetector.getSwappables(compounds);
     print("Finished new pool for new level");
     _poolGameLevel = PoolGameLevel(compounds,
-        maxShownComponentCount: levelSetup.maxShownComponentCount,
-        displayedDifficulty: levelSetup.displayedDifficulty,
-        swappableCompounds: swappables,
+      maxShownComponentCount: true ? 5 : levelSetup.maxShownComponentCount,
+      displayedDifficulty: levelSetup.displayedDifficulty,
+      swappableCompounds: swappables,
     );
     setState(() {
       isLoading = false;
@@ -168,6 +170,15 @@ class GamePageState extends State<GamePage> {
     super.dispose();
   }
 
+  List<ComponentInfo> getComponentInfos() {
+    return _poolGameLevel.shownComponents.map((component) {
+      final selectionType = getSelectionTypeForIndex(
+          _poolGameLevel.shownComponents.indexOf(component));
+      final hint = _poolGameLevel.hints.firstWhereOrNull((hint) => hint.hintedComponent == component);
+      return ComponentInfo(component, selectionType, hint);
+    }).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     final customColors = Theme.of(context).extension<CustomColors>()!;
@@ -186,54 +197,34 @@ class GamePageState extends State<GamePage> {
         child: isLoading
             ? CircularProgressIndicator()
             : Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  // TopRow(
-                  //   onBackPressed: () {
-                  //     Navigator.pop(context);
-                  //   },
-                  //   displayedDifficulty: _poolGameLevel.displayedDifficulty,
-                  //   levelNumber: levelNumber,
-                  //   levelProgress: _poolGameLevel.getLevelProgress(),
-                  //   starCount: 4200,
-                  // ),
-                  AnimatedTextFadeOut(
-                      textStream: wordCompletionEventStream.stream),
-
-                  // A row containing the selected modifier and head separated by a plus icon
-                  CompoundMergeRow(
-                      selectedModifier: selectedModifier,
-                      selectedHead: selectedHead,
-                      onResetSelection: resetSelection),
-                  Expanded(child: Container()),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 36.0),
-                    child: Wrap(
-                      spacing: 8.0,
-                      runSpacing: 8.0,
-                      alignment: WrapAlignment.center,
-                      children: [
-                        for (final (index, component)
-                            in _poolGameLevel.shownComponents.indexed)
-                          WordWrapper(
-                              text: component,
-                              selectionType: getSelectionTypeForIndex(index),
-                              onSelectionChanged: (selected) {
-                                toggleSelection(index);
-                              },
-                              hint: _poolGameLevel.hints
-                                  .firstWhereOrNull((hint) =>
-                                      hint.hintedComponent == component)
-                                  ?.type),
-                      ],
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Expanded(child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    CompoundMergeRow(
+                        selectedModifier: selectedModifier,
+                        selectedHead: selectedHead,
+                        onResetSelection: resetSelection
                     ),
+                    AnimatedTextFadeOut(
+                        textStream: wordCompletionEventStream.stream),
+                  ],
+                )),
+                BottomContent(
+                  onToggleSelection: toggleSelection,
+                  componentInfos: getComponentInfos(),
+                  hiddenComponentsCount: _poolGameLevel.hiddenComponents.length,
+                  hintButtonInfo: MyIconButtonInfo(
+                    icon: Icons.lightbulb_rounded,
+                    onPressed: () {
+                      _poolGameLevel.requestHint();
+                    },
+                    enabled: _poolGameLevel.canRequestHint(),
                   ),
-                  Expanded(child: Container()),
-                  HiddenComponentsIndicator(
-                      hiddenComponentsCount:
-                          _poolGameLevel.hiddenComponents.length),
-                ],
-              ),
+                ),
+              ],
+            ),
       ),
     );
   }
@@ -275,12 +266,19 @@ class TopRow extends StatelessWidget implements PreferredSizeWidget {
           SizedBox(height: 16.0),
           Text(
             "Level $levelNumber",
-            style: Theme.of(context).textTheme.titleMedium,
+            style: Theme
+                .of(context)
+                .textTheme
+                .titleMedium,
           ),
           SizedBox(height: 4.0),
           Text(
             displayedDifficulty.toUiString().toLowerCase(),
-            style: Theme.of(context).textTheme.labelSmall!.copyWith(
+            style: Theme
+                .of(context)
+                .textTheme
+                .labelSmall!
+                .copyWith(
               color: customColors.textSecondary,
             ),
           ),
@@ -291,7 +289,10 @@ class TopRow extends StatelessWidget implements PreferredSizeWidget {
         children: [
           Text(
             starCount.toString(),
-            style: Theme.of(context).textTheme.labelLarge,
+            style: Theme
+                .of(context)
+                .textTheme
+                .labelLarge,
           ),
           Icon(
             Icons.star_rounded,
@@ -314,23 +315,25 @@ class HiddenComponentsIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final customColors = Theme.of(context).extension<CustomColors>()!;
     if (hiddenComponentsCount == 0) {
       return Container();
     }
-    return Container(
-        alignment: Alignment.bottomLeft,
-        padding: const EdgeInsets.only(left: 16.0, bottom: 16.0),
-        child: Chip(
-          label: SizedBox(
-            width: 40,
-            child: Center(
-              child: Text(
-                "$hiddenComponentsCount",
-                style: Theme.of(context).textTheme.labelLarge,
-              ),
-            ),
-          ),
-        ));
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "$hiddenComponentsCount",
+          style: Theme.of(context).textTheme.titleSmall,
+        ),
+        Text(
+          "verdeckte Wörter",
+          style: Theme.of(context).textTheme.labelSmall!.copyWith(
+            color: customColors.textSecondary,
+          )
+        )
+      ],
+    );
   }
 }
 
@@ -357,15 +360,15 @@ class AnimatedTextFadeOutState extends State<AnimatedTextFadeOut>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      reverseDuration: const Duration(seconds: 1),
+      reverseDuration: const Duration(milliseconds: 1500),
     );
 
     _alignAnimation = Tween<AlignmentGeometry>(
       begin: Alignment.topCenter, // Changed because the controller is reversed
-      end: Alignment.bottomCenter,
+      end: Alignment.center,
     ).animate(CurvedAnimation(
       parent: _controller,
-      curve: Curves.decelerate.flipped,
+      curve: Curves.easeIn,
     ));
 
     _textStreamSubscription = widget.textStream.listen((text) {
@@ -383,15 +386,14 @@ class AnimatedTextFadeOutState extends State<AnimatedTextFadeOut>
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        height: 200,
+    return Expanded(
         child: AlignTransition(
           alignment: _alignAnimation,
           child: FadeTransition(
             opacity: _controller,
             child: Text(
               _displayText,
-              style: Theme.of(context).textTheme.headlineLarge,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
         ));
@@ -431,7 +433,10 @@ class CompoundMergeRow extends StatelessWidget {
         ),
         Icon(
           Icons.add,
-          color: Theme.of(context).colorScheme.primary,
+          color: Theme
+              .of(context)
+              .colorScheme
+              .primary,
         ),
         Expanded(
           flex: 1,
@@ -446,6 +451,103 @@ class CompoundMergeRow extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class ComponentInfo {
+  final String text;
+  final SelectionType? selectionType;
+  final Hint? hint;
+
+  ComponentInfo(this.text, this.selectionType, this.hint);
+}
+
+class BottomContent extends StatelessWidget {
+  const BottomContent({
+    super.key,
+    required this.onToggleSelection,
+    required this.componentInfos,
+    required this.hiddenComponentsCount,
+    required this.hintButtonInfo,
+  });
+
+  final Function(int) onToggleSelection;
+  final List<ComponentInfo> componentInfos;
+  final int hiddenComponentsCount;
+  final MyIconButtonInfo hintButtonInfo;
+
+  @override
+  Widget build(BuildContext context) {
+    final customColors = Theme.of(context).extension<CustomColors>()!;
+    return ClipPath(
+      clipper: RoundedEdgeClipper(onBottom: false),
+      child: Container(
+        height: 400,
+        color: Theme.of(context).colorScheme.secondary,
+        child: Column(
+          children: [
+            Expanded(child: Container(),),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 36.0),
+              child: Wrap(
+                spacing: 8.0,
+                runSpacing: 8.0,
+                alignment: WrapAlignment.center,
+                children: [
+                  for (final (index, componentInfo)
+                  in componentInfos.indexed)
+                    WordWrapper(
+                      text: componentInfo.text,
+                      selectionType: componentInfo.selectionType,
+                      onSelectionChanged: (selected) {
+                        onToggleSelection(index);
+                      },
+                      hint: componentInfo.hint?.type,
+                    ),
+                ],
+              ),
+            ),
+            Expanded(child: Container(),),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  HiddenComponentsIndicator(
+                    hiddenComponentsCount: hiddenComponentsCount,
+                  ),
+                  Column(
+                    children: [
+                      MyIconButton(
+                        icon: hintButtonInfo.icon,
+                        onPressed: hintButtonInfo.onPressed,
+                      ),
+                      SizedBox(height: 4.0),
+                      Row(
+                        children: [
+                          Text(
+                            "100",
+                            style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                              color: customColors.textSecondary,
+                            ),
+                          ),
+                          Icon(
+                            Icons.star_rounded,
+                            color: customColors.star,
+                            size: 16.0,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

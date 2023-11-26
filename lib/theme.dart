@@ -33,6 +33,7 @@ final myTheme = ThemeData(
       fontSize: 12,
       fontWeight: FontWeight.bold,
       color: Colors.white,
+      letterSpacing: 0.6,
     ),
     // Figma 14
     labelMedium: TextStyle(

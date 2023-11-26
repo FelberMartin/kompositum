@@ -1,6 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:kompositum/theme.dart';
 
+
+class MyIconButtonInfo {
+  const MyIconButtonInfo({
+    required this.icon,
+    required this.onPressed,
+    required this.enabled,
+  });
+
+  final IconData icon;
+  final Function onPressed;
+  final bool enabled;
+
+}
+
 class MyIconButton extends StatelessWidget {
   const MyIconButton({
     required this.icon,
@@ -8,6 +22,13 @@ class MyIconButton extends StatelessWidget {
     this.enabled = true,
     super.key,
   });
+
+  MyIconButton.fromInfo({
+    required info,
+    super.key,
+  }) : icon = info.icon,
+       onPressed = info.onPressed,
+       enabled = info.enabled;
 
   final IconData icon;
   final Function onPressed;
