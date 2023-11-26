@@ -532,7 +532,7 @@
     "image": "weihnachten",
     "data": [
       [
-        ["Weihnachten", "weihen", "Nacht"],
+        ["Weihnachten", "Wein", "achten"],
         ["Christbaum", "Christ", "Baum"],
         ["Geburt Jesu", "Geburt", "Jesus"],
         ["Adventskalendar ❤️", "Advent", "Kalendar"],
@@ -543,11 +543,10 @@
         ["Christkind", "Christ", "Kind"],
         ["Frohe Weihnachten 😘", "froh", "Weihnacht"],
         ["Top Gun", "top", "Gewehr"]
+      ],
+      [
+        ["❤️", "Du", "Ich"]
       ]
-    ],
-    "sentence": {
-      "separator": " + ",
-      "total": "Du + Ich"
-    }
+    ]
   }
 ]
