@@ -5,14 +5,15 @@ import 'package:collection/collection.dart'; // You have to add this manually, f
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
+import 'package:kompositum/widgets/buttons.dart';
 
 import '../game/hints/hint.dart';
 import '../game/level_provider.dart';
 import '../game/pool_game_level.dart';
 import '../locator.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage(
+class GamePage extends StatefulWidget {
+  const GamePage(
       {super.key,
       required this.title,
       required this.levelProvider,
@@ -28,10 +29,10 @@ class MyHomePage extends StatefulWidget {
   final SwappableDetector swappableDetector;
 
   @override
-  State<MyHomePage> createState() => MyHomePageState();
+  State<GamePage> createState() => GamePageState();
 }
 
-class MyHomePageState extends State<MyHomePage> {
+class GamePageState extends State<GamePage> {
   late final LevelProvider _levelProvider = widget.levelProvider;
   late final CompoundPoolGenerator _poolGenerator = widget.poolGenerator;
   late final SwappableDetector _swappableDetector = widget.swappableDetector;
@@ -448,6 +449,8 @@ class CompoundMergeRow extends StatelessWidget {
   final String? selectedHead;
   final void Function(SelectionType) onResetSelection;
 
+  final _placeholder = "       ";
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -455,29 +458,30 @@ class CompoundMergeRow extends StatelessWidget {
       children: [
         Expanded(
           flex: 1,
-          child: ActionChip(
-            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-            label: Text(
-              selectedModifier ?? ' ',
-              style: Theme.of(context).textTheme.headlineLarge,
+          child: Container(
+            alignment: Alignment.centerRight,
+            child: MyPrimaryTextButtonLarge(
+              onPressed: () {
+                onResetSelection(SelectionType.modifier);
+              },
+              text: selectedModifier ?? _placeholder,
             ),
-            onPressed: () {
-              onResetSelection(SelectionType.modifier);
-            },
           ),
         ),
-        const Icon(Icons.add),
+        Icon(
+          Icons.add,
+          color: Theme.of(context).colorScheme.primary,
+        ),
         Expanded(
           flex: 1,
-          child: ActionChip(
-            backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-            label: Text(
-              selectedHead ?? ' ',
-              style: Theme.of(context).textTheme.headlineLarge,
+          child: Container(
+            alignment: Alignment.centerLeft,
+            child: MyPrimaryTextButtonLarge(
+              onPressed: () {
+                onResetSelection(SelectionType.head);
+              },
+              text: selectedHead ?? _placeholder,
             ),
-            onPressed: () {
-              onResetSelection(SelectionType.head);
-            },
           ),
         ),
       ],
@@ -503,23 +507,22 @@ class WordWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FilterChip(
-      selected: selectionType != null,
-      onSelected: onSelectionChanged,
-      showCheckmark: false,
-      selectedColor: selectionType == SelectionType.modifier
-          ? Theme.of(context).colorScheme.primaryContainer
-          : Theme.of(context).colorScheme.secondaryContainer,
-      elevation: hint != null ? 6.0 : 0.0,
-      backgroundColor:
-          hint != null ? hintColor : Theme.of(context).colorScheme.background,
-      shadowColor: hintColor,
-      selectedShadowColor: hintColor,
-      label: Text(
-        text,
-        style: Theme.of(context).textTheme.labelLarge,
-      ),
-    );
+    final isSelected = selectionType != null;
+    if (isSelected) {
+      return MyPrimaryTextButton(
+        onPressed: () {
+          onSelectionChanged(false);
+        },
+        text: text,
+      );
+    } else {
+      return MySecondaryTextButton(
+        onPressed: () {
+          onSelectionChanged(true);
+        },
+        text: text,
+      );
+    }
   }
 }
 

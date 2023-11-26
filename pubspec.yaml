@@ -102,3 +102,10 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+  fonts:
+    - family: Exo2
+      fonts:
+        - asset: fonts/Exo2-VariableFont_wght.ttf
+        - asset: fonts/Exo2-Italic-VariableFont_wght.ttf
+          style: italic
