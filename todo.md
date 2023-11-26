@@ -24,6 +24,7 @@
 - Calendar
 
 ### Misc
+- Gameplay idea: When starting a new level, a first modifier is already selected.
 - Make the graph case insensitive? Would maybe result in less reported conflicts
 - Feature idea: when selecting a compound that is not recognized, option to send report
   - eg via firebase take request and store unknown compounds

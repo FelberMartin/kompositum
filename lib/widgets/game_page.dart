@@ -278,8 +278,7 @@ class TopRow extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final customColors = Theme.of(context).extension<CustomColors>()!;
     return MyAppBar(
-      leftContent: SizedBox(
-        height: 55.0,
+      leftContent: Center(
         child: MyIconButton(
           icon: FontAwesomeIcons.chevronLeft,
           onPressed: onBackPressed,
