@@ -32,26 +32,31 @@ final myTheme = ThemeData(
     labelSmall: TextStyle(
       fontSize: 12,
       fontWeight: FontWeight.bold,
+      color: Colors.white,
     ),
     // Figma 14
     labelMedium: TextStyle(
       fontSize: 14,
       fontWeight: FontWeight.bold,
+      color: Colors.white,
     ),
     // Figma 16
     labelLarge: TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.bold,
+      color: Colors.white,
     ),
     // Figma 20
     titleSmall: TextStyle(
       fontSize: 20,
       fontWeight: FontWeight.bold,
+      color: Colors.white,
     ),
     // Figma 24
     titleMedium: TextStyle(
       fontSize: 24,
       fontWeight: FontWeight.bold,
+      color: Colors.white,
     ),
   ),
 );

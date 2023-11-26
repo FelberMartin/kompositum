@@ -5,12 +5,16 @@ import 'package:collection/collection.dart'; // You have to add this manually, f
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
+import 'package:kompositum/main.dart';
+import 'package:kompositum/theme.dart';
 import 'package:kompositum/widgets/buttons.dart';
+import 'package:kompositum/widgets/topbar.dart';
 
 import '../game/hints/hint.dart';
 import '../game/level_provider.dart';
 import '../game/pool_game_level.dart';
 import '../locator.dart';
+import 'icon_button.dart';
 
 class GamePage extends StatefulWidget {
   const GamePage(
@@ -166,37 +170,33 @@ class GamePageState extends State<GamePage> {
 
   @override
   Widget build(BuildContext context) {
+    final customColors = Theme.of(context).extension<CustomColors>()!;
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 221, 233, 239),
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.refresh),
-            onPressed: () {
-              updateGameToNewLevel(1);
-            },
-          )
-        ],
+      appBar: isLoading ? null : TopRow(
+        onBackPressed: () {
+          Navigator.pop(context);
+        },
+        displayedDifficulty: _poolGameLevel.displayedDifficulty,
+        levelNumber: levelNumber,
+        levelProgress: _poolGameLevel.getLevelProgress(),
+        starCount: 4200,
       ),
+      backgroundColor: customColors.background2,
       body: Center(
         child: isLoading
             ? CircularProgressIndicator()
             : Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  SizedBox(height: 16.0),
-                  TopRow(
-                      displayedDifficulty: _poolGameLevel.displayedDifficulty,
-                      levelNumber: levelNumber,
-                      levelProgress: _poolGameLevel.getLevelProgress(),
-                      isHintAvailable: _poolGameLevel.canRequestHint(),
-                      onHintPressed: () {
-                        _poolGameLevel.requestHint();
-                        setState(() {});
-                      }),
-
+                  // TopRow(
+                  //   onBackPressed: () {
+                  //     Navigator.pop(context);
+                  //   },
+                  //   displayedDifficulty: _poolGameLevel.displayedDifficulty,
+                  //   levelNumber: levelNumber,
+                  //   levelProgress: _poolGameLevel.getLevelProgress(),
+                  //   starCount: 4200,
+                  // ),
                   AnimatedTextFadeOut(
                       textStream: wordCompletionEventStream.stream),
 
@@ -239,107 +239,68 @@ class GamePageState extends State<GamePage> {
   }
 }
 
-class TopRow extends StatelessWidget {
+class TopRow extends StatelessWidget implements PreferredSizeWidget {
   const TopRow({
     super.key,
+    required this.onBackPressed,
     required this.displayedDifficulty,
     required this.levelNumber,
     required this.levelProgress,
-    required this.isHintAvailable,
-    required this.onHintPressed,
+    required this.starCount,
   });
 
+  final VoidCallback onBackPressed;
   final Difficulty displayedDifficulty;
   final int levelNumber;
   final double levelProgress;
-  final bool isHintAvailable;
-  final Function onHintPressed;
+  final int starCount;
+
+
+  @override
+  Size get preferredSize => Size.fromHeight(80.0);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(children: [
-        Expanded(child:
-          Row(children:[
-            DifficultyContainer(displayedDifficulty: displayedDifficulty),
-          ])
+    final customColors = Theme.of(context).extension<CustomColors>()!;
+    return MyAppBar(
+      leftContent: SizedBox(
+        height: 55.0,
+        child: MyIconButton(
+          icon: Icons.arrow_back_rounded,
+          onPressed: onBackPressed,
         ),
-        Expanded(
-            child: Align(
-          alignment: Alignment.center,
-          // Add a loading indicator around the circle avatar, indicating the current level progress
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              CircleAvatar(
-                backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-                radius: 30,
-                child: Text(
-                  levelNumber.toString(),
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-              ),
-
-              Center(
-                child: SizedBox(
-                  height: 60,
-                  width: 60,
-                  child: CircularProgressIndicator(
-                    value: levelProgress > 0 ? levelProgress : 0.03,
-                    strokeWidth: 5,
-                  ),
-                ),
-              ),
-        ]),
-        )),
-        Expanded(
-            child: Align(
-          alignment: Alignment.centerRight,
-          child: OutlinedButton(
-            onPressed: isHintAvailable
-                ? () {
-                    onHintPressed();
-                  }
-                : null,
-            child: Text("Hinweis"),
-          ),
-        ))
-      ]),
-    );
-  }
-}
-
-class DifficultyContainer extends StatelessWidget {
-  const DifficultyContainer({
-    super.key,
-    required this.displayedDifficulty,
-  });
-
-  final Difficulty displayedDifficulty;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(6.0),
-      // Make the container with rounded corners and a background color depending on the difficulty
-      decoration: BoxDecoration(
-        color: difficultyToColor(displayedDifficulty),
-        borderRadius: BorderRadius.circular(8.0),
       ),
-      child: Center(child: Text(displayedDifficulty.toUiString()))
+      middleContent: Column(
+        children: [
+          SizedBox(height: 16.0),
+          Text(
+            "Level $levelNumber",
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          SizedBox(height: 4.0),
+          Text(
+            displayedDifficulty.toUiString().toLowerCase(),
+            style: Theme.of(context).textTheme.labelSmall!.copyWith(
+              color: customColors.textSecondary,
+            ),
+          ),
+        ],
+      ),
+      rightContent: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Text(
+            starCount.toString(),
+            style: Theme.of(context).textTheme.labelLarge,
+          ),
+          Icon(
+            Icons.star_rounded,
+            color: customColors.star,
+          ),
+          SizedBox(width: 16.0),
+        ],
+      ),
     );
-  }
-
-  Color difficultyToColor(Difficulty difficulty) {
-    switch (difficulty) {
-      case Difficulty.easy:
-        return Color.fromARGB(255, 171, 238, 171);
-      case Difficulty.medium:
-        return Color.fromARGB(255, 225, 225, 152);
-      case Difficulty.hard:
-        return Color.fromARGB(255, 253, 190, 190);
-    }
   }
 }
 
