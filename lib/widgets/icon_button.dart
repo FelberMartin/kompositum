@@ -63,7 +63,7 @@ class MyIconButton extends StatelessWidget {
               elevation: 4,
               child: InkWell(
                 borderRadius: const BorderRadius.all(Radius.circular(24)),
-                onTap: () => onPressed,
+                onTap: enabled ? () => onPressed() : null,
                 child: Icon(
                   icon,
                   color: iconColor,

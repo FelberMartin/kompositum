@@ -182,6 +182,24 @@ class GamePageState extends State<GamePage> {
     }).toList();
   }
 
+  ComponentInfo? getSelectedModifierInfo() {
+    if (selectedModifier == null) {
+      return null;
+    }
+    final hint = _poolGameLevel.hints
+        .firstWhereOrNull((hint) => hint.hintedComponent == selectedModifier);
+    return ComponentInfo(selectedModifier!, SelectionType.modifier, hint);
+  }
+
+  ComponentInfo? getSelectedHeadInfo() {
+    if (selectedHead == null) {
+      return null;
+    }
+    final hint = _poolGameLevel.hints
+        .firstWhereOrNull((hint) => hint.hintedComponent == selectedHead);
+    return ComponentInfo(selectedHead!, SelectionType.head, hint);
+  }
+
   @override
   Widget build(BuildContext context) {
     final customColors = Theme.of(context).extension<CustomColors>()!;
@@ -209,8 +227,8 @@ class GamePageState extends State<GamePage> {
                     alignment: Alignment.center,
                     children: [
                       CompoundMergeRow(
-                          selectedModifier: selectedModifier,
-                          selectedHead: selectedHead,
+                          selectedModifier: getSelectedModifierInfo(),
+                          selectedHead: getSelectedHeadInfo(),
                           onResetSelection: resetSelection),
                       AnimatedTextFadeOut(
                           textStream: wordCompletionEventStream.stream),
@@ -225,6 +243,7 @@ class GamePageState extends State<GamePage> {
                       icon: FontAwesomeIcons.lightbulb,
                       onPressed: () {
                         _poolGameLevel.requestHint();
+                        setState(() {});
                       },
                       enabled: _poolGameLevel.canRequestHint(),
                     ),
@@ -380,8 +399,10 @@ class AnimatedTextFadeOutState extends State<AnimatedTextFadeOut>
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        child: AlignTransition(
+    if (_displayText.isEmpty) {
+      return Container();
+    }
+    return AlignTransition(
       alignment: _alignAnimation,
       child: FadeTransition(
         opacity: _controller,
@@ -393,7 +414,7 @@ class AnimatedTextFadeOutState extends State<AnimatedTextFadeOut>
           ),
         ),
       ),
-    ));
+    );
   }
 }
 
@@ -405,8 +426,8 @@ class CompoundMergeRow extends StatelessWidget {
     required this.onResetSelection,
   });
 
-  final String? selectedModifier;
-  final String? selectedHead;
+  final ComponentInfo? selectedModifier;
+  final ComponentInfo? selectedHead;
   final void Function(SelectionType) onResetSelection;
 
   final _placeholder = "    ";
@@ -420,11 +441,15 @@ class CompoundMergeRow extends StatelessWidget {
           flex: 1,
           child: Container(
             alignment: Alignment.centerRight,
-            child: MyPrimaryTextButtonLarge(
-              onPressed: () {
-                onResetSelection(SelectionType.modifier);
-              },
-              text: selectedModifier ?? _placeholder,
+            child: ComponentWithHint(
+              hint: selectedModifier?.hint?.type,
+              size: 32.0,
+              button: MyPrimaryTextButtonLarge(
+                onPressed: () {
+                  onResetSelection(SelectionType.modifier);
+                },
+                text: selectedModifier?.text ?? _placeholder,
+              ),
             ),
           ),
         ),
@@ -436,11 +461,15 @@ class CompoundMergeRow extends StatelessWidget {
           flex: 1,
           child: Container(
             alignment: Alignment.centerLeft,
-            child: MyPrimaryTextButtonLarge(
-              onPressed: () {
-                onResetSelection(SelectionType.head);
-              },
-              text: selectedHead ?? _placeholder,
+            child: ComponentWithHint(
+              hint: selectedHead?.hint?.type,
+              size: 32.0,
+              button: MyPrimaryTextButtonLarge(
+                onPressed: () {
+                  onResetSelection(SelectionType.head);
+                },
+                text: selectedHead?.text ?? _placeholder,
+              ),
             ),
           ),
         ),
@@ -517,9 +546,8 @@ class BottomContent extends StatelessWidget {
                   ),
                   Column(
                     children: [
-                      MyIconButton(
-                        icon: hintButtonInfo.icon,
-                        onPressed: hintButtonInfo.onPressed,
+                      MyIconButton.fromInfo(
+                        info: hintButtonInfo,
                       ),
                       SizedBox(height: 4.0),
                       Row(
@@ -566,26 +594,85 @@ class WordWrapper extends StatelessWidget {
   final ValueChanged<bool> onSelectionChanged;
   final HintComponentType? hint;
 
-  final hintColor = const Color.fromARGB(255, 243, 233, 177);
-
   @override
   Widget build(BuildContext context) {
     final isSelected = selectionType != null;
-    if (isSelected) {
-      return MyPrimaryTextButton(
+    final button = isSelected ?
+      MyPrimaryTextButton(
         onPressed: () {
           onSelectionChanged(false);
         },
         text: text,
-      );
-    } else {
-      return MySecondaryTextButton(
+      )
+    : MySecondaryTextButton(
         onPressed: () {
           onSelectionChanged(true);
         },
         text: text,
       );
+
+      return ComponentWithHint(button: button, hint: hint);
+  }
+}
+
+class ComponentWithHint extends StatelessWidget {
+  const ComponentWithHint({
+    super.key,
+    required this.button,
+    required this.hint,
+    this.size = 24.0,
+  });
+
+  final StatelessWidget button;
+  final HintComponentType? hint;
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    if (hint == null) {
+      return button;
     }
+    return Stack(
+      alignment: const Alignment(1.1, -1.2),
+      children: [
+        button,
+        HintIndicator(
+            hintType: hint!,
+            size: size,
+        ),
+      ],
+    );
+  }
+}
+
+
+
+class HintIndicator extends StatelessWidget {
+  const HintIndicator({
+    super.key,
+    required this.hintType,
+    required this.size,
+  });
+
+  final HintComponentType hintType;
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    final customColors = Theme.of(context).extension<CustomColors>()!;
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: Theme.of(context).colorScheme.primary,
+      ),
+      child: Icon(
+        FontAwesomeIcons.lightbulb,
+        color: customColors.star,
+        size: size * 0.6,
+      ),
+    );
   }
 }
 
