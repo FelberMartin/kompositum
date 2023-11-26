@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:format/format.dart';
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
@@ -19,13 +21,13 @@ import '../util/rounded_edge_clipper.dart';
 import 'icon_button.dart';
 
 class GamePage extends StatefulWidget {
-  const GamePage({super.key,
-    required this.title,
-    required this.levelProvider,
-    required this.poolGenerator,
-    required this.keyValueStore,
-    required this.swappableDetector
-  });
+  const GamePage(
+      {super.key,
+      required this.title,
+      required this.levelProvider,
+      required this.poolGenerator,
+      required this.keyValueStore,
+      required this.swappableDetector});
 
   final String title;
   final LevelProvider levelProvider;
@@ -48,7 +50,7 @@ class GamePageState extends State<GamePage> {
   bool isLoading = true;
 
   final StreamController<String> wordCompletionEventStream =
-  StreamController<String>.broadcast();
+      StreamController<String>.broadcast();
 
   Map<SelectionType, int> selectionTypeToIndex = {
     SelectionType.modifier: -1,
@@ -57,16 +59,15 @@ class GamePageState extends State<GamePage> {
 
   String? get selectedModifier =>
       selectionTypeToIndex[SelectionType.modifier] !=
-          -1
+              -1
           ? _poolGameLevel
-          .shownComponents[selectionTypeToIndex[SelectionType.modifier]!]
+              .shownComponents[selectionTypeToIndex[SelectionType.modifier]!]
           : null;
 
-  String? get selectedHead =>
-      selectionTypeToIndex[SelectionType.head] != -1
-          ? _poolGameLevel
+  String? get selectedHead => selectionTypeToIndex[SelectionType.head] != -1
+      ? _poolGameLevel
           .shownComponents[selectionTypeToIndex[SelectionType.head]!]
-          : null;
+      : null;
 
   @override
   void initState() {
@@ -96,7 +97,8 @@ class GamePageState extends State<GamePage> {
     final compounds = await _poolGenerator.generateFromLevelSetup(levelSetup);
     final swappables = await _swappableDetector.getSwappables(compounds);
     print("Finished new pool for new level");
-    _poolGameLevel = PoolGameLevel(compounds,
+    _poolGameLevel = PoolGameLevel(
+      compounds,
       maxShownComponentCount: true ? 5 : levelSetup.maxShownComponentCount,
       displayedDifficulty: levelSetup.displayedDifficulty,
       swappableCompounds: swappables,
@@ -174,7 +176,8 @@ class GamePageState extends State<GamePage> {
     return _poolGameLevel.shownComponents.map((component) {
       final selectionType = getSelectionTypeForIndex(
           _poolGameLevel.shownComponents.indexOf(component));
-      final hint = _poolGameLevel.hints.firstWhereOrNull((hint) => hint.hintedComponent == component);
+      final hint = _poolGameLevel.hints
+          .firstWhereOrNull((hint) => hint.hintedComponent == component);
       return ComponentInfo(component, selectionType, hint);
     }).toList();
   }
@@ -183,48 +186,51 @@ class GamePageState extends State<GamePage> {
   Widget build(BuildContext context) {
     final customColors = Theme.of(context).extension<CustomColors>()!;
     return Scaffold(
-      appBar: isLoading ? null : TopRow(
-        onBackPressed: () {
-          Navigator.pop(context);
-        },
-        displayedDifficulty: _poolGameLevel.displayedDifficulty,
-        levelNumber: levelNumber,
-        levelProgress: _poolGameLevel.getLevelProgress(),
-        starCount: 4200,
-      ),
+      appBar: isLoading
+          ? null
+          : TopRow(
+              onBackPressed: () {
+                Navigator.pop(context);
+              },
+              displayedDifficulty: _poolGameLevel.displayedDifficulty,
+              levelNumber: levelNumber,
+              levelProgress: _poolGameLevel.getLevelProgress(),
+              starCount: 4200,
+            ),
       backgroundColor: customColors.background2,
       body: Center(
         child: isLoading
             ? CircularProgressIndicator()
             : Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Expanded(child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    CompoundMergeRow(
-                        selectedModifier: selectedModifier,
-                        selectedHead: selectedHead,
-                        onResetSelection: resetSelection
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                      child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      CompoundMergeRow(
+                          selectedModifier: selectedModifier,
+                          selectedHead: selectedHead,
+                          onResetSelection: resetSelection),
+                      AnimatedTextFadeOut(
+                          textStream: wordCompletionEventStream.stream),
+                    ],
+                  )),
+                  BottomContent(
+                    onToggleSelection: toggleSelection,
+                    componentInfos: getComponentInfos(),
+                    hiddenComponentsCount:
+                        _poolGameLevel.hiddenComponents.length,
+                    hintButtonInfo: MyIconButtonInfo(
+                      icon: FontAwesomeIcons.lightbulb,
+                      onPressed: () {
+                        _poolGameLevel.requestHint();
+                      },
+                      enabled: _poolGameLevel.canRequestHint(),
                     ),
-                    AnimatedTextFadeOut(
-                        textStream: wordCompletionEventStream.stream),
-                  ],
-                )),
-                BottomContent(
-                  onToggleSelection: toggleSelection,
-                  componentInfos: getComponentInfos(),
-                  hiddenComponentsCount: _poolGameLevel.hiddenComponents.length,
-                  hintButtonInfo: MyIconButtonInfo(
-                    icon: Icons.lightbulb_rounded,
-                    onPressed: () {
-                      _poolGameLevel.requestHint();
-                    },
-                    enabled: _poolGameLevel.canRequestHint(),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
       ),
     );
   }
@@ -246,7 +252,6 @@ class TopRow extends StatelessWidget implements PreferredSizeWidget {
   final double levelProgress;
   final int starCount;
 
-
   @override
   Size get preferredSize => Size.fromHeight(80.0);
 
@@ -257,7 +262,7 @@ class TopRow extends StatelessWidget implements PreferredSizeWidget {
       leftContent: SizedBox(
         height: 55.0,
         child: MyIconButton(
-          icon: Icons.arrow_back_rounded,
+          icon: FontAwesomeIcons.chevronLeft,
           onPressed: onBackPressed,
         ),
       ),
@@ -266,21 +271,14 @@ class TopRow extends StatelessWidget implements PreferredSizeWidget {
           SizedBox(height: 16.0),
           Text(
             "Level $levelNumber",
-            style: Theme
-                .of(context)
-                .textTheme
-                .titleMedium,
+            style: Theme.of(context).textTheme.titleMedium,
           ),
           SizedBox(height: 4.0),
           Text(
             displayedDifficulty.toUiString().toLowerCase(),
-            style: Theme
-                .of(context)
-                .textTheme
-                .labelSmall!
-                .copyWith(
-              color: customColors.textSecondary,
-            ),
+            style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                  color: customColors.textSecondary,
+                ),
           ),
         ],
       ),
@@ -288,11 +286,9 @@ class TopRow extends StatelessWidget implements PreferredSizeWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text(
-            starCount.toString(),
-            style: Theme
-                .of(context)
-                .textTheme
-                .labelLarge,
+            // Format the starcount with a separator for thousands
+            "{:,d}".format([starCount]),
+            style: Theme.of(context).textTheme.labelLarge,
           ),
           Icon(
             Icons.star_rounded,
@@ -326,12 +322,10 @@ class HiddenComponentsIndicator extends StatelessWidget {
           "$hiddenComponentsCount",
           style: Theme.of(context).textTheme.titleSmall,
         ),
-        Text(
-          "verdeckte Wörter",
-          style: Theme.of(context).textTheme.labelSmall!.copyWith(
-            color: customColors.textSecondary,
-          )
-        )
+        Text("verdeckte Wörter",
+            style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                  color: customColors.textSecondary,
+                ))
       ],
     );
   }
@@ -388,15 +382,18 @@ class AnimatedTextFadeOutState extends State<AnimatedTextFadeOut>
   Widget build(BuildContext context) {
     return Expanded(
         child: AlignTransition(
-          alignment: _alignAnimation,
-          child: FadeTransition(
-            opacity: _controller,
-            child: Text(
-              _displayText,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
+      alignment: _alignAnimation,
+      child: FadeTransition(
+        opacity: _controller,
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            _displayText,
+            style: Theme.of(context).textTheme.titleMedium,
           ),
-        ));
+        ),
+      ),
+    ));
   }
 }
 
@@ -412,7 +409,7 @@ class CompoundMergeRow extends StatelessWidget {
   final String? selectedHead;
   final void Function(SelectionType) onResetSelection;
 
-  final _placeholder = "       ";
+  final _placeholder = "    ";
 
   @override
   Widget build(BuildContext context) {
@@ -432,11 +429,8 @@ class CompoundMergeRow extends StatelessWidget {
           ),
         ),
         Icon(
-          Icons.add,
-          color: Theme
-              .of(context)
-              .colorScheme
-              .primary,
+          FontAwesomeIcons.plus,
+          color: Theme.of(context).colorScheme.primary,
         ),
         Expanded(
           flex: 1,
@@ -487,7 +481,9 @@ class BottomContent extends StatelessWidget {
         color: Theme.of(context).colorScheme.secondary,
         child: Column(
           children: [
-            Expanded(child: Container(),),
+            Expanded(
+              child: Container(),
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 36.0),
               child: Wrap(
@@ -495,8 +491,7 @@ class BottomContent extends StatelessWidget {
                 runSpacing: 8.0,
                 alignment: WrapAlignment.center,
                 children: [
-                  for (final (index, componentInfo)
-                  in componentInfos.indexed)
+                  for (final (index, componentInfo) in componentInfos.indexed)
                     WordWrapper(
                       text: componentInfo.text,
                       selectionType: componentInfo.selectionType,
@@ -508,7 +503,9 @@ class BottomContent extends StatelessWidget {
                 ],
               ),
             ),
-            Expanded(child: Container(),),
+            Expanded(
+              child: Container(),
+            ),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Row(
@@ -529,9 +526,12 @@ class BottomContent extends StatelessWidget {
                         children: [
                           Text(
                             "100",
-                            style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                              color: customColors.textSecondary,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelSmall!
+                                .copyWith(
+                                  color: customColors.textSecondary,
+                                ),
                           ),
                           Icon(
                             Icons.star_rounded,
