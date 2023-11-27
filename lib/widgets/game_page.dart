@@ -13,11 +13,13 @@ import 'package:kompositum/util/clip_shadow_path.dart';
 import 'package:kompositum/widgets/buttons.dart';
 import 'package:kompositum/widgets/topbar.dart';
 
+import '../game/attempts_watcher.dart';
 import '../game/hints/hint.dart';
 import '../game/level_provider.dart';
 import '../game/pool_game_level.dart';
 import '../locator.dart';
 import '../util/rounded_edge_clipper.dart';
+import 'NoAttemptsLeftDialog.dart';
 import 'icon_button.dart';
 
 class GamePage extends StatefulWidget {
@@ -45,6 +47,7 @@ class GamePageState extends State<GamePage> {
   late final SwappableDetector _swappableDetector = widget.swappableDetector;
   late final KeyValueStore _keyValueStore = widget.keyValueStore;
   late PoolGameLevel _poolGameLevel;
+  late final AttemptsWatcher _attemptsWatcher;
 
   late int levelNumber;
   bool isLoading = true;
@@ -79,6 +82,20 @@ class GamePageState extends State<GamePage> {
     _keyValueStore.getBlockedCompoundNames().then((value) {
       _poolGenerator.setBlockedCompounds(value);
     });
+    _attemptsWatcher = AttemptsWatcher(
+      maxAttempts: 3,
+      onNoAttemptsLeft: showNoAttemptsLeftDialog
+    );
+  }
+
+  void showNoAttemptsLeftDialog() {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return NoAttemptsLeftDialog();
+      },
+    );
   }
 
   void updateGameToNewLevel(int newLevelNumber) async {
@@ -143,9 +160,12 @@ class GamePageState extends State<GamePage> {
     if (selectedModifier != null && selectedHead != null) {
       final compound = _poolGameLevel.getCompoundIfExisting(
           selectedModifier!, selectedHead!);
-      if (compound != null) {
+      if (compound == null) {
+        _attemptsWatcher.attemptUsed();
+      } else {
         compoundFound(compound.name);
         _poolGameLevel.removeCompoundFromShown(compound);
+        _attemptsWatcher.resetAttempts();
         setState(() {});
         if (_poolGameLevel.isLevelFinished()) {
           updateGameToNewLevel(levelNumber + 1);
@@ -223,16 +243,20 @@ class GamePageState extends State<GamePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Expanded(
-                      child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      CompoundMergeRow(
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        CompoundMergeRow(
                           selectedModifier: getSelectedModifierInfo(),
                           selectedHead: getSelectedHeadInfo(),
-                          onResetSelection: resetSelection),
-                      AnimatedTextFadeOut(
-                          textStream: wordCompletionEventStream.stream),
-                    ],
+                          onResetSelection: resetSelection,
+                          maxAttempts: _attemptsWatcher.maxAttempts,
+                          attemptsLeft: _attemptsWatcher.attemptsLeft,
+                        ),
+                        AnimatedTextFadeOut(
+                          textStream: wordCompletionEventStream.stream,
+                        ),
+                      ],
                   )),
                   BottomContent(
                     onToggleSelection: toggleSelection,
@@ -423,11 +447,15 @@ class CompoundMergeRow extends StatelessWidget {
     required this.selectedModifier,
     required this.selectedHead,
     required this.onResetSelection,
+    required this.maxAttempts,
+    required this.attemptsLeft,
   });
 
   final ComponentInfo? selectedModifier;
   final ComponentInfo? selectedHead;
   final void Function(SelectionType) onResetSelection;
+  final int maxAttempts;
+  final int attemptsLeft;
 
   final _placeholder = "    ";
 
@@ -452,9 +480,26 @@ class CompoundMergeRow extends StatelessWidget {
             ),
           ),
         ),
-        Icon(
-          FontAwesomeIcons.plus,
-          color: Theme.of(context).colorScheme.primary,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Icon(
+                FontAwesomeIcons.plus,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              Positioned(
+                top: 30,
+                child: Text(
+                  attemptsLeft < maxAttempts ? "$attemptsLeft/$maxAttempts" : "",
+                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
         Expanded(
           flex: 1,
