@@ -83,7 +83,7 @@ class GamePageState extends State<GamePage> {
       _poolGenerator.setBlockedCompounds(value);
     });
     _attemptsWatcher = AttemptsWatcher(
-      maxAttempts: 3,
+      maxAttempts: 5,
       onNoAttemptsLeft: showNoAttemptsLeftDialog
     );
   }

@@ -2,7 +2,6 @@
 ## 1.0 Release
 ### Next up
 
-- Add attempts counter 
 - Add second csv file with manually added compounds that were not in the dataset
 - Collect stars with each word + level
 
