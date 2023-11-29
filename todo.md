@@ -15,7 +15,7 @@
 - Implement design in flutter
 - App icon
 - App name
-- Large Texts in the Chips/Animation
+- How to deal with Large Texts in the Chips/Animation?
 - Sound Design
 
 ### Daily levels
@@ -32,6 +32,9 @@
 - English compounds?
 
 # Bugs
+- Hint generation: When compound consists of the same two components (e.g Kind + Kind = Kindeskind)
+  and only one component in shown in the pool, a hint can get generated for "Kind". Could also cause 
+  the generation to believe that there is a finishable compound in the pool even the is none.
 - App is blackscreen when restarting it on phone (just a long loading time?)
 - When restarting the app the lastNCompounds of the Pool generator are not remembered
   -> The levels are now different too, because the input compounds are different depending on 

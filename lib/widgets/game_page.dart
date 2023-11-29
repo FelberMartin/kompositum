@@ -485,12 +485,18 @@ class CompoundMergeRow extends StatelessWidget {
           child: Stack(
             clipBehavior: Clip.none,
             children: [
-              Icon(
-                FontAwesomeIcons.plus,
-                color: Theme.of(context).colorScheme.primary,
+              Text(
+                "+",
+                style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                  foreground: Paint()
+                    ..style = PaintingStyle.stroke
+                    ..strokeWidth = 3
+                    ..strokeJoin = StrokeJoin.round
+                    ..color = Theme.of(context).colorScheme.primary,
+                ),
               ),
               Positioned(
-                top: 30,
+                top: 48,
                 child: Text(
                   attemptsLeft < maxAttempts ? "$attemptsLeft/$maxAttempts" : "",
                   style: Theme.of(context).textTheme.labelLarge!.copyWith(
