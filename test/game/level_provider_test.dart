@@ -1,11 +1,11 @@
 import 'package:graph_collection/graph.dart';
 import 'package:kompositum/data/database_interface.dart';
 import 'package:kompositum/data/key_value_store.dart';
-import 'package:kompositum/game/compact_frequency_class.dart';
+import 'package:kompositum/data/models/compact_frequency_class.dart';
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 import 'package:kompositum/game/pool_generator/graph_based_pool_generator.dart';
 import 'package:kompositum/game/level_provider.dart';
-import 'package:kompositum/locator.dart';
+import 'package:kompositum/config/locator.dart';
 import 'package:kompositum/util/random_util.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:test/test.dart';

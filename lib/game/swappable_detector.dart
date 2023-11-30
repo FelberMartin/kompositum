@@ -1,7 +1,7 @@
 
 import 'package:kompositum/data/database_interface.dart';
 
-import '../data/compound.dart';
+import '../data/models/compound.dart';
 
 class Swappable {
   final Compound original;

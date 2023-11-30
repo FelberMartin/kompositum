@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:graph_collection/graph.dart';
 
-import '../data/compound.dart';
+import '../../data/models/compound.dart';
 
 class CompoundGraph {
 

@@ -2,50 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:kompositum/util/clip_shadow_path.dart';
 import 'package:kompositum/util/rounded_edge_clipper.dart';
 
-import '../theme.dart';
+import '../../../config/theme.dart';
+import '../../common/my_dialog.dart';
 
 // Preview the dialog:
 void main() =>
     runApp(MaterialApp(theme: myTheme, home: NoAttemptsLeftDialog()));
-
-class MyDialog extends StatelessWidget {
-  const MyDialog({
-    super.key,
-    required this.title,
-    required this.child,
-  });
-
-  final String title;
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      child: ClipPath(
-        clipper: RoundedEdgeClipper(edgeCutDepth: 30),
-        child: Container(
-          color: Theme.of(context).colorScheme.secondary,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 48.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  title,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-                SizedBox(height: 32),
-                child,
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 class NoAttemptsLeftDialog extends StatelessWidget {
   const NoAttemptsLeftDialog({

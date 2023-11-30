@@ -5,9 +5,9 @@ import 'package:flutter/widgets.dart';
 import 'package:kompositum/data/database_initializer.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../game/compact_frequency_class.dart';
+import 'models/compact_frequency_class.dart';
 import '../util/random_util.dart';
-import 'compound.dart';
+import 'models/compound.dart';
 
 class DatabaseInterface {
   final DatabaseInitializer databaseInitializer;

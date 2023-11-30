@@ -1,15 +1,15 @@
 import 'dart:math';
 
-import 'package:kompositum/data/compound.dart';
+import 'package:kompositum/data/models/compound.dart';
 import 'package:kompositum/data/compound_origin.dart';
 import 'package:kompositum/data/database_initializer.dart';
 import 'package:kompositum/data/database_interface.dart';
 import 'package:kompositum/data/key_value_store.dart';
-import 'package:kompositum/game/compact_frequency_class.dart';
+import 'package:kompositum/data/models/compact_frequency_class.dart';
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 import 'package:kompositum/game/pool_generator/graph_based_pool_generator.dart';
 import 'package:kompositum/game/level_provider.dart';
-import 'package:kompositum/locator.dart';
+import 'package:kompositum/config/locator.dart';
 import 'package:kompositum/util/random_util.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';

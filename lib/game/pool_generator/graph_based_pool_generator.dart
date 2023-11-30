@@ -2,9 +2,9 @@ import 'dart:math';
 
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 
-import '../../data/compound.dart';
-import '../compact_frequency_class.dart';
-import '../compound_graph.dart';
+import '../../data/models/compound.dart';
+import '../../data/models/compact_frequency_class.dart';
+import 'compound_graph.dart';
 
 class GraphBasedPoolGenerator extends CompoundPoolGenerator {
   late final Future<CompoundGraph> _fullGraph;

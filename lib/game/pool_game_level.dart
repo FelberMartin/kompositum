@@ -4,7 +4,7 @@ import 'package:collection/collection.dart'; // You have to add this manually, f
 import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 
-import '../data/compound.dart';
+import '../data/models/compound.dart';
 import 'hints/hint.dart';
 
 class PoolGameLevel {

@@ -1,8 +1,8 @@
 import 'dart:math';
 
-import 'package:kompositum/data/compound.dart';
+import 'package:kompositum/data/models/compound.dart';
 
-import 'compact_frequency_class.dart';
+import '../data/models/compact_frequency_class.dart';
 import 'pool_generator/compound_pool_generator.dart';
 
 class LevelSetup {

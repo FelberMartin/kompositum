@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kompositum/theme.dart';
+import 'package:kompositum/config/theme.dart';
 
 
 class MyIconButtonInfo {

@@ -3,7 +3,7 @@
 // - modifier (String)
 // - head (double)
 
-import '../game/compact_frequency_class.dart';
+import 'compact_frequency_class.dart';
 
 class Compound {
   // The full name of the compound e.g. "Krankenhaus"

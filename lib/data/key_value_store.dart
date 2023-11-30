@@ -1,7 +1,7 @@
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'compound.dart';
+import 'models/compound.dart';
 
 class KeyValueStore {
 

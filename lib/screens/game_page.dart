@@ -8,19 +8,19 @@ import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 import 'package:kompositum/main.dart';
-import 'package:kompositum/theme.dart';
+import 'package:kompositum/config/theme.dart';
 import 'package:kompositum/util/clip_shadow_path.dart';
-import 'package:kompositum/widgets/buttons.dart';
-import 'package:kompositum/widgets/topbar.dart';
+import 'package:kompositum/widgets/common/my_buttons.dart';
+import 'package:kompositum/widgets/common/my_app_bar.dart';
 
 import '../game/attempts_watcher.dart';
 import '../game/hints/hint.dart';
 import '../game/level_provider.dart';
 import '../game/pool_game_level.dart';
-import '../locator.dart';
+import '../config/locator.dart';
 import '../util/rounded_edge_clipper.dart';
-import 'NoAttemptsLeftDialog.dart';
-import 'icon_button.dart';
+import '../widgets/play/dialogs/no_attempts_left_dialog.dart';
+import '../widgets/common/my_icon_button.dart';
 
 class GamePage extends StatefulWidget {
   const GamePage(

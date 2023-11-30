@@ -4,8 +4,8 @@ import 'dart:math';
 import 'package:kompositum/data/database_interface.dart';
 import 'package:kompositum/data/key_value_store.dart';
 
-import '../../data/compound.dart';
-import '../compact_frequency_class.dart';
+import '../../data/models/compound.dart';
+import '../../data/models/compact_frequency_class.dart';
 import '../level_provider.dart';
 
 abstract class CompoundPoolGenerator {

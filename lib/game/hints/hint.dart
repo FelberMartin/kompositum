@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import '../../data/compound.dart';
+import '../../data/models/compound.dart';
 
 enum HintComponentType { modifier, head }
 

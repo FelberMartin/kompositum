@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
-import 'compound.dart';
+import 'models/compound.dart';
 
 class CompoundOrigin {
   final String csvFilePath;

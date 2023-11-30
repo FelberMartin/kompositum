@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:kompositum/game/compound_graph.dart';
+import 'package:kompositum/game/pool_generator/compound_graph.dart';
 import 'package:test/test.dart';
 
 import '../test_data/compounds.dart';
