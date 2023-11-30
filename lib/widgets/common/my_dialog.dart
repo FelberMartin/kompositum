@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../util/rounded_edge_clipper.dart';
+import 'util/rounded_edge_clipper.dart';
 
 class MyDialog extends StatelessWidget {
   const MyDialog({

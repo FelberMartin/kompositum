@@ -9,7 +9,7 @@ import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 import 'package:kompositum/main.dart';
 import 'package:kompositum/config/theme.dart';
-import 'package:kompositum/util/clip_shadow_path.dart';
+import 'package:kompositum/widgets/common/util/clip_shadow_path.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 import 'package:kompositum/widgets/common/my_app_bar.dart';
 
@@ -18,7 +18,7 @@ import '../game/hints/hint.dart';
 import '../game/level_provider.dart';
 import '../game/pool_game_level.dart';
 import '../config/locator.dart';
-import '../util/rounded_edge_clipper.dart';
+import '../widgets/common/util/rounded_edge_clipper.dart';
 import '../widgets/play/bottom_content.dart';
 import '../widgets/play/combination_area.dart';
 import '../widgets/play/dialogs/no_attempts_left_dialog.dart';
