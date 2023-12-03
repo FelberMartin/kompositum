@@ -75,7 +75,7 @@ class BottomContent extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            "100",
+                            "${GamePageState.hintCost}",
                             style: Theme.of(context)
                                 .textTheme
                                 .labelSmall!

@@ -127,11 +127,12 @@ class PoolGameLevel {
         component.text == compound.head && component != shownComponent);
   }
 
-  void requestHint() {
+  Hint? requestHint() {
     if (canRequestHint()) {
       final hint = Hint.generate(_allCompounds, shownComponents, hints);
       hints.add(hint);
       print("Hint: ${hint.hintedComponent} (${hint.type})");
+      return hint;
     }
   }
 

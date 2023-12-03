@@ -61,6 +61,8 @@ class GamePageState extends State<GamePage> {
   late int levelNumber;
   bool isLoading = true;
 
+  static const hintCost = 100;
+
   final StreamController<String> wordCompletionEventStream =
       StreamController<String>.broadcast();
 
@@ -108,14 +110,26 @@ class GamePageState extends State<GamePage> {
 
     switch (action) {
       case NoAttemptsLeftDialogAction.hint:
-        poolGameLevel.requestHint();
-        // TODO: reduce star count
-        setState(() {});
+        buyHint();
         break;
       case NoAttemptsLeftDialogAction.restart:
         // TODO: show advertisement
         updateGameToNewLevel(levelNumber, initial: true);
         break;
+    }
+  }
+
+  void buyHint({int cost = hintCost}) {
+    if (!poolGameLevel.canRequestHint()) {
+      return;
+    }
+    // TODO: reduce star count; how to deal with not enough stars?
+
+    final hint = poolGameLevel.requestHint()!;
+    resetSelection(SelectionType.modifier);
+    resetSelection(SelectionType.head);
+    if (hint.type == HintComponentType.modifier) {
+      selectionTypeToComponentId[SelectionType.modifier] = hint.hintedComponent.id;
     }
   }
 
@@ -289,8 +303,7 @@ class GamePageState extends State<GamePage> {
                     hintButtonInfo: MyIconButtonInfo(
                       icon: FontAwesomeIcons.lightbulb,
                       onPressed: () {
-                        poolGameLevel.requestHint();
-                        setState(() {});
+                        buyHint();
                       },
                       enabled: poolGameLevel.canRequestHint(),
                     ),

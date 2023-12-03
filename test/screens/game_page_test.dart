@@ -145,6 +145,31 @@ void main() {
       });
     });
 
+    group("buyHint", () {
+      testWidgets("should set the selection to the new hint if the new hint is the modifier", (tester) async {
+        await _pumpGamePage(tester);
+        sut.poolGameLevel = PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
+        sut.toggleSelection(1);   // Baum
+        sut.toggleSelection(2);   // Schnee
+        sut.buyHint();
+
+        expect(sut.selectedModifier, sut.poolGameLevel.hints[0].hintedComponent);
+        expect(sut.selectedHead, isNull);
+      });
+
+      testWidgets("should reset the selection if the new hint is the head", (tester) async {
+        await _pumpGamePage(tester);
+        sut.poolGameLevel = PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
+        sut.toggleSelection(1);   // Baum
+        sut.toggleSelection(2);   // Schnee
+        sut.buyHint();
+        sut.buyHint();
+
+        expect(sut.selectedModifier, isNull);
+        expect(sut.selectedHead, isNull);
+      });
+    });
+
   });
 
 
