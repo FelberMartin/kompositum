@@ -144,11 +144,6 @@ void main() {
       }
       expect(components.toSet().length, 2);
     });
-
-    test("should return different components if different seeds are passed", () {
-      sut = PoolGameLevel([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 2);
-
-    });
   });
 
   group("Hints", () {
@@ -168,7 +163,7 @@ void main() {
       sut = PoolGameLevel([Compounds.Krankenhaus], maxShownComponentCount: 2);
       sut.requestHint();
       expect(sut.hints, hasLength(1));
-      expect(sut.hints.first.hintedComponent, equals("krank"));
+      expect(sut.hints.first.hintedComponent.text, "krank");
       expect(sut.hints.first.type, equals(HintComponentType.modifier));
 
       removeCompoundHelper(sut, Compounds.Krankenhaus);
@@ -177,7 +172,7 @@ void main() {
 
     test("should not remove the hint if the hinted component is not solved", () {
       sut = PoolGameLevel([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 4);
-      sut.hints.add(Hint("krank", HintComponentType.modifier));
+      sut.hints.add(Hint(UniqueComponent("krank", 123), HintComponentType.modifier));
 
       removeCompoundHelper(sut, Compounds.Apfelbaum);
       expect(sut.hints, hasLength(1));

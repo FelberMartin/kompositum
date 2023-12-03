@@ -42,12 +42,12 @@ class BottomContent extends StatelessWidget {
                 runSpacing: 8.0,
                 alignment: WrapAlignment.center,
                 children: [
-                  for (final (index, componentInfo) in componentInfos.indexed)
+                  for (final componentInfo in componentInfos)
                     WordWrapper(
                       text: componentInfo.component.text,
                       selectionType: componentInfo.selectionType,
                       onSelectionChanged: (selected) {
-                        onToggleSelection(index);
+                        onToggleSelection(componentInfo.component.id);
                       },
                       hint: componentInfo.hint?.type,
                     ),

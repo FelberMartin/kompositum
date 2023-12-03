@@ -74,9 +74,9 @@ class PoolGameLevel {
   void _removeHintsForCompound(Compound compound) {
     hints.removeWhere((hint) =>
         (hint.type == HintComponentType.modifier &&
-            hint.hintedComponent == compound.modifier) ||
+            hint.hintedComponent.text == compound.modifier) ||
         (hint.type == HintComponentType.head &&
-            hint.hintedComponent == compound.head));
+            hint.hintedComponent.text == compound.head));
   }
 
   Compound? getCompoundIfExisting(String modifier, String head) {

@@ -10,7 +10,7 @@ enum HintComponentType { modifier, head }
 
 class Hint {
   /// The component which this hint instance points to.
-  final String hintedComponent;
+  final UniqueComponent hintedComponent;
   final HintComponentType type;
 
   Hint(this.hintedComponent, this.type);
@@ -22,19 +22,21 @@ class Hint {
     }
 
     if (previousHints.length == 1) {
-      return _generateHintForHead(compounds, previousHints.first);
+      return _generateHintForHead(compounds, shownComponents, previousHints.first);
     }
 
     return _generateHintForModifier(compounds, shownComponents);
   }
 
   static Hint _generateHintForHead(
-      List<Compound> compounds, Hint previousHint) {
+      List<Compound> compounds, List<UniqueComponent> shownComponents, Hint previousHint) {
     assert(previousHint.type == HintComponentType.modifier);
 
     final hintedCompound = compounds.firstWhere(
-        (compound) => compound.modifier == previousHint.hintedComponent);
-    return Hint(hintedCompound.head, HintComponentType.head);
+        (compound) => compound.modifier == previousHint.hintedComponent.text);
+    final hintedComponent = shownComponents.firstWhere(
+        (component) => component.text == hintedCompound.head);
+    return Hint(hintedComponent, HintComponentType.head);
   }
 
   static Hint _generateHintForModifier(
@@ -51,6 +53,8 @@ class Hint {
     final random = Random();
     final hintedCompound =
         possibleHintCompounds[random.nextInt(possibleHintCompounds.length)];
-    return Hint(hintedCompound.modifier, HintComponentType.modifier);
+    final hintedComponent = shownComponents.firstWhere(
+        (component) => component.text == hintedCompound.modifier);
+    return Hint(hintedComponent, HintComponentType.modifier);
   }
 }

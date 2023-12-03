@@ -164,9 +164,9 @@ class GamePageState extends State<GamePage> {
     if (compound == null) {
       _attemptsWatcher.attemptUsed();
     } else {
-      compoundFound(compound.name);
       _poolGameLevel.removeCompoundFromShown(compound, selectedModifier!,
           selectedHead!);
+      compoundFound(compound.name);
       _attemptsWatcher.resetAttempts();
       setState(() {});
       if (_poolGameLevel.isLevelFinished()) {

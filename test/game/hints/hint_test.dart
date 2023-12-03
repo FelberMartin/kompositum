@@ -13,16 +13,16 @@ void main() {
       final compounds = [Compounds.Apfelbaum];
       final components = getUniqueComponents(['Apfel', 'Baum']);
       final hint = Hint.generate(compounds, components, []);
-      expect(hint.hintedComponent, equals('Apfel'));
+      expect(hint.hintedComponent.text, equals('Apfel'));
       expect(hint.type, equals(HintComponentType.modifier));
     });
 
     test('should return a hint for the head if there is already a hint for the modifier', () {
       final compounds = Compounds.all;
-      final previousHint = Hint('Apfel', HintComponentType.modifier);
       final components = getUniqueComponents(['Apfel', 'Baum']);
+      final previousHint = Hint(components[0], HintComponentType.modifier);
       final hint = Hint.generate(compounds, components, [previousHint]);
-      expect(hint.hintedComponent, equals('Baum'));
+      expect(hint.hintedComponent.text, equals('Baum'));
       expect(hint.type, equals(HintComponentType.head));
     });
 
@@ -40,8 +40,14 @@ void main() {
     test("should throw an expection if there are already two hints", () {
       final compounds = [Compounds.Apfelbaum, Compounds.Apfelkuchen];
       final components = getUniqueComponents(['Apfel', 'Baum', 'Kuchen']);
-      final previousHints = [Hint('Apfel', HintComponentType.modifier), Hint('Baum', HintComponentType.head)];
+      final previousHints = [Hint(components[0], HintComponentType.modifier), Hint(components[1], HintComponentType.head)];
       expect(() => Hint.generate(compounds, components, previousHints), throwsException);
+    });
+
+    test("edgecase Kindeskind: should throw an exception if it is not possible", () {
+      final compounds = [Compounds.Kindeskind];
+      final components = getUniqueComponents(['Kind']);
+      expect(() => Hint.generate(compounds, components, []), throwsException);
     });
   });
 }

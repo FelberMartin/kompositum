@@ -2,7 +2,6 @@
 ## 1.0 Release
 ### Next up
 
-- Use unique components for hint generation
 - Add tests for game_page
 - Re-adjust level generation: more words for "easy" do not add more words for "hard"
 - Add second csv file with manually added compounds that were not in the dataset
