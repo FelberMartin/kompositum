@@ -44,7 +44,7 @@ class BottomContent extends StatelessWidget {
                 children: [
                   for (final (index, componentInfo) in componentInfos.indexed)
                     WordWrapper(
-                      text: componentInfo.text,
+                      text: componentInfo.component.text,
                       selectionType: componentInfo.selectionType,
                       onSelectionChanged: (selected) {
                         onToggleSelection(index);

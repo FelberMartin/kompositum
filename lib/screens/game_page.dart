@@ -5,6 +5,7 @@ import 'package:collection/collection.dart'; // You have to add this manually, f
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:format/format.dart';
 import 'package:kompositum/data/key_value_store.dart';
+import 'package:kompositum/data/models/unique_component.dart';
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 import 'package:kompositum/main.dart';
@@ -58,22 +59,18 @@ class GamePageState extends State<GamePage> {
   final StreamController<String> wordCompletionEventStream =
       StreamController<String>.broadcast();
 
-  Map<SelectionType, int> selectionTypeToIndex = {
+  Map<SelectionType, int> selectionTypeToComponentId = {
     SelectionType.modifier: -1,
     SelectionType.head: -1,
   };
 
-  String? get selectedModifier =>
-      selectionTypeToIndex[SelectionType.modifier] !=
-              -1
-          ? _poolGameLevel
-              .shownComponents[selectionTypeToIndex[SelectionType.modifier]!]
-          : null;
+  UniqueComponent? get selectedModifier =>
+      _poolGameLevel.shownComponents.firstWhereOrNull((element) =>
+          element.id == selectionTypeToComponentId[SelectionType.modifier]);
 
-  String? get selectedHead => selectionTypeToIndex[SelectionType.head] != -1
-      ? _poolGameLevel
-          .shownComponents[selectionTypeToIndex[SelectionType.head]!]
-      : null;
+  UniqueComponent? get selectedHead =>
+      _poolGameLevel.shownComponents.firstWhereOrNull((element) =>
+          element.id == selectionTypeToComponentId[SelectionType.head]);
 
   @override
   void initState() {
@@ -86,9 +83,7 @@ class GamePageState extends State<GamePage> {
       _poolGenerator.setBlockedCompounds(value);
     });
     _attemptsWatcher = AttemptsWatcher(
-      maxAttempts: 5,
-      onNoAttemptsLeft: showNoAttemptsLeftDialog
-    );
+        maxAttempts: 5, onNoAttemptsLeft: showNoAttemptsLeftDialog);
   }
 
   void showNoAttemptsLeftDialog() {
@@ -119,7 +114,7 @@ class GamePageState extends State<GamePage> {
     print("Finished new pool for new level");
     _poolGameLevel = PoolGameLevel(
       compounds,
-      maxShownComponentCount: true ? 5 : levelSetup.maxShownComponentCount,
+      maxShownComponentCount: levelSetup.maxShownComponentCount,
       displayedDifficulty: levelSetup.displayedDifficulty,
       swappableCompounds: swappables,
     );
@@ -128,11 +123,11 @@ class GamePageState extends State<GamePage> {
     });
   }
 
-  SelectionType? getSelectionTypeForIndex(int index) {
-    for (MapEntry<SelectionType, int> entry in selectionTypeToIndex.entries) {
+  SelectionType? getSelectionTypeForComponentId(int componentId) {
+    for (MapEntry<SelectionType, int> entry in selectionTypeToComponentId.entries) {
       final selectionType = entry.key;
-      final selectedIndex = entry.value;
-      if (selectedIndex == index) {
+      final selectedId = entry.value;
+      if (selectedId == componentId) {
         return selectionType;
       }
     }
@@ -140,39 +135,42 @@ class GamePageState extends State<GamePage> {
   }
 
   void resetSelection(SelectionType selectionType, {bool updateState = true}) {
-    selectionTypeToIndex[selectionType] = -1;
+    selectionTypeToComponentId[selectionType] = -1;
     if (updateState) {
       setState(() {});
     }
   }
 
-  void toggleSelection(int index) async {
-    final selectionType = getSelectionTypeForIndex(index);
+  void toggleSelection(int componentId) async {
+    final selectionType = getSelectionTypeForComponentId(componentId);
     if (selectionType != null) {
-      selectionTypeToIndex[selectionType] = -1;
-    } else if (selectionTypeToIndex[SelectionType.modifier] == -1) {
-      selectionTypeToIndex[SelectionType.modifier] = index;
+      selectionTypeToComponentId[selectionType] = -1;
+    } else if (selectionTypeToComponentId[SelectionType.modifier] == -1) {
+      selectionTypeToComponentId[SelectionType.modifier] = componentId;
     } else {
-      selectionTypeToIndex[SelectionType.head] = index;
+      selectionTypeToComponentId[SelectionType.head] = componentId;
     }
     checkCompoundCompletion();
     setState(() {});
   }
 
   void checkCompoundCompletion() async {
-    if (selectedModifier != null && selectedHead != null) {
-      final compound = _poolGameLevel.getCompoundIfExisting(
-          selectedModifier!, selectedHead!);
-      if (compound == null) {
-        _attemptsWatcher.attemptUsed();
-      } else {
-        compoundFound(compound.name);
-        _poolGameLevel.removeCompoundFromShown(compound);
-        _attemptsWatcher.resetAttempts();
-        setState(() {});
-        if (_poolGameLevel.isLevelFinished()) {
-          updateGameToNewLevel(levelNumber + 1);
-        }
+    if (selectedModifier == null || selectedHead == null) {
+      return;
+    }
+
+    final compound = _poolGameLevel.getCompoundIfExisting(
+        selectedModifier!.text, selectedHead!.text);
+    if (compound == null) {
+      _attemptsWatcher.attemptUsed();
+    } else {
+      compoundFound(compound.name);
+      _poolGameLevel.removeCompoundFromShown(compound, selectedModifier!,
+          selectedHead!);
+      _attemptsWatcher.resetAttempts();
+      setState(() {});
+      if (_poolGameLevel.isLevelFinished()) {
+        updateGameToNewLevel(levelNumber + 1);
       }
     }
   }
@@ -197,8 +195,7 @@ class GamePageState extends State<GamePage> {
 
   List<ComponentInfo> getComponentInfos() {
     return _poolGameLevel.shownComponents.map((component) {
-      final selectionType = getSelectionTypeForIndex(
-          _poolGameLevel.shownComponents.indexOf(component));
+      final selectionType = getSelectionTypeForComponentId(component.id);
       final hint = _poolGameLevel.hints
           .firstWhereOrNull((hint) => hint.hintedComponent == component);
       return ComponentInfo(component, selectionType, hint);
@@ -241,7 +238,7 @@ class GamePageState extends State<GamePage> {
       backgroundColor: customColors.background2,
       body: Center(
         child: isLoading
-            ? CircularProgressIndicator()
+            ? const CircularProgressIndicator()
             : Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -252,7 +249,8 @@ class GamePageState extends State<GamePage> {
                       onResetSelection: resetSelection,
                       maxAttempts: _attemptsWatcher.maxAttempts,
                       attemptsLeft: _attemptsWatcher.attemptsLeft,
-                      wordCompletionEventStream: wordCompletionEventStream.stream,
+                      wordCompletionEventStream:
+                          wordCompletionEventStream.stream,
                     ),
                   ),
                   BottomContent(
@@ -276,13 +274,12 @@ class GamePageState extends State<GamePage> {
   }
 }
 
-
 class ComponentInfo {
-  final String text;
+  final UniqueComponent component;
   final SelectionType? selectionType;
   final Hint? hint;
 
-  ComponentInfo(this.text, this.selectionType, this.hint);
+  ComponentInfo(this.component, this.selectionType, this.hint);
 }
 
 // enum for SelectionType to be either modifier or head

@@ -1,6 +1,10 @@
 import 'dart:math';
 
+import 'package:kompositum/game/pool_game_level.dart';
+import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
+
 import '../../data/models/compound.dart';
+import '../../data/models/unique_component.dart';
 
 enum HintComponentType { modifier, head }
 
@@ -11,8 +15,8 @@ class Hint {
 
   Hint(this.hintedComponent, this.type);
 
-  static Hint generate(List<Compound> compounds, List<String> shownComponents,
-      List<Hint> previousHints) {
+  static Hint generate(List<Compound> compounds,
+      List<UniqueComponent> shownComponents, List<Hint> previousHints) {
     if (previousHints.length == 2) {
       throw Exception('There are already two hints: $previousHints');
     }
@@ -34,12 +38,16 @@ class Hint {
   }
 
   static Hint _generateHintForModifier(
-      List<Compound> compounds, List<String> shownComponents) {
+      List<Compound> compounds, List<UniqueComponent> shownComponents) {
     final possibleHintCompounds = compounds
-        .where((compound) =>
-            shownComponents.contains(compound.modifier) &&
-            shownComponents.contains(compound.head))
+        .where((compound) => compound.isSolvedBy(shownComponents))
         .toList();
+
+    if (possibleHintCompounds.isEmpty) {
+      throw Exception(
+          'There is no possible hint for the given compounds: $compounds');
+    }
+
     final random = Random();
     final hintedCompound =
         possibleHintCompounds[random.nextInt(possibleHintCompounds.length)];

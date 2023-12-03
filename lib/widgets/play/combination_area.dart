@@ -151,7 +151,7 @@ class CompoundMergeRow extends StatelessWidget {
                 onPressed: () {
                   onResetSelection(SelectionType.modifier);
                 },
-                text: selectedModifier?.text ?? _placeholder,
+                text: selectedModifier?.component.text ?? _placeholder,
               ),
             ),
           ),
@@ -194,7 +194,7 @@ class CompoundMergeRow extends StatelessWidget {
                 onPressed: () {
                   onResetSelection(SelectionType.head);
                 },
-                text: selectedHead?.text ?? _placeholder,
+                text: selectedHead?.component.text ?? _placeholder,
               ),
             ),
           ),

@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:kompositum/data/models/compound.dart';
+import 'package:kompositum/data/models/unique_component.dart';
 import 'package:kompositum/game/hints/hint.dart';
 import 'package:kompositum/game/pool_game_level.dart';
 import 'package:kompositum/game/swappable_detector.dart';
@@ -9,6 +11,13 @@ import 'package:test/test.dart';
 
 import '../test_data/compounds.dart';
 import '../test_util.dart';
+
+
+void removeCompoundHelper(PoolGameLevel sut, Compound compound) {
+  final modifier = sut.shownComponents.firstWhere((element) => element.text == compound.modifier);
+  final head = sut.shownComponents.firstWhere((element) => element.text == compound.head);
+  sut.removeCompoundFromShown(compound, modifier, head);
+}
 
 void main() {
   late PoolGameLevel sut;
@@ -52,7 +61,7 @@ void main() {
     test(
         "should remove the compound from the shown components",
         () {
-      sut.removeCompoundFromShown(Compounds.Krankenhaus);
+      removeCompoundHelper(sut, Compounds.Krankenhaus);
       expect(sut.shownComponents, isEmpty);
     });
 
@@ -60,20 +69,25 @@ void main() {
         "should fill the shown components with new components",
         () {
       sut = PoolGameLevel([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 2);
-      sut.removeCompoundFromShown(Compounds.Krankenhaus);
+      sut.shownComponents.clear();
+      sut.shownComponents.addAll(UniqueComponent.fromCompounds([Compounds.Krankenhaus]));
+      sut.hiddenComponents.clear();
+      sut.hiddenComponents.addAll(UniqueComponent.fromCompounds([Compounds.Apfelbaum]));
+
+      removeCompoundHelper(sut, Compounds.Krankenhaus);
       expect(sut.shownComponents, isNotEmpty);
     });
 
     test("should remove the original of the swapped compound if it exists", () {
       sut = PoolGameLevel([Compounds.Maschinenbau], swappableCompounds: [Swappable(Compounds.Maschinenbau, Compounds.Baumaschine)]);
-      sut.removeCompoundFromShown(Compounds.Baumaschine);
+      removeCompoundHelper(sut, Compounds.Baumaschine);
       expect(sut.shownComponents, isEmpty);
     });
   });
 
   group("isLevelFinished", () {
     test("should return true if all compounds are solved", () {
-      sut.removeCompoundFromShown(Compounds.Krankenhaus);
+      removeCompoundHelper(sut, Compounds.Krankenhaus);
       expect(sut.isLevelFinished(), isTrue);
     });
 
@@ -101,17 +115,18 @@ void main() {
         );
 
         final allComponents = sut.shownComponents + sut.hiddenComponents;
+        final krankComponent = allComponents.firstWhere((element) => element.text == "krank");
         sut.shownComponents.clear();
-        sut.shownComponents.add("krank");
+        sut.shownComponents.add(krankComponent);
         sut.hiddenComponents.clear();
         sut.hiddenComponents
-            .addAll(allComponents.where((element) => element != "krank"));
+            .addAll(allComponents.where((element) => element != krankComponent));
 
         for (var i = 0; i < 5; i++) {
           // Repeat to ensure that the test is not passing by luck
-        final nextComponent = sut.getNextShownComponent();
-        expect(nextComponent, "Haus");
-      }
+          final nextComponent = sut.getNextShownComponent();
+          expect(nextComponent.text, "Haus");
+        }
     });
 
     test("should return the same component for the same passed seed", () {
@@ -123,11 +138,16 @@ void main() {
 
     test("should return different components if no seed is passed", () {
       sut = PoolGameLevel([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 2);
-      final components = <String>[];
+      final components = <UniqueComponent>[];
       for (var i = 0; i < 10; i++) {
         components.add(sut.getNextShownComponent());
       }
       expect(components.toSet().length, 2);
+    });
+
+    test("should return different components if different seeds are passed", () {
+      sut = PoolGameLevel([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 2);
+
     });
   });
 
@@ -151,7 +171,7 @@ void main() {
       expect(sut.hints.first.hintedComponent, equals("krank"));
       expect(sut.hints.first.type, equals(HintComponentType.modifier));
 
-      sut.removeCompoundFromShown(Compounds.Krankenhaus);
+      removeCompoundHelper(sut, Compounds.Krankenhaus);
       expect(sut.hints, isEmpty);
     });
 
@@ -159,7 +179,7 @@ void main() {
       sut = PoolGameLevel([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 4);
       sut.hints.add(Hint("krank", HintComponentType.modifier));
 
-      sut.removeCompoundFromShown(Compounds.Apfelbaum);
+      removeCompoundHelper(sut, Compounds.Apfelbaum);
       expect(sut.hints, hasLength(1));
     });
   });

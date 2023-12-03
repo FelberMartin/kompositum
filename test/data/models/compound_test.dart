@@ -1,7 +1,20 @@
 import 'package:kompositum/data/models/compound.dart';
 import 'package:kompositum/data/models/compact_frequency_class.dart';
+import 'package:kompositum/data/models/unique_component.dart';
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 import 'package:test/test.dart';
+
+import '../../test_data/compounds.dart';
+
+
+List<UniqueComponent> getUniqueComponents(List<String> strings) {
+  final uniqueComponents = <UniqueComponent>[];
+  var id = 0;
+  for (final string in strings) {
+    uniqueComponents.add(UniqueComponent(string, id++));
+  }
+  return uniqueComponents;
+}
 
 void main() {
   group("fromMap", () {
@@ -81,4 +94,69 @@ void main() {
       final compoundWithFrequencyClass = compound.withCompactFrequencyClass(CompactFrequencyClass.easy);
       expect(compoundWithFrequencyClass.frequencyClass, lessThanOrEqualTo(CompactFrequencyClass.easy.maxFrequencyClass!));
     });
+
+  group("isSolvedBy", () {
+    test("should return false if the compound is not solved by the given components", () {
+      const compound = Compounds.Schneemann;
+      final components = getUniqueComponents(["krank", "Haus"]);
+      expect(compound.isSolvedBy(components), false);
+    });
+
+    test("should return true if the compound is solved by the given components", () {
+      const compound = Compounds.Schneemann;
+      final components = getUniqueComponents(["Schnee", "Mann"]);
+      expect(compound.isSolvedBy(components), true);
+    });
+
+    test("should return true if the compound is solved by the given components in a different order", () {
+      const compound = Compounds.Schneemann;
+      final components = getUniqueComponents(["Mann", "Schnee"]);
+      expect(compound.isSolvedBy(components), true);
+    });
+
+    test("should return false if only one component is given", () {
+      const compound = Compounds.Schneemann;
+      final components = getUniqueComponents(["Mann"]);
+      expect(compound.isSolvedBy(components), false);
+    });
+
+    test("should return false in edgecase Kindeskind", () {
+      const compound = Compounds.Kindeskind;
+      final components = getUniqueComponents(["Kind"]);
+      expect(compound.isSolvedBy(components), false);
+    });
+
+    test("should return true in edgecase Kindeskind", ()
+    {
+      const compound = Compounds.Kindeskind;
+      final components = getUniqueComponents(["Kind", "Kind"]);
+      expect(compound.isSolvedBy(components), true);
+    });
+  });
+
+  group("isOnlyPartialySolvedBy", () {
+    test("should return false if the compound is not at all solved by the given components", () {
+      const compound = Compounds.Schneemann;
+      final components = getUniqueComponents(["krank", "Haus"]);
+      expect(compound.isOnlyPartiallySolvedBy(components), false);
+    });
+
+    test("should return false if the compound is solved by the given components", () {
+      const compound = Compounds.Schneemann;
+      final components = getUniqueComponents(["Schnee", "Mann"]);
+      expect(compound.isOnlyPartiallySolvedBy(components), false);
+    });
+
+    test("should return true if the compound is only partially solved by the given components", () {
+      const compound = Compounds.Schneemann;
+      final components = getUniqueComponents(["Schnee", "Apfel"]);
+      expect(compound.isOnlyPartiallySolvedBy(components), true);
+    });
+
+    test("should return true for edgecase Kindeskind", () {
+      const compound = Compounds.Kindeskind;
+      final components = getUniqueComponents(["Kind"]);
+      expect(compound.isOnlyPartiallySolvedBy(components), true);
+    });
+  });
 }

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
+import 'package:kompositum/data/models/unique_component.dart';
 import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 
@@ -14,22 +15,20 @@ class PoolGameLevel {
   final _unsolvedCompounds = <Compound>[];
   final List<Swappable> swappableCompounds;
 
-  final shownComponents = <String>[];
-  final hiddenComponents = <String>[];
+  final shownComponents = <UniqueComponent>[];
+  final hiddenComponents = <UniqueComponent>[];
 
   final Difficulty displayedDifficulty;
   final hints = <Hint>[];
 
-  PoolGameLevel(
-      List<Compound> allCompounds,
-      { this.maxShownComponentCount = 11,
-        this.displayedDifficulty = Difficulty.easy,
-        this.swappableCompounds = const []
-      }) {
+  PoolGameLevel(List<Compound> allCompounds,
+      {this.maxShownComponentCount = 11,
+      this.displayedDifficulty = Difficulty.easy,
+      this.swappableCompounds = const []}) {
     _allCompounds.addAll(allCompounds);
     _unsolvedCompounds.addAll(allCompounds);
-    hiddenComponents
-        .addAll(allCompounds.expand((compound) => compound.getComponents()));
+    final components = UniqueComponent.fromCompounds(allCompounds);
+    hiddenComponents.addAll(components);
     _fillShownComponents();
   }
 
@@ -45,25 +44,31 @@ class PoolGameLevel {
     }
   }
 
-  void removeCompoundFromShown(Compound compound) {
+  void removeCompoundFromShown(
+    Compound compound,
+    UniqueComponent modifier,
+    UniqueComponent head,
+  ) {
     final compoundToRemove = _findCompoundToRemove(compound);
     if (compoundToRemove == null) {
       return;
     }
     _removeHintsForCompound(compoundToRemove);
-    shownComponents.remove(compoundToRemove.modifier);
-    shownComponents.remove(compoundToRemove.head);
+    shownComponents.remove(modifier);
+    shownComponents.remove(head);
     _unsolvedCompounds.remove(compoundToRemove);
     _fillShownComponents();
   }
 
   Compound? _findCompoundToRemove(Compound compound) {
-    Compound? compoundToRemove = _allCompounds.firstWhereOrNull((comp) => comp == compound);
+    Compound? compoundToRemove =
+        _allCompounds.firstWhereOrNull((comp) => comp == compound);
     if (compoundToRemove != null) {
       return compoundToRemove;
     }
     return swappableCompounds
-        .firstWhereOrNull((swappable) => swappable.swapped == compound)?.original;
+        .firstWhereOrNull((swappable) => swappable.swapped == compound)
+        ?.original;
   }
 
   void _removeHintsForCompound(Compound compound) {
@@ -80,8 +85,9 @@ class PoolGameLevel {
     if (originalCompound != null) {
       return originalCompound;
     }
-    final swappedCompound = swappableCompounds.firstWhereOrNull(
-        (swappable) => swappable.swapped.modifier == modifier && swappable.swapped.head == head);
+    final swappedCompound = swappableCompounds.firstWhereOrNull((swappable) =>
+        swappable.swapped.modifier == modifier &&
+        swappable.swapped.head == head);
     if (swappedCompound != null) {
       return swappedCompound.swapped;
     }
@@ -92,7 +98,7 @@ class PoolGameLevel {
     return shownComponents.isEmpty;
   }
 
-  String getNextShownComponent({int? seed}) {
+  UniqueComponent getNextShownComponent({int? seed}) {
     final random = seed == null ? Random() : Random(seed);
     final refillCount = maxShownComponentCount - shownComponents.length;
     if (refillCount > 1 || _isCompoundInShownComponents()) {
@@ -103,28 +109,22 @@ class PoolGameLevel {
   }
 
   bool _isCompoundInShownComponents() {
-    for (Compound compound in _allCompounds) {
-      if (shownComponents.contains(compound.modifier) &&
-          shownComponents.contains(compound.head)) {
-        return true;
-      }
-    }
-    return false;
+    return _allCompounds
+        .any((compound) => compound.isSolvedBy(shownComponents));
   }
 
-  String _findMissingComponentForRandomCompound(Random random) {
-    final compundsCurrentlyCompletable = _unsolvedCompounds
-        .where((compound) =>
-            shownComponents.contains(compound.modifier) ||
-            shownComponents.contains(compound.head))
+  UniqueComponent _findMissingComponentForRandomCompound(Random random) {
+    final compoundsCurrentlyCompletable = _unsolvedCompounds
+        .where((compound) => compound.isOnlyPartiallySolvedBy(shownComponents))
         .toList();
-    final compound = compundsCurrentlyCompletable[
-        random.nextInt(compundsCurrentlyCompletable.length)];
-    if (shownComponents.contains(compound.modifier)) {
-      return compound.head;
-    } else {
-      return compound.modifier;
-    }
+    final compound = compoundsCurrentlyCompletable[
+        random.nextInt(compoundsCurrentlyCompletable.length)];
+
+    final shownComponent = shownComponents.firstWhere((component) =>
+        component.text == compound.modifier || component.text == compound.head);
+    return hiddenComponents.firstWhere((component) =>
+        component.text == compound.modifier ||
+        component.text == compound.head && component != shownComponent);
   }
 
   void requestHint() {

@@ -93,6 +93,13 @@ class Compounds {
     frequencyClass: 1,
   );
 
+  static const Kindeskind = Compound(
+    name: "Kindeskind",
+    modifier: "Kind",
+    head: "Kind",
+    frequencyClass: 1,
+  );
+
   static const all = [
     Krankenhaus,
     Spielplatz,

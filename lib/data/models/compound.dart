@@ -3,6 +3,10 @@
 // - modifier (String)
 // - head (double)
 
+import 'package:kompositum/data/models/unique_component.dart';
+import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
+
+
 import 'compact_frequency_class.dart';
 
 class Compound {
@@ -36,6 +40,26 @@ class Compound {
 
   List<String> getComponents() {
     return [modifier, head];
+  }
+
+  bool isSolvedBy(List<UniqueComponent> components) {
+    final modifiers = components.where((component) => component.text == modifier).toList();
+    final heads = components.where((component) => component.text == head).toList();
+    final combined = (modifiers + heads).toSet();
+    if (combined.length == 2) {
+      return true;
+    }
+    return false;
+  }
+
+  bool isOnlyPartiallySolvedBy(List<UniqueComponent> components) {
+    final modifiers = components.where((component) => component.text == modifier).toList();
+    final heads = components.where((component) => component.text == head).toList();
+    final combined = (modifiers + heads).toSet();
+    if (combined.length == 1) {
+      return true;
+    }
+    return false;
   }
 
   Compound withFrequencyClass(int? frequencyClass) {
