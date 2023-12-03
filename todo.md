@@ -2,17 +2,17 @@
 ## 1.0 Release
 ### Next up
 
-- Fancy Buttons
 - Report functionality:
   - Add second csv file with manually added compounds that were not in the dataset
   - Firebase server
   - Implement report dialog
 - Collect stars with each word + level
   - Spend stars for tips
-  - No stars left
+  - No stars left (NoAttemptsLeftDialog + ingame)
 
 ### Later
 - Optimize database loading speed
+- Progress bar?
 
 ### UI Design
 - Implement design in flutter

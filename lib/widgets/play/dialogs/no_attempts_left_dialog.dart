@@ -116,6 +116,7 @@ class OptionCard extends StatelessWidget {
               ),
             ),
             MyPrimaryTextButton(onPressed: () => onActionPressed(), text: actionText),
+            SizedBox(height: 5),
           ],
         ),
       )

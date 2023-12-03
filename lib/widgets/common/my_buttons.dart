@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../util/color_util.dart';
+
 class MyPrimaryButton extends StatelessWidget {
 
   const MyPrimaryButton({
@@ -13,15 +15,45 @@ class MyPrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Stack(
+        clipBehavior: Clip.none,
+        alignment: Alignment.center,
+        children: [
+          Positioned(
+            bottom: -5,
+            right: -1.5,
+            child: _embedChild(
+              backgroundColor: darken(Theme.of(context).colorScheme.primary),
+              elevation: 0,
+              clickable: false,
+              child: child,
+            ),
+          ),
+          _embedChild(
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            elevation: 4,
+            clickable: true,
+            child: child,
+          )
+        ],
+    );
+  }
+
+  Widget _embedChild({
+    required Color backgroundColor,
+    required double elevation,
+    required bool clickable,
+    required Widget child,
+  }) {
     return Card(
-      color: Theme.of(context).colorScheme.primary,
+      color: backgroundColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
-      elevation: 4,
+      elevation: elevation,
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
-        onTap: () => onPressed(),
+        onTap: clickable ? () => onPressed() : null,
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: child,
@@ -45,19 +77,45 @@ class MySecondaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Stack(
+      clipBehavior: Clip.none,
+      alignment: Alignment.center,
+      children: [
+        Positioned(
+          bottom: -5,
+          right: -1.5,
+          child: _embedChild(
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            elevation: 0,
+            clickable: false,
+            child: child,
+          ),
+        ),
+        _embedChild(
+          backgroundColor: Theme.of(context).colorScheme.secondary,
+          elevation: 4,
+          clickable: true,
+          child: child,
+        )
+      ],
+    );
+  }
+
+  Widget _embedChild({
+    required Color backgroundColor,
+    required double elevation,
+    required bool clickable,
+    required Widget child,
+  }) {
     return Card(
-      color: Theme.of(context).colorScheme.secondary,
+      color: backgroundColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
-        side: BorderSide(
-          color: Theme.of(context).colorScheme.primary,
-          width: 2,
-        ),
       ),
-      elevation: 4,
+      elevation: elevation,
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
-        onTap: () => onPressed(),
+        onTap: clickable ? () => onPressed() : null,
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: child,
