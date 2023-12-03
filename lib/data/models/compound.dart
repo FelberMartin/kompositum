@@ -4,8 +4,6 @@
 // - head (double)
 
 import 'package:kompositum/data/models/unique_component.dart';
-import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
-
 
 import 'compact_frequency_class.dart';
 

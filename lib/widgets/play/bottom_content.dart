@@ -4,9 +4,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../config/theme.dart';
 import '../../game/hints/hint.dart';
 import '../../screens/game_page.dart';
-import '../common/util/rounded_edge_clipper.dart';
 import '../common/my_buttons.dart';
 import '../common/my_icon_button.dart';
+import '../common/util/rounded_edge_clipper.dart';
 
 class BottomContent extends StatelessWidget {
   const BottomContent({

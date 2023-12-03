@@ -5,8 +5,8 @@ import 'package:flutter/widgets.dart';
 import 'package:kompositum/data/database_initializer.dart';
 import 'package:sqflite/sqflite.dart';
 
-import 'models/compact_frequency_class.dart';
 import '../util/random_util.dart';
+import 'models/compact_frequency_class.dart';
 import 'models/compound.dart';
 
 class DatabaseInterface {

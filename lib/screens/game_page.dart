@@ -1,29 +1,22 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
+import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:format/format.dart';
+import 'package:kompositum/config/theme.dart';
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/data/models/unique_component.dart';
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
-import 'package:kompositum/main.dart';
-import 'package:kompositum/config/theme.dart';
-import 'package:kompositum/widgets/common/util/clip_shadow_path.dart';
-import 'package:kompositum/widgets/common/my_buttons.dart';
-import 'package:kompositum/widgets/common/my_app_bar.dart';
 
 import '../game/attempts_watcher.dart';
 import '../game/hints/hint.dart';
 import '../game/level_provider.dart';
 import '../game/pool_game_level.dart';
-import '../config/locator.dart';
-import '../widgets/common/util/rounded_edge_clipper.dart';
+import '../widgets/common/my_icon_button.dart';
 import '../widgets/play/bottom_content.dart';
 import '../widgets/play/combination_area.dart';
 import '../widgets/play/dialogs/no_attempts_left_dialog.dart';
-import '../widgets/common/my_icon_button.dart';
 import '../widgets/play/top_row.dart';
 
 class GamePage extends StatefulWidget {

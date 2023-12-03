@@ -10,8 +10,6 @@
 - Optimize database loading speed
 
 ### UI Design
-- Decide for a color scheme
-- Design pages in figma
 - Implement design in flutter
 - App icon
 - App name

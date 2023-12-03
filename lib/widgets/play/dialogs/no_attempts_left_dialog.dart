@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kompositum/widgets/common/util/clip_shadow_path.dart';
-import 'package:kompositum/widgets/common/util/rounded_edge_clipper.dart';
 
 import '../../../config/theme.dart';
 import '../../common/my_dialog.dart';

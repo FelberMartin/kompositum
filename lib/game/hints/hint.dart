@@ -1,8 +1,5 @@
 import 'dart:math';
 
-import 'package:kompositum/game/pool_game_level.dart';
-import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
-
 import '../../data/models/compound.dart';
 import '../../data/models/unique_component.dart';
 
