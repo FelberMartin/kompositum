@@ -8,7 +8,7 @@ class MyPrimaryButton extends StatelessWidget {
     super.key,
   });
 
-  final VoidCallback onPressed;
+  final Function onPressed;
   final Widget child;
 
   @override
@@ -21,7 +21,7 @@ class MyPrimaryButton extends StatelessWidget {
       elevation: 4,
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
-        onTap: onPressed,
+        onTap: () => onPressed(),
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: child,
@@ -40,7 +40,7 @@ class MySecondaryButton extends StatelessWidget {
     super.key,
   });
 
-  final VoidCallback onPressed;
+  final Function onPressed;
   final Widget child;
 
   @override
@@ -57,7 +57,7 @@ class MySecondaryButton extends StatelessWidget {
       elevation: 4,
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
-        onTap: onPressed,
+        onTap: () => onPressed(),
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: child,
@@ -76,7 +76,7 @@ class MyPrimaryTextButton extends StatelessWidget {
     super.key,
   });
 
-  final VoidCallback onPressed;
+  final Function onPressed;
   final String text;
 
   @override
@@ -100,7 +100,7 @@ class MyPrimaryTextButtonLarge extends StatelessWidget {
     super.key,
   });
 
-  final VoidCallback onPressed;
+  final Function onPressed;
   final String text;
 
   @override
@@ -127,7 +127,7 @@ class MySecondaryTextButton extends StatelessWidget {
     super.key,
   });
 
-  final VoidCallback onPressed;
+  final Function onPressed;
   final String text;
 
   @override

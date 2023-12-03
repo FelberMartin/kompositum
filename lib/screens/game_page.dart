@@ -95,9 +95,28 @@ class GamePageState extends State<GamePage> {
       barrierDismissible: false,
       context: context,
       builder: (BuildContext context) {
-        return NoAttemptsLeftDialog();
+        return NoAttemptsLeftDialog(onActionPressed: onNoAttemptsLeftDialogClose);
       },
     );
+  }
+
+  void onNoAttemptsLeftDialogClose(NoAttemptsLeftDialogAction action) {
+    Navigator.pop(context);
+    attemptsWatcher.resetAttempts();
+    resetSelection(SelectionType.modifier);
+    resetSelection(SelectionType.head);
+
+    switch (action) {
+      case NoAttemptsLeftDialogAction.hint:
+        poolGameLevel.requestHint();
+        // TODO: reduce star count
+        setState(() {});
+        break;
+      case NoAttemptsLeftDialogAction.restart:
+        // TODO: show advertisement
+        updateGameToNewLevel(levelNumber, initial: true);
+        break;
+    }
   }
 
   void updateGameToNewLevel(int newLevelNumber, {bool initial = false}) async {

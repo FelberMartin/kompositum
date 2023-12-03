@@ -3,8 +3,11 @@
 ### Next up
 
 - NoAttemptsLeftDialog
+- Fancy Buttons
 - Add second csv file with manually added compounds that were not in the dataset
 - Collect stars with each word + level
+  - Spend stars for tips
+  - No stars left
 
 ### Later
 - Optimize database loading speed
