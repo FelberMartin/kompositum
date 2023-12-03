@@ -42,16 +42,28 @@ class GamePage extends StatefulWidget {
   final SwappableDetector swappableDetector;
 
   @override
-  State<GamePage> createState() => GamePageState();
+  State<GamePage> createState() => GamePageState(
+    levelProvider: levelProvider,
+    poolGenerator: poolGenerator,
+    keyValueStore: keyValueStore,
+    swappableDetector: swappableDetector
+  );
 }
 
 class GamePageState extends State<GamePage> {
-  late final LevelProvider _levelProvider = widget.levelProvider;
-  late final CompoundPoolGenerator _poolGenerator = widget.poolGenerator;
-  late final SwappableDetector _swappableDetector = widget.swappableDetector;
-  late final KeyValueStore _keyValueStore = widget.keyValueStore;
-  late PoolGameLevel _poolGameLevel;
-  late final AttemptsWatcher _attemptsWatcher;
+  GamePageState({
+    required this.levelProvider,
+    required this.poolGenerator,
+    required this.keyValueStore,
+    required this.swappableDetector
+  });
+
+  final LevelProvider levelProvider;
+  final CompoundPoolGenerator poolGenerator;
+  final KeyValueStore keyValueStore;
+  final SwappableDetector swappableDetector;
+  late PoolGameLevel poolGameLevel;
+  late AttemptsWatcher attemptsWatcher;
 
   late int levelNumber;
   bool isLoading = true;
@@ -65,25 +77,24 @@ class GamePageState extends State<GamePage> {
   };
 
   UniqueComponent? get selectedModifier =>
-      _poolGameLevel.shownComponents.firstWhereOrNull((element) =>
+      poolGameLevel.shownComponents.firstWhereOrNull((element) =>
           element.id == selectionTypeToComponentId[SelectionType.modifier]);
 
   UniqueComponent? get selectedHead =>
-      _poolGameLevel.shownComponents.firstWhereOrNull((element) =>
+      poolGameLevel.shownComponents.firstWhereOrNull((element) =>
           element.id == selectionTypeToComponentId[SelectionType.head]);
 
   @override
   void initState() {
     super.initState();
-    _keyValueStore.getLevel().then((value) {
+    keyValueStore.getLevel().then((value) {
       levelNumber = value;
       updateGameToNewLevel(levelNumber);
     });
-    _keyValueStore.getBlockedCompoundNames().then((value) {
-      _poolGenerator.setBlockedCompounds(value);
+    keyValueStore.getBlockedCompoundNames().then((value) {
+      poolGenerator.setBlockedCompounds(value);
     });
-    _attemptsWatcher = AttemptsWatcher(
-        maxAttempts: 5, onNoAttemptsLeft: showNoAttemptsLeftDialog);
+    attemptsWatcher = AttemptsWatcher(maxAttempts: 5);
   }
 
   void showNoAttemptsLeftDialog() {
@@ -97,22 +108,22 @@ class GamePageState extends State<GamePage> {
   }
 
   void updateGameToNewLevel(int newLevelNumber) async {
-    _keyValueStore.storeLevel(newLevelNumber);
+    keyValueStore.storeLevel(newLevelNumber);
     // Save the blocked compounds BEFORE the generation of the new level,
     // so that when regenerating the same level later, the same compounds
     // are blocked.
-    _keyValueStore.storeBlockedCompounds(_poolGenerator.getBlockedCompounds());
+    keyValueStore.storeBlockedCompounds(poolGenerator.getBlockedCompounds());
     await Future.delayed(Duration(milliseconds: 2000));
     setState(() {
       isLoading = true;
     });
     levelNumber = newLevelNumber;
     print("Generating new pool for new level");
-    final levelSetup = _levelProvider.generateLevelSetup(levelNumber);
-    final compounds = await _poolGenerator.generateFromLevelSetup(levelSetup);
-    final swappables = await _swappableDetector.getSwappables(compounds);
+    final levelSetup = levelProvider.generateLevelSetup(levelNumber);
+    final compounds = await poolGenerator.generateFromLevelSetup(levelSetup);
+    final swappables = await swappableDetector.getSwappables(compounds);
     print("Finished new pool for new level");
-    _poolGameLevel = PoolGameLevel(
+    poolGameLevel = PoolGameLevel(
       compounds,
       maxShownComponentCount: levelSetup.maxShownComponentCount,
       displayedDifficulty: levelSetup.displayedDifficulty,
@@ -159,17 +170,20 @@ class GamePageState extends State<GamePage> {
       return;
     }
 
-    final compound = _poolGameLevel.getCompoundIfExisting(
+    final compound = poolGameLevel.getCompoundIfExisting(
         selectedModifier!.text, selectedHead!.text);
     if (compound == null) {
-      _attemptsWatcher.attemptUsed();
+      attemptsWatcher.attemptUsed();
+      if (!attemptsWatcher.anyAttemptsLeft()) {
+        showNoAttemptsLeftDialog();
+      }
     } else {
-      _poolGameLevel.removeCompoundFromShown(compound, selectedModifier!,
+      poolGameLevel.removeCompoundFromShown(compound, selectedModifier!,
           selectedHead!);
       compoundFound(compound.name);
-      _attemptsWatcher.resetAttempts();
+      attemptsWatcher.resetAttempts();
       setState(() {});
-      if (_poolGameLevel.isLevelFinished()) {
+      if (poolGameLevel.isLevelFinished()) {
         updateGameToNewLevel(levelNumber + 1);
       }
     }
@@ -194,9 +208,9 @@ class GamePageState extends State<GamePage> {
   }
 
   List<ComponentInfo> getComponentInfos() {
-    return _poolGameLevel.shownComponents.map((component) {
+    return poolGameLevel.shownComponents.map((component) {
       final selectionType = getSelectionTypeForComponentId(component.id);
-      final hint = _poolGameLevel.hints
+      final hint = poolGameLevel.hints
           .firstWhereOrNull((hint) => hint.hintedComponent == component);
       return ComponentInfo(component, selectionType, hint);
     }).toList();
@@ -206,7 +220,7 @@ class GamePageState extends State<GamePage> {
     if (selectedModifier == null) {
       return null;
     }
-    final hint = _poolGameLevel.hints
+    final hint = poolGameLevel.hints
         .firstWhereOrNull((hint) => hint.hintedComponent == selectedModifier);
     return ComponentInfo(selectedModifier!, SelectionType.modifier, hint);
   }
@@ -215,7 +229,7 @@ class GamePageState extends State<GamePage> {
     if (selectedHead == null) {
       return null;
     }
-    final hint = _poolGameLevel.hints
+    final hint = poolGameLevel.hints
         .firstWhereOrNull((hint) => hint.hintedComponent == selectedHead);
     return ComponentInfo(selectedHead!, SelectionType.head, hint);
   }
@@ -230,9 +244,9 @@ class GamePageState extends State<GamePage> {
               onBackPressed: () {
                 Navigator.pop(context);
               },
-              displayedDifficulty: _poolGameLevel.displayedDifficulty,
+              displayedDifficulty: poolGameLevel.displayedDifficulty,
               levelNumber: levelNumber,
-              levelProgress: _poolGameLevel.getLevelProgress(),
+              levelProgress: poolGameLevel.getLevelProgress(),
               starCount: 4200,
             ),
       backgroundColor: customColors.background2,
@@ -247,8 +261,8 @@ class GamePageState extends State<GamePage> {
                       selectedModifier: getSelectedModifierInfo(),
                       selectedHead: getSelectedHeadInfo(),
                       onResetSelection: resetSelection,
-                      maxAttempts: _attemptsWatcher.maxAttempts,
-                      attemptsLeft: _attemptsWatcher.attemptsLeft,
+                      maxAttempts: attemptsWatcher.maxAttempts,
+                      attemptsLeft: attemptsWatcher.attemptsLeft,
                       wordCompletionEventStream:
                           wordCompletionEventStream.stream,
                     ),
@@ -257,14 +271,14 @@ class GamePageState extends State<GamePage> {
                     onToggleSelection: toggleSelection,
                     componentInfos: getComponentInfos(),
                     hiddenComponentsCount:
-                        _poolGameLevel.hiddenComponents.length,
+                        poolGameLevel.hiddenComponents.length,
                     hintButtonInfo: MyIconButtonInfo(
                       icon: FontAwesomeIcons.lightbulb,
                       onPressed: () {
-                        _poolGameLevel.requestHint();
+                        poolGameLevel.requestHint();
                         setState(() {});
                       },
-                      enabled: _poolGameLevel.canRequestHint(),
+                      enabled: poolGameLevel.canRequestHint(),
                     ),
                   ),
                 ],
