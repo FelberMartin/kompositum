@@ -2,7 +2,7 @@
 ## 1.0 Release
 ### Next up
 
-- Re-adjust level generation: more words for "easy" do not add more words for "hard"
+- NoAttemptsLeftDialog
 - Add second csv file with manually added compounds that were not in the dataset
 - Collect stars with each word + level
 
@@ -30,9 +30,6 @@
 - English compounds?
 
 # Bugs
-- Hint generation: When compound consists of the same two components (e.g Kind + Kind = Kindeskind)
-  and only one component in shown in the pool, a hint can get generated for "Kind". Could also cause 
-  the generation to believe that there is a finishable compound in the pool even the is none.
 - Possible bug: Shown=[Baum, Haus, Tür], generated hint is "Baum + Haus" but user removes "Haus + Tür",
   then "Baum" remains with a hint, but if the other "Haus" component is still in the hidden components,
   generating a new hint will produce probably an error.

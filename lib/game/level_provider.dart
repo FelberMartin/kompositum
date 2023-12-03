@@ -115,10 +115,9 @@ class LogarithmicLevelProvider extends LevelProvider {
   int _getCompoundCount(double baseLevel, int levelNumber, Difficulty difficulty, {int? seed}) {
     final random = seed == null ? Random() : Random(seed);
     var compoundCount = baseLevel.floor();
-    if (difficulty == Difficulty.easy && compoundCount >= 4) {
-      compoundCount -= random.nextInt(compoundCount ~/ 4);
-    } else if (difficulty == Difficulty.medium && compoundCount >= 6) {
-      compoundCount -= random.nextInt(compoundCount ~/ 6);
+    final maxReduction = compoundCount ~/ 3;
+    if (maxReduction > 0) {
+      compoundCount -= random.nextInt(maxReduction);
     }
     return compoundCount;
   }

@@ -82,7 +82,7 @@ class GamePageState extends State<GamePage> {
     super.initState();
     keyValueStore.getLevel().then((value) {
       levelNumber = value;
-      updateGameToNewLevel(levelNumber);
+      updateGameToNewLevel(levelNumber, initial: true);
     });
     keyValueStore.getBlockedCompoundNames().then((value) {
       poolGenerator.setBlockedCompounds(value);
@@ -100,13 +100,15 @@ class GamePageState extends State<GamePage> {
     );
   }
 
-  void updateGameToNewLevel(int newLevelNumber) async {
-    keyValueStore.storeLevel(newLevelNumber);
-    // Save the blocked compounds BEFORE the generation of the new level,
-    // so that when regenerating the same level later, the same compounds
-    // are blocked.
-    keyValueStore.storeBlockedCompounds(poolGenerator.getBlockedCompounds());
-    await Future.delayed(Duration(milliseconds: 2000));
+  void updateGameToNewLevel(int newLevelNumber, {bool initial = false}) async {
+    if (!initial) {
+      keyValueStore.storeLevel(newLevelNumber);
+      // Save the blocked compounds BEFORE the generation of the new level,
+      // so that when regenerating the same level later, the same compounds
+      // are blocked.
+      keyValueStore.storeBlockedCompounds(poolGenerator.getBlockedCompounds());
+      await Future.delayed(Duration(milliseconds: 2000));
+    }
     setState(() {
       isLoading = true;
     });

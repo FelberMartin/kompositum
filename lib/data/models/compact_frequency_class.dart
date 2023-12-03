@@ -1,5 +1,5 @@
 enum CompactFrequencyClass {
-  easy(12),
+  easy(13),
   medium(16),
   hard(20);
 
