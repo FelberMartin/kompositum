@@ -6,6 +6,8 @@
   - Add second csv file with manually added compounds that were not in the dataset
   - Firebase server
   - Implement report dialog
+  - Make compound graph case insensitive?
+  - Database: Allow multiple compounds with the same compound text (use UUID)
 - Collect stars with each word + level
   - Spend stars for tips
   - No stars left (NoAttemptsLeftDialog + ingame)
