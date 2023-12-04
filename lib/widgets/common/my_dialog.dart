@@ -21,7 +21,7 @@ class MyDialog extends StatelessWidget {
         child: Container(
           color: Theme.of(context).colorScheme.secondary,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 48.0),
+            padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 48.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
