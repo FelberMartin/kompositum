@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "171973007696",
+    "project_id": "kompositum-3014e",
+    "storage_bucket": "kompositum-3014e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:171973007696:android:79b962d1f2b297a2ae7455",
+        "android_client_info": {
+          "package_name": "com.example.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5M6QbmlRZjEIpjnDGDCp7lDxeZlWzAlo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
