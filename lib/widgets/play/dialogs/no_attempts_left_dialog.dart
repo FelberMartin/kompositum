@@ -7,7 +7,7 @@ import '../../common/my_dialog.dart';
 
 // Preview the dialog:
 void main() =>
-    runApp(MaterialApp(theme: myTheme, home: NoAttemptsLeftDialog(onActionPressed: (action) {})));
+    runApp(MaterialApp(theme: myTheme, home: NoAttemptsLeftDialog(onActionPressed: (action) {}, isHintAvailable: true)));
 
 enum NoAttemptsLeftDialogAction {
   hint,
@@ -20,9 +20,11 @@ class NoAttemptsLeftDialog extends StatelessWidget {
   const NoAttemptsLeftDialog({
     super.key,
     required this.onActionPressed,
+    required this.isHintAvailable,
   });
 
   final Function(NoAttemptsLeftDialogAction) onActionPressed;
+  final bool isHintAvailable;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +38,7 @@ class NoAttemptsLeftDialog extends StatelessWidget {
             iconSubtitleIcon: FontAwesomeIcons.solidStar,
             actionText: "Mit Tipp fortfahren",
             onActionPressed: () { onActionPressed(NoAttemptsLeftDialogAction.hint); },
+            isEnabled: isHintAvailable,
           ),
           SizedBox(height: 16),
           OptionCard(
@@ -59,6 +62,7 @@ class OptionCard extends StatelessWidget {
     required this.iconSubtitleIcon,
     required this.actionText,
     required this.onActionPressed,
+    this.isEnabled = true,
   });
 
   final IconData icon;
@@ -66,6 +70,7 @@ class OptionCard extends StatelessWidget {
   final IconData iconSubtitleIcon;
   final String actionText;
   final Function onActionPressed;
+  final bool isEnabled;
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +120,11 @@ class OptionCard extends StatelessWidget {
                 ],
               ),
             ),
-            MyPrimaryTextButton(onPressed: () => onActionPressed(), text: actionText),
+            MyPrimaryTextButton(
+              enabled: isEnabled,
+              onPressed: () => onActionPressed(),
+              text: actionText,
+            ),
             SizedBox(height: 5),
           ],
         ),
