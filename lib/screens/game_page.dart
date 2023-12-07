@@ -85,7 +85,7 @@ class GamePageState extends State<GamePage> {
     super.initState();
     keyValueStore.getLevel().then((value) {
       levelNumber = value;
-      updateGameToNewLevel(levelNumber, initial: true);
+      updateGameToNewLevel(levelNumber, waitAndStoreData: false);
     });
     keyValueStore.getBlockedCompoundNames().then((value) {
       poolGenerator.setBlockedCompounds(value);
@@ -93,14 +93,17 @@ class GamePageState extends State<GamePage> {
     attemptsWatcher = AttemptsWatcher(maxAttempts: 5);
   }
 
-  void updateGameToNewLevel(int newLevelNumber, {bool initial = false}) async {
-    if (!initial) {
+  void updateGameToNewLevel(int newLevelNumber, {bool waitAndStoreData = true}) async {
+    if (waitAndStoreData) {
       keyValueStore.storeLevel(newLevelNumber);
       // Save the blocked compounds BEFORE the generation of the new level,
       // so that when regenerating the same level later, the same compounds
       // are blocked.
       keyValueStore.storeBlockedCompounds(poolGenerator.getBlockedCompounds());
-      await Future.delayed(Duration(milliseconds: 2000));
+      await Future.delayed(const Duration(milliseconds: 2000));
+    } else {
+      final blocked = await keyValueStore.getBlockedCompoundNames();
+      poolGenerator.setBlockedCompounds(blocked);
     }
     setState(() {
       isLoading = true;
@@ -120,6 +123,10 @@ class GamePageState extends State<GamePage> {
     setState(() {
       isLoading = false;
     });
+  }
+
+  void restartLevel() {
+    updateGameToNewLevel(levelNumber, waitAndStoreData: false);
   }
 
   SelectionType? getSelectionTypeForComponentId(int componentId) {
@@ -243,7 +250,7 @@ class GamePageState extends State<GamePage> {
         break;
       case NoAttemptsLeftDialogAction.restart:
       // TODO: show advertisement
-        updateGameToNewLevel(levelNumber, initial: true);
+        restartLevel();
         break;
     }
   }
