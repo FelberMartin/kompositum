@@ -60,6 +60,7 @@ class GamePageState extends State<GamePage> {
   late AttemptsWatcher attemptsWatcher;
 
   late int levelNumber;
+  late int starCount;
   bool isLoading = true;
 
   static const hintCost = 100;
@@ -87,6 +88,9 @@ class GamePageState extends State<GamePage> {
       levelNumber = value;
       updateGameToNewLevel(levelNumber, waitAndStoreData: false);
     });
+    keyValueStore.getStarCount().then((value) {
+      starCount = value;
+    });
     keyValueStore.getBlockedCompoundNames().then((value) {
       poolGenerator.setBlockedCompounds(value);
     });
@@ -108,6 +112,7 @@ class GamePageState extends State<GamePage> {
     setState(() {
       isLoading = true;
     });
+
     levelNumber = newLevelNumber;
     print("Generating new pool for new level");
     final levelSetup = levelProvider.generateLevelSetup(levelNumber);
@@ -120,6 +125,7 @@ class GamePageState extends State<GamePage> {
       displayedDifficulty: levelSetup.displayedDifficulty,
       swappableCompounds: swappables,
     );
+
     setState(() {
       isLoading = false;
     });
@@ -234,7 +240,10 @@ class GamePageState extends State<GamePage> {
       barrierDismissible: false,
       context: context,
       builder: (BuildContext context) {
-        return NoAttemptsLeftDialog(onActionPressed: onNoAttemptsLeftDialogClose);
+        return NoAttemptsLeftDialog(
+          onActionPressed: onNoAttemptsLeftDialogClose,
+          isHintAvailable: poolGameLevel.canRequestHint() && starCount >= NoAttemptsLeftDialogAction.hintCost,
+        );
       },
     );
   }
@@ -259,13 +268,18 @@ class GamePageState extends State<GamePage> {
     if (!poolGameLevel.canRequestHint()) {
       return;
     }
-    // TODO: reduce star count; how to deal with not enough stars?
+    if (starCount < cost) {
+      return;
+    }
 
     final hint = poolGameLevel.requestHint()!;
     resetToNoSelection();
     if (hint.type == HintComponentType.modifier) {
       selectionTypeToComponentId[SelectionType.modifier] = hint.hintedComponent.id;
     }
+
+    starCount -= cost;
+    setState(() {});
   }
 
   void showReportDialog() {
@@ -306,7 +320,7 @@ class GamePageState extends State<GamePage> {
               displayedDifficulty: poolGameLevel.displayedDifficulty,
               levelNumber: levelNumber,
               levelProgress: poolGameLevel.getLevelProgress(),
-              starCount: 4200,
+              starCount: starCount,
             ),
       backgroundColor: customColors.background2,
       body: Center(
@@ -338,7 +352,7 @@ class GamePageState extends State<GamePage> {
                       onPressed: () {
                         buyHint();
                       },
-                      enabled: poolGameLevel.canRequestHint(),
+                      enabled: poolGameLevel.canRequestHint() && starCount >= hintCost,
                     ),
                   ),
                 ],

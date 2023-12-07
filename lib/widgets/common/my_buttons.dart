@@ -109,16 +109,19 @@ class MyPrimaryTextButton extends StatelessWidget {
   const MyPrimaryTextButton({
     required this.onPressed,
     required this.text,
+    this.enabled = true,
     super.key,
   });
 
   final Function onPressed;
   final String text;
+  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme.labelMedium!;
     return MyPrimaryButton(
+      enabled: enabled,
       onPressed: onPressed,
       child: Text(
         text,

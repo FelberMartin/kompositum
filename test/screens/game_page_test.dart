@@ -168,6 +168,13 @@ void main() {
         expect(sut.selectedModifier, isNull);
         expect(sut.selectedHead, isNull);
       });
+
+      testWidgets("should reduce the starCount by the cost", (tester) async {
+        await _pumpGamePage(tester);
+        sut.starCount = 333;
+        sut.buyHint(cost: 100);
+        expect(sut.starCount, 233);+
+      });
     });
 
   });

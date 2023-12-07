@@ -26,5 +26,15 @@ class KeyValueStore {
     return prefs.getStringList("blockedCompounds") ?? [];
   }
 
+  Future<void> storeStarCount(int starCount) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt("starCount", starCount);
+  }
+
+  Future<int> getStarCount() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getInt("starCount") ?? 0;
+  }
+
 
 }

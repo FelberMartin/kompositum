@@ -2,15 +2,12 @@
 ## 1.0 Release
 ### Next up
 
-- Report functionality:
-  - Add second csv file with manually added compounds that were not in the dataset
-  - Make compound graph case insensitive?
-  - Database: Allow multiple compounds with the same compound text (use UUID)
+
 - Collect stars with each word + level
-  - Spend stars for tips
   - No stars left (NoAttemptsLeftDialog + ingame)
 
 ### Later
+- Ads?
 - Optimize database loading speed
 - Progress bar?
 
@@ -42,3 +39,10 @@
 - When restarting the app the lastNCompounds of the Pool generator are not remembered
   -> The levels are now different too, because the input compounds are different depending on 
       whether the lastNCompounds is empty or not.
+
+# After 1.0 Release
+- Report functionality:
+  - Add second csv file with manually added compounds that were not in the dataset
+  - Make compound graph case insensitive? (reduce number of reports?)
+  - Database: Allow multiple compounds with the same compound text (use UUID), to allow multiple 
+    valid combinations for a compound.
