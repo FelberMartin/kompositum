@@ -2,78 +2,27 @@ import 'package:flutter/material.dart';
 
 import '../../util/color_util.dart';
 
-class MyPrimaryButton extends StatelessWidget {
 
-  const MyPrimaryButton({
-    required this.onPressed,
+
+class My3dContainer extends StatelessWidget {
+
+  const My3dContainer({
     required this.child,
+    required this.topColor,
+    required this.sideColor,
+    this.clickable = false,
+    this.onPressed,
     super.key,
   });
 
-  final Function onPressed;
   final Widget child;
+  final Color topColor;
+  final Color sideColor;
+  final bool clickable;
+  final Function? onPressed;
 
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-        clipBehavior: Clip.none,
-        alignment: Alignment.center,
-        children: [
-          Positioned(
-            bottom: -5,
-            right: -1.5,
-            child: _embedChild(
-              backgroundColor: darken(Theme.of(context).colorScheme.primary),
-              elevation: 0,
-              clickable: false,
-              child: child,
-            ),
-          ),
-          _embedChild(
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            elevation: 4,
-            clickable: true,
-            child: child,
-          )
-        ],
-    );
-  }
-
-  Widget _embedChild({
-    required Color backgroundColor,
-    required double elevation,
-    required bool clickable,
-    required Widget child,
-  }) {
-    return Card(
-      color: backgroundColor,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      elevation: elevation,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(12),
-        onTap: clickable ? () => onPressed() : null,
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: child,
-        ),
-      ),
-    );
-  }
-}
-
-
-class MySecondaryButton extends StatelessWidget {
-
-  const MySecondaryButton({
-    required this.onPressed,
-    required this.child,
-    super.key,
-  });
-
-  final Function onPressed;
-  final Widget child;
+  static const topInset = 4.0;
+  static const leftInset = 1.0;
 
   @override
   Widget build(BuildContext context) {
@@ -81,21 +30,25 @@ class MySecondaryButton extends StatelessWidget {
       clipBehavior: Clip.none,
       alignment: Alignment.center,
       children: [
-        Positioned(
-          bottom: -5,
-          right: -1.5,
+        Positioned.fill(
+          top: topInset,
+          left: leftInset,
+          bottom: -topInset,
+          right: -leftInset,
           child: _embedChild(
-            backgroundColor: Theme.of(context).colorScheme.primary,
+            backgroundColor: sideColor,
             elevation: 0,
             clickable: false,
             child: child,
           ),
         ),
-        _embedChild(
-          backgroundColor: Theme.of(context).colorScheme.secondary,
-          elevation: 4,
-          clickable: true,
-          child: child,
+        Positioned(
+          child: _embedChild(
+            backgroundColor: topColor,
+            elevation: 4,
+            clickable: clickable,
+            child: child,
+          ),
         )
       ],
     );
@@ -115,12 +68,37 @@ class MySecondaryButton extends StatelessWidget {
       elevation: elevation,
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
-        onTap: clickable ? () => onPressed() : null,
+        onTap: clickable ? () => onPressed!() : null,
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: child,
         ),
       ),
+    );
+  }
+}
+
+class MyPrimaryButton extends StatelessWidget {
+
+  const MyPrimaryButton({
+    this.enabled = true,
+    required this.onPressed,
+    required this.child,
+    super.key,
+  });
+
+  final bool enabled;
+  final Function onPressed;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return My3dContainer(
+      topColor: Theme.of(context).colorScheme.primary,
+      sideColor: darken(Theme.of(context).colorScheme.primary, 10),
+      clickable: enabled,
+      onPressed: onPressed,
+      child: child,
     );
   }
 }
@@ -164,7 +142,10 @@ class MyPrimaryTextButtonLarge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme.labelLarge!;
-    return MyPrimaryButton(
+    return My3dContainer(
+      topColor: Theme.of(context).colorScheme.primary,
+      sideColor: darken(Theme.of(context).colorScheme.primary, 10),
+      clickable: true,
       onPressed: onPressed,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -191,7 +172,10 @@ class MySecondaryTextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme.labelMedium!;
-    return MySecondaryButton(
+    return My3dContainer(
+      topColor: Theme.of(context).colorScheme.secondary,
+      sideColor: Theme.of(context).colorScheme.primary,
+      clickable: true,
       onPressed: onPressed,
       child: Text(
         text,

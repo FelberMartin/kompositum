@@ -10,9 +10,12 @@ Future<void> sendDataToFirestore(String compound, String modifier, String head) 
       'compound': compound,
       'modifier': modifier,
       'head': head,
+      'time': DateTime.now(),
     });
+
     print('Data added to Firestore successfully');
   } catch (e) {
     print('Error adding data to Firestore: $e');
+    rethrow;
   }
 }
