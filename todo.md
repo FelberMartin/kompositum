@@ -4,8 +4,6 @@
 
 - Report functionality:
   - Add second csv file with manually added compounds that were not in the dataset
-  - Firebase server
-  - Implement report dialog
   - Make compound graph case insensitive?
   - Database: Allow multiple compounds with the same compound text (use UUID)
 - Collect stars with each word + level
@@ -37,6 +35,7 @@
 - English compounds?
 
 # Bugs
+- Restarting level results in a different level
 - Possible bug: Shown=[Baum, Haus, Tür], generated hint is "Baum + Haus" but user removes "Haus + Tür",
   then "Baum" remains with a hint, but if the other "Haus" component is still in the hidden components,
   generating a new hint will produce probably an error.

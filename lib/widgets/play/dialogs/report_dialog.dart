@@ -8,6 +8,7 @@ import 'package:kompositum/widgets/play/combination_area.dart';
 import '../../../config/theme.dart';
 import '../../../data/remote/firestore.dart';
 import '../../../firebase_options.dart';
+import '../../common/util/icon_styled_text.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,12 +50,12 @@ class _ReportDialogState extends State<ReportDialog> {
       sendFuture = sendDataToFirestore(compoundText, widget.modifier, widget.head);
     });
     await sendFuture;
+    await Future.delayed(const Duration(milliseconds: 500));
     widget.onClose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final customColors = Theme.of(context).extension<CustomColors>()!;
     return MyDialog(
         title: "Du hast ein fehlendes Wort gefunden?",
         child: Column(

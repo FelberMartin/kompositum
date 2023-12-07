@@ -17,6 +17,7 @@ import '../widgets/common/my_icon_button.dart';
 import '../widgets/play/bottom_content.dart';
 import '../widgets/play/combination_area.dart';
 import '../widgets/play/dialogs/no_attempts_left_dialog.dart';
+import '../widgets/play/dialogs/report_dialog.dart';
 import '../widgets/play/top_row.dart';
 
 class GamePage extends StatefulWidget {
@@ -92,47 +93,6 @@ class GamePageState extends State<GamePage> {
     attemptsWatcher = AttemptsWatcher(maxAttempts: 5);
   }
 
-  void showNoAttemptsLeftDialog() {
-    showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (BuildContext context) {
-        return NoAttemptsLeftDialog(onActionPressed: onNoAttemptsLeftDialogClose);
-      },
-    );
-  }
-
-  void onNoAttemptsLeftDialogClose(NoAttemptsLeftDialogAction action) {
-    Navigator.pop(context);
-    attemptsWatcher.resetAttempts();
-    resetSelection(SelectionType.modifier);
-    resetSelection(SelectionType.head);
-
-    switch (action) {
-      case NoAttemptsLeftDialogAction.hint:
-        buyHint();
-        break;
-      case NoAttemptsLeftDialogAction.restart:
-        // TODO: show advertisement
-        updateGameToNewLevel(levelNumber, initial: true);
-        break;
-    }
-  }
-
-  void buyHint({int cost = hintCost}) {
-    if (!poolGameLevel.canRequestHint()) {
-      return;
-    }
-    // TODO: reduce star count; how to deal with not enough stars?
-
-    final hint = poolGameLevel.requestHint()!;
-    resetSelection(SelectionType.modifier);
-    resetSelection(SelectionType.head);
-    if (hint.type == HintComponentType.modifier) {
-      selectionTypeToComponentId[SelectionType.modifier] = hint.hintedComponent.id;
-    }
-  }
-
   void updateGameToNewLevel(int newLevelNumber, {bool initial = false}) async {
     if (!initial) {
       keyValueStore.storeLevel(newLevelNumber);
@@ -173,11 +133,14 @@ class GamePageState extends State<GamePage> {
     return null;
   }
 
-  void resetSelection(SelectionType selectionType, {bool updateState = true}) {
+  void resetToNoSelection() {
+    resetSelection(SelectionType.modifier);
+    resetSelection(SelectionType.head);
+  }
+
+  void resetSelection(SelectionType selectionType) {
     selectionTypeToComponentId[selectionType] = -1;
-    if (updateState) {
-      setState(() {});
-    }
+    setState(() {});
   }
 
   void toggleSelection(int componentId) async {
@@ -219,10 +182,7 @@ class GamePageState extends State<GamePage> {
 
   void compoundFound(String compoundName) {
     emitWordCompletionEvent(compoundName);
-
-    // Do not update the state here, to avoid inconsistencies in the UI
-    resetSelection(SelectionType.modifier, updateState: false);
-    resetSelection(SelectionType.head, updateState: false);
+    resetToNoSelection();
   }
 
   void emitWordCompletionEvent(String word) {
@@ -262,6 +222,70 @@ class GamePageState extends State<GamePage> {
     return ComponentInfo(selectedHead!, SelectionType.head, hint);
   }
 
+  void showNoAttemptsLeftDialog() {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return NoAttemptsLeftDialog(onActionPressed: onNoAttemptsLeftDialogClose);
+      },
+    );
+  }
+
+  void onNoAttemptsLeftDialogClose(NoAttemptsLeftDialogAction action) {
+    Navigator.pop(context);
+    attemptsWatcher.resetAttempts();
+    resetToNoSelection();
+
+    switch (action) {
+      case NoAttemptsLeftDialogAction.hint:
+        buyHint();
+        break;
+      case NoAttemptsLeftDialogAction.restart:
+      // TODO: show advertisement
+        updateGameToNewLevel(levelNumber, initial: true);
+        break;
+    }
+  }
+
+  void buyHint({int cost = hintCost}) {
+    if (!poolGameLevel.canRequestHint()) {
+      return;
+    }
+    // TODO: reduce star count; how to deal with not enough stars?
+
+    final hint = poolGameLevel.requestHint()!;
+    resetToNoSelection();
+    if (hint.type == HintComponentType.modifier) {
+      selectionTypeToComponentId[SelectionType.modifier] = hint.hintedComponent.id;
+    }
+  }
+
+  void showReportDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return ReportDialog(
+          modifier: selectedModifier!.text,
+          head: selectedHead!.text,
+          onClose: () {
+            Navigator.pop(context);
+            resetToNoSelection();
+          },
+        );
+      },
+    );
+  }
+
+  bool shouldShowReportButton() {
+    if (selectedModifier == null || selectedHead == null) {
+      return false;
+    }
+    final compound = poolGameLevel.getCompoundIfExisting(
+        selectedModifier!.text, selectedHead!.text);
+    return compound == null;
+  }
+
   @override
   Widget build(BuildContext context) {
     final customColors = Theme.of(context).extension<CustomColors>()!;
@@ -293,6 +317,8 @@ class GamePageState extends State<GamePage> {
                       attemptsLeft: attemptsWatcher.attemptsLeft,
                       wordCompletionEventStream:
                           wordCompletionEventStream.stream,
+                      isReportVisible: shouldShowReportButton(),
+                      onReportPressed: showReportDialog,
                     ),
                   ),
                   BottomContent(
