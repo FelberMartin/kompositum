@@ -59,6 +59,12 @@ final myTheme = ThemeData(
       fontWeight: FontWeight.bold,
       color: Colors.white,
     ),
+    // Figma 32
+    titleLarge: TextStyle(
+      fontSize: 32,
+      fontWeight: FontWeight.bold,
+      color: Colors.white,
+    ),
   ),
 );
 

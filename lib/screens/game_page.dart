@@ -17,6 +17,7 @@ import '../game/pool_game_level.dart';
 import '../widgets/common/my_icon_button.dart';
 import '../widgets/play/bottom_content.dart';
 import '../widgets/play/combination_area.dart';
+import '../widgets/play/dialogs/level_completed_dialog.dart';
 import '../widgets/play/dialogs/no_attempts_left_dialog.dart';
 import '../widgets/play/dialogs/report_dialog.dart';
 import '../widgets/play/top_row.dart';
@@ -85,7 +86,7 @@ class GamePageState extends State<GamePage> {
     super.initState();
     keyValueStore.getLevel().then((value) {
       levelNumber = value;
-      updateGameToNewLevel(levelNumber, waitAndStoreData: false);
+      updateGameToNewLevel(levelNumber, storeData: false);
     });
     keyValueStore.getStarCount().then((value) {
       starCount = value;
@@ -96,14 +97,13 @@ class GamePageState extends State<GamePage> {
     attemptsWatcher = AttemptsWatcher(maxAttempts: 5);
   }
 
-  void updateGameToNewLevel(int newLevelNumber, {bool waitAndStoreData = true}) async {
-    if (waitAndStoreData) {
+  void updateGameToNewLevel(int newLevelNumber, {bool storeData = true}) async {
+    if (storeData) {
       keyValueStore.storeLevel(newLevelNumber);
       // Save the blocked compounds BEFORE the generation of the new level,
       // so that when regenerating the same level later, the same compounds
       // are blocked.
       keyValueStore.storeBlockedCompounds(poolGenerator.getBlockedCompounds());
-      await Future.delayed(const Duration(milliseconds: 2000));
     } else {
       final blocked = await keyValueStore.getBlockedCompoundNames();
       poolGenerator.setBlockedCompounds(blocked);
@@ -131,7 +131,7 @@ class GamePageState extends State<GamePage> {
   }
 
   void restartLevel() {
-    updateGameToNewLevel(levelNumber, waitAndStoreData: false);
+    updateGameToNewLevel(levelNumber, storeData: false);
   }
 
   SelectionType? getSelectionTypeForComponentId(int componentId) {
@@ -202,9 +202,10 @@ class GamePageState extends State<GamePage> {
     wordCompletionEventStream.sink.add(word);
   }
 
-  void _levelFinished() {
+  void _levelFinished() async {
     starCount += Rewards.byDifficulty(poolGameLevel.displayedDifficulty);
-    updateGameToNewLevel(levelNumber + 1);
+    await Future.delayed(const Duration(milliseconds: 1200));
+    showLevelCompletedDialog();
   }
 
   @override
@@ -298,6 +299,23 @@ class GamePageState extends State<GamePage> {
             Navigator.pop(context);
             resetToNoSelection();
           },
+        );
+      },
+    );
+  }
+
+  void showLevelCompletedDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return LevelCompletedDialog(
+          onContinuePressed: () {
+            Navigator.pop(context);
+            resetToNoSelection();
+            updateGameToNewLevel(levelNumber + 1);
+          },
+          difficulty: poolGameLevel.displayedDifficulty,
         );
       },
     );

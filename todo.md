@@ -3,7 +3,7 @@
 ### Next up
 
 
-- Level complete dialog
+- Loading new level: only show the loading indicator in the pool
 - Animations:
   - Show/hide dialogs
   - Expand components in combination area
