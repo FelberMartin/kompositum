@@ -9,6 +9,7 @@ import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/data/models/unique_component.dart';
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
+import 'package:kompositum/widgets/common/my_dialog.dart';
 
 import '../game/attempts_watcher.dart';
 import '../game/hints/hint.dart';
@@ -245,15 +246,13 @@ class GamePageState extends State<GamePage> {
   }
 
   void showNoAttemptsLeftDialog() {
-    showDialog(
-      barrierDismissible: false,
+    animateDialog(
       context: context,
-      builder: (BuildContext context) {
-        return NoAttemptsLeftDialog(
-          onActionPressed: onNoAttemptsLeftDialogClose,
-          isHintAvailable: poolGameLevel.canRequestHint() && starCount >= Costs.hintCostNoAttemptsLeft,
-        );
-      },
+      barrierDismissible: false,
+      dialog: NoAttemptsLeftDialog(
+        onActionPressed: onNoAttemptsLeftDialogClose,
+        isHintAvailable: poolGameLevel.canRequestHint() && starCount >= Costs.hintCostNoAttemptsLeft,
+      ),
     );
   }
 
@@ -292,35 +291,31 @@ class GamePageState extends State<GamePage> {
   }
 
   void showReportDialog() {
-    showDialog(
+    animateDialog(
       context: context,
-      builder: (BuildContext context) {
-        return ReportDialog(
-          modifier: selectedModifier!.text,
-          head: selectedHead!.text,
-          onClose: () {
-            Navigator.pop(context);
-            resetToNoSelection();
-          },
-        );
-      },
+      dialog: ReportDialog(
+        modifier: selectedModifier!.text,
+        head: selectedHead!.text,
+        onClose: () {
+          Navigator.pop(context);
+          resetToNoSelection();
+        },
+      ),
     );
   }
 
   void showLevelCompletedDialog() {
-    showDialog(
+    animateDialog(
       context: context,
       barrierDismissible: false,
-      builder: (BuildContext context) {
-        return LevelCompletedDialog(
-          onContinuePressed: () {
-            Navigator.pop(context);
-            resetToNoSelection();
-            updateGameToNewLevel(levelNumber + 1);
-          },
-          difficulty: poolGameLevel.displayedDifficulty,
-        );
-      },
+      dialog: LevelCompletedDialog(
+        difficulty: poolGameLevel.displayedDifficulty,
+        onContinuePressed: () {
+          Navigator.pop(context);
+          resetToNoSelection();
+          updateGameToNewLevel(levelNumber + 1);
+        },
+      ),
     );
   }
 

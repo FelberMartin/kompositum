@@ -4,7 +4,6 @@
 
 
 - Animations:
-  - Show/hide dialogs
   - Animate component appear/move/remove in pool
   - hiddenComponent counter fade out / count down
   - Button: decide for border or 3d -> then animation
