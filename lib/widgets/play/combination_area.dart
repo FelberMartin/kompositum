@@ -183,7 +183,7 @@ class CompoundMergeRow extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: SizedBox(
-            height: 140,
+            height: 156,
             child: Column(
               children: [
                 Expanded(
