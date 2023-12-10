@@ -4,9 +4,8 @@
 
 
 - Animations:
-  - Animate component appear/move/remove in pool
-  - hiddenComponent counter fade out / count down
   - Button: decide for border or 3d -> then animation
+  - Animate component appear/move/remove in pool
   - Expand components in combination area
   - Icon button click
   - Background as in figma

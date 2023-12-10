@@ -49,6 +49,7 @@ dependencies:
   font_awesome_flutter: ^10.6.0
   firebase_core: ^2.24.0
   cloud_firestore: ^4.13.3
+  animated_flip_counter: ^0.2.6
 
 dev_dependencies:
   flutter_test:

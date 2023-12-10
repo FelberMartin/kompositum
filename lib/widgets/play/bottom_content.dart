@@ -1,3 +1,4 @@
+import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kompositum/config/star_costs_rewards.dart';
@@ -89,7 +90,7 @@ class BottomContent extends StatelessWidget {
                       MyIconButton.fromInfo(
                         info: hintButtonInfo,
                       ),
-                      SizedBox(height: 4.0),
+                      const SizedBox(height: 4.0),
                       Row(
                         children: [
                           Text(
@@ -131,21 +132,24 @@ class HiddenComponentsIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final customColors = Theme.of(context).extension<CustomColors>()!;
-    if (hiddenComponentsCount == 0) {
-      return Container();
-    }
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "$hiddenComponentsCount",
-          style: Theme.of(context).textTheme.titleSmall,
-        ),
-        Text("verdeckte Wörter",
-            style: Theme.of(context).textTheme.labelSmall!.copyWith(
-              color: customColors.textSecondary,
-            ))
-      ],
+    return AnimatedOpacity(
+      opacity: hiddenComponentsCount == 0 ? 0.0 : 1.0,
+      duration: const Duration(milliseconds: 500),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AnimatedFlipCounter(
+            duration: Duration(milliseconds: 300),
+            value: hiddenComponentsCount,
+            textStyle: Theme.of(context).textTheme.titleSmall,
+            padding: EdgeInsets.only(top: 0.0),
+          ),
+          Text("verdeckte Wörter",
+              style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                color: customColors.textSecondary,
+              ))
+        ],
+      )
     );
   }
 }
