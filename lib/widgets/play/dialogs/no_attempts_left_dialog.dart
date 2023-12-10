@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kompositum/config/star_costs_rewards.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 
 import '../../../config/theme.dart';
@@ -12,8 +13,6 @@ void main() =>
 enum NoAttemptsLeftDialogAction {
   hint,
   restart;
-
-  static const hintCost = 150;
 }
 
 class NoAttemptsLeftDialog extends StatelessWidget {
@@ -34,7 +33,7 @@ class NoAttemptsLeftDialog extends StatelessWidget {
         children: [
           OptionCard(
             icon: FontAwesomeIcons.lightbulb,
-            iconSubtitleText: "${NoAttemptsLeftDialogAction.hintCost}",
+            iconSubtitleText: "${Costs.hintCostNoAttemptsLeft}",
             iconSubtitleIcon: FontAwesomeIcons.solidStar,
             actionText: "Mit Tipp fortfahren",
             onActionPressed: () { onActionPressed(NoAttemptsLeftDialogAction.hint); },

@@ -187,7 +187,7 @@ class CompoundMergeRow extends StatelessWidget {
                     ),
                   ),
                 ),
-                Expanded(child: IconStyledText(text: "+")),
+                Expanded(child: Center(child: IconStyledText(text: "+"))),
                 Expanded(
                   child: Text(
                     attemptsLeft < maxAttempts ? "$attemptsLeft/$maxAttempts" : "",

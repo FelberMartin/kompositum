@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kompositum/config/star_costs_rewards.dart';
 import 'package:kompositum/config/theme.dart';
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/data/models/unique_component.dart';
@@ -62,8 +63,6 @@ class GamePageState extends State<GamePage> {
   late int levelNumber;
   late int starCount;
   bool isLoading = true;
-
-  static const hintCost = 100;
 
   final StreamController<String> wordCompletionEventStream =
       StreamController<String>.broadcast();
@@ -165,11 +164,11 @@ class GamePageState extends State<GamePage> {
     } else {
       selectionTypeToComponentId[SelectionType.head] = componentId;
     }
-    checkCompoundCompletion();
+    _checkCompoundCompletion();
     setState(() {});
   }
 
-  void checkCompoundCompletion() async {
+  void _checkCompoundCompletion() async {
     if (selectedModifier == null || selectedHead == null) {
       return;
     }
@@ -184,22 +183,28 @@ class GamePageState extends State<GamePage> {
     } else {
       poolGameLevel.removeCompoundFromShown(compound, selectedModifier!,
           selectedHead!);
-      compoundFound(compound.name);
+      _compoundFound(compound.name);
       attemptsWatcher.resetAttempts();
       setState(() {});
       if (poolGameLevel.isLevelFinished()) {
-        updateGameToNewLevel(levelNumber + 1);
+        _levelFinished();
       }
     }
   }
 
-  void compoundFound(String compoundName) {
+  void _compoundFound(String compoundName) {
+    starCount += Rewards.starsCompoundCompleted;
     emitWordCompletionEvent(compoundName);
     resetToNoSelection();
   }
 
   void emitWordCompletionEvent(String word) {
     wordCompletionEventStream.sink.add(word);
+  }
+
+  void _levelFinished() {
+    starCount += Rewards.byDifficulty(poolGameLevel.displayedDifficulty);
+    updateGameToNewLevel(levelNumber + 1);
   }
 
   @override
@@ -242,7 +247,7 @@ class GamePageState extends State<GamePage> {
       builder: (BuildContext context) {
         return NoAttemptsLeftDialog(
           onActionPressed: onNoAttemptsLeftDialogClose,
-          isHintAvailable: poolGameLevel.canRequestHint() && starCount >= NoAttemptsLeftDialogAction.hintCost,
+          isHintAvailable: poolGameLevel.canRequestHint() && starCount >= Costs.hintCostNoAttemptsLeft,
         );
       },
     );
@@ -264,7 +269,7 @@ class GamePageState extends State<GamePage> {
     }
   }
 
-  void buyHint({int cost = hintCost}) {
+  void buyHint({int cost = Costs.hintCostNormal}) {
     if (!poolGameLevel.canRequestHint()) {
       return;
     }
@@ -352,7 +357,7 @@ class GamePageState extends State<GamePage> {
                       onPressed: () {
                         buyHint();
                       },
-                      enabled: poolGameLevel.canRequestHint() && starCount >= hintCost,
+                      enabled: poolGameLevel.canRequestHint() && starCount >= Costs.hintCostNormal,
                     ),
                   ),
                 ],

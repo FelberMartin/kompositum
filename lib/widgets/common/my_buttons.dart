@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../config/theme.dart';
 import '../../util/color_util.dart';
 
 
@@ -45,7 +46,7 @@ class My3dContainer extends StatelessWidget {
         Positioned(
           child: _embedChild(
             backgroundColor: topColor,
-            elevation: 4,
+            elevation: 6,
             clickable: clickable,
             child: child,
           ),
@@ -120,12 +121,17 @@ class MyPrimaryTextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme.labelMedium!;
+    final customColors = Theme.of(context).extension<CustomColors>()!;
     return MyPrimaryButton(
       enabled: enabled,
       onPressed: onPressed,
       child: Text(
         text,
-        style: textStyle.copyWith(color: Theme.of(context).colorScheme.onPrimary),
+        style: textStyle.copyWith(
+            color: enabled
+                ? Theme.of(context).colorScheme.onPrimary
+                : customColors.textSecondary
+        ),
       ),
     );
   }

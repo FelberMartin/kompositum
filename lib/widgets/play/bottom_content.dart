@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kompositum/config/star_costs_rewards.dart';
 
 import '../../config/theme.dart';
 import '../../game/hints/hint.dart';
@@ -75,7 +76,7 @@ class BottomContent extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            "${GamePageState.hintCost}",
+                            "${Costs.hintCostNormal}",
                             style: Theme.of(context)
                                 .textTheme
                                 .labelSmall!

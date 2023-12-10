@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:kompositum/config/star_costs_rewards.dart';
 import 'package:kompositum/config/theme.dart';
 import 'package:kompositum/data/models/compound.dart';
 import 'package:kompositum/data/key_value_store.dart';
@@ -175,6 +176,17 @@ void main() {
         sut.buyHint(cost: 100);
         expect(sut.starCount, 233);
       });
+    });
+
+    testWidgets("solving a compound should increase the star counter", (tester) async {
+      await _pumpGamePage(tester);
+      sut.poolGameLevel = PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
+      final starCountBefore = sut.starCount;
+
+      sut.toggleSelection(0);   // Apfel
+      sut.toggleSelection(1);   // Baum
+
+      expect(sut.starCount, starCountBefore + Rewards.starsCompoundCompleted);
     });
 
   });

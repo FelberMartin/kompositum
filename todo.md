@@ -3,8 +3,21 @@
 ### Next up
 
 
-- Collect stars with each word + level
-  - No stars left (NoAttemptsLeftDialog + ingame)
+- There are two words in the datat where "werk" is in lower case -> correct this
+- Level complete dialog
+- Animations:
+  - Show/hide dialogs
+  - Expand components in combination area
+  - Animate component appear/move/remove in pool
+  - hiddenComponent counter fade out / count down
+  - Icon button click
+  - Button: decide for border or 3d -> then animation
+  - Background as in figma
+- Sound
+  - Create/play sounds
+  - Mute button
+- Home screen
+- Daily levels
 
 ### Later
 - Ads?
@@ -24,11 +37,9 @@
 - Calendar
 
 ### Misc
+- Remark by Felix: do not hide components. Instead make pool scrollable
 - Gameplay idea: When starting a new level, a first modifier is already selected.
 - Make the graph case insensitive? Would maybe result in less reported conflicts
-- Feature idea: when selecting a compound that is not recognized, option to send report
-  - eg via firebase take request and store unknown compounds
-  - UI: "an + Sicht should result in which compound? _____ Submit"
 - English compounds?
 
 # Bugs
