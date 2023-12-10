@@ -9,6 +9,7 @@ import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/data/models/unique_component.dart';
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
+import 'package:kompositum/widgets/common/my_buttons.dart';
 import 'package:kompositum/widgets/common/my_dialog.dart';
 
 import '../game/attempts_watcher.dart';
@@ -348,6 +349,13 @@ class GamePageState extends State<GamePage> {
         child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  Switch(
+                    value: use3d,
+                    onChanged: (value) {
+                      use3d = value;
+                      setState(() {});
+                    },
+                  ),
                   Expanded(
                     child: isLoading ? CombinationArea.loading(wordCompletionEventStream.stream) : CombinationArea(
                       selectedModifier: getSelectedModifierInfo(),

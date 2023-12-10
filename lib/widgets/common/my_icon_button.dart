@@ -43,7 +43,8 @@ class MyIconButton extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         Positioned(
-          top: 3,
+          top: 4,
+          left: 1,
           child: SizedBox(
             width: size,
             height: size,
@@ -59,7 +60,12 @@ class MyIconButton extends StatelessWidget {
             height: size,
             child: Card(
               color: Theme.of(context).colorScheme.secondary,
-              shape: const CircleBorder(),
+              shape: CircleBorder(
+                side: BorderSide(
+                  color: Theme.of(context).colorScheme.primary,
+                  width: 0,
+                ),
+              ),
               elevation: 4,
               child: InkWell(
                 borderRadius: const BorderRadius.all(Radius.circular(24)),

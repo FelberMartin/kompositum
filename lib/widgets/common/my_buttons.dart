@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../config/theme.dart';
 import '../../util/color_util.dart';
 
-
+var use3d = false;
 
 class My3dContainer extends StatelessWidget {
 
@@ -27,6 +27,27 @@ class My3dContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (!use3d) {
+      return Card(
+        color: topColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+          side: BorderSide(
+            color: sideColor,
+            width: 2,
+          ),
+        ),
+        elevation: 2,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(12),
+          onTap: clickable ? () => onPressed!() : null,
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: child,
+          ),
+        ),
+      );
+    }
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.center,
@@ -65,6 +86,10 @@ class My3dContainer extends StatelessWidget {
       color: backgroundColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
+        side: BorderSide(
+          color: sideColor,
+          width: 0.0,   // Hairline border
+        ),
       ),
       elevation: elevation,
       child: InkWell(
