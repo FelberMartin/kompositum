@@ -3,7 +3,6 @@
 ### Next up
 
 
-- There are two words in the datat where "werk" is in lower case -> correct this
 - Level complete dialog
 - Animations:
   - Show/hide dialogs
