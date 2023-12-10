@@ -5,11 +5,11 @@
 
 - Animations:
   - Show/hide dialogs
-  - Expand components in combination area
   - Animate component appear/move/remove in pool
   - hiddenComponent counter fade out / count down
-  - Icon button click
   - Button: decide for border or 3d -> then animation
+  - Expand components in combination area
+  - Icon button click
   - Background as in figma
 - Sound
   - Create/play sounds
