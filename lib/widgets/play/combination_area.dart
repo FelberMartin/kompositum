@@ -32,6 +32,17 @@ class CombinationArea extends StatelessWidget {
   final bool isReportVisible;
   final Function() onReportPressed;
 
+  factory CombinationArea.loading(stream) => CombinationArea(
+    selectedModifier: null,
+    selectedHead: null,
+    onResetSelection: (type) {},
+    maxAttempts: 0,
+    attemptsLeft: 0,
+    wordCompletionEventStream: stream,
+    isReportVisible: false,
+    onReportPressed: () {},
+  );
+
   @override
   Widget build(BuildContext context) {
     return Stack(

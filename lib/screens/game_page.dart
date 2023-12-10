@@ -62,6 +62,7 @@ class GamePageState extends State<GamePage> {
   late AttemptsWatcher attemptsWatcher;
 
   late int levelNumber;
+  LevelSetup? levelSetup;
   late int starCount;
   bool isLoading = true;
 
@@ -114,14 +115,16 @@ class GamePageState extends State<GamePage> {
 
     levelNumber = newLevelNumber;
     print("Generating new pool for new level");
-    final levelSetup = levelProvider.generateLevelSetup(levelNumber);
-    final compounds = await poolGenerator.generateFromLevelSetup(levelSetup);
+    levelSetup = levelProvider.generateLevelSetup(levelNumber);
+    setState(() {});
+
+    final compounds = await poolGenerator.generateFromLevelSetup(levelSetup!);
     final swappables = await swappableDetector.getSwappables(compounds);
     print("Finished new pool for new level");
     poolGameLevel = PoolGameLevel(
       compounds,
-      maxShownComponentCount: levelSetup.maxShownComponentCount,
-      displayedDifficulty: levelSetup.displayedDifficulty,
+      maxShownComponentCount: levelSetup!.maxShownComponentCount,
+      displayedDifficulty: levelSetup!.displayedDifficulty,
       swappableCompounds: swappables,
     );
 
@@ -334,26 +337,24 @@ class GamePageState extends State<GamePage> {
   Widget build(BuildContext context) {
     final customColors = Theme.of(context).extension<CustomColors>()!;
     return Scaffold(
-      appBar: isLoading
+      appBar: levelSetup == null
           ? null
           : TopRow(
               onBackPressed: () {
                 Navigator.pop(context);
               },
-              displayedDifficulty: poolGameLevel.displayedDifficulty,
+              displayedDifficulty: levelSetup!.displayedDifficulty,
               levelNumber: levelNumber,
-              levelProgress: poolGameLevel.getLevelProgress(),
+              levelProgress: true ? 0 : poolGameLevel.getLevelProgress(), // The progress is currently not shown
               starCount: starCount,
             ),
       backgroundColor: customColors.background2,
       body: Center(
-        child: isLoading
-            ? const CircularProgressIndicator()
-            : Column(
+        child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Expanded(
-                    child: CombinationArea(
+                    child: isLoading ? CombinationArea.loading(wordCompletionEventStream.stream) : CombinationArea(
                       selectedModifier: getSelectedModifierInfo(),
                       selectedHead: getSelectedHeadInfo(),
                       onResetSelection: resetSelection,
@@ -365,7 +366,7 @@ class GamePageState extends State<GamePage> {
                       onReportPressed: showReportDialog,
                     ),
                   ),
-                  BottomContent(
+                  isLoading ? BottomContent.loading() : BottomContent(
                     onToggleSelection: toggleSelection,
                     componentInfos: getComponentInfos(),
                     hiddenComponentsCount:

@@ -16,12 +16,26 @@ class BottomContent extends StatelessWidget {
     required this.componentInfos,
     required this.hiddenComponentsCount,
     required this.hintButtonInfo,
+    this.isLoading = false,
   });
 
   final Function(int) onToggleSelection;
   final List<ComponentInfo> componentInfos;
   final int hiddenComponentsCount;
   final MyIconButtonInfo hintButtonInfo;
+  final bool isLoading;
+
+  factory BottomContent.loading() => BottomContent(
+    onToggleSelection: (id) {},
+    componentInfos: [],
+    hiddenComponentsCount: 0,
+    hintButtonInfo: MyIconButtonInfo(
+      icon: FontAwesomeIcons.lightbulb,
+      onPressed: () {},
+      enabled: false,
+    ),
+    isLoading: true,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +48,14 @@ class BottomContent extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
+              flex: 3,
               child: Container(),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 36.0),
-              child: Wrap(
+              child: isLoading
+                  ? Center(child: CircularProgressIndicator(color: customColors.textSecondary))
+                  : Wrap(
                 spacing: 8.0,
                 runSpacing: 8.0,
                 alignment: WrapAlignment.center,
