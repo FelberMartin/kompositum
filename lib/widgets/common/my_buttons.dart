@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../config/theme.dart';
 import '../../util/color_util.dart';
 
-var use3d = false;
+var use3d = true;
 
 class My3dContainer extends StatelessWidget {
 
@@ -67,7 +67,7 @@ class My3dContainer extends StatelessWidget {
         Positioned(
           child: _embedChild(
             backgroundColor: topColor,
-            elevation: 6,
+            elevation: 4,
             clickable: clickable,
             child: child,
           ),
@@ -88,7 +88,7 @@ class My3dContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         side: BorderSide(
           color: sideColor,
-          width: 0.0,   // Hairline border
+          width: 1.0,   // Hairline border
         ),
       ),
       elevation: elevation,
