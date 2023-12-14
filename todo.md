@@ -2,7 +2,6 @@
 ## 1.0 Release
 ### Next up
 
-
 - Animations:
   - Button: decide for border or 3d -> then animation
   - Animate component appear/move/remove in pool

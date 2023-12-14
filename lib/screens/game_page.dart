@@ -198,9 +198,14 @@ class GamePageState extends State<GamePage> {
   }
 
   void _compoundFound(String compoundName) {
-    starCount += Rewards.starsCompoundCompleted;
+    _increaseStarCount(Rewards.starsCompoundCompleted);
     emitWordCompletionEvent(compoundName);
     resetToNoSelection();
+  }
+
+  void _increaseStarCount(int amount) {
+    starCount += amount;
+    keyValueStore.storeStarCount(starCount);
   }
 
   void emitWordCompletionEvent(String word) {
@@ -208,7 +213,6 @@ class GamePageState extends State<GamePage> {
   }
 
   void _levelFinished() async {
-    starCount += Rewards.byDifficulty(poolGameLevel.displayedDifficulty);
     await Future.delayed(const Duration(milliseconds: 1200));
     showLevelCompletedDialog();
   }
@@ -287,7 +291,7 @@ class GamePageState extends State<GamePage> {
       selectionTypeToComponentId[SelectionType.modifier] = hint.hintedComponent.id;
     }
 
-    starCount -= cost;
+    _increaseStarCount(-cost);
     setState(() {});
   }
 
@@ -313,6 +317,8 @@ class GamePageState extends State<GamePage> {
         difficulty: poolGameLevel.displayedDifficulty,
         onContinuePressed: () {
           Navigator.pop(context);
+          var reward = Rewards.byDifficulty(poolGameLevel.displayedDifficulty);
+          _increaseStarCount(reward);
           resetToNoSelection();
           updateGameToNewLevel(levelNumber + 1);
         },
