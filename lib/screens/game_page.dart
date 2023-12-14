@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kompositum/config/star_costs_rewards.dart';
 import 'package:kompositum/config/theme.dart';
@@ -9,6 +10,7 @@ import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/data/models/unique_component.dart';
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
+import 'package:kompositum/widgets/common/my_background.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 import 'package:kompositum/widgets/common/my_dialog.dart';
 
@@ -337,60 +339,66 @@ class GamePageState extends State<GamePage> {
 
   @override
   Widget build(BuildContext context) {
-    final customColors = Theme.of(context).extension<CustomColors>()!;
-    return Scaffold(
-      appBar: levelSetup == null
-          ? null
-          : TopRow(
-              onBackPressed: () {
-                Navigator.pop(context);
-              },
-              displayedDifficulty: levelSetup!.displayedDifficulty,
-              levelNumber: levelNumber,
-              levelProgress: true ? 0 : poolGameLevel.getLevelProgress(), // The progress is currently not shown
-              starCount: starCount,
-            ),
-      backgroundColor: customColors.background2,
-      body: Center(
-        child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Switch(
-                    value: use3d,
-                    onChanged: (value) {
-                      use3d = value;
-                      setState(() {});
-                    },
+    return Stack(
+      children: [
+        const Positioned.fill(
+          child: MyBackground(),
+        ),
+        Scaffold(
+          appBar: levelSetup == null
+              ? null
+              : TopRow(
+                  onBackPressed: () {
+                    Navigator.pop(context);
+                  },
+                  displayedDifficulty: levelSetup!.displayedDifficulty,
+                  levelNumber: levelNumber,
+                  levelProgress: true ? 0 : poolGameLevel.getLevelProgress(), // The progress is currently not shown
+                  starCount: starCount,
+                ),
+          backgroundColor: Colors.transparent,
+          body: Center(
+            child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Switch(
+                        value: use3d,
+                        onChanged: (value) {
+                          use3d = value;
+                          setState(() {});
+                        },
+                      ),
+                      Expanded(
+                        child: isLoading ? CombinationArea.loading(wordCompletionEventStream.stream) : CombinationArea(
+                          selectedModifier: getSelectedModifierInfo(),
+                          selectedHead: getSelectedHeadInfo(),
+                          onResetSelection: resetSelection,
+                          maxAttempts: attemptsWatcher.maxAttempts,
+                          attemptsLeft: attemptsWatcher.attemptsLeft,
+                          wordCompletionEventStream:
+                              wordCompletionEventStream.stream,
+                          isReportVisible: shouldShowReportButton(),
+                          onReportPressed: showReportDialog,
+                        ),
+                      ),
+                      isLoading ? BottomContent.loading() : BottomContent(
+                        onToggleSelection: toggleSelection,
+                        componentInfos: getComponentInfos(),
+                        hiddenComponentsCount:
+                            poolGameLevel.hiddenComponents.length,
+                        hintButtonInfo: MyIconButtonInfo(
+                          icon: FontAwesomeIcons.lightbulb,
+                          onPressed: () {
+                            buyHint();
+                          },
+                          enabled: poolGameLevel.canRequestHint() && starCount >= Costs.hintCostNormal,
+                        ),
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: isLoading ? CombinationArea.loading(wordCompletionEventStream.stream) : CombinationArea(
-                      selectedModifier: getSelectedModifierInfo(),
-                      selectedHead: getSelectedHeadInfo(),
-                      onResetSelection: resetSelection,
-                      maxAttempts: attemptsWatcher.maxAttempts,
-                      attemptsLeft: attemptsWatcher.attemptsLeft,
-                      wordCompletionEventStream:
-                          wordCompletionEventStream.stream,
-                      isReportVisible: shouldShowReportButton(),
-                      onReportPressed: showReportDialog,
-                    ),
-                  ),
-                  isLoading ? BottomContent.loading() : BottomContent(
-                    onToggleSelection: toggleSelection,
-                    componentInfos: getComponentInfos(),
-                    hiddenComponentsCount:
-                        poolGameLevel.hiddenComponents.length,
-                    hintButtonInfo: MyIconButtonInfo(
-                      icon: FontAwesomeIcons.lightbulb,
-                      onPressed: () {
-                        buyHint();
-                      },
-                      enabled: poolGameLevel.canRequestHint() && starCount >= Costs.hintCostNormal,
-                    ),
-                  ),
-                ],
-              ),
-      ),
+          ),
+        ),
+      ],
     );
   }
 }

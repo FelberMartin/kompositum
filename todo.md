@@ -7,7 +7,6 @@
   - Animate component appear/move/remove in pool
   - Expand components in combination area
   - Icon button click
-  - Background as in figma
 - Sound
   - Create/play sounds
   - Mute button

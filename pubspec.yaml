@@ -50,6 +50,7 @@ dependencies:
   firebase_core: ^2.24.0
   cloud_firestore: ^4.13.3
   animated_flip_counter: ^0.2.6
+  flutter_svg: ^2.0.9
 
 dev_dependencies:
   flutter_test:
@@ -79,6 +80,7 @@ flutter:
   assets:
     - assets/filtered_compounds.csv
     - test/test_data/test_compounds.csv
+    - assets/background.svg
 
   # To add assets to your application, add an assets section, like this:
   # assets:
