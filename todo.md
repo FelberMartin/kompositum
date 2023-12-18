@@ -4,9 +4,11 @@
 
 - Animations:
   - Button: decide for border or 3d -> then animation
-  - Animate component appear/move/remove in pool
+  - Animate component appear/remove in pool
+  - Animate component move in pool
   - Expand components in combination area
-  - Icon button click
+  - Icon button click (also use 3dcontainer)
+- How to deal with Large Texts in the Chips/Animation?
 - Sound
   - Create/play sounds
   - Mute button
@@ -22,7 +24,6 @@
 - Implement design in flutter
 - App icon
 - App name
-- How to deal with Large Texts in the Chips/Animation?
 - Sound Design
 
 ### Daily levels

@@ -126,7 +126,7 @@ class ActionButtonRow extends StatelessWidget {
       children: [
         MySecondaryTextButton(
           text: "Abbrechen",
-          onPressed: () => onCancelPressed,
+          onPressed: onCancelPressed,
         ),
         SizedBox(width: 8),
         FutureBuilder<void>(
