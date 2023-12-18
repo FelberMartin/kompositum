@@ -361,13 +361,6 @@ class GamePageState extends State<GamePage> {
             child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Switch(
-                        value: use3d,
-                        onChanged: (value) {
-                          use3d = value;
-                          setState(() {});
-                        },
-                      ),
                       Expanded(
                         child: isLoading ? CombinationArea.loading(wordCompletionEventStream.stream) : CombinationArea(
                           selectedModifier: getSelectedModifierInfo(),

@@ -8,6 +8,7 @@ import 'package:kompositum/widgets/play/combination_area.dart';
 import '../../../config/theme.dart';
 import '../../../data/remote/firestore.dart';
 import '../../../firebase_options.dart';
+import '../../common/my_3d_container.dart';
 import '../../common/util/icon_styled_text.dart';
 
 void main() async {
