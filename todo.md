@@ -38,7 +38,6 @@
 - English compounds?
 
 # Bugs
-- Buttons are sometimes unresponsive
 - Possible bug: Shown=[Baum, Haus, Tür], generated hint is "Baum + Haus" but user removes "Haus + Tür",
   then "Baum" remains with a hint, but if the other "Haus" component is still in the hidden components,
   generating a new hint will produce probably an error.

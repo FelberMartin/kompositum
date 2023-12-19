@@ -108,6 +108,7 @@ class _EmbedChild extends StatelessWidget {
       ),
       elevation: elevation,
       child: GestureDetector(
+        behavior: HitTestBehavior.translucent,
         onTapDown: clickable ? (details) => onTapDown!() : null,
         onTapUp: clickable ? (details) => onTapUp!() : null,
         child: Padding(
