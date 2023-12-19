@@ -3,9 +3,8 @@
 ### Next up
 
 - Animations:
-  - Animate component appear/remove in pool
   - Animate component move in pool
-  - Expand components in combination area
+  - Animate remove/add in pool
   - Icon button click (also use 3dcontainer)
 - How to deal with Large Texts in the Chips/Animation?
   - Also check Report dialog

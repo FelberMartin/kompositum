@@ -195,7 +195,7 @@ class ComponentWrapper extends StatelessWidget {
       topColor: customColors.textSecondary,
       sideColor: customColors.background4,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 2.0),
+        padding: const EdgeInsets.symmetric(horizontal: 2.0) + const EdgeInsets.all(12.0),
         child: Text(
           text,
           style: Theme.of(context).textTheme.labelLarge!.copyWith(

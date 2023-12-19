@@ -27,7 +27,10 @@ class MyPrimaryButton extends StatelessWidget {
       sideColor: darken(Theme.of(context).colorScheme.primary, 10),
       clickable: enabled,
       onPressed: onPressed,
-      child: child,
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: child,
+      ),
     );
   }
 }
@@ -85,7 +88,7 @@ class MyPrimaryTextButtonLarge extends StatelessWidget {
       clickable: true,
       onPressed: onPressed,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(20.0),
         child: Text(
           text,
           style: textStyle.copyWith(color: Theme.of(context).colorScheme.onPrimary),
@@ -114,9 +117,12 @@ class MySecondaryTextButton extends StatelessWidget {
       sideColor: Theme.of(context).colorScheme.primary,
       clickable: true,
       onPressed: onPressed,
-      child: Text(
-        text,
-        style: textStyle.copyWith(color: Theme.of(context).colorScheme.onSecondary),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Text(
+          text,
+          style: textStyle.copyWith(color: Theme.of(context).colorScheme.onSecondary),
+        ),
       ),
     );
   }
