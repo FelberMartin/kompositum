@@ -10,6 +10,7 @@ class My3dContainer extends StatefulWidget {
     this.clickable = false,
     this.onPressed,
     this.animationDuration = const Duration(milliseconds: 100),
+    this.cornerRadius = 12,
   });
 
   final Widget child;
@@ -18,6 +19,7 @@ class My3dContainer extends StatefulWidget {
   final bool clickable;
   final Function? onPressed;
   final Duration animationDuration;
+  final double cornerRadius;
 
   static const topInset = 4.0;
   static const leftInset = 1.0;
@@ -43,6 +45,7 @@ class _My3dContainerState extends State<My3dContainer> {
             elevation: 0,
             clickable: false,
             animationDuration: widget.animationDuration,
+            cornerRadius: widget.cornerRadius,
             child: widget.child,
           ),
           // Foreground
@@ -58,6 +61,7 @@ class _My3dContainerState extends State<My3dContainer> {
               borderColor: widget.sideColor,
               elevation: 4,
               animationDuration: widget.animationDuration,
+              cornerRadius: widget.cornerRadius,
               clickable: widget.clickable,
               onTapDown: () {
                 setState(() {
@@ -89,6 +93,7 @@ class _EmbedChild extends StatelessWidget {
     this.onTapUp,
     required this.animationDuration,
     required this.child,
+    required this.cornerRadius,
   });
 
   final Color backgroundColor;
@@ -99,6 +104,7 @@ class _EmbedChild extends StatelessWidget {
   final Function? onTapUp;
   final Widget child;
   final Duration animationDuration;
+  final double cornerRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -106,13 +112,13 @@ class _EmbedChild extends StatelessWidget {
     return Card(
         color: backgroundColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(cornerRadius),
         ),
         elevation: elevation,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 140),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(cornerRadius),
             color: backgroundColor,
             border: Border.all(
               color: borderColor,

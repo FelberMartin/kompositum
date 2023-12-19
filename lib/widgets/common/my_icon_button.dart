@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kompositum/config/theme.dart';
 
+import 'my_3d_container.dart';
+
 
 class MyIconButtonInfo {
   const MyIconButtonInfo({
@@ -39,6 +41,21 @@ class MyIconButton extends StatelessWidget {
     final customColors = Theme.of(context).extension<CustomColors>()!;
     final iconColor = enabled ? Theme.of(context).colorScheme.onSecondary : customColors.textSecondary;
     const size = 48.0;
+    return My3dContainer(
+      topColor: Theme.of(context).colorScheme.secondary,
+      sideColor: Theme.of(context).colorScheme.primary,
+      clickable: enabled,
+      onPressed: onPressed,
+      cornerRadius: size / 2,
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Icon(
+          icon,
+          color: iconColor,
+        ),
+      ),
+    );
+
     return Stack(
       alignment: Alignment.center,
       children: [

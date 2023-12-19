@@ -2,9 +2,8 @@
 ## 1.0 Release
 ### Next up
 
-- Animations:
-  - Animate component move in pool
-  - Icon button click (also use 3dcontainer)
+- My3dContainer bug: when tapping down inside the container and then dragging outside, the container
+  remains in the down state
 - How to deal with Large Texts in the Chips/Animation?
   - Also check Report dialog
 - Sound
@@ -13,6 +12,8 @@
 - Home screen
 - Daily levels
 - Improve Level completed dialog
+- Level creation: more variation in level sizes
+- Animate component move in pool
 
 ### Later
 - Ads?
