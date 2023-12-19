@@ -49,7 +49,7 @@ class _My3dContainerState extends State<My3dContainer> {
             left: _isPressedDown ? 0 : -My3dContainer.leftInset,
             bottom: _isPressedDown ? 0 : My3dContainer.topInset,
             right: _isPressedDown ? 0 : My3dContainer.leftInset,
-
+            curve: Curves.ease,
             child: _EmbedChild(
               backgroundColor: widget.topColor,
               borderColor: widget.sideColor,
@@ -101,19 +101,27 @@ class _EmbedChild extends StatelessWidget {
         color: backgroundColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
-          side: BorderSide(
-            color: borderColor,
-            width: 1.0,   // Hairline border
-          ),
         ),
         elevation: elevation,
-        child: GestureDetector(
-          behavior: HitTestBehavior.translucent,
-          onTapDown: clickable ? (details) => onTapDown!() : null,
-          onTapUp: clickable ? (details) => onTapUp!() : null,
-          child: AnimatedSize(
-            duration: const Duration(milliseconds: 100),
-            child: child,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 140),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: backgroundColor,
+            border: Border.all(
+              color: borderColor,
+              width: 1.0,   // Hairline border
+            ),
+          ),
+          child: GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTapDown: clickable ? (details) => onTapDown!() : null,
+            onTapUp: clickable ? (details) => onTapUp!() : null,
+            child: AnimatedSize(
+              curve: Curves.ease,
+              duration: const Duration(milliseconds: 100),
+              child: child,
+            ),
           ),
         ),
     );

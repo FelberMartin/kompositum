@@ -2,10 +2,12 @@ import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kompositum/config/star_costs_rewards.dart';
+import 'package:kompositum/widgets/common/my_3d_container.dart';
 
 import '../../config/theme.dart';
 import '../../game/hints/hint.dart';
 import '../../screens/game_page.dart';
+import '../../util/color_util.dart';
 import '../common/my_buttons.dart';
 import '../common/my_icon_button.dart';
 import '../common/util/rounded_edge_clipper.dart';
@@ -27,16 +29,16 @@ class BottomContent extends StatelessWidget {
   final bool isLoading;
 
   factory BottomContent.loading() => BottomContent(
-    onToggleSelection: (id) {},
-    componentInfos: [],
-    hiddenComponentsCount: 0,
-    hintButtonInfo: MyIconButtonInfo(
-      icon: FontAwesomeIcons.lightbulb,
-      onPressed: () {},
-      enabled: false,
-    ),
-    isLoading: true,
-  );
+        onToggleSelection: (id) {},
+        componentInfos: [],
+        hiddenComponentsCount: 0,
+        hintButtonInfo: MyIconButtonInfo(
+          icon: FontAwesomeIcons.lightbulb,
+          onPressed: () {},
+          enabled: false,
+        ),
+        isLoading: true,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -55,23 +57,25 @@ class BottomContent extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 36.0),
               child: isLoading
-                  ? Center(child: CircularProgressIndicator(color: customColors.textSecondary))
+                  ? Center(
+                      child: CircularProgressIndicator(
+                          color: customColors.textSecondary))
                   : Wrap(
-                spacing: 8.0,
-                runSpacing: 8.0,
-                alignment: WrapAlignment.center,
-                children: [
-                  for (final componentInfo in componentInfos)
-                    WordWrapper(
-                      text: componentInfo.component.text,
-                      selectionType: componentInfo.selectionType,
-                      onSelectionChanged: (selected) {
-                        onToggleSelection(componentInfo.component.id);
-                      },
-                      hint: componentInfo.hint?.type,
+                      spacing: 8.0,
+                      runSpacing: 8.0,
+                      alignment: WrapAlignment.center,
+                      children: [
+                        for (final componentInfo in componentInfos)
+                          WordWrapper(
+                            text: componentInfo.component.text,
+                            selectionType: componentInfo.selectionType,
+                            onSelectionChanged: (selected) {
+                              onToggleSelection(componentInfo.component.id);
+                            },
+                            hint: componentInfo.hint?.type,
+                          ),
+                      ],
                     ),
-                ],
-              ),
             ),
             Expanded(
               child: Container(),
@@ -99,8 +103,8 @@ class BottomContent extends StatelessWidget {
                                 .textTheme
                                 .labelSmall!
                                 .copyWith(
-                              color: customColors.textSecondary,
-                            ),
+                                  color: customColors.textSecondary,
+                                ),
                           ),
                           Icon(
                             Icons.star_rounded,
@@ -133,24 +137,23 @@ class HiddenComponentsIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     final customColors = Theme.of(context).extension<CustomColors>()!;
     return AnimatedOpacity(
-      opacity: hiddenComponentsCount == 0 ? 0.0 : 1.0,
-      duration: const Duration(milliseconds: 500),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AnimatedFlipCounter(
-            duration: Duration(milliseconds: 300),
-            value: hiddenComponentsCount,
-            textStyle: Theme.of(context).textTheme.titleSmall,
-            padding: EdgeInsets.only(top: 0.0),
-          ),
-          Text("verdeckte Wörter",
-              style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                color: customColors.textSecondary,
-              ))
-        ],
-      )
-    );
+        opacity: hiddenComponentsCount == 0 ? 0.0 : 1.0,
+        duration: const Duration(milliseconds: 500),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AnimatedFlipCounter(
+              duration: Duration(milliseconds: 300),
+              value: hiddenComponentsCount,
+              textStyle: Theme.of(context).textTheme.titleSmall,
+              padding: EdgeInsets.only(top: 0.0),
+            ),
+            Text("verdeckte Wörter",
+                style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                      color: customColors.textSecondary,
+                    ))
+          ],
+        ));
   }
 }
 
@@ -161,28 +164,36 @@ class WordWrapper extends StatelessWidget {
     required this.selectionType,
     required this.onSelectionChanged,
     this.hint,
+    this.isVisible = true,
   });
 
   final String text;
   final SelectionType? selectionType;
   final ValueChanged<bool> onSelectionChanged;
   final HintComponentType? hint;
+  final bool isVisible;
 
   @override
   Widget build(BuildContext context) {
     final isSelected = selectionType != null;
-    final button = isSelected ?
-    MyPrimaryTextButton(
+    final button = My3dContainer(
+      topColor: isSelected
+          ? Theme.of(context).colorScheme.primary
+          : Theme.of(context).colorScheme.secondary,
+      sideColor: isSelected
+          ? darken(Theme.of(context).colorScheme.primary, 10)
+          : Theme.of(context).colorScheme.primary,
+      clickable: true,
       onPressed: () {
-        onSelectionChanged(false);
+        onSelectionChanged(!isSelected);
       },
-      text: text,
-    )
-        : MySecondaryTextButton(
-      onPressed: () {
-        onSelectionChanged(true);
-      },
-      text: text,
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Text(
+          text,
+          style: Theme.of(context).textTheme.labelMedium,
+        ),
+      ),
     );
 
     return ComponentWithHint(button: button, hint: hint);
@@ -197,7 +208,7 @@ class ComponentWithHint extends StatelessWidget {
     this.size = 24.0,
   });
 
-  final StatelessWidget button;
+  final Widget button;
   final HintComponentType? hint;
   final double size;
 
@@ -218,8 +229,6 @@ class ComponentWithHint extends StatelessWidget {
     );
   }
 }
-
-
 
 class HintIndicator extends StatelessWidget {
   const HintIndicator({
