@@ -2,7 +2,6 @@
 ## 1.0 Release
 ### Next up
 
-- My3dContainer bug: when tapping down inside the container and then dragging outside, the container
   remains in the down state
 - How to deal with Large Texts in the Chips/Animation?
   - Also check Report dialog

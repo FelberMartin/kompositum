@@ -74,6 +74,11 @@ class _My3dContainerState extends State<My3dContainer> {
                 });
                 if (widget.onPressed != null) widget.onPressed!();
               },
+              onTapCancel: () {
+                setState(() {
+                  _isPressedDown = false;
+                });
+              },
               child: widget.child,
             ),
           )
@@ -91,6 +96,7 @@ class _EmbedChild extends StatelessWidget {
     required this.clickable,
     this.onTapDown,
     this.onTapUp,
+    this.onTapCancel,
     required this.animationDuration,
     required this.child,
     required this.cornerRadius,
@@ -102,6 +108,7 @@ class _EmbedChild extends StatelessWidget {
   final bool clickable;
   final Function? onTapDown;
   final Function? onTapUp;
+  final Function? onTapCancel;
   final Widget child;
   final Duration animationDuration;
   final double cornerRadius;
@@ -129,6 +136,7 @@ class _EmbedChild extends StatelessWidget {
             behavior: HitTestBehavior.translucent,
             onTapDown: clickable ? (details) => onTapDown!() : null,
             onTapUp: clickable ? (details) => onTapUp!() : null,
+            onTapCancel: clickable ? () => onTapCancel!() : null,
             child: AnimatedSize(
               curve: Curves.ease,
               duration: animationDuration,
