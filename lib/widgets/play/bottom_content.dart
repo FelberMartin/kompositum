@@ -5,6 +5,7 @@ import 'package:kompositum/config/star_costs_rewards.dart';
 import 'package:kompositum/widgets/common/my_3d_container.dart';
 
 import '../../config/theme.dart';
+import '../../data/models/unique_component.dart';
 import '../../game/hints/hint.dart';
 import '../../screens/game_page.dart';
 import '../../util/color_util.dart';
@@ -12,7 +13,10 @@ import '../common/my_buttons.dart';
 import '../common/my_icon_button.dart';
 import '../common/util/rounded_edge_clipper.dart';
 
-class BottomContent extends StatelessWidget {
+
+const wordWrapperAnimationDuration = Duration(milliseconds: 200);
+
+class BottomContent extends StatefulWidget {
   const BottomContent({
     super.key,
     required this.onToggleSelection,
@@ -41,7 +45,35 @@ class BottomContent extends StatelessWidget {
       );
 
   @override
+  State<BottomContent> createState() => _BottomContentState();
+}
+
+class _BottomContentState extends State<BottomContent> {
+
+  List<ComponentInfo> previousComponents = [];
+
+  @override
   Widget build(BuildContext context) {
+    // Logic to animate the removal and addition of components.
+    final currentComponents = widget.componentInfos;
+    final removedComponents = previousComponents.where((c) => !currentComponents.contains(c)).toList();
+    final addedComponents = currentComponents.where((c) => !previousComponents.contains(c)).toList();
+
+    final allComponentsToShow = previousComponents.map((prev) {
+      if (removedComponents.contains(prev)) {
+        return prev;
+      }
+      return currentComponents.firstWhere((c) => c == prev);
+    }).toList() + addedComponents;
+
+    previousComponents = currentComponents;
+
+    if (removedComponents.isNotEmpty || addedComponents.isNotEmpty) {
+      // Delay the setState to allow the removal animation to finish.
+      // The setState will trigger the animation for the added components.
+      Future.delayed(wordWrapperAnimationDuration).then((value) => setState(() {}));
+    }
+
     final customColors = Theme.of(context).extension<CustomColors>()!;
     return ClipPath(
       clipper: RoundedEdgeClipper(onBottom: false),
@@ -56,23 +88,24 @@ class BottomContent extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 36.0),
-              child: isLoading
+              child: widget.isLoading
                   ? Center(
                       child: CircularProgressIndicator(
                           color: customColors.textSecondary))
                   : Wrap(
-                      spacing: 8.0,
                       runSpacing: 8.0,
                       alignment: WrapAlignment.center,
                       children: [
-                        for (final componentInfo in componentInfos)
+                        for (final componentInfo in allComponentsToShow)
                           WordWrapper(
+                            key: ValueKey(componentInfo.component.id),
                             text: componentInfo.component.text,
                             selectionType: componentInfo.selectionType,
                             onSelectionChanged: (selected) {
-                              onToggleSelection(componentInfo.component.id);
+                              widget.onToggleSelection(componentInfo.component.id);
                             },
                             hint: componentInfo.hint?.type,
+                            isVisible: !removedComponents.contains(componentInfo) && !addedComponents.contains(componentInfo),
                           ),
                       ],
                     ),
@@ -87,12 +120,12 @@ class BottomContent extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   HiddenComponentsIndicator(
-                    hiddenComponentsCount: hiddenComponentsCount,
+                    hiddenComponentsCount: widget.hiddenComponentsCount,
                   ),
                   Column(
                     children: [
                       MyIconButton.fromInfo(
-                        info: hintButtonInfo,
+                        info: widget.hintButtonInfo,
                       ),
                       const SizedBox(height: 4.0),
                       Row(
@@ -143,10 +176,10 @@ class HiddenComponentsIndicator extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AnimatedFlipCounter(
-              duration: Duration(milliseconds: 300),
+              duration: const Duration(milliseconds: 300),
               value: hiddenComponentsCount,
               textStyle: Theme.of(context).textTheme.titleSmall,
-              padding: EdgeInsets.only(top: 0.0),
+              padding: const EdgeInsets.only(top: 0.0),
             ),
             Text("verdeckte Wörter",
                 style: Theme.of(context).textTheme.labelSmall!.copyWith(
@@ -187,7 +220,8 @@ class WordWrapper extends StatelessWidget {
       onPressed: () {
         onSelectionChanged(!isSelected);
       },
-      child: Padding(
+      animationDuration: wordWrapperAnimationDuration,
+      child: !isVisible ? const SizedBox(width: 0, height: 40) : Padding(
         padding: const EdgeInsets.all(12.0),
         child: Text(
           text,
@@ -196,7 +230,15 @@ class WordWrapper extends StatelessWidget {
       ),
     );
 
-    return ComponentWithHint(button: button, hint: hint);
+    return AnimatedPadding(
+      duration: wordWrapperAnimationDuration,
+      padding: EdgeInsets.symmetric(horizontal: !isVisible ? 0.0 : 4.0),
+      child: AnimatedOpacity(
+        opacity: isVisible ? 1.0 : 0.0,
+        duration: wordWrapperAnimationDuration * 1.0,
+        child: ComponentWithHint(button: button, hint: hint),
+      ),
+    );
   }
 }
 

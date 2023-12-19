@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 class My3dContainer extends StatefulWidget {
 
   const My3dContainer({
+    super.key,
     required this.child,
     required this.topColor,
     required this.sideColor,
     this.clickable = false,
     this.onPressed,
-    super.key,
+    this.animationDuration = const Duration(milliseconds: 100),
   });
 
   final Widget child;
@@ -16,6 +17,7 @@ class My3dContainer extends StatefulWidget {
   final Color sideColor;
   final bool clickable;
   final Function? onPressed;
+  final Duration animationDuration;
 
   static const topInset = 4.0;
   static const leftInset = 1.0;
@@ -40,6 +42,7 @@ class _My3dContainerState extends State<My3dContainer> {
             borderColor: widget.sideColor,
             elevation: 0,
             clickable: false,
+            animationDuration: widget.animationDuration,
             child: widget.child,
           ),
           // Foreground
@@ -54,6 +57,7 @@ class _My3dContainerState extends State<My3dContainer> {
               backgroundColor: widget.topColor,
               borderColor: widget.sideColor,
               elevation: 4,
+              animationDuration: widget.animationDuration,
               clickable: widget.clickable,
               onTapDown: () {
                 setState(() {
@@ -83,6 +87,7 @@ class _EmbedChild extends StatelessWidget {
     required this.clickable,
     this.onTapDown,
     this.onTapUp,
+    required this.animationDuration,
     required this.child,
   });
 
@@ -93,6 +98,7 @@ class _EmbedChild extends StatelessWidget {
   final Function? onTapDown;
   final Function? onTapUp;
   final Widget child;
+  final Duration animationDuration;
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +125,7 @@ class _EmbedChild extends StatelessWidget {
             onTapUp: clickable ? (details) => onTapUp!() : null,
             child: AnimatedSize(
               curve: Curves.ease,
-              duration: const Duration(milliseconds: 100),
+              duration: animationDuration,
               child: child,
             ),
           ),

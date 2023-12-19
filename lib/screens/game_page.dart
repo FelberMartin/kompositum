@@ -402,6 +402,16 @@ class ComponentInfo {
   final Hint? hint;
 
   ComponentInfo(this.component, this.selectionType, this.hint);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ComponentInfo &&
+          runtimeType == other.runtimeType &&
+          component == other.component;
+
+  @override
+  int get hashCode => component.hashCode;
 }
 
 // enum for SelectionType to be either modifier or head

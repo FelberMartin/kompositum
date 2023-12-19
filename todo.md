@@ -4,7 +4,6 @@
 
 - Animations:
   - Animate component move in pool
-  - Animate remove/add in pool
   - Icon button click (also use 3dcontainer)
 - How to deal with Large Texts in the Chips/Animation?
   - Also check Report dialog
@@ -13,6 +12,7 @@
   - Mute button
 - Home screen
 - Daily levels
+- Improve Level completed dialog
 
 ### Later
 - Ads?
