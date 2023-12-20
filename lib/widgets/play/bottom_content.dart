@@ -127,7 +127,7 @@ class _BottomContentState extends State<BottomContent> {
                       MyIconButton.fromInfo(
                         info: widget.hintButtonInfo,
                       ),
-                      const SizedBox(height: 4.0),
+                      const SizedBox(height: 2.0),
                       Row(
                         children: [
                           Text(

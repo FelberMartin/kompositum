@@ -55,46 +55,5 @@ class MyIconButton extends StatelessWidget {
         ),
       ),
     );
-
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Positioned(
-          top: 4,
-          left: 1,
-          child: SizedBox(
-            width: size,
-            height: size,
-            child: Card(
-              color: Theme.of(context).colorScheme.primary,
-              shape: const CircleBorder(),
-              elevation: 0,
-              ),
-            ),
-        ),
-          SizedBox(
-            width: size,
-            height: size,
-            child: Card(
-              color: Theme.of(context).colorScheme.secondary,
-              shape: CircleBorder(
-                side: BorderSide(
-                  color: Theme.of(context).colorScheme.primary,
-                  width: 0,
-                ),
-              ),
-              elevation: 4,
-              child: InkWell(
-                borderRadius: const BorderRadius.all(Radius.circular(24)),
-                onTap: enabled ? () => onPressed() : null,
-                child: Icon(
-                  icon,
-                  color: iconColor,
-                ),
-                ),
-              ),
-            ),
-      ],
-    );
   }
 }

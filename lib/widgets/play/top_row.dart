@@ -31,9 +31,12 @@ class TopRow extends StatelessWidget implements PreferredSizeWidget {
     final customColors = Theme.of(context).extension<CustomColors>()!;
     return MyAppBar(
       leftContent: Center(
-        child: MyIconButton(
-          icon: FontAwesomeIcons.chevronLeft,
-          onPressed: onBackPressed,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 2),   // Align the icon with the text
+          child: MyIconButton(
+            icon: FontAwesomeIcons.chevronLeft,
+            onPressed: onBackPressed,
+          ),
         ),
       ),
       middleContent: Column(
