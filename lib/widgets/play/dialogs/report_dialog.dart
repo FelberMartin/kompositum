@@ -65,11 +65,11 @@ class _ReportDialogState extends State<ReportDialog> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ComponentWrapper(widget.modifier),
+                Flexible(child: ComponentWrapper(widget.modifier)),
                 SizedBox(width: 8),
                 IconStyledText(text: "+", strokeWidth: 2),
                 SizedBox(width: 8),
-                ComponentWrapper(widget.head),
+                Flexible(child: ComponentWrapper(widget.head)),
               ],
             ),
             SizedBox(height: 24),

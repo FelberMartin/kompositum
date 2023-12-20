@@ -89,9 +89,14 @@ class MyPrimaryTextButtonLarge extends StatelessWidget {
       onPressed: onPressed,
       child: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: Text(
-          text,
-          style: textStyle.copyWith(color: Theme.of(context).colorScheme.onPrimary),
+        child: SizedBox(
+          height: textStyle.height,
+          child: FittedBox(
+            child: Text(
+              text,
+              style: textStyle.copyWith(color: Theme.of(context).colorScheme.onPrimary),
+            ),
+          ),
         ),
       ),
     );

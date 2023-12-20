@@ -2,11 +2,10 @@
 ## 1.0 Release
 ### Next up
 
-- How to deal with Large Texts in the Chips/Animation?
-  - Also check Report dialog
 - Sound
   - Create/play sounds
   - Mute button
+- With many components, the pool is to high up
 - Home screen
 - Daily levels
 - Improve Level completed dialog
