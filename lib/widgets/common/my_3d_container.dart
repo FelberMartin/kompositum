@@ -132,11 +132,11 @@ class _EmbedChild extends StatelessWidget {
               width: 1.0,   // Hairline border
             ),
           ),
-          child: GestureDetector(
+          child: Listener(
             behavior: HitTestBehavior.translucent,
-            onTapDown: clickable ? (details) => onTapDown!() : null,
-            onTapUp: clickable ? (details) => onTapUp!() : null,
-            onTapCancel: clickable ? () => onTapCancel!() : null,
+            onPointerDown: clickable ? (details) => onTapDown!() : null,
+            onPointerUp: clickable ? (details) => onTapUp!() : null,
+            onPointerCancel: clickable ? (x) => onTapCancel!() : null,
             child: AnimatedSize(
               curve: Curves.ease,
               duration: animationDuration,

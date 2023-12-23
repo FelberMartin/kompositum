@@ -73,19 +73,22 @@ class MyPrimaryTextButtonLarge extends StatelessWidget {
   const MyPrimaryTextButtonLarge({
     required this.onPressed,
     required this.text,
+    this.enabled = true,
     super.key,
   });
 
   final Function onPressed;
   final String text;
+  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme.labelLarge!;
+    final customColors = Theme.of(context).extension<CustomColors>()!;
     return My3dContainer(
       topColor: Theme.of(context).colorScheme.primary,
       sideColor: darken(Theme.of(context).colorScheme.primary),
-      clickable: true,
+      clickable: enabled,
       onPressed: onPressed,
       child: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -94,7 +97,9 @@ class MyPrimaryTextButtonLarge extends StatelessWidget {
           child: FittedBox(
             child: Text(
               text,
-              style: textStyle.copyWith(color: Theme.of(context).colorScheme.onPrimary),
+              style: textStyle.copyWith(color: enabled
+                  ? Theme.of(context).colorScheme.onPrimary
+                    : customColors.textSecondary),
             ),
           ),
         ),

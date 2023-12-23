@@ -3,7 +3,6 @@
 ### Next up
 
 - Daily levels
-  - Calendar page
   - BottomNavigation Bar
   - Store and display progress
   - Special reward after completing month?
