@@ -24,21 +24,14 @@ class TopRow extends StatelessWidget implements PreferredSizeWidget {
   final int starCount;
 
   @override
-  Size get preferredSize => Size.fromHeight(80.0);
+  Size get preferredSize => const Size.fromHeight(AppBarHeight);
 
   @override
   Widget build(BuildContext context) {
     final customColors = Theme.of(context).extension<CustomColors>()!;
-    return MyAppBar(
-      leftContent: Center(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 2),   // Align the icon with the text
-          child: MyIconButton(
-            icon: FontAwesomeIcons.chevronLeft,
-            onPressed: onBackPressed,
-          ),
-        ),
-      ),
+    return MyDefaultAppBar(
+      navigationIcon: FontAwesomeIcons.chevronLeft,
+      onNavigationPressed: onBackPressed,
       middleContent: Column(
         children: [
           SizedBox(height: 16.0),
@@ -55,21 +48,7 @@ class TopRow extends StatelessWidget implements PreferredSizeWidget {
           ),
         ],
       ),
-      rightContent: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Text(
-            // Format the starcount with a separator for thousands
-            "{:,d}".format([starCount]),
-            style: Theme.of(context).textTheme.labelLarge,
-          ),
-          Icon(
-            Icons.star_rounded,
-            color: customColors.star,
-          ),
-          SizedBox(width: 16.0),
-        ],
-      ),
+      starCount: starCount,
     );
   }
 }

@@ -127,7 +127,6 @@ class _BottomContentState extends State<BottomContent> {
                       MyIconButton.fromInfo(
                         info: widget.hintButtonInfo,
                       ),
-                      const SizedBox(height: 2.0),
                       Row(
                         children: [
                           Text(
@@ -214,7 +213,7 @@ class WordWrapper extends StatelessWidget {
           ? Theme.of(context).colorScheme.primary
           : Theme.of(context).colorScheme.secondary,
       sideColor: isSelected
-          ? darken(Theme.of(context).colorScheme.primary, 10)
+          ? darken(Theme.of(context).colorScheme.primary)
           : Theme.of(context).colorScheme.primary,
       clickable: true,
       onPressed: () {

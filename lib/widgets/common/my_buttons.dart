@@ -24,7 +24,7 @@ class MyPrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return My3dContainer(
       topColor: Theme.of(context).colorScheme.primary,
-      sideColor: darken(Theme.of(context).colorScheme.primary, 10),
+      sideColor: darken(Theme.of(context).colorScheme.primary),
       clickable: enabled,
       onPressed: onPressed,
       child: Padding(
@@ -84,7 +84,7 @@ class MyPrimaryTextButtonLarge extends StatelessWidget {
     final textStyle = Theme.of(context).textTheme.labelLarge!;
     return My3dContainer(
       topColor: Theme.of(context).colorScheme.primary,
-      sideColor: darken(Theme.of(context).colorScheme.primary, 10),
+      sideColor: darken(Theme.of(context).colorScheme.primary),
       clickable: true,
       onPressed: onPressed,
       child: Padding(

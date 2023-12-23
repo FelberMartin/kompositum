@@ -32,6 +32,19 @@ class MyIconButton extends StatelessWidget {
        onPressed = info.onPressed,
        enabled = info.enabled;
 
+  static Widget centered({
+    required IconData icon,
+    required Function onPressed,
+    bool enabled = true,
+  }) => Padding(
+    padding: const EdgeInsets.only(top: My3dContainer.topInset),
+    child: MyIconButton(
+      icon: icon,
+      onPressed: onPressed,
+      enabled: enabled,
+    ),
+  );
+
   final IconData icon;
   final Function onPressed;
   final bool enabled;

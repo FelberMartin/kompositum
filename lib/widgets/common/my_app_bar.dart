@@ -1,7 +1,63 @@
 import 'package:flutter/material.dart';
+import 'package:format/format.dart';
+import 'package:kompositum/main.dart';
 import 'package:kompositum/widgets/common/util/clip_shadow_path.dart';
 import 'package:kompositum/widgets/common/util/rounded_edge_clipper.dart';
 
+import '../../config/theme.dart';
+import 'my_icon_button.dart';
+
+
+const AppBarHeight = 80.0;
+
+class MyDefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
+
+  const MyDefaultAppBar({
+    super.key,
+    required this.navigationIcon,
+    required this.onNavigationPressed,
+    this.middleContent,
+    required this.starCount,
+  });
+
+  final IconData navigationIcon;
+  final Function onNavigationPressed;
+  final Widget? middleContent;
+  final int starCount;
+
+  @override
+  Size get preferredSize => const Size.fromHeight(AppBarHeight);
+
+  @override
+  Widget build(BuildContext context) {
+    final customColors = Theme.of(context).extension<CustomColors>()!;
+    return MyAppBar(
+      leftContent: Center(
+        child: MyIconButton.centered(
+          icon: navigationIcon,
+          onPressed: onNavigationPressed,
+        ),
+      ),
+      middleContent: middleContent ?? Container(),
+      rightContent: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Text(
+            // Format the starcount with a separator for thousands
+            "{:,d}".format([starCount]),
+            style: Theme.of(context).textTheme.labelLarge,
+          ),
+          Icon(
+            Icons.star_rounded,
+            color: customColors.star,
+          ),
+          SizedBox(width: 16.0),
+        ],
+      ),
+    );
+  }
+
+}
 
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -17,7 +73,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget rightContent;
 
   @override
-  Size get preferredSize => Size.fromHeight(80.0); // Adjust the height as needed
+  Size get preferredSize => const Size.fromHeight(AppBarHeight);
 
   @override
   Widget build(BuildContext context) {

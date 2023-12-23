@@ -1,0 +1,203 @@
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
+import 'package:kompositum/game/level_provider.dart';
+import 'package:kompositum/widgets/common/my_3d_container.dart';
+import 'package:kompositum/widgets/common/my_buttons.dart';
+
+import '../config/locator.dart';
+import '../config/theme.dart';
+import '../data/key_value_store.dart';
+import '../util/color_util.dart';
+import '../widgets/common/my_app_bar.dart';
+import '../widgets/common/my_background.dart';
+import '../widgets/common/my_dialog.dart';
+import '../widgets/common/my_icon_button.dart';
+import '../widgets/common/util/clip_shadow_path.dart';
+import '../widgets/common/util/rounded_edge_clipper.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  setupLocator();
+  runApp(MaterialApp(
+      theme: myTheme,
+      home: HomePage()
+  ));
+}
+
+
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late KeyValueStore keyValueStore = locator<KeyValueStore>();
+
+  int starCount = 0;
+
+  int currentLevel = 0;
+  Difficulty currentLevelDifficulty = Difficulty.easy;
+
+  @override
+  void initState() {
+    super.initState();
+    keyValueStore.getStarCount().then((value) {
+      setState(() {
+        starCount = value;
+      });
+    });
+
+    keyValueStore.getLevel().then((value) {
+      setState(() {
+        currentLevel = value;
+        currentLevelDifficulty = LogarithmicLevelProvider()
+            .generateLevelSetup(currentLevel).displayedDifficulty;
+      });
+    });
+
+    initializeDateFormatting("de", null);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        const Positioned.fill(
+          child: MyBackground(),
+        ),
+        Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: MyDefaultAppBar(
+            navigationIcon: FontAwesomeIcons.xmark,
+            onNavigationPressed: () {
+              if (Platform.isAndroid) {
+                SystemNavigator.pop();
+              } else if (Platform.isIOS) {
+                exit(0);
+              }
+            },
+            starCount: starCount,
+          ),
+          // TODO: bottomNavigationBar
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(child: Container()),
+                DailyLevelContainer(),
+                Expanded(flex: 2, child: Container()),
+                PlayButton(
+                  currentLevel: currentLevel,
+                  currentLevelDifficulty: currentLevelDifficulty,
+                ),
+                Expanded(child: Container()),
+              ],
+            ),
+          )
+        ),
+      ],
+    );
+  }
+}
+
+class DailyLevelContainer extends StatelessWidget {
+  const DailyLevelContainer({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final customColors = Theme.of(context).extension<CustomColors>()!;
+    var dateText = DateFormat("dd. MMM", "de").format(DateTime.now());
+    dateText = dateText.substring(0, dateText.length - 1);    // Remove dot
+    return ClipShadowPath(
+      clipper: RoundedEdgeClipper(edgeCutDepth: 24),
+      shadow: Shadow(
+        color: Theme.of(context).colorScheme.shadow.withOpacity(0.4),
+        offset: Offset(0, 2),
+        blurRadius: 2,
+      ),
+      child: Container(
+        constraints: const BoxConstraints(
+          minWidth: 200,
+        ),
+        color: Theme.of(context).colorScheme.secondary,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 32.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(height: 16),
+              Text(
+                "Tägliches Rätsel",
+                style: Theme.of(context).textTheme.labelMedium,
+              ),
+              SizedBox(height: 16),
+              Icon(
+                FontAwesomeIcons.solidCalendarDays,
+                color: Theme.of(context).colorScheme.onSecondary,
+                size: 32,
+              ),
+              SizedBox(height: 32),
+              Text(
+                dateText,
+                style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                  color: customColors.textSecondary,
+                ),
+              ),
+              SizedBox(height: 16),
+              MySecondaryTextButton(
+                text: "Start",
+                onPressed: () {
+                  // TODO
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class PlayButton extends StatelessWidget {
+  const PlayButton({
+    super.key,
+    required this.currentLevel,
+    required this.currentLevelDifficulty,
+  });
+
+  final int currentLevel;
+  final Difficulty currentLevelDifficulty;
+
+  @override
+  Widget build(BuildContext context) {
+    return My3dContainer(
+      topColor: Theme.of(context).colorScheme.primary,
+      sideColor: darken(Theme.of(context).colorScheme.primary),
+      child: SizedBox(
+        width: 230,
+        height: 80,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Level $currentLevel",
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
+            SizedBox(height: 4.0),
+            Text(
+              currentLevelDifficulty.toUiString(),
+              style: Theme.of(context).textTheme.labelSmall,
+            )
+          ],
+        ),
+      )
+    );
+  }
+}

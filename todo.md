@@ -2,20 +2,22 @@
 ## 1.0 Release
 ### Next up
 
+- Home screen
+- Animate star increase
 - Sound
   - Create/play sounds
   - Mute button
 - With many components, the pool is to high up
-- Home screen
 - Daily levels
 - Improve Level completed dialog
 - Level creation: more variation in level sizes
-- Animate component move in pool
 
 ### Later
-- Ads?
-- Optimize database loading speed
+- Check whether animations are still laggy in non-debug build (-> maybe remove add/remove component animation)
+- Animate component move in pool: maybe have to create Wrap widget as stack
 - Progress bar?
+- Optimize database loading speed
+- Ads?
 
 ### UI Design
 - App icon
@@ -30,8 +32,12 @@
 ### Misc
 - Remark by Felix: do not hide components. Instead make pool scrollable
 - Gameplay idea: When starting a new level, a first modifier is already selected.
-- Make the graph case insensitive? Would maybe result in less reported conflicts
 - English compounds?
+- Feature idea: Catalogues of collected words (for easy/medium/hard)
+- Feature idea: instead of simple level progress, divide into sections. Each section could reward
+  eg a trophy (emoji) 
+  - Maybe spinning wheel for which trophy to get?
+  - Or for collecting 100 words one can spin to get a trophy
 
 # Bugs
 - Possible bug: Shown=[Baum, Haus, Tür], generated hint is "Baum + Haus" but user removes "Haus + Tür",
@@ -40,8 +46,9 @@
 - App is blackscreen when restarting it on phone (just a long loading time?)
 
 # After 1.0 Release
-- Report functionality:
+- Further Report functionality:
   - Add second csv file with manually added compounds that were not in the dataset
   - Make compound graph case insensitive? (reduce number of reports?)
   - Database: Allow multiple compounds with the same compound text (use UUID), to allow multiple 
     valid combinations for a compound.
+- More game modes
