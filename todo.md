@@ -9,7 +9,6 @@
   - Mute button
 - With many components, the pool is to high up (pool maybe also to small with many large components)
 - Improve Level completed dialog
-- Fix: Background loading after rest of UI loads
 
 ### Later
 - Check whether animations are still laggy in non-debug build (-> maybe remove add/remove component animation)
