@@ -3,11 +3,14 @@
 ### Next up
 
 - Daily levels
+  - Calendar page
+  - BottomNavigation Bar
+  - Store and display progress
+  - Special reward after completing month?
 - Animate star increase
 - Sound
   - Create/play sounds
   - Mute button
-- With many components, the pool is to high up (pool maybe also to small with many large components)
 - Improve Level completed dialog
 
 ### Later

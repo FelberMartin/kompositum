@@ -75,80 +75,92 @@ class _BottomContentState extends State<BottomContent> {
     }
 
     final customColors = Theme.of(context).extension<CustomColors>()!;
+
+    // ------ Widget building starts here ------
+    final wrap = Wrap(
+      runSpacing: 8.0,
+      alignment: WrapAlignment.center,
+      children: [
+        for (final componentInfo in allComponentsToShow)
+          WordWrapper(
+            key: ValueKey(componentInfo.component.id),
+            text: componentInfo.component.text,
+            selectionType: componentInfo.selectionType,
+            onSelectionChanged: (selected) {
+              widget.onToggleSelection(componentInfo.component.id);
+            },
+            hint: componentInfo.hint?.type,
+            isVisible: !removedComponents.contains(componentInfo) && !addedComponents.contains(componentInfo),
+          ),
+      ],
+    );
+
+    final mainContent = Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 36.0) + const EdgeInsets.only(top: 16.0),
+        child: widget.isLoading
+            ? Center(
+            child: CircularProgressIndicator(
+                color: customColors.textSecondary))
+            : wrap
+    );
+
+    final bottomContent = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        HiddenComponentsIndicator(
+          hiddenComponentsCount: widget.hiddenComponentsCount,
+        ),
+        Column(
+          children: [
+            MyIconButton.fromInfo(
+              info: widget.hintButtonInfo,
+            )
+            ,
+            Row(
+              children: [
+                Text(
+                  "${Costs.hintCostNormal}",
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .labelSmall!
+                      .copyWith(
+                    color: customColors.textSecondary,
+                  ),
+                ),
+                Icon(
+                  Icons.star_rounded,
+                  color: customColors.star,
+                  size: 16.0,
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
+    );
+
     return ClipPath(
       clipper: RoundedEdgeClipper(onBottom: false),
       child: Container(
         height: 400,
         color: Theme.of(context).colorScheme.secondary,
-        child: Column(
+        child: Stack(
+          alignment: Alignment.bottomCenter,
           children: [
-            Expanded(
-              flex: 3,
-              child: Container(),
+            Column(
+              children: [
+                Expanded(flex: 3, child: Container()),
+                mainContent,
+                Expanded(flex: 5, child: Container()),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 36.0),
-              child: widget.isLoading
-                  ? Center(
-                      child: CircularProgressIndicator(
-                          color: customColors.textSecondary))
-                  : Wrap(
-                      runSpacing: 8.0,
-                      alignment: WrapAlignment.center,
-                      children: [
-                        for (final componentInfo in allComponentsToShow)
-                          WordWrapper(
-                            key: ValueKey(componentInfo.component.id),
-                            text: componentInfo.component.text,
-                            selectionType: componentInfo.selectionType,
-                            onSelectionChanged: (selected) {
-                              widget.onToggleSelection(componentInfo.component.id);
-                            },
-                            hint: componentInfo.hint?.type,
-                            isVisible: !removedComponents.contains(componentInfo) && !addedComponents.contains(componentInfo),
-                          ),
-                      ],
-                    ),
-            ),
-            Expanded(
-              child: Container(),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  HiddenComponentsIndicator(
-                    hiddenComponentsCount: widget.hiddenComponentsCount,
-                  ),
-                  Column(
-                    children: [
-                      MyIconButton.fromInfo(
-                        info: widget.hintButtonInfo,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "${Costs.hintCostNormal}",
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelSmall!
-                                .copyWith(
-                                  color: customColors.textSecondary,
-                                ),
-                          ),
-                          Icon(
-                            Icons.star_rounded,
-                            color: customColors.star,
-                            size: 16.0,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+            Positioned(
+                bottom: 16,
+                left: 16,
+                right: 16,
+                child: bottomContent,
             ),
           ],
         ),
