@@ -2,14 +2,13 @@
 ## 1.0 Release
 ### Next up
 
+- Daily levels
 - Animate star increase
 - Sound
   - Create/play sounds
   - Mute button
-- With many components, the pool is to high up
-- Daily levels
+- With many components, the pool is to high up (pool maybe also to small with many large components)
 - Improve Level completed dialog
-- Level creation: more variation in level sizes
 - Fix: Background loading after rest of UI loads
 
 ### Later
