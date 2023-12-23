@@ -66,7 +66,7 @@ void main() {
     Future<void> _pumpGamePage(WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
         theme: myTheme,
-        home: GamePage(title: "title", levelProvider: levelProvider, poolGenerator: poolGenerator, keyValueStore: keyValueStore, swappableDetector: swappableDetector)
+        home: GamePage(levelProvider: levelProvider, poolGenerator: poolGenerator, keyValueStore: keyValueStore, swappableDetector: swappableDetector)
       ));
       await tester.pumpAndSettle();
       sut = tester.state(find.byType(GamePage));
@@ -197,7 +197,7 @@ void main() {
   group("UI tests", () {
     testWidgets(skip: true, "After loading, the components are shown", (tester) async {
       await tester.pumpWidget(MaterialApp(
-          home: GamePage(title: "title", levelProvider: levelProvider, poolGenerator: poolGenerator, keyValueStore: keyValueStore, swappableDetector: swappableDetector)
+          home: GamePage(levelProvider: levelProvider, poolGenerator: poolGenerator, keyValueStore: keyValueStore, swappableDetector: swappableDetector)
       ));
       await tester.pumpAndSettle();
 
@@ -207,7 +207,7 @@ void main() {
 
     // Test passes even if components are not shown in the app :(
     testWidgets(skip: true, "After finished the first level and waiting for loading, the seconds level's components are shown", (tester) async {
-      final homePage = GamePage(title: "title", levelProvider: levelProvider, poolGenerator: poolGenerator, keyValueStore: keyValueStore, swappableDetector: swappableDetector);
+      final homePage = GamePage(levelProvider: levelProvider, poolGenerator: poolGenerator, keyValueStore: keyValueStore, swappableDetector: swappableDetector);
       await tester.pumpWidget(MaterialApp(home: homePage));
       await tester.pumpAndSettle();
 

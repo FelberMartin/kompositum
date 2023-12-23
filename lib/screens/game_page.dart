@@ -29,13 +29,11 @@ import '../widgets/play/top_row.dart';
 class GamePage extends StatefulWidget {
   const GamePage(
       {super.key,
-      required this.title,
       required this.levelProvider,
       required this.poolGenerator,
       required this.keyValueStore,
       required this.swappableDetector});
 
-  final String title;
   final LevelProvider levelProvider;
   final CompoundPoolGenerator poolGenerator;
   final KeyValueStore keyValueStore;

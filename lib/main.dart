@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kompositum/config/theme.dart';
 import 'package:kompositum/screens/game_page.dart';
+import 'package:kompositum/screens/home_page.dart';
 
 import 'config/locator.dart';
 import 'data/key_value_store.dart';
@@ -31,13 +32,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: myTheme,
-      home: GamePage(
-          title: 'Komposita: Wörter zusammensetzen',
-          levelProvider: locator<LevelProvider>(),
-          poolGenerator: locator<CompoundPoolGenerator>(),
-          keyValueStore: locator<KeyValueStore>(),
-          swappableDetector: locator<SwappableDetector>(),
-      ),
+      home: HomePage(),
     );
   }
 }

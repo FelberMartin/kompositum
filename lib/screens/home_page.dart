@@ -12,6 +12,8 @@ import 'package:kompositum/widgets/common/my_buttons.dart';
 import '../config/locator.dart';
 import '../config/theme.dart';
 import '../data/key_value_store.dart';
+import '../game/pool_generator/compound_pool_generator.dart';
+import '../game/swappable_detector.dart';
 import '../util/color_util.dart';
 import '../widgets/common/my_app_bar.dart';
 import '../widgets/common/my_background.dart';
@@ -19,6 +21,7 @@ import '../widgets/common/my_dialog.dart';
 import '../widgets/common/my_icon_button.dart';
 import '../widgets/common/util/clip_shadow_path.dart';
 import '../widgets/common/util/rounded_edge_clipper.dart';
+import 'game_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -63,6 +66,18 @@ class _HomePageState extends State<HomePage> {
     initializeDateFormatting("de", null);
   }
 
+  void _launchGame() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => GamePage(
+        levelProvider: locator<LevelProvider>(),
+        poolGenerator: locator<CompoundPoolGenerator>(),
+        keyValueStore: locator<KeyValueStore>(),
+        swappableDetector: locator<SwappableDetector>(),
+      ),),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -89,11 +104,17 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(child: Container()),
-                DailyLevelContainer(),
+                DailyLevelContainer(
+                  isDailyFinished: false,
+                  onPlayPressed: () {
+                    // TODO
+                  },
+                ),
                 Expanded(flex: 2, child: Container()),
                 PlayButton(
                   currentLevel: currentLevel,
                   currentLevelDifficulty: currentLevelDifficulty,
+                  onPressed: _launchGame,
                 ),
                 Expanded(child: Container()),
               ],
@@ -108,7 +129,12 @@ class _HomePageState extends State<HomePage> {
 class DailyLevelContainer extends StatelessWidget {
   const DailyLevelContainer({
     super.key,
+    required this.isDailyFinished,
+    required this.onPlayPressed,
   });
+
+  final bool isDailyFinished;
+  final Function onPlayPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -151,11 +177,21 @@ class DailyLevelContainer extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 16),
-              MySecondaryTextButton(
-                text: "Start",
-                onPressed: () {
-                  // TODO
-                },
+              SizedBox(
+                height: 52,
+                width: 120,
+                child: Center(
+                  child: isDailyFinished
+                      ? Icon(
+                    FontAwesomeIcons.circleCheck,
+                    color: Theme.of(context).colorScheme.onSecondary,
+                    size: 32,
+                  )
+                      : MySecondaryTextButton(
+                    text: "Start",
+                    onPressed: onPlayPressed,
+                  ),
+                ),
               ),
             ],
           ),
@@ -170,16 +206,20 @@ class PlayButton extends StatelessWidget {
     super.key,
     required this.currentLevel,
     required this.currentLevelDifficulty,
+    required this.onPressed,
   });
 
   final int currentLevel;
   final Difficulty currentLevelDifficulty;
+  final Function onPressed;
 
   @override
   Widget build(BuildContext context) {
     return My3dContainer(
       topColor: Theme.of(context).colorScheme.primary,
       sideColor: darken(Theme.of(context).colorScheme.primary),
+      clickable: true,
+      onPressed: onPressed,
       child: SizedBox(
         width: 230,
         height: 80,

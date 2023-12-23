@@ -2,7 +2,6 @@
 ## 1.0 Release
 ### Next up
 
-- Home screen
 - Animate star increase
 - Sound
   - Create/play sounds
@@ -11,6 +10,7 @@
 - Daily levels
 - Improve Level completed dialog
 - Level creation: more variation in level sizes
+- Fix: Background loading after rest of UI loads
 
 ### Later
 - Check whether animations are still laggy in non-debug build (-> maybe remove add/remove component animation)
