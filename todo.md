@@ -3,7 +3,6 @@
 ### Next up
 
 - Daily levels
-  - BottomNavigation Bar
   - Store and display progress
   - Special reward after completing month?
   - Make gamePage usable for dailies

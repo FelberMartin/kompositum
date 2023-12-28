@@ -10,6 +10,7 @@ import '../config/theme.dart';
 import '../data/key_value_store.dart';
 import '../widgets/common/my_app_bar.dart';
 import '../widgets/common/my_background.dart';
+import '../widgets/common/my_bottom_navigation_bar.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -74,7 +75,7 @@ class _DailyOverviewPageState extends State<DailyOverviewPage> {
               ),
               starCount: starCount,
             ),
-            // TODO: bottomNavigationBar
+            bottomNavigationBar: const MyBottomNavigationBar(selectedIndex: 1),
             body: Center(
               child: Padding(
                 padding: const EdgeInsets.all(24.0),
