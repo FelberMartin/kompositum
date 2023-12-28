@@ -140,7 +140,7 @@ void main() {
         sut.toggleSelection(0);   // Apfel
         sut.toggleSelection(2);   // Schnee
 
-        await tester.pumpAndSettle();
+        await tester.pumpAndSettle(Duration(seconds: 1));
 
         expect(find.text("Du hast alle Versuche aufgebraucht!"), findsOneWidget);
       });
