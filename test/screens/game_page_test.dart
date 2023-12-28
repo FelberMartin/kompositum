@@ -149,6 +149,7 @@ void main() {
     group("buyHint", () {
       testWidgets("should set the selection to the new hint if the new hint is the modifier", (tester) async {
         await _pumpGamePage(tester);
+        sut.starCount = 1000;
         sut.poolGameLevel = PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
         sut.toggleSelection(1);   // Baum
         sut.toggleSelection(2);   // Schnee
@@ -160,6 +161,7 @@ void main() {
 
       testWidgets("should reset the selection if the new hint is the head", (tester) async {
         await _pumpGamePage(tester);
+        sut.starCount = 1000;
         sut.poolGameLevel = PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
         sut.toggleSelection(1);   // Baum
         sut.toggleSelection(2);   // Schnee
