@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kompositum/config/theme.dart';
 import 'package:kompositum/screens/game_page.dart';
 import 'package:kompositum/screens/home_page.dart';
@@ -29,9 +30,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Kompositum',    // TODO: Change title
       theme: myTheme,
+      locale: const Locale('de', 'DE'),
       home: HomePage(),
     );
   }
