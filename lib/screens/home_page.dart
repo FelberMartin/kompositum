@@ -49,6 +49,12 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+
+    _updatePage();
+    initializeDateFormatting("de", null);
+  }
+
+  void _updatePage() {
     keyValueStore.getStarCount().then((value) {
       setState(() {
         starCount = value;
@@ -62,8 +68,6 @@ class _HomePageState extends State<HomePage> {
             .generateLevelSetup(currentLevel).displayedDifficulty;
       });
     });
-
-    initializeDateFormatting("de", null);
   }
 
   void _launchGame() {
@@ -75,7 +79,9 @@ class _HomePageState extends State<HomePage> {
         keyValueStore: locator<KeyValueStore>(),
         swappableDetector: locator<SwappableDetector>(),
       ),),
-    );
+    ).then((value) {
+      _updatePage();
+    });
   }
 
   @override
