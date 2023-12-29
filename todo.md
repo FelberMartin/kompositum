@@ -3,9 +3,11 @@
 ### Next up
 
 - Daily levels
+  - Start from button on homepage
   - How to play past dailies?
+    - Show cost with start button (eg. 100 stars / ad)
   - Special reward after completing month?
-  - Make gamePage usable for dailies
+  - extra daily completion dialog?
 - Animate star increase
 - Sound
   - Create/play sounds

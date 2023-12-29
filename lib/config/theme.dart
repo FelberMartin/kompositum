@@ -23,7 +23,7 @@ final myTheme = ThemeData(
       background3: Color(0xffb6bbfd),
       background4: Color(0xffaeb4fd),
       textSecondary: Color(0xffC1C7FF),
-      star: Color(0xfff9da56),
+      star: Color(0xfff8df86),
     ),
   ],
   fontFamily: 'Exo2',
@@ -80,6 +80,8 @@ class CustomColors extends ThemeExtension<CustomColors> {
     required this.star,
   });
 
+  // Only the background2 color is used for the background placeholder.
+  // The actual background is loaded from an SVG file.
   final Color background1;
   final Color background2;
   final Color background3;
