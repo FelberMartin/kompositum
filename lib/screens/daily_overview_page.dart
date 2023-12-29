@@ -251,7 +251,8 @@ class DayContainer extends StatelessWidget {
     if (isSelected) {
       color = Theme.of(context).colorScheme.primary;
     }
-    print("date $date, isToday $isToday, isInMonth $isInMonth, isSelected $isSelected, isCompleted $isCompleted");
+
+    final customColors = Theme.of(context).extension<CustomColors>()!;
     return Opacity(
       opacity: isInMonth ? 1.0 : 0.5,
       child: Container(
@@ -268,7 +269,9 @@ class DayContainer extends StatelessWidget {
           child: Text(
             date.day.toString(),
             style: Theme.of(context).textTheme.labelMedium!.copyWith(
-              color: Theme.of(context).colorScheme.onPrimary,
+              color: isCompleted
+                  ? customColors.star
+                  : Theme.of(context).colorScheme.onPrimary,
             ),
           ),
         ),
