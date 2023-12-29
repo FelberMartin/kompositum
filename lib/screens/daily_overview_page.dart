@@ -252,7 +252,6 @@ class DayContainer extends StatelessWidget {
       color = Theme.of(context).colorScheme.primary;
     }
 
-    final customColors = Theme.of(context).extension<CustomColors>()!;
     return Opacity(
       opacity: isInMonth ? 1.0 : 0.5,
       child: Container(
@@ -266,14 +265,16 @@ class DayContainer extends StatelessWidget {
         ),
         margin: const EdgeInsets.all(4.0),
         child: Center(
-          child: Text(
-            date.day.toString(),
-            style: Theme.of(context).textTheme.labelMedium!.copyWith(
-              color: isCompleted
-                  ? customColors.star
-                  : Theme.of(context).colorScheme.onPrimary,
+          child: isCompleted
+            ? Icon(
+              FontAwesomeIcons.check,
+              color: Theme.of(context).colorScheme.onSecondary,
+              size: 16.0,
+            )
+            : Text(
+                date.day.toString(),
+                style: Theme.of(context).textTheme.labelMedium!,
             ),
-          ),
         ),
       ),
     );
