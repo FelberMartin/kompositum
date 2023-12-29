@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:kompositum/game/level_provider.dart';
+import 'package:kompositum/screens/game_page_daily.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 import 'package:kompositum/widgets/common/my_icon_button.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -8,9 +10,12 @@ import 'package:table_calendar/table_calendar.dart';
 import '../config/locator.dart';
 import '../config/theme.dart';
 import '../data/key_value_store.dart';
+import '../game/pool_generator/compound_pool_generator.dart';
+import '../game/swappable_detector.dart';
 import '../widgets/common/my_app_bar.dart';
 import '../widgets/common/my_background.dart';
 import '../widgets/common/my_bottom_navigation_bar.dart';
+import 'game_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,24 +37,42 @@ class _DailyOverviewPageState extends State<DailyOverviewPage> {
 
   int starCount = 0;
   DateTime _selectedDay = DateTime.now();
-  List<DateTime> completedDays = [
-    DateTime.utc(2023, 12, 1),
-    DateTime.utc(2023, 12, 2),
-    DateTime.utc(2023, 12, 5),
-    DateTime.utc(2023, 12, 6),
-    DateTime.utc(2023, 12, 22),
-  ];
+  List<DateTime> completedDays = [];
 
   @override
   void initState() {
     super.initState();
+    _updatePage();
+    initializeDateFormatting('de_DE', null);
+  }
+
+  void _updatePage() {
     keyValueStore.getStarCount().then((value) {
       setState(() {
         starCount = value;
       });
     });
 
-    initializeDateFormatting('de_DE', null);
+    keyValueStore.getDailiesCompleted().then((value) {
+      setState(() {
+        completedDays = value;
+      });
+    });
+  }
+
+  void _launchGame() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => GamePage(state: GamePageDailyState(
+        levelProvider: DailyLevelProvider(),
+        poolGenerator: locator<CompoundPoolGenerator>(),
+        keyValueStore: locator<KeyValueStore>(),
+        swappableDetector: locator<SwappableDetector>(),
+        date: _selectedDay,
+      ))),
+    ).then((value) {
+      _updatePage();
+    });
   }
 
   @override
@@ -83,85 +106,21 @@ class _DailyOverviewPageState extends State<DailyOverviewPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Expanded(flex: 2, child: Container()),
-                    TableCalendar(
-                      focusedDay: _selectedDay,
-                      firstDay: DateTime.utc(2023, 12, 1),
-                      lastDay: DateTime.utc(2050, 12, 31),
-                      currentDay: DateTime.now(),
-                      locale: "de_DE",
-                      startingDayOfWeek: StartingDayOfWeek.monday,
-                      headerStyle: HeaderStyle(
-                        titleCentered: true,
-                        formatButtonVisible: false,
-                        titleTextStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        leftChevronIcon: MyIconButton(
-                          icon: FontAwesomeIcons.chevronLeft,
-                          onPressed: () {},
-                        ),
-                        leftChevronPadding: const EdgeInsets.all(0),
-                        leftChevronMargin: const EdgeInsets.symmetric(horizontal: 16.0),
-                        rightChevronIcon: MyIconButton(
-                          icon: FontAwesomeIcons.chevronRight,
-                          onPressed: () {},
-                        ),
-                        rightChevronPadding: const EdgeInsets.all(0),
-                        rightChevronMargin: const EdgeInsets.symmetric(horizontal: 16.0),
-                      ),
-                      selectedDayPredicate: (day) {
-                        return isSameDay(_selectedDay, day);
-                      },
-                      onDaySelected: (selectedDay, focusedDay) {
+                    Calendar(
+                      selectedDay: _selectedDay,
+                      onDaySelected: (day) {
                         setState(() {
-                          _selectedDay = selectedDay;
+                          _selectedDay = day;
                         });
                       },
-                      calendarBuilders: CalendarBuilders(
-                        defaultBuilder: (context, date, _) {
-                          return DayContainer(
-                            date: date,
-                            isSelected: _selectedDay == date,
-                            isToday: isSameDay(DateTime.now(), date),
-                            isInMonth: true,
-                            isCompleted: completedDays.contains(date),
-                          );
-                        },
-                        disabledBuilder: (context, date, _) {
-                          return DayContainer(
-                            date: date,
-                            isSelected: _selectedDay == date,
-                            isToday: isSameDay(DateTime.now(), date),
-                            isInMonth: false,
-                            isCompleted: completedDays.contains(date),
-                          );
-                        },
-                        selectedBuilder: (context, date, _) {
-                          return DayContainer(
-                            date: date,
-                            isSelected: true,
-                            isToday: isSameDay(DateTime.now(), date),
-                            isInMonth: true,
-                            isCompleted: completedDays.contains(date),
-                          );
-                        },
-                        todayBuilder: (context, date, _) {
-                          return DayContainer(
-                            date: date,
-                            isSelected: _selectedDay == date,
-                            isToday: true,
-                            isInMonth: true,
-                            isCompleted: completedDays.contains(date),
-                          );
-                        },
-                      ),
+                      completedDays: completedDays,
                     ),
                     Expanded(child: Container()),
                     MyPrimaryTextButtonLarge(
                       text: "Start",
                       enabled: !completedDays.contains(_selectedDay) && _selectedDay.isBefore(DateTime.now()),
                       onPressed: () {
-                        // TODO
+                        _launchGame();
                       },
                     ),
                     Expanded(child: Container()),
@@ -173,6 +132,97 @@ class _DailyOverviewPageState extends State<DailyOverviewPage> {
       ],
     );
   }
+}
+
+class Calendar extends StatelessWidget {
+
+  const Calendar({
+    required this.selectedDay,
+    required this.onDaySelected,
+    required this.completedDays,
+    super.key,
+  });
+
+  final DateTime selectedDay;
+  final Function(DateTime) onDaySelected;
+  final List<DateTime> completedDays;
+
+  @override
+  Widget build(BuildContext context) {
+    return TableCalendar(
+      focusedDay: selectedDay,
+      firstDay: DateTime.utc(2023, 10, 1),  // TODO: change to value that makes sense
+      lastDay: DateTime.now(),
+      currentDay: DateTime.now(),
+      locale: "de_DE",
+      startingDayOfWeek: StartingDayOfWeek.monday,
+      headerStyle: HeaderStyle(
+        titleCentered: true,
+        formatButtonVisible: false,
+        titleTextStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
+          color: Theme.of(context).colorScheme.primary,
+        ),
+        leftChevronIcon: MyIconButton(
+          icon: FontAwesomeIcons.chevronLeft,
+          onPressed: () {},
+        ),
+        leftChevronPadding: const EdgeInsets.all(0),
+        leftChevronMargin: const EdgeInsets.symmetric(horizontal: 16.0),
+        rightChevronIcon: MyIconButton(
+          icon: FontAwesomeIcons.chevronRight,
+          onPressed: () {},
+        ),
+        rightChevronPadding: const EdgeInsets.all(0),
+        rightChevronMargin: const EdgeInsets.symmetric(horizontal: 16.0),
+      ),
+      selectedDayPredicate: (day) {
+        return isSameDay(selectedDay, day);
+      },
+      onDaySelected: (_selectedDay, focusedDay) {
+        onDaySelected(_selectedDay);
+      },
+      calendarBuilders: CalendarBuilders(
+        defaultBuilder: (context, date, _) {
+          return DayContainer(
+            date: date,
+            isSelected: selectedDay == date,
+            isToday: isSameDay(DateTime.now(), date),
+            isInMonth: true,
+            isCompleted: completedDays.contains(date),
+          );
+        },
+        disabledBuilder: (context, date, _) {
+          return DayContainer(
+            date: date,
+            isSelected: selectedDay == date,
+            isToday: isSameDay(DateTime.now(), date),
+            isInMonth: false,
+            isCompleted: completedDays.contains(date),
+          );
+        },
+        selectedBuilder: (context, date, _) {
+          return DayContainer(
+            date: date,
+            isSelected: true,
+            isToday: isSameDay(DateTime.now(), date),
+            isInMonth: true,
+            isCompleted: completedDays.contains(date),
+          );
+        },
+        todayBuilder: (context, date, _) {
+          return DayContainer(
+            date: date,
+            isSelected: selectedDay == date,
+            isToday: true,
+            isInMonth: true,
+            isCompleted: completedDays.contains(date),
+          );
+        },
+      ),
+    );
+  }
+
+
 }
 
 

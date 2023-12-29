@@ -36,5 +36,17 @@ class KeyValueStore {
     return prefs.getInt("starCount") ?? 0;
   }
 
+  Future<void> storeDailiesCompleted(List<DateTime> completedDays) async {
+    final prefs = await SharedPreferences.getInstance();
+    final completedDaysString = completedDays.map((day) => day.toIso8601String()).toList();
+    await prefs.setStringList("completedDays", completedDaysString);
+  }
+
+  Future<List<DateTime>> getDailiesCompleted() async {
+    final prefs = await SharedPreferences.getInstance();
+    final completedDaysString = prefs.getStringList("completedDays") ?? [];
+    return completedDaysString.map((dayString) => DateTime.parse(dayString)).toList();
+  }
+
 
 }

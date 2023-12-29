@@ -3,7 +3,8 @@
 ### Next up
 
 - Daily levels
-  - Store and display progress
+  - Fix tests
+  - How to play past dailies?
   - Special reward after completing month?
   - Make gamePage usable for dailies
 - Animate star increase
@@ -40,6 +41,8 @@
   - Or for collecting 100 words one can spin to get a trophy
 
 # Bugs
+- The progress within one level is not stored, so one can "cheat" stars, by replaying the same level,
+  but stopping before level completion, the stars collected so far will consist.
 - Possible bug: Shown=[Baum, Haus, Tür], generated hint is "Baum + Haus" but user removes "Haus + Tür",
   then "Baum" remains with a hint, but if the other "Haus" component is still in the hidden components,
   generating a new hint will produce probably an error.

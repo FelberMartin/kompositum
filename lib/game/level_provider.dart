@@ -3,6 +3,7 @@ import 'dart:math';
 import '../data/models/compact_frequency_class.dart';
 
 class LevelSetup {
+  final Object levelIdentifier;
   final int compoundCount;
   final int poolGenerationSeed;
   final int maxShownComponentCount;
@@ -10,6 +11,7 @@ class LevelSetup {
   final Difficulty displayedDifficulty;
 
   LevelSetup({
+    required this.levelIdentifier,
     required this.compoundCount,
     required this.poolGenerationSeed,
     this.frequencyClass = CompactFrequencyClass.easy,
@@ -20,17 +22,54 @@ class LevelSetup {
 
 abstract class LevelProvider {
 
-  LevelSetup generateLevelSetup(int levelNumber);
+  LevelSetup generateLevelSetup(Object levelIdentifier);
 
   int getSeedForLevel(int level) {
     return level + 8;
+  }
+
+  static CompactFrequencyClass _getCompactFrequencyClass(Difficulty difficulty) {
+    if (difficulty == Difficulty.easy) {
+      return CompactFrequencyClass.easy;
+    } else if (difficulty == Difficulty.medium) {
+      return CompactFrequencyClass.medium;
+    } else {
+      return CompactFrequencyClass.hard;
+    }
+  }
+
+  static Difficulty _getRandomDifficulty(double weightEasy, double weightMedium, double weightHard, {int? seed}) {
+    final random = seed == null ? Random() : Random(seed);
+    final sum = weightEasy + weightMedium + weightHard;
+    final randomValue = random.nextDouble() * sum;
+    if (randomValue < weightEasy) {
+      return Difficulty.easy;
+    } else if (randomValue < weightEasy + weightMedium) {
+      return Difficulty.medium;
+    } else {
+      return Difficulty.hard;
+    }
+  }
+
+  static _getMaxShownComponentsCount(Difficulty difficulty) {
+    switch (difficulty) {
+      case Difficulty.easy:
+        return 9;
+      case Difficulty.medium:
+        return 10;
+      case Difficulty.hard:
+        return 11;
+    }
   }
 }
 
 class BasicLevelProvider extends LevelProvider {
   @override
-  LevelSetup generateLevelSetup(int levelNumber) {
+  LevelSetup generateLevelSetup(Object levelIdentifier) {
+    assert(levelIdentifier is int);
+    final levelNumber = levelIdentifier as int;
     return LevelSetup(
+      levelIdentifier: levelNumber,
       compoundCount: 2 + levelNumber~/2,
       poolGenerationSeed: getSeedForLevel(levelNumber),
     );
@@ -60,31 +99,33 @@ class LogarithmicLevelProvider extends LevelProvider {
 
   LevelSetup _generateForFirstLevels(int levelNumber) {
     return LevelSetup(
+        levelIdentifier: levelNumber,
         compoundCount: _baseLevel(levelNumber).floor(),
         poolGenerationSeed: getSeedForLevel(levelNumber),
     );
   }
 
   @override
-  LevelSetup generateLevelSetup(int levelNumber) {
+  LevelSetup generateLevelSetup(Object levelIdentifier) {
+    assert(levelIdentifier is int);
+    final levelNumber = levelIdentifier as int;
+
     if (levelNumber < 10) {
       return _generateForFirstLevels(levelNumber);
     }
-
 
     final seed = getSeedForLevel(levelNumber);
     final baseLevel = _baseLevel(levelNumber);
     final difficulty = _getDifficulty(levelNumber, seed: seed);
     final compoundCount = _getCompoundCount(baseLevel, levelNumber, difficulty, seed: seed);
-    final compactFrequencyClass = _getCompactFrequencyClass(difficulty);
-    final maxShownComponentCount = 9 + difficulty.index * 1;
 
     return LevelSetup(
+      levelIdentifier: levelNumber,
       compoundCount: compoundCount,
       poolGenerationSeed: seed,
-      frequencyClass: compactFrequencyClass,
-      maxShownComponentCount: maxShownComponentCount,
       displayedDifficulty: difficulty,
+      frequencyClass: LevelProvider._getCompactFrequencyClass(difficulty),
+      maxShownComponentCount: LevelProvider._getMaxShownComponentsCount(difficulty),
     );
   }
 
@@ -96,20 +137,7 @@ class LogarithmicLevelProvider extends LevelProvider {
     final weightEasy = 10.0;
     final weightMedium = 1.9 * log(6 * x);
     final weightHard = min(0.1 * x, 25.0);
-    return _getRandomDifficulty(weightEasy, weightMedium, weightHard, seed: seed);
-  }
-
-  Difficulty _getRandomDifficulty(double weightEasy, double weightMedium, double weightHard, {int? seed}) {
-    final random = seed == null ? Random() : Random(seed);
-    final sum = weightEasy + weightMedium + weightHard;
-    final randomValue = random.nextDouble() * sum;
-    if (randomValue < weightEasy) {
-      return Difficulty.easy;
-    } else if (randomValue < weightEasy + weightMedium) {
-      return Difficulty.medium;
-    } else {
-      return Difficulty.hard;
-    }
+    return LevelProvider._getRandomDifficulty(weightEasy, weightMedium, weightHard, seed: seed);
   }
 
   int _getCompoundCount(double baseLevel, int levelNumber, Difficulty difficulty, {int? seed}) {
@@ -122,14 +150,25 @@ class LogarithmicLevelProvider extends LevelProvider {
     return compoundCount;
   }
 
-  CompactFrequencyClass _getCompactFrequencyClass(Difficulty difficulty) {
-    if (difficulty == Difficulty.easy) {
-      return CompactFrequencyClass.easy;
-    } else if (difficulty == Difficulty.medium) {
-      return CompactFrequencyClass.medium;
-    } else {
-      return CompactFrequencyClass.hard;
-    }
-  }
+}
 
+class DailyLevelProvider extends LevelProvider {
+  @override
+  LevelSetup generateLevelSetup(Object levelIdentifier) {
+    assert(levelIdentifier is DateTime);
+    final date = levelIdentifier as DateTime;
+    final seed = date.day + date.month * 100 + date.year * 10000;
+
+    final difficulty = LevelProvider._getRandomDifficulty(1, 1, 1, seed: seed);
+    final compoundCount = Random(seed).nextInt(3) + 5;
+
+    return LevelSetup(
+      levelIdentifier: date,
+      compoundCount: compoundCount,
+      poolGenerationSeed: seed,
+      displayedDifficulty: difficulty,
+      frequencyClass: LevelProvider._getCompactFrequencyClass(difficulty),
+      maxShownComponentCount: LevelProvider._getMaxShownComponentsCount(difficulty),
+    );
+  }
 }

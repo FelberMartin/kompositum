@@ -54,7 +54,7 @@ void main() {
 
   setUp(() {
     poolGenerator = MockPoolGenerator();
-    registerFallbackValue(LevelSetup(compoundCount: 2, poolGenerationSeed: 1));
+    registerFallbackValue(LevelSetup(levelIdentifier: "", compoundCount: 2, poolGenerationSeed: 1));
     when(() => poolGenerator.generateFromLevelSetup(any()))
         .thenAnswer((_) => Future.value([Compounds.Apfelbaum]));
   });

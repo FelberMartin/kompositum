@@ -12,14 +12,14 @@ class TopRow extends StatelessWidget implements PreferredSizeWidget {
     super.key,
     required this.onBackPressed,
     required this.displayedDifficulty,
-    required this.levelNumber,
+    required this.title,
     required this.levelProgress,
     required this.starCount,
   });
 
   final VoidCallback onBackPressed;
   final Difficulty displayedDifficulty;
-  final int levelNumber;
+  final String title;
   final double levelProgress;
   final int starCount;
 
@@ -36,7 +36,7 @@ class TopRow extends StatelessWidget implements PreferredSizeWidget {
         children: [
           SizedBox(height: 16.0),
           Text(
-            "Level $levelNumber",
+            title,
             style: Theme.of(context).textTheme.titleMedium,
           ),
           SizedBox(height: 4.0),

@@ -4,6 +4,7 @@ import 'package:collection/collection.dart'; // You have to add this manually, f
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:kompositum/config/star_costs_rewards.dart';
 import 'package:kompositum/config/theme.dart';
 import 'package:kompositum/data/key_value_store.dart';
@@ -29,26 +30,15 @@ import '../widgets/play/top_row.dart';
 class GamePage extends StatefulWidget {
   const GamePage(
       {super.key,
-      required this.levelProvider,
-      required this.poolGenerator,
-      required this.keyValueStore,
-      required this.swappableDetector});
+      required this.state});
 
-  final LevelProvider levelProvider;
-  final CompoundPoolGenerator poolGenerator;
-  final KeyValueStore keyValueStore;
-  final SwappableDetector swappableDetector;
+  final GamePageState state;
 
   @override
-  State<GamePage> createState() => GamePageState(
-    levelProvider: levelProvider,
-    poolGenerator: poolGenerator,
-    keyValueStore: keyValueStore,
-    swappableDetector: swappableDetector
-  );
+  State<GamePage> createState() => state;
 }
 
-class GamePageState extends State<GamePage> {
+abstract class GamePageState extends State<GamePage> {
   GamePageState({
     required this.levelProvider,
     required this.poolGenerator,
@@ -63,9 +53,8 @@ class GamePageState extends State<GamePage> {
   late PoolGameLevel poolGameLevel;
   late AttemptsWatcher attemptsWatcher;
 
-  late int levelNumber;
   LevelSetup? levelSetup;
-  late int starCount;
+  int starCount = 0;
   bool isLoading = true;
 
   final StreamController<String> wordCompletionEventStream =
@@ -87,10 +76,6 @@ class GamePageState extends State<GamePage> {
   @override
   void initState() {
     super.initState();
-    keyValueStore.getLevel().then((value) {
-      levelNumber = value;
-      updateGameToNewLevel(levelNumber, storeData: false);
-    });
     keyValueStore.getStarCount().then((value) {
       starCount = value;
     });
@@ -98,26 +83,20 @@ class GamePageState extends State<GamePage> {
       poolGenerator.setBlockedCompounds(value);
     });
     attemptsWatcher = AttemptsWatcher(maxAttempts: 5);
+
+    startGame();
   }
 
-  void updateGameToNewLevel(int newLevelNumber, {bool storeData = true}) async {
-    if (storeData) {
-      keyValueStore.storeLevel(newLevelNumber);
-      // Save the blocked compounds BEFORE the generation of the new level,
-      // so that when regenerating the same level later, the same compounds
-      // are blocked.
-      keyValueStore.storeBlockedCompounds(poolGenerator.getBlockedCompounds());
-    } else {
-      final blocked = await keyValueStore.getBlockedCompoundNames();
-      poolGenerator.setBlockedCompounds(blocked);
-    }
+  void startGame();
+
+  void updateGameToLevel(Object levelIdentifier, {bool isLevelAdvance = true}) async {
+    preLevelUpdate(levelIdentifier, isLevelAdvance);
     setState(() {
       isLoading = true;
     });
 
-    levelNumber = newLevelNumber;
     print("Generating new pool for new level");
-    levelSetup = levelProvider.generateLevelSetup(levelNumber);
+    levelSetup = levelProvider.generateLevelSetup(levelIdentifier);
     setState(() {});
 
     final compounds = await poolGenerator.generateFromLevelSetup(levelSetup!);
@@ -135,8 +114,10 @@ class GamePageState extends State<GamePage> {
     });
   }
 
+  Future<void> preLevelUpdate(Object levelIdentifier, isLevelAdvance);
+
   void restartLevel() {
-    updateGameToNewLevel(levelNumber, storeData: false);
+    updateGameToLevel(levelSetup!.levelIdentifier, isLevelAdvance: false);
   }
 
   SelectionType? getSelectionTypeForComponentId(int componentId) {
@@ -320,11 +301,13 @@ class GamePageState extends State<GamePage> {
           var reward = Rewards.byDifficulty(poolGameLevel.displayedDifficulty);
           _increaseStarCount(reward);
           resetToNoSelection();
-          updateGameToNewLevel(levelNumber + 1);
+          onLevelCompletion();
         },
       ),
     );
   }
+
+  void onLevelCompletion();
 
   bool shouldShowReportButton() {
     if (selectedModifier == null || selectedHead == null) {
@@ -334,6 +317,8 @@ class GamePageState extends State<GamePage> {
         selectedModifier!.text, selectedHead!.text);
     return compound == null;
   }
+
+  String getLevelTitle();
 
   @override
   Widget build(BuildContext context) {
@@ -350,7 +335,7 @@ class GamePageState extends State<GamePage> {
                     Navigator.pop(context);
                   },
                   displayedDifficulty: levelSetup!.displayedDifficulty,
-                  levelNumber: levelNumber,
+                  title: getLevelTitle(),
                   levelProgress: true ? 0 : poolGameLevel.getLevelProgress(), // The progress is currently not shown
                   starCount: starCount,
                 ),

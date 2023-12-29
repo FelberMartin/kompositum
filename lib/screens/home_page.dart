@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:kompositum/game/level_provider.dart';
+import 'package:kompositum/screens/game_page_classic.dart';
 import 'package:kompositum/widgets/common/my_3d_container.dart';
 import 'package:kompositum/widgets/common/my_bottom_navigation_bar.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
@@ -65,7 +66,7 @@ class _HomePageState extends State<HomePage> {
     keyValueStore.getLevel().then((value) {
       setState(() {
         currentLevel = value;
-        currentLevelDifficulty = LogarithmicLevelProvider()
+        currentLevelDifficulty = locator<LevelProvider>()
             .generateLevelSetup(currentLevel).displayedDifficulty;
       });
     });
@@ -74,12 +75,12 @@ class _HomePageState extends State<HomePage> {
   void _launchGame() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => GamePage(
+      MaterialPageRoute(builder: (context) => GamePage(state: GamePageClassicState(
         levelProvider: locator<LevelProvider>(),
         poolGenerator: locator<CompoundPoolGenerator>(),
         keyValueStore: locator<KeyValueStore>(),
         swappableDetector: locator<SwappableDetector>(),
-      ),),
+      ),),),
     ).then((value) {
       _updatePage();
     });
