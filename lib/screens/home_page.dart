@@ -7,6 +7,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/screens/game_page_classic.dart';
+import 'package:kompositum/util/date_extension.dart';
 import 'package:kompositum/widgets/common/my_3d_container.dart';
 import 'package:kompositum/widgets/common/my_bottom_navigation_bar.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
@@ -24,6 +25,7 @@ import '../widgets/common/my_icon_button.dart';
 import '../widgets/common/util/clip_shadow_path.dart';
 import '../widgets/common/util/rounded_edge_clipper.dart';
 import 'game_page.dart';
+import 'game_page_daily.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,9 +46,9 @@ class _HomePageState extends State<HomePage> {
   late KeyValueStore keyValueStore = locator<KeyValueStore>();
 
   int starCount = 0;
-
   int currentLevel = 0;
   Difficulty currentLevelDifficulty = Difficulty.easy;
+  bool isDailyFinished = true;
 
   @override
   void initState() {
@@ -70,6 +72,12 @@ class _HomePageState extends State<HomePage> {
             .generateLevelSetup(currentLevel).displayedDifficulty;
       });
     });
+
+    keyValueStore.getDailiesCompleted().then((value) {
+      setState(() {
+        isDailyFinished = value.any((day) => day.isSameDate(DateTime.now()));
+      });
+    });
   }
 
   void _launchGame() {
@@ -80,6 +88,21 @@ class _HomePageState extends State<HomePage> {
         poolGenerator: locator<CompoundPoolGenerator>(),
         keyValueStore: locator<KeyValueStore>(),
         swappableDetector: locator<SwappableDetector>(),
+      ),),),
+    ).then((value) {
+      _updatePage();
+    });
+  }
+
+  void _launchDailyLevel() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => GamePage(state: GamePageDailyState(
+        levelProvider: DailyLevelProvider(),
+        poolGenerator: locator<CompoundPoolGenerator>(),
+        keyValueStore: locator<KeyValueStore>(),
+        swappableDetector: locator<SwappableDetector>(),
+        date: DateTime.now(),
       ),),),
     ).then((value) {
       _updatePage();
@@ -113,10 +136,8 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Expanded(child: Container()),
                 DailyLevelContainer(
-                  isDailyFinished: false,
-                  onPlayPressed: () {
-                    // TODO
-                  },
+                  isDailyFinished: isDailyFinished,
+                  onPlayPressed: _launchDailyLevel,
                 ),
                 Expanded(flex: 2, child: Container()),
                 PlayButton(
