@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/screens/game_page_daily.dart';
+import 'package:kompositum/util/date_extension.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 import 'package:kompositum/widgets/common/my_icon_button.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -118,7 +119,8 @@ class _DailyOverviewPageState extends State<DailyOverviewPage> {
                     Expanded(child: Container()),
                     MyPrimaryTextButtonLarge(
                       text: "Start",
-                      enabled: !completedDays.contains(_selectedDay) && _selectedDay.isBefore(DateTime.now()),
+                      enabled: !completedDays.any((datetime) => datetime.isSameDate(_selectedDay))
+                          && _selectedDay.isBefore(DateTime.now()),
                       onPressed: () {
                         _launchGame();
                       },
@@ -146,6 +148,10 @@ class Calendar extends StatelessWidget {
   final DateTime selectedDay;
   final Function(DateTime) onDaySelected;
   final List<DateTime> completedDays;
+
+  bool isCompleted(DateTime date) {
+    return completedDays.any((datetime) => datetime.isSameDate(date));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -188,7 +194,7 @@ class Calendar extends StatelessWidget {
             isSelected: selectedDay == date,
             isToday: isSameDay(DateTime.now(), date),
             isInMonth: true,
-            isCompleted: completedDays.contains(date),
+            isCompleted: isCompleted(date),
           );
         },
         disabledBuilder: (context, date, _) {
@@ -197,7 +203,7 @@ class Calendar extends StatelessWidget {
             isSelected: selectedDay == date,
             isToday: isSameDay(DateTime.now(), date),
             isInMonth: false,
-            isCompleted: completedDays.contains(date),
+            isCompleted: isCompleted(date),
           );
         },
         selectedBuilder: (context, date, _) {
@@ -206,7 +212,7 @@ class Calendar extends StatelessWidget {
             isSelected: true,
             isToday: isSameDay(DateTime.now(), date),
             isInMonth: true,
-            isCompleted: completedDays.contains(date),
+            isCompleted: isCompleted(date),
           );
         },
         todayBuilder: (context, date, _) {
@@ -215,7 +221,7 @@ class Calendar extends StatelessWidget {
             isSelected: selectedDay == date,
             isToday: true,
             isInMonth: true,
-            isCompleted: completedDays.contains(date),
+            isCompleted: isCompleted(date),
           );
         },
       ),

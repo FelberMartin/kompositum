@@ -212,7 +212,7 @@ class DailyLevelContainer extends StatelessWidget {
                 child: Center(
                   child: isDailyFinished
                       ? Icon(
-                    FontAwesomeIcons.circleCheck,
+                    FontAwesomeIcons.check,
                     color: Theme.of(context).colorScheme.onSecondary,
                     size: 32,
                   )
