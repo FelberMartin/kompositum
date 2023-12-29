@@ -11,6 +11,7 @@ import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 import 'package:kompositum/config/locator.dart';
 import 'package:kompositum/screens/game_page.dart';
+import 'package:kompositum/screens/game_page_classic.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
@@ -66,7 +67,10 @@ void main() {
     Future<void> _pumpGamePage(WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
         theme: myTheme,
-        home: GamePage(levelProvider: levelProvider, poolGenerator: poolGenerator, keyValueStore: keyValueStore, swappableDetector: swappableDetector)
+        home: GamePage(state: GamePageClassicState(
+            levelProvider: levelProvider, poolGenerator: poolGenerator,
+            keyValueStore: keyValueStore, swappableDetector: swappableDetector
+        )),
       ));
       await tester.pumpAndSettle();
       sut = tester.state(find.byType(GamePage));
@@ -199,7 +203,7 @@ void main() {
   group("UI tests", () {
     testWidgets(skip: true, "After loading, the components are shown", (tester) async {
       await tester.pumpWidget(MaterialApp(
-          home: GamePage(levelProvider: levelProvider, poolGenerator: poolGenerator, keyValueStore: keyValueStore, swappableDetector: swappableDetector)
+          home: GamePage(state: GamePageClassicState(levelProvider: levelProvider, poolGenerator: poolGenerator, keyValueStore: keyValueStore, swappableDetector: swappableDetector))
       ));
       await tester.pumpAndSettle();
 
@@ -209,7 +213,7 @@ void main() {
 
     // Test passes even if components are not shown in the app :(
     testWidgets(skip: true, "After finished the first level and waiting for loading, the seconds level's components are shown", (tester) async {
-      final homePage = GamePage(levelProvider: levelProvider, poolGenerator: poolGenerator, keyValueStore: keyValueStore, swappableDetector: swappableDetector);
+      final homePage = GamePage(state: GamePageClassicState(levelProvider: levelProvider, poolGenerator: poolGenerator, keyValueStore: keyValueStore, swappableDetector: swappableDetector));
       await tester.pumpWidget(MaterialApp(home: homePage));
       await tester.pumpAndSettle();
 

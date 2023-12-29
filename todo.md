@@ -3,7 +3,6 @@
 ### Next up
 
 - Daily levels
-  - Fix tests
   - How to play past dailies?
   - Special reward after completing month?
   - Make gamePage usable for dailies
