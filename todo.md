@@ -2,12 +2,15 @@
 ## 1.0 Release
 ### Next up
 
+- Animate star increase
+  - Stars flying to top right
+  - Counter 
 - Daily levels
   - How to play past dailies?
     - Show cost with start button (eg. 100 stars / ad)
+    - Show dialog similar to outOfAttempts
   - Special reward after completing month?
   - extra daily completion dialog?
-- Animate star increase
 - Sound
   - Create/play sounds
   - Mute button
@@ -24,11 +27,6 @@
 - App icon
 - App name
 - Sound Design
-
-### Daily levels
-- Prepare backend
-- New home screen
-- Calendar
 
 ### Misc
 - Remark by Felix: do not hide components. Instead make pool scrollable
