@@ -134,7 +134,7 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(child: Container()),
+                Expanded(flex: 1, child: Container()),
                 DailyLevelContainer(
                   isDailyFinished: isDailyFinished,
                   onPlayPressed: _launchDailyLevel,
@@ -250,7 +250,7 @@ class PlayButton extends StatelessWidget {
       clickable: true,
       onPressed: onPressed,
       child: SizedBox(
-        width: 230,
+        width: 260,
         height: 80,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
