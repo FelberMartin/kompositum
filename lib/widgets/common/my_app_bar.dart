@@ -1,3 +1,4 @@
+import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
 import 'package:format/format.dart';
 import 'package:kompositum/main.dart';
@@ -18,12 +19,14 @@ class MyDefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.onNavigationPressed,
     this.middleContent,
     required this.starCount,
+    this.animateStarCount = false,
   });
 
   final IconData navigationIcon;
   final Function onNavigationPressed;
   final Widget? middleContent;
   final int starCount;
+  final bool animateStarCount;
 
   @override
   Size get preferredSize => const Size.fromHeight(AppBarHeight);
@@ -42,10 +45,11 @@ class MyDefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
       rightContent: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Text(
-            // Format the starcount with a separator for thousands
-            "{:,d}".format([starCount]),
-            style: Theme.of(context).textTheme.labelLarge,
+          AnimatedFlipCounter(
+            duration: Duration(milliseconds: animateStarCount ? 300 : 0),
+            value: starCount,
+            thousandSeparator: ".",
+            textStyle: Theme.of(context).textTheme.labelLarge,
           ),
           Icon(
             Icons.star_rounded,
@@ -56,7 +60,6 @@ class MyDefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
     );
   }
-
 }
 
 

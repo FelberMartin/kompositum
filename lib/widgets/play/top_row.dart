@@ -49,6 +49,7 @@ class TopRow extends StatelessWidget implements PreferredSizeWidget {
         ],
       ),
       starCount: starCount,
+      animateStarCount: true,
     );
   }
 }
