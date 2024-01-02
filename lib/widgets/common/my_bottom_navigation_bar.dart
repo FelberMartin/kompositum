@@ -6,13 +6,17 @@ import 'package:kompositum/widgets/common/util/rounded_edge_clipper.dart';
 import '../../config/theme.dart';
 import '../../screens/home_page.dart';
 
+
 class MyBottomNavigationBar extends StatefulWidget {
   const MyBottomNavigationBar({
     required this.selectedIndex,
+    this.onReturnToPage,
     super.key,
   });
 
+
   final int selectedIndex;
+  final Function? onReturnToPage;
 
   @override
   State<MyBottomNavigationBar> createState() => _MyBottomNavigationBarState();
@@ -39,7 +43,9 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
     if (index == 0) {
       Navigator.pop(context);
     } else if (index == 1) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => DailyOverviewPage()));
+      Navigator.push(context, MaterialPageRoute(
+          builder: (context) => DailyOverviewPage())
+      ).then((value) => widget.onReturnToPage?.call());
     }
   }
 

@@ -129,7 +129,10 @@ class _HomePageState extends State<HomePage> {
             },
             starCount: starCount,
           ),
-          bottomNavigationBar: const MyBottomNavigationBar(selectedIndex: 0),
+          bottomNavigationBar: MyBottomNavigationBar(
+              selectedIndex: 0,
+              onReturnToPage: _updatePage,
+          ),
           body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
