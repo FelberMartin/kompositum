@@ -10,11 +10,15 @@
     - Show cost with start button (eg. 100 stars / ad)
     - Show dialog similar to outOfAttempts
   - Special reward after completing month?
-  - extra daily completion dialog?
+  - extra daily completion dialog? (with option to continue classic mode)
+  - In overview page, automatically focus the next playable daily
 - Sound
   - Create/play sounds
   - Mute button
+  - Vibrate after level/word-completion
 - Improve Level completed dialog
+- Spinning wheel after completion / noAttemptsLeft?
+- Alternative color pallet? -> figma (yellow blue)
 
 ### Later
 - Check whether animations are still laggy in non-debug build (-> maybe remove add/remove component animation)
