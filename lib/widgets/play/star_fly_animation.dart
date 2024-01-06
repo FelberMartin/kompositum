@@ -1,11 +1,9 @@
-
-
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 
 import '../../config/theme.dart';
-
 
 class StarIncreaseRequest {
   final int amount;
@@ -29,13 +27,11 @@ class StarFlyAnimations extends StatefulWidget {
   final Stream<StarIncreaseRequest> starIncreaseRequestStream;
   final Function(int) onIncreaseStarCount;
 
-
   @override
   State<StarFlyAnimations> createState() => _StarFlyAnimationsState();
 }
 
 class _StarFlyAnimationsState extends State<StarFlyAnimations> {
-
   Map<Key, Origin> keys = {};
 
   @override
@@ -60,7 +56,7 @@ class _StarFlyAnimationsState extends State<StarFlyAnimations> {
     return Stack(
       children: [
         for (var entries in keys.entries)
-          StarFlyAnimation(
+          _StarFlyAnimationWrapper(
             key: entries.key,
             begin: entries.value == Origin.compoundCompletion
                 ? Offset(size.width / 2, size.height / 3.5)
@@ -73,66 +69,115 @@ class _StarFlyAnimationsState extends State<StarFlyAnimations> {
       ],
     );
   }
-
 }
 
-
-
-class StarFlyAnimation extends StatefulWidget {
-  static const duration = Duration(milliseconds: 1000);
-
-  const StarFlyAnimation({
+class _StarFlyAnimationWrapper extends StatefulWidget {
+  const _StarFlyAnimationWrapper({
     required this.begin,
-    this.onAnimationEnd,
+    required this.onAnimationEnd,
     super.key,
   });
 
   final Offset begin;
-  final Function? onAnimationEnd;
+  final Function() onAnimationEnd;
 
   @override
-  State<StarFlyAnimation> createState() => _StarFlyAnimationState();
+  State<_StarFlyAnimationWrapper> createState() => _StarFlyAnimationWrapperState();
 }
 
-class _StarFlyAnimationState extends State<StarFlyAnimation> with SingleTickerProviderStateMixin {
+class _StarFlyAnimationWrapperState extends State<_StarFlyAnimationWrapper> with SingleTickerProviderStateMixin {
 
-  late Offset _end;
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1000),
+    );
+    _controller.forward().whenCompleteOrCancel(widget.onAnimationEnd);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _StarFlyAnimation(
+      begin: widget.begin,
+      controller: _controller,
+    );
+  }
+}
+
+class _StarFlyAnimation extends StatelessWidget {
+  _StarFlyAnimation({
+    required this.begin,
+    required this.controller,
+    super.key,
+  });
+
+  final Offset begin;
+  final Animation<double> controller;
+
+  late final Animation<double> _opacity = Tween<double>(
+    begin: 1.0,
+    end: 0.0,
+  ).animate(CurvedAnimation(
+    parent: controller,
+    curve: const Interval(0.8, 1.0),
+  ));
+  late final Animation<double> _sizeGrow = Tween<double>(
+    begin: 0,
+    end: 48,
+  ).animate(CurvedAnimation(
+    parent: controller,
+    curve: const Interval(0.0, 0.04, curve: Curves.easeOut),
+  ));
+  late final Animation<double> _sizeShrink = Tween<double>(
+    begin: 48,
+    end: 24,
+  ).animate(CurvedAnimation(
+    parent: controller,
+    curve: const Interval(0.5, 0.9, curve: Curves.easeIn),
+  ));
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    _end = Offset(size.width / 1.1, 40);
+    final position = BezierTween(
+      begin: begin,
+      control: Offset(size.width / 1.2, size.height / 4),
+      end: Offset(size.width / 1.1, 40),
+    ).animate(CurvedAnimation(
+      parent: controller,
+      curve: Curves.easeInBack,
+    ));
 
     final customColors = Theme.of(context).extension<CustomColors>()!;
-    return TweenAnimationBuilder(
-      tween: BezierTween(
-        begin: widget.begin,
-        control: Offset(size.width / 1.2, size.height / 4),
-        end: _end,
-      ),
-      duration: StarFlyAnimation.duration,
-      curve: Curves.easeInBack,
-      onEnd: () {
-        widget.onAnimationEnd?.call();
-      },
-      builder: (BuildContext context, Offset value, Widget? child) {
+    return AnimatedBuilder(
+      animation: controller,
+      builder: (context, child) {
         return Positioned(
-          left: value.dx,
-          top: value.dy,
-          child: AnimatedOpacity(
-            opacity: value.dx < size.width / 1.45 ? 1.0 : 0.0,
-            duration: Duration(milliseconds: 200),
+          left: position.value.dx,
+          top: position.value.dy,
+          child: Opacity(
+            opacity: _opacity.value,
             child: Icon(
               Icons.star_rounded,
               color: customColors.star,
-              size: 32,
+              size: min(_sizeGrow.value, _sizeShrink.value),
+              shadows: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.2),
+                  blurRadius: 2,
+                  offset: Offset(1, 1),
+                ),
+              ],
             ),
-          )
+          ),
         );
       },
     );
   }
-
 }
 
 class BezierTween extends Tween<Offset> {

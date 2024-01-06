@@ -2,8 +2,7 @@
 ## 1.0 Release
 ### Next up
 
-- Animate star increase
-  - Stars flying to top right
+- Enhance completion animation
 - Homepage: show loading instead of level 0 and daily and starcount
 - Daily levels
   - Animate day state changes (selected / completed)
