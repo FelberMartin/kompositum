@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../config/theme.dart';
+import '../../config/my_theme.dart';
 import '../../game/level_provider.dart';
 import '../common/my_app_bar.dart';
 

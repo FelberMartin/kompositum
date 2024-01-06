@@ -13,7 +13,7 @@ import 'package:kompositum/widgets/common/my_bottom_navigation_bar.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 
 import '../config/locator.dart';
-import '../config/theme.dart';
+import '../config/my_theme.dart';
 import '../data/key_value_store.dart';
 import '../game/pool_generator/compound_pool_generator.dart';
 import '../game/swappable_detector.dart';
@@ -266,7 +266,7 @@ class PlayButton extends StatelessWidget {
     final customColors = Theme.of(context).extension<CustomColors>()!;
     return My3dContainer(
       topColor: Theme.of(context).colorScheme.primary,
-      sideColor: darken(Theme.of(context).colorScheme.primary),
+      sideColor: Theme.of(context).colorScheme.primary.darken(),
       clickable: true,
       onPressed: onPressed,
       child: SizedBox(

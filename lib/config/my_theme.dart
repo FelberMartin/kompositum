@@ -134,6 +134,10 @@ class CustomColors extends ThemeExtension<CustomColors> {
   final Color textSecondary;
   final Color star;
 
+  static CustomColors of(BuildContext context) {
+    return Theme.of(context).extension<CustomColors>()!;
+  }
+
   @override
   ThemeExtension<CustomColors> copyWith() {
     return CustomColors(

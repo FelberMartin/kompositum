@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kompositum/screens/daily_overview_page.dart';
 import 'package:kompositum/widgets/common/util/rounded_edge_clipper.dart';
 
-import '../../config/theme.dart';
+import '../../config/my_theme.dart';
 
 
 class MyBottomNavigationBar extends StatefulWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kompositum/config/theme.dart';
+import 'package:kompositum/config/my_theme.dart';
 
 import 'my_3d_container.dart';
 

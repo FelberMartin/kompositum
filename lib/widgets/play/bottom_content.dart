@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kompositum/config/star_costs_rewards.dart';
 import 'package:kompositum/widgets/common/my_3d_container.dart';
 
-import '../../config/theme.dart';
+import '../../config/my_theme.dart';
 import '../../game/hints/hint.dart';
 import '../../screens/game_page.dart';
 import '../../util/color_util.dart';

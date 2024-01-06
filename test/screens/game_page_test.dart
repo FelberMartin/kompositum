@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kompositum/config/star_costs_rewards.dart';
-import 'package:kompositum/config/theme.dart';
+import 'package:kompositum/config/my_theme.dart';
 import 'package:kompositum/data/models/compound.dart';
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/game/attempts_watcher.dart';

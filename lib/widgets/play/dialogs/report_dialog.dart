@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 import 'package:kompositum/widgets/common/my_dialog.dart';
 
-import '../../../config/theme.dart';
+import '../../../config/my_theme.dart';
 import '../../../data/remote/firestore.dart';
 import '../../../firebase_options.dart';
 import '../../common/my_3d_container.dart';

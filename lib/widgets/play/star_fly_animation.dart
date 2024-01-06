@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import '../../config/theme.dart';
+import '../../config/my_theme.dart';
 
 class StarIncreaseRequest {
   final int amount;

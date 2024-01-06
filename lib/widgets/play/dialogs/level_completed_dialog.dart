@@ -5,7 +5,7 @@ import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 
 import '../../../config/star_costs_rewards.dart';
-import '../../../config/theme.dart';
+import '../../../config/my_theme.dart';
 import '../../common/my_dialog.dart';
 
 void main() => runApp(MaterialApp(
