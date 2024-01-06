@@ -1,6 +1,52 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
+import 'package:kompositum/util/color_util.dart';
 
 const Color undefined = Color(0xFFED14FF);
+
+class MyColorPalette {
+  
+  static const Color defaultStar = Color(0xfff8df86);
+  
+  MyColorPalette({
+    required this.primary,
+    required this.primaryShade,
+    required this.onPrimary,
+    required this.secondary,
+    required this.secondaryShade,
+    required this.onSecondary,
+    required this.background,
+    required this.textSecondary,
+    required this.star,
+  });
+  
+  final Color primary, primaryShade, onPrimary;
+  final Color secondary, secondaryShade, onSecondary;
+  final Color background;
+  final Color textSecondary, star;
+
+  factory MyColorPalette.fromPrimarySecondary(Color primary, Color secondary) {
+    final background = primary.lighten();
+    return MyColorPalette(
+      primary: primary,
+      primaryShade: primary.darken(),
+      onPrimary: getFontColorForBackground(primary),
+      secondary: secondary,
+      secondaryShade: secondary.darken(),
+      onSecondary: getFontColorForBackground(secondary),
+      background: background,
+      textSecondary: background,
+      star: defaultStar,
+    );
+  }
+
+  static MyColorPalette classic = MyColorPalette.fromPrimarySecondary(
+    Color(0xFF4C58BD),
+    Color(0xFF6184FF),
+  );
+
+}
 
 final myTheme = ThemeData(
     colorScheme: const ColorScheme(

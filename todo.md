@@ -37,7 +37,6 @@
   then "Baum" remains with a hint, but if the other "Haus" component is still in the hidden components,
   generating a new hint will produce probably an error.
 - App is blackscreen when restarting it on phone (just a long loading time?)
-- 
 
 
 ### Misc
