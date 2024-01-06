@@ -2,7 +2,7 @@
 ## 1.0 Release
 ### Next up
 
-- Homepage: show loading instead of level 0 and daily and starcount
+- Increase tip costs by attempts
 - Daily levels
   - Animate day state changes (selected / completed)
   - How to play past dailies?
@@ -31,6 +31,16 @@
 - App name
 - Sound Design
 
+# Bugs
+- The progress within one level is not stored, so one can "cheat" stars, by replaying the same level,
+  but stopping before level completion, the stars collected so far will consist.
+- Possible bug: Shown=[Baum, Haus, Tür], generated hint is "Baum + Haus" but user removes "Haus + Tür",
+  then "Baum" remains with a hint, but if the other "Haus" component is still in the hidden components,
+  generating a new hint will produce probably an error.
+- App is blackscreen when restarting it on phone (just a long loading time?)
+- 
+
+
 ### Misc
 - Remark by Felix: do not hide components. Instead make pool scrollable
 - Gameplay idea: When starting a new level, a first modifier is already selected.
@@ -41,15 +51,8 @@
   - Maybe spinning wheel for which trophy to get?
   - Or for collecting 100 words one can spin to get a trophy
 
-# Bugs
-- The progress within one level is not stored, so one can "cheat" stars, by replaying the same level,
-  but stopping before level completion, the stars collected so far will consist.
-- Possible bug: Shown=[Baum, Haus, Tür], generated hint is "Baum + Haus" but user removes "Haus + Tür",
-  then "Baum" remains with a hint, but if the other "Haus" component is still in the hidden components,
-  generating a new hint will produce probably an error.
-- App is blackscreen when restarting it on phone (just a long loading time?)
 
-# After 1.0 Release
+## After 1.0 Release
 - Further Report functionality:
   - Add second csv file with manually added compounds that were not in the dataset
   - Make compound graph case insensitive? (reduce number of reports?)
@@ -57,6 +60,7 @@
     valid combinations for a compound.
 - More game modes
 - UI Improvements:
+  - Indicate compound completion in the combination area (eg flash big textbuttons)
   - Keep common UI components on screen, and only change children during navigation
     - BottomTabBar
     - AppBar

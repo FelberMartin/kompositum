@@ -50,6 +50,8 @@ class _HomePageState extends State<HomePage> {
   Difficulty currentLevelDifficulty = Difficulty.easy;
   bool isDailyFinished = true;
 
+  bool isLoading = true;
+
   @override
   void initState() {
     super.initState();
@@ -58,25 +60,20 @@ class _HomePageState extends State<HomePage> {
     initializeDateFormatting("de", null);
   }
 
-  void _updatePage() {
-    keyValueStore.getStarCount().then((value) {
-      setState(() {
-        starCount = value;
-      });
+  void _updatePage() async {
+    setState(() {
+      isLoading = true;
     });
 
-    keyValueStore.getLevel().then((value) {
-      setState(() {
-        currentLevel = value;
-        currentLevelDifficulty = locator<LevelProvider>()
-            .generateLevelSetup(currentLevel).displayedDifficulty;
-      });
-    });
+    starCount = await keyValueStore.getStarCount();
+    currentLevel = await keyValueStore.getLevel();
+    currentLevelDifficulty = locator<LevelProvider>()
+        .generateLevelSetup(currentLevel).displayedDifficulty;
+    isDailyFinished = await keyValueStore.getDailiesCompleted()
+        .then((value) => value.any((day) => day.isSameDate(DateTime.now())));
 
-    keyValueStore.getDailiesCompleted().then((value) {
-      setState(() {
-        isDailyFinished = value.any((day) => day.isSameDate(DateTime.now()));
-      });
+    setState(() {
+      isLoading = false;
     });
   }
 
@@ -138,12 +135,12 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(flex: 1, child: Container()),
-                DailyLevelContainer(
+                isLoading ? DailyLevelContainer.loading() : DailyLevelContainer(
                   isDailyFinished: isDailyFinished,
                   onPlayPressed: _launchDailyLevel,
                 ),
                 Expanded(flex: 2, child: Container()),
-                PlayButton(
+                isLoading ? PlayButton.loading() : PlayButton(
                   currentLevel: currentLevel,
                   currentLevelDifficulty: currentLevelDifficulty,
                   onPressed: _launchGame,
@@ -165,8 +162,15 @@ class DailyLevelContainer extends StatelessWidget {
     required this.onPlayPressed,
   });
 
-  final bool isDailyFinished;
+  final bool? isDailyFinished;
   final Function onPlayPressed;
+
+  factory DailyLevelContainer.loading() {
+    return DailyLevelContainer(
+      isDailyFinished: null,
+      onPlayPressed: () {},
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -213,16 +217,19 @@ class DailyLevelContainer extends StatelessWidget {
                 height: 52,
                 width: 120,
                 child: Center(
-                  child: isDailyFinished
+                  child: isDailyFinished == null
+                      ? Center(child: CircularProgressIndicator(
+                          color: customColors.textSecondary))
+                      : isDailyFinished!
                       ? Icon(
-                    FontAwesomeIcons.check,
-                    color: Theme.of(context).colorScheme.onSecondary,
-                    size: 32,
-                  )
+                        FontAwesomeIcons.check,
+                        color: Theme.of(context).colorScheme.onSecondary,
+                        size: 32,
+                      )
                       : MySecondaryTextButton(
-                    text: "Start",
-                    onPressed: onPlayPressed,
-                  ),
+                        text: "Start",
+                        onPressed: onPlayPressed,
+                      ),
                 ),
               ),
             ],
@@ -239,14 +246,26 @@ class PlayButton extends StatelessWidget {
     required this.currentLevel,
     required this.currentLevelDifficulty,
     required this.onPressed,
+    this.isLoading = false,
   });
 
   final int currentLevel;
   final Difficulty currentLevelDifficulty;
+  final bool isLoading;
   final Function onPressed;
+
+  factory PlayButton.loading() {
+    return PlayButton(
+      currentLevel: 0,
+      currentLevelDifficulty: Difficulty.easy,
+      onPressed: () {},
+      isLoading: true,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    final customColors = Theme.of(context).extension<CustomColors>()!;
     return My3dContainer(
       topColor: Theme.of(context).colorScheme.primary,
       sideColor: darken(Theme.of(context).colorScheme.primary),
@@ -255,7 +274,9 @@ class PlayButton extends StatelessWidget {
       child: SizedBox(
         width: 260,
         height: 80,
-        child: Column(
+        child: isLoading ? Center(
+            child: CircularProgressIndicator(
+                color: customColors.textSecondary)) : Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
