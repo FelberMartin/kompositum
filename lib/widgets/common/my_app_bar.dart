@@ -1,7 +1,5 @@
 import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
-import 'package:format/format.dart';
-import 'package:kompositum/main.dart';
 import 'package:kompositum/widgets/common/util/clip_shadow_path.dart';
 import 'package:kompositum/widgets/common/util/rounded_edge_clipper.dart';
 

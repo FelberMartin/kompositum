@@ -4,7 +4,6 @@ import 'package:kompositum/screens/daily_overview_page.dart';
 import 'package:kompositum/widgets/common/util/rounded_edge_clipper.dart';
 
 import '../../config/theme.dart';
-import '../../screens/home_page.dart';
 
 
 class MyBottomNavigationBar extends StatefulWidget {

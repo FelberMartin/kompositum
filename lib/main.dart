@@ -1,17 +1,12 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kompositum/config/theme.dart';
-import 'package:kompositum/screens/game_page.dart';
 import 'package:kompositum/screens/home_page.dart';
 
 import 'config/locator.dart';
-import 'data/key_value_store.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'data/remote/firestore.dart';
 import 'firebase_options.dart';
-import 'game/level_provider.dart';
-import 'game/pool_generator/compound_pool_generator.dart';
-import 'game/swappable_detector.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

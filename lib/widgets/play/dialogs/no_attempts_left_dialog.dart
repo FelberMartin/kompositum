@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:kompositum/config/star_costs_rewards.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 
 import '../../../config/theme.dart';

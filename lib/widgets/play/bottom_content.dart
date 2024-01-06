@@ -5,11 +5,9 @@ import 'package:kompositum/config/star_costs_rewards.dart';
 import 'package:kompositum/widgets/common/my_3d_container.dart';
 
 import '../../config/theme.dart';
-import '../../data/models/unique_component.dart';
 import '../../game/hints/hint.dart';
 import '../../screens/game_page.dart';
 import '../../util/color_util.dart';
-import '../common/my_buttons.dart';
 import '../common/my_icon_button.dart';
 import '../common/util/rounded_edge_clipper.dart';
 

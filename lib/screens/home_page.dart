@@ -20,8 +20,6 @@ import '../game/swappable_detector.dart';
 import '../util/color_util.dart';
 import '../widgets/common/my_app_bar.dart';
 import '../widgets/common/my_background.dart';
-import '../widgets/common/my_dialog.dart';
-import '../widgets/common/my_icon_button.dart';
 import '../widgets/common/util/clip_shadow_path.dart';
 import '../widgets/common/util/rounded_edge_clipper.dart';
 import 'game_page.dart';
