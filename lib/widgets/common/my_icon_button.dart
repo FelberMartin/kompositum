@@ -51,8 +51,9 @@ class MyIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final customColors = Theme.of(context).extension<CustomColors>()!;
-    final iconColor = enabled ? Theme.of(context).colorScheme.onSecondary : customColors.textSecondary;
+    final iconColor = enabled
+        ? Theme.of(context).colorScheme.onSecondary
+        : MyColorPalette.of(context).textSecondary;
     const size = 48.0;
     return My3dContainer(
       topColor: Theme.of(context).colorScheme.secondary,

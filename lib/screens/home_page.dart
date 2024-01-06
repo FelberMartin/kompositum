@@ -172,7 +172,6 @@ class DailyLevelContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final customColors = Theme.of(context).extension<CustomColors>()!;
     var dateText = DateFormat("dd. MMM", "de").format(DateTime.now());
     dateText = dateText.substring(0, dateText.length - 1);    // Remove dot
     return ClipShadowPath(
@@ -207,7 +206,7 @@ class DailyLevelContainer extends StatelessWidget {
               Text(
                 dateText,
                 style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                  color: customColors.textSecondary,
+                  color: MyColorPalette.of(context).textSecondary,
                 ),
               ),
               SizedBox(height: 16),
@@ -217,7 +216,7 @@ class DailyLevelContainer extends StatelessWidget {
                 child: Center(
                   child: isDailyFinished == null
                       ? Center(child: CircularProgressIndicator(
-                          color: customColors.textSecondary))
+                          color: MyColorPalette.of(context).textSecondary))
                       : isDailyFinished!
                       ? Icon(
                         FontAwesomeIcons.check,
@@ -263,10 +262,9 @@ class PlayButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final customColors = Theme.of(context).extension<CustomColors>()!;
     return My3dContainer(
       topColor: Theme.of(context).colorScheme.primary,
-      sideColor: Theme.of(context).colorScheme.primary.darken(),
+      sideColor: MyColorPalette.of(context).primaryShade,
       clickable: true,
       onPressed: onPressed,
       child: SizedBox(
@@ -274,7 +272,7 @@ class PlayButton extends StatelessWidget {
         height: 80,
         child: isLoading ? Center(
             child: CircularProgressIndicator(
-                color: customColors.textSecondary)) : Column(
+                color: MyColorPalette.of(context).textSecondary)) : Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(

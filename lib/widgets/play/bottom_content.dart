@@ -75,8 +75,6 @@ class _BottomContentState extends State<BottomContent> {
       Future.delayed(wordWrapperAnimationDuration).then((value) => setState(() {}));
     }
 
-    final customColors = Theme.of(context).extension<CustomColors>()!;
-
     // ------ Widget building starts here ------
     final wrap = Wrap(
       runSpacing: 8.0,
@@ -101,7 +99,7 @@ class _BottomContentState extends State<BottomContent> {
         child: widget.isLoading
             ? Center(
             child: CircularProgressIndicator(
-                color: customColors.textSecondary))
+                color: MyColorPalette.of(context).textSecondary))
             : wrap
     );
 
@@ -127,12 +125,12 @@ class _BottomContentState extends State<BottomContent> {
                       .textTheme
                       .labelSmall!
                       .copyWith(
-                    color: customColors.textSecondary,
+                    color: MyColorPalette.of(context).textSecondary,
                   ),
                 ),
                 Icon(
                   Icons.star_rounded,
-                  color: customColors.star,
+                  color: MyColorPalette.of(context).star,
                   size: 16.0,
                 ),
               ],
@@ -180,7 +178,6 @@ class HiddenComponentsIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final customColors = Theme.of(context).extension<CustomColors>()!;
     return AnimatedOpacity(
         opacity: hiddenComponentsCount == 0 ? 0.0 : 1.0,
         duration: const Duration(milliseconds: 500),
@@ -195,7 +192,7 @@ class HiddenComponentsIndicator extends StatelessWidget {
             ),
             Text("verdeckte Wörter",
                 style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                      color: customColors.textSecondary,
+                      color: MyColorPalette.of(context).textSecondary,
                     ))
           ],
         ));
@@ -226,7 +223,7 @@ class WordWrapper extends StatelessWidget {
           ? Theme.of(context).colorScheme.primary
           : Theme.of(context).colorScheme.secondary,
       sideColor: isSelected
-          ? darken(Theme.of(context).colorScheme.primary)
+          ? MyColorPalette.of(context).primaryShade
           : Theme.of(context).colorScheme.primary,
       clickable: true,
       onPressed: () {
@@ -296,7 +293,6 @@ class HintIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final customColors = Theme.of(context).extension<CustomColors>()!;
     return Container(
       width: size,
       height: size,
@@ -306,7 +302,7 @@ class HintIndicator extends StatelessWidget {
       ),
       child: Icon(
         FontAwesomeIcons.lightbulb,
-        color: customColors.star,
+        color: MyColorPalette.of(context).star,
         size: size * 0.6,
       ),
     );

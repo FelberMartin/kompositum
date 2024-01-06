@@ -5,8 +5,6 @@ import '../../util/color_util.dart';
 import 'my_3d_container.dart';
 
 
-
-
 class MyPrimaryButton extends StatelessWidget {
 
   const MyPrimaryButton({
@@ -24,7 +22,7 @@ class MyPrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return My3dContainer(
       topColor: Theme.of(context).colorScheme.primary,
-      sideColor: darken(Theme.of(context).colorScheme.primary),
+      sideColor: MyColorPalette.of(context).primaryShade,
       clickable: enabled,
       onPressed: onPressed,
       child: Padding(
@@ -52,7 +50,6 @@ class MyPrimaryTextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme.labelMedium!;
-    final customColors = Theme.of(context).extension<CustomColors>()!;
     return MyPrimaryButton(
       enabled: enabled,
       onPressed: onPressed,
@@ -61,7 +58,7 @@ class MyPrimaryTextButton extends StatelessWidget {
         style: textStyle.copyWith(
             color: enabled
                 ? Theme.of(context).colorScheme.onPrimary
-                : customColors.textSecondary
+                : MyColorPalette.of(context).textSecondary
         ),
       ),
     );
@@ -84,10 +81,9 @@ class MyPrimaryTextButtonLarge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme.labelLarge!;
-    final customColors = Theme.of(context).extension<CustomColors>()!;
     return My3dContainer(
       topColor: Theme.of(context).colorScheme.primary,
-      sideColor: darken(Theme.of(context).colorScheme.primary),
+      sideColor: MyColorPalette.of(context).primaryShade,
       clickable: enabled,
       onPressed: onPressed,
       child: Padding(
@@ -99,7 +95,7 @@ class MyPrimaryTextButtonLarge extends StatelessWidget {
               text,
               style: textStyle.copyWith(color: enabled
                   ? Theme.of(context).colorScheme.onPrimary
-                    : customColors.textSecondary),
+                    : MyColorPalette.of(context).textSecondary),
             ),
           ),
         ),

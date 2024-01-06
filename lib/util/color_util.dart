@@ -3,17 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 
-Color darken(Color color, [double percent = 10]) {
-  assert(1 <= percent && percent <= 100);
-  var f = 1 - percent / 100;
-  return Color.fromARGB(
-      color.alpha,
-      (color.red * f).round(),
-      (color.green  * f).round(),
-      (color.blue * f).round()
-  );
-}
-
 Color getFontColorForBackground(Color background) {
   return (background.computeLuminance() > 0.179)? Colors.black : Colors.white;
 }

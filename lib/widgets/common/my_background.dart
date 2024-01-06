@@ -17,10 +17,9 @@ class MyBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final customColors = Theme.of(context).extension<CustomColors>()!;
     return SvgPicture.asset(
       placeholderBuilder: (context) => Container(
-        color: customColors.background2,
+        color: MyColorPalette.of(context).background,
       ),
       "assets/background.svg",
       fit: BoxFit.cover,

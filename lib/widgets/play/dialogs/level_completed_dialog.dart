@@ -56,7 +56,6 @@ class StarBonusInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final customColors = Theme.of(context).extension<CustomColors>()!;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -72,7 +71,7 @@ class StarBonusInfo extends StatelessWidget {
             SizedBox(width: 4),
             Icon(
               FontAwesomeIcons.solidStar,
-              color: customColors.star,
+              color: MyColorPalette.of(context).star,
               size: 32,
             ),
           ],
@@ -81,7 +80,7 @@ class StarBonusInfo extends StatelessWidget {
         Text(
           "(${difficulty.toUiString().toLowerCase()})",
           style: Theme.of(context).textTheme.labelSmall!.copyWith(
-            color: customColors.textSecondary,
+            color: MyColorPalette.of(context).textSecondary,
           ),
         )
       ],

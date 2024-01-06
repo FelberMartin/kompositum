@@ -50,7 +50,6 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
-    final customColors = Theme.of(context).extension<CustomColors>()!;
     return ClipPath(
       clipper: RoundedEdgeClipper(onBottom: false),
       child: SizedBox(
@@ -63,7 +62,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
           currentIndex: widget.selectedIndex,
           backgroundColor: Theme.of(context).colorScheme.secondary,
           selectedItemColor: Theme.of(context).colorScheme.onSecondary,
-          unselectedItemColor: customColors.textSecondary,
+          unselectedItemColor: MyColorPalette.of(context).textSecondary,
           showUnselectedLabels: false,
           showSelectedLabels: false,
           elevation: 0,

@@ -26,7 +26,6 @@ class TopRow extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final customColors = Theme.of(context).extension<CustomColors>()!;
     return MyDefaultAppBar(
       navigationIcon: FontAwesomeIcons.chevronLeft,
       onNavigationPressed: onBackPressed,
@@ -41,7 +40,7 @@ class TopRow extends StatelessWidget implements PreferredSizeWidget {
           Text(
             displayedDifficulty.toUiString().toLowerCase(),
             style: Theme.of(context).textTheme.labelSmall!.copyWith(
-              color: customColors.textSecondary,
+              color: MyColorPalette.of(context).textSecondary,
             ),
           ),
         ],

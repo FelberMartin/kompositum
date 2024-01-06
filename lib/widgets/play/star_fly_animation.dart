@@ -168,7 +168,6 @@ class _StarFlyAnimation extends StatelessWidget {
       curve: Curves.easeInBack,
     ));
 
-    final customColors = Theme.of(context).extension<CustomColors>()!;
     return AnimatedBuilder(
       animation: controller,
       builder: (context, child) {
@@ -179,7 +178,7 @@ class _StarFlyAnimation extends StatelessWidget {
             opacity: _opacity.value,
             child: Icon(
               Icons.star_rounded,
-              color: customColors.star,
+              color: MyColorPalette.of(context).star,
               size: min(_sizeGrow.value, _sizeShrink.value),
               shadows: [
                 BoxShadow(

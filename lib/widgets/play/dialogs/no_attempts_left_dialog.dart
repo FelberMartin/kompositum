@@ -74,7 +74,6 @@ class OptionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final customColors = Theme.of(context).extension<CustomColors>()!;
     final isHintOption = icon == FontAwesomeIcons.lightbulb;
     return Card(
       elevation: 2,
@@ -112,7 +111,7 @@ class OptionCard extends StatelessWidget {
                           iconSubtitleIcon,
                           size: isHintOption ? 14 : 18,
                           color: isHintOption
-                              ? customColors.star
+                              ? MyColorPalette.of(context).star
                               : Theme.of(context).colorScheme.primary,
                       ),
                     ],

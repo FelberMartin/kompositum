@@ -31,7 +31,6 @@ class MyDefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final customColors = Theme.of(context).extension<CustomColors>()!;
     return MyAppBar(
       leftContent: Center(
         child: MyIconButton.centered(
@@ -51,7 +50,7 @@ class MyDefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           Icon(
             Icons.star_rounded,
-            color: customColors.star,
+            color: MyColorPalette.of(context).star,
           ),
           SizedBox(width: 16.0),
         ],

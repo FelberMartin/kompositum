@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kompositum/util/color_util.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 import 'package:kompositum/widgets/common/my_dialog.dart';
 
@@ -121,7 +122,6 @@ class ActionButtonRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final customColors = Theme.of(context).extension<CustomColors>()!;
     return Row(
       children: [
         MySecondaryTextButton(
@@ -160,7 +160,7 @@ class ActionButtonRow extends StatelessWidget {
                   style: Theme.of(context).textTheme.labelMedium!.copyWith(
                     color: isSendEnabled
                         ? Theme.of(context).colorScheme.onPrimary
-                        : customColors.textSecondary,
+                        : MyColorPalette.of(context).textSecondary,
                   ),
                 );
               }
@@ -189,10 +189,9 @@ class ComponentWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final customColors = Theme.of(context).extension<CustomColors>()!;
     return My3dContainer(
-      topColor: customColors.textSecondary,
-      sideColor: customColors.background4,
+      topColor: MyColorPalette.of(context).textSecondary,
+      sideColor: MyColorPalette.of(context).textSecondary.darken(),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 2.0) + const EdgeInsets.all(12.0),
         child: Text(
@@ -216,7 +215,6 @@ class InputRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final customColors = Theme.of(context).extension<CustomColors>()!;
     return Row(
       children: [
         IconStyledText(text: "="),
@@ -226,10 +224,10 @@ class InputRow extends StatelessWidget {
             decoration: InputDecoration(
               hintText: "Wort eingeben",
               hintStyle: Theme.of(context).textTheme.labelLarge!.copyWith(
-                color: customColors.textSecondary,
+                color: MyColorPalette.of(context).textSecondary,
               ),
               filled: true,
-              fillColor: customColors.textSecondary,
+              fillColor: MyColorPalette.of(context).textSecondary,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(50),
                 borderSide: BorderSide.none,
