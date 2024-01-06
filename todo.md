@@ -15,13 +15,13 @@
   - Create/play sounds
   - Mute button
   - Vibrate after level/word-completion
+  - Easter eggs (Apfelsaft, Orangensaft)
 - Improve Level completed dialog
 - Spinning wheel after completion / noAttemptsLeft?
 - Alternative color pallet? -> figma (yellow blue)
 
 ### Later
 - Check whether animations are still laggy in non-debug build (-> maybe remove add/remove component animation)
-- Animate component move in pool: maybe have to create Wrap widget as stack
 - Progress bar?
 - Optimize database loading speed
 - Ads?
@@ -56,3 +56,10 @@
   - Database: Allow multiple compounds with the same compound text (use UUID), to allow multiple 
     valid combinations for a compound.
 - More game modes
+- UI Improvements:
+  - Keep common UI components on screen, and only change children during navigation
+    - BottomTabBar
+    - AppBar
+    - FlyStarAnimation
+  - Animate component move in pool: maybe have to create Wrap widget as stack
+

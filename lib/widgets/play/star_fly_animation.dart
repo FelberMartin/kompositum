@@ -44,6 +44,7 @@ class _StarFlyAnimationsState extends State<StarFlyAnimations> {
       const delay = 100;
       for (var i = 0; i < request.amount; i++) {
         Future.delayed(Duration(milliseconds: i * delay), () {
+          if (!mounted) return;
           var key = UniqueKey();
           keys[key] = request.origin;
           setState(() {});
@@ -71,6 +72,7 @@ class _StarFlyAnimationsState extends State<StarFlyAnimations> {
                 ? Offset(size.width / 2, size.height / 3.5)
                 : Offset(size.width / 2, size.height / 2),
             onAnimationEnd: () {
+              if (!mounted) return;
               widget.onIncreaseStarCount.call(1);
               keys.remove(entries.key);
             },
