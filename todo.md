@@ -2,7 +2,6 @@
 ## 1.0 Release
 ### Next up
 
-- Increase tip costs by attempts
 - Daily levels
   - Animate day state changes (selected / completed)
   - How to play past dailies?

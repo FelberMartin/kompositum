@@ -2,8 +2,12 @@
 import '../game/level_provider.dart';
 
 class Costs {
-  static const int hintCostNormal = 30;
-  static const int hintCostNoAttemptsLeft = 40;
+  static const int hintCostBase = 30;
+  static const int hintCostIncreasePerFailedAttempt = 5;
+
+  static int hintCost({required int failedAttempts}) {
+    return hintCostBase + failedAttempts * hintCostIncreasePerFailedAttempt;
+  }
 }
 
 class Rewards {

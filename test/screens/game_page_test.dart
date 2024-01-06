@@ -114,8 +114,10 @@ void main() {
       sut.toggleSelection(0);   // Apfel
       sut.toggleSelection(1);   // Baum
 
-      expect(sut.selectedModifier, isNull);
-      expect(sut.selectedHead, isNull);
+      await tester.pumpAndSettle(Duration(seconds: 2));
+
+      expect(sut.selectedModifier, null);
+      expect(sut.selectedHead, null);
     });
 
     group("attemptsCounter", () {
@@ -133,6 +135,8 @@ void main() {
         sut.poolGameLevel = PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
         sut.toggleSelection(0);   // Apfel
         sut.toggleSelection(1);   // Baum
+
+        await tester.pumpAndSettle(Duration(seconds: 2));
 
         expect(sut.attemptsWatcher.attemptsLeft, sut.attemptsWatcher.maxAttempts);
       });
@@ -176,11 +180,25 @@ void main() {
         expect(sut.selectedHead, isNull);
       });
 
-      testWidgets("should reduce the starCount by the cost", (tester) async {
+      testWidgets("should reduce the starCount by the normal cost", (tester) async {
         await _pumpGamePage(tester);
-        sut.starCount = 333;
-        sut.buyHint(cost: 100);
-        expect(sut.starCount, 233);
+        sut.starCount = 100;
+        sut.buyHint();
+        final hintCost = sut.getHintCost();
+        expect(sut.starCount, 100 - hintCost);
+      });
+    });
+
+    group("getHintCost", () {
+      testWidgets("should be the base with no used attempts", (tester) async {
+        await _pumpGamePage(tester);
+        expect(sut.getHintCost(), Costs.hintCostBase);
+      });
+
+      testWidgets("should be the base plus the increase per failed attempt", (tester) async {
+        await _pumpGamePage(tester);
+        sut.attemptsWatcher.attemptUsed();
+        expect(sut.getHintCost(), Costs.hintCostBase + Costs.hintCostIncreasePerFailedAttempt);
       });
     });
 
@@ -192,6 +210,7 @@ void main() {
       sut.toggleSelection(0);   // Apfel
       sut.toggleSelection(1);   // Baum
 
+      await tester.pumpAndSettle(Duration(milliseconds: 2000));
       expect(sut.starCount, starCountBefore + Rewards.starsCompoundCompleted);
     });
 

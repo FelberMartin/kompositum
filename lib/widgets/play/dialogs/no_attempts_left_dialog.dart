@@ -8,7 +8,7 @@ import '../../common/my_dialog.dart';
 
 // Preview the dialog:
 void main() =>
-    runApp(MaterialApp(theme: myTheme, home: NoAttemptsLeftDialog(onActionPressed: (action) {}, isHintAvailable: true)));
+    runApp(MaterialApp(theme: myTheme, home: NoAttemptsLeftDialog(onActionPressed: (action) {}, isHintAvailable: true, hintCost: 55,)));
 
 enum NoAttemptsLeftDialogAction {
   hint,
@@ -20,10 +20,12 @@ class NoAttemptsLeftDialog extends StatelessWidget {
     super.key,
     required this.onActionPressed,
     required this.isHintAvailable,
+    required this.hintCost,
   });
 
   final Function(NoAttemptsLeftDialogAction) onActionPressed;
   final bool isHintAvailable;
+  final int hintCost;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,7 @@ class NoAttemptsLeftDialog extends StatelessWidget {
         children: [
           OptionCard(
             icon: FontAwesomeIcons.lightbulb,
-            iconSubtitleText: "${Costs.hintCostNoAttemptsLeft}",
+            iconSubtitleText: "$hintCost",
             iconSubtitleIcon: FontAwesomeIcons.solidStar,
             actionText: "Mit Tipp fortfahren",
             onActionPressed: () { onActionPressed(NoAttemptsLeftDialogAction.hint); },

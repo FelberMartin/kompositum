@@ -4,6 +4,7 @@ class AttemptsWatcher {
   final int maxAttempts;
   int _attemptsLeft;
   int get attemptsLeft => _attemptsLeft;
+  int get attemptsUsed => maxAttempts - _attemptsLeft;
 
   AttemptsWatcher({
     required this.maxAttempts,

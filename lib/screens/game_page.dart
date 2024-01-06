@@ -265,14 +265,14 @@ abstract class GamePageState extends State<GamePage> {
       barrierDismissible: false,
       dialog: NoAttemptsLeftDialog(
         onActionPressed: onNoAttemptsLeftDialogClose,
-        isHintAvailable: poolGameLevel.canRequestHint() && starCount >= Costs.hintCostNoAttemptsLeft,
+        isHintAvailable: poolGameLevel.canRequestHint() && starCount >= getHintCost(),
+        hintCost: getHintCost(),
       ),
     );
   }
 
   void onNoAttemptsLeftDialogClose(NoAttemptsLeftDialogAction action) {
     Navigator.pop(context);
-    attemptsWatcher.resetAttempts();
     resetToNoSelection();
 
     switch (action) {
@@ -284,12 +284,15 @@ abstract class GamePageState extends State<GamePage> {
         restartLevel();
         break;
     }
+
+    attemptsWatcher.resetAttempts();
   }
 
-  void buyHint({int cost = Costs.hintCostNormal}) {
+  void buyHint() {
     if (!poolGameLevel.canRequestHint()) {
       return;
     }
+    final cost = getHintCost();
     if (starCount < cost) {
       return;
     }
@@ -302,6 +305,10 @@ abstract class GamePageState extends State<GamePage> {
 
     _decreaseStarCount(cost);
     setState(() {});
+  }
+
+  int getHintCost() {
+    return Costs.hintCost(failedAttempts: attemptsWatcher.attemptsUsed);
   }
 
   void showReportDialog() {
@@ -390,12 +397,13 @@ abstract class GamePageState extends State<GamePage> {
                         componentInfos: getComponentInfos(),
                         hiddenComponentsCount:
                             poolGameLevel.hiddenComponents.length,
+                        hintCost: getHintCost(),
                         hintButtonInfo: MyIconButtonInfo(
                           icon: FontAwesomeIcons.lightbulb,
                           onPressed: () {
                             buyHint();
                           },
-                          enabled: poolGameLevel.canRequestHint() && starCount >= Costs.hintCostNormal,
+                          enabled: poolGameLevel.canRequestHint() && starCount >= getHintCost(),
                         ),
                       ),
                     ],

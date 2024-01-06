@@ -24,6 +24,7 @@ class BottomContent extends StatefulWidget {
     required this.hiddenComponentsCount,
     required this.hintButtonInfo,
     this.isLoading = false,
+    required this.hintCost,
   });
 
   final Function(int) onToggleSelection;
@@ -31,6 +32,7 @@ class BottomContent extends StatefulWidget {
   final int hiddenComponentsCount;
   final MyIconButtonInfo hintButtonInfo;
   final bool isLoading;
+  final int hintCost;
 
   factory BottomContent.loading() => BottomContent(
         onToggleSelection: (id) {},
@@ -42,6 +44,7 @@ class BottomContent extends StatefulWidget {
           enabled: false,
         ),
         isLoading: true,
+        hintCost: Costs.hintCostBase,
       );
 
   @override
@@ -120,7 +123,7 @@ class _BottomContentState extends State<BottomContent> {
             Row(
               children: [
                 Text(
-                  "${Costs.hintCostNormal}",
+                  "${widget.hintCost}",
                   style: Theme
                       .of(context)
                       .textTheme
