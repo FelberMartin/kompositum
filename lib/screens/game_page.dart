@@ -14,6 +14,7 @@ import 'package:kompositum/game/swappable_detector.dart';
 import 'package:kompositum/widgets/common/my_background.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 import 'package:kompositum/widgets/common/my_dialog.dart';
+import 'package:kompositum/widgets/play/star_fly_animation.dart';
 
 import '../game/attempts_watcher.dart';
 import '../game/hints/hint.dart';
@@ -59,6 +60,9 @@ abstract class GamePageState extends State<GamePage> {
 
   final StreamController<String> wordCompletionEventStream =
       StreamController<String>.broadcast();
+  var starCountIncreaseStream =
+      StreamController<StarIncreaseRequest>.broadcast();
+
 
   Map<SelectionType, int> selectionTypeToComponentId = {
     SelectionType.modifier: -1,
@@ -184,9 +188,18 @@ abstract class GamePageState extends State<GamePage> {
     resetToNoSelection();
   }
 
-  void _increaseStarCount(int amount) {
-    starCount += amount;
+  void _increaseStarCount(int amount, {Origin origin = Origin.compoundCompletion}) {
+    assert(amount >= 0);
+    starCountIncreaseStream.sink.add(StarIncreaseRequest(amount, origin));
     keyValueStore.storeStarCount(starCount);
+    setState(() {});
+  }
+
+  void _decreaseStarCount(int amount) {
+    assert(amount >= 0);
+    starCount -= amount;
+    keyValueStore.storeStarCount(starCount);
+    setState(() {});
   }
 
   void emitWordCompletionEvent(String word) {
@@ -272,7 +285,7 @@ abstract class GamePageState extends State<GamePage> {
       selectionTypeToComponentId[SelectionType.modifier] = hint.hintedComponent.id;
     }
 
-    _increaseStarCount(-cost);
+    _decreaseStarCount(cost);
     setState(() {});
   }
 
@@ -299,7 +312,7 @@ abstract class GamePageState extends State<GamePage> {
         onContinuePressed: () {
           Navigator.pop(context);
           var reward = Rewards.byDifficulty(poolGameLevel.displayedDifficulty);
-          _increaseStarCount(reward);
+          _increaseStarCount(reward, origin: Origin.levelCompletion);
           resetToNoSelection();
           onLevelCompletion();
         },
@@ -373,6 +386,13 @@ abstract class GamePageState extends State<GamePage> {
                     ],
                   ),
           ),
+        ),
+        StarFlyAnimations(
+          onIncreaseStarCount: (amount) {
+            starCount += amount;
+            setState(() {});
+          },
+          starIncreaseRequestStream: starCountIncreaseStream.stream,
         ),
       ],
     );

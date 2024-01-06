@@ -4,6 +4,7 @@
 
 - Animate star increase
   - Stars flying to top right
+- Homepage: show loading instead of level 0 and daily and starcount
 - Daily levels
   - Animate day state changes (selected / completed)
   - How to play past dailies?

@@ -5,6 +5,12 @@ import 'models/compound.dart';
 
 class KeyValueStore {
 
+  KeyValueStore({String? env}) {
+    if (true) {
+      SharedPreferences.setMockInitialValues({});
+    }
+  }
+
   Future<void> storeLevel(int level) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt("level", level);
