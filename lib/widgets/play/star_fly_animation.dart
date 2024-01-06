@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
@@ -32,12 +33,14 @@ class StarFlyAnimations extends StatefulWidget {
 }
 
 class _StarFlyAnimationsState extends State<StarFlyAnimations> {
+
   Map<Key, Origin> keys = {};
+  late StreamSubscription<StarIncreaseRequest> _subscription;
 
   @override
   void initState() {
     super.initState();
-    widget.starIncreaseRequestStream.listen((request) {
+    _subscription = widget.starIncreaseRequestStream.listen((request) {
       const delay = 100;
       for (var i = 0; i < request.amount; i++) {
         Future.delayed(Duration(milliseconds: i * delay), () {
@@ -47,6 +50,12 @@ class _StarFlyAnimationsState extends State<StarFlyAnimations> {
         });
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
   }
 
   @override
@@ -97,6 +106,12 @@ class _StarFlyAnimationWrapperState extends State<_StarFlyAnimationWrapper> with
       duration: const Duration(milliseconds: 1000),
     );
     _controller.forward().whenCompleteOrCancel(widget.onAnimationEnd);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
