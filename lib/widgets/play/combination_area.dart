@@ -80,9 +80,9 @@ class AnimatedTextFadeOut extends StatefulWidget {
 
 class AnimatedTextFadeOutState extends State<AnimatedTextFadeOut>
     with SingleTickerProviderStateMixin {
+
   late AnimationController _controller;
   late Animation<AlignmentGeometry> _alignAnimation;
-  late CurvedAnimation curve;
   late StreamSubscription<String> _textStreamSubscription;
 
   String _displayText = "";

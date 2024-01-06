@@ -16,6 +16,7 @@ import 'package:kompositum/widgets/common/my_buttons.dart';
 import 'package:kompositum/widgets/common/my_dialog.dart';
 import 'package:kompositum/widgets/play/star_fly_animation.dart';
 
+import '../data/models/compound.dart';
 import '../game/attempts_watcher.dart';
 import '../game/hints/hint.dart';
 import '../game/level_provider.dart';
@@ -69,13 +70,17 @@ abstract class GamePageState extends State<GamePage> {
     SelectionType.head: -1,
   };
 
+  /// Dummy values to set the selected components to after a compound was found
+  /// where the components should be shown in the UI but are already removed from the pool.
+  UniqueComponent? dummyModifier, dummyHead;
+
   UniqueComponent? get selectedModifier =>
       poolGameLevel.shownComponents.firstWhereOrNull((element) =>
-          element.id == selectionTypeToComponentId[SelectionType.modifier]);
+          element.id == selectionTypeToComponentId[SelectionType.modifier]) ?? dummyModifier;
 
   UniqueComponent? get selectedHead =>
       poolGameLevel.shownComponents.firstWhereOrNull((element) =>
-          element.id == selectionTypeToComponentId[SelectionType.head]);
+          element.id == selectionTypeToComponentId[SelectionType.head]) ?? dummyHead;
 
   @override
   void initState() {
@@ -173,7 +178,7 @@ abstract class GamePageState extends State<GamePage> {
     } else {
       poolGameLevel.removeCompoundFromShown(compound, selectedModifier!,
           selectedHead!);
-      _compoundFound(compound.name);
+      _compoundFound(compound);
       attemptsWatcher.resetAttempts();
       setState(() {});
       if (poolGameLevel.isLevelFinished()) {
@@ -182,10 +187,20 @@ abstract class GamePageState extends State<GamePage> {
     }
   }
 
-  void _compoundFound(String compoundName) {
+  void _compoundFound(Compound compound) {
     _increaseStarCount(Rewards.starsCompoundCompleted);
-    emitWordCompletionEvent(compoundName);
+    emitWordCompletionEvent(compound.name);
     resetToNoSelection();
+    setState(() {
+      dummyModifier = UniqueComponent(compound.modifier, 0);
+      dummyHead = UniqueComponent(compound.head, 0);
+    });
+    Future.delayed(Duration(milliseconds: 500), () {
+      setState(() {
+        dummyModifier = null;
+        dummyHead = null;
+      });
+    });
   }
 
   void _increaseStarCount(int amount, {Origin origin = Origin.compoundCompletion}) {
