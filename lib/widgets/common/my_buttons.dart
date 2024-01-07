@@ -120,7 +120,7 @@ class MySecondaryTextButton extends StatelessWidget {
     final textStyle = Theme.of(context).textTheme.labelMedium!;
     return My3dContainer(
       topColor: Theme.of(context).colorScheme.secondary,
-      sideColor: Theme.of(context).colorScheme.primary,
+      sideColor: MyColorPalette.of(context).secondaryShade,
       clickable: true,
       onPressed: onPressed,
       child: Padding(

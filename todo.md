@@ -17,7 +17,6 @@
   - Easter eggs (Apfelsaft, Orangensaft)
 - Improve Level completed dialog
 - Spinning wheel after completion / noAttemptsLeft?
-- Alternative color pallet? -> figma (yellow blue)
 
 ### Later
 - Check whether animations are still laggy in non-debug build (-> maybe remove add/remove component animation)

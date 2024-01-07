@@ -57,7 +57,7 @@ class MyIconButton extends StatelessWidget {
     const size = 48.0;
     return My3dContainer(
       topColor: Theme.of(context).colorScheme.secondary,
-      sideColor: Theme.of(context).colorScheme.primary,
+      sideColor: MyColorPalette.of(context).secondaryShade,
       clickable: enabled,
       onPressed: onPressed,
       cornerRadius: size / 2,

@@ -224,7 +224,7 @@ class WordWrapper extends StatelessWidget {
           : Theme.of(context).colorScheme.secondary,
       sideColor: isSelected
           ? MyColorPalette.of(context).primaryShade
-          : Theme.of(context).colorScheme.primary,
+          : MyColorPalette.of(context).secondaryShade,
       clickable: true,
       onPressed: () {
         onSelectionChanged(!isSelected);
@@ -234,7 +234,11 @@ class WordWrapper extends StatelessWidget {
         padding: const EdgeInsets.all(12.0),
         child: Text(
           text,
-          style: Theme.of(context).textTheme.labelMedium,
+          style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                color: isSelected
+                    ? Theme.of(context).colorScheme.onPrimary
+                    : Theme.of(context).colorScheme.onSecondary,
+              )
         ),
       ),
     );

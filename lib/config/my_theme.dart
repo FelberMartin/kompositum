@@ -25,7 +25,7 @@ class MyColorPalette extends ThemeExtension<MyColorPalette> {
   final Color textSecondary, star;
 
   factory MyColorPalette.fromPrimarySecondary(Color primary, Color secondary) {
-    final background = primary.lighten();
+    final background = secondary.lighten(0.2);
     return MyColorPalette(
       primary: primary,
       primaryShade: primary.darken(),
@@ -46,6 +46,33 @@ class MyColorPalette extends ThemeExtension<MyColorPalette> {
   static MyColorPalette classic = MyColorPalette.fromPrimarySecondary(
     Color(0xFF4C58BD),
     Color(0xFF6184FF),
+  );
+
+  static MyColorPalette classicBright = MyColorPalette(
+    primary: Color(0xFF4752B4),
+    primaryShade: Color(0xFF3240B5),
+    onPrimary: Color(0xFFFFFFFF),
+    secondary: Color(0xFF568FFF),
+    secondaryShade: Color(0xFF426AF5),
+    onSecondary: Color(0xFFFFFFFF),
+    background: Color(0xFFBED4FF),
+    textSecondary: Color(0xFFBED4FF),
+    star: defaultStar,
+  );
+
+  static MyColorPalette yellowBlue = MyColorPalette.fromPrimarySecondary(
+    Color(0xFFFFD75E),
+    Color(0xFF2C72DB),
+  );
+
+  static MyColorPalette orangeBlue = MyColorPalette.fromPrimarySecondary(
+    Color(0xFFE88C5B),
+    Color(0xFF5EA8FF),
+  );
+
+  static MyColorPalette redishGreen = MyColorPalette.fromPrimarySecondary(
+    Color(0xFFDE786B),
+    Color(0xFF80C5CA),
   );
 
 
@@ -83,7 +110,7 @@ class MyColorPalette extends ThemeExtension<MyColorPalette> {
   }
 }
 
-final _palette = MyColorPalette.classic;
+final _palette = MyColorPalette.classicBright;
 final myTheme = ThemeData(
     colorScheme: ColorScheme(
       brightness: Brightness.light,

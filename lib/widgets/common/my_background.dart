@@ -23,7 +23,6 @@ class MyBackground extends StatelessWidget {
       ),
       "assets/background.svg",
       fit: BoxFit.cover,
-      // colorFilter: ColorFilter.mode(Colors.grey, BlendMode.modulate),
     );
   }
 }
