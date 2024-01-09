@@ -202,7 +202,7 @@ abstract class GamePageState extends State<GamePage> {
   void _increaseStarCount(int amount, {Origin origin = Origin.compoundCompletion}) {
     assert(amount >= 0);
     starCountIncreaseStream.sink.add(StarIncreaseRequest(amount, origin));
-    keyValueStore.storeStarCount(starCount);
+    keyValueStore.increaseStarCount(amount);
     setState(() {});
   }
 

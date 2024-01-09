@@ -31,9 +31,15 @@ class KeyValueStore {
     await prefs.setInt("starCount", starCount);
   }
 
+  Future<void> increaseStarCount(int starCount) async {
+    final prefs = await SharedPreferences.getInstance();
+    final currentStarCount = await getStarCount();
+    await prefs.setInt("starCount", currentStarCount + starCount);
+  }
+
   Future<int> getStarCount() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getInt("starCount") ?? 0;
+    return prefs.getInt("starCount") ?? 100;
   }
 
   Future<void> storeDailiesCompleted(List<DateTime> completedDays) async {

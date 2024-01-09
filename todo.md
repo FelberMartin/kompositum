@@ -23,6 +23,7 @@
 - Progress bar?
 - Optimize database loading speed
 - Ads?
+- Guide on first launch? (or at least take directly to Level1 and skip homepage)
 
 ### UI Design
 - App icon
@@ -30,6 +31,9 @@
 - Sound Design
 
 # Bugs
+- Dailies are different on different devices
+- Complete a level -> click "weiter" -> navigate back -> click start -> the level is now different 
+  than before navigating back
 - The progress within one level is not stored, so one can "cheat" stars, by replaying the same level,
   but stopping before level completion, the stars collected so far will consist.
 - App is blackscreen when restarting it on phone (just a long loading time?)
