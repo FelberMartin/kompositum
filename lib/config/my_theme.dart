@@ -5,7 +5,7 @@ const Color undefined = Color(0xFFED14FF);
 
 class MyColorPalette extends ThemeExtension<MyColorPalette> {
   
-  static const Color defaultStar = Color(0xfff8df86);
+  static const Color defaultStar = Color(0xfffddb5e);
   
   MyColorPalette({
     required this.primary,

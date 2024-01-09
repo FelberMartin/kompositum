@@ -43,7 +43,7 @@ class NoAttemptsLeftDialog extends StatelessWidget {
           SizedBox(height: 16),
           OptionCard(
             icon: FontAwesomeIcons.redo,
-            iconSubtitleText: "20s",
+            iconSubtitleText: "Werbung",
             iconSubtitleIcon: FontAwesomeIcons.ad,
             actionText: "Neustarten",
             onActionPressed: () { onActionPressed(NoAttemptsLeftDialogAction.restart); },
@@ -103,7 +103,7 @@ class OptionCard extends StatelessWidget {
                       Text(
                           iconSubtitleText,
                           style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                            color: Theme.of(context).colorScheme.primary
+                            color: MyColorPalette.of(context).textSecondary,
                           ),
                       ),
                       const SizedBox(width: 4),
@@ -112,7 +112,7 @@ class OptionCard extends StatelessWidget {
                           size: isHintOption ? 14 : 18,
                           color: isHintOption
                               ? MyColorPalette.of(context).star
-                              : Theme.of(context).colorScheme.primary,
+                              : MyColorPalette.of(context).textSecondary,
                       ),
                     ],
                   ),
