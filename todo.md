@@ -21,7 +21,7 @@
 ### Later
 - Check whether animations are still laggy in non-debug build (-> maybe remove add/remove component animation)
 - Progress bar?
-- Optimize database loading speed
+- Optimize database loading speed (it is currently only loaded when generating the first level)
 - Ads?
 - Guide on first launch? (or at least take directly to Level1 and skip homepage)
 
@@ -31,7 +31,6 @@
 - Sound Design
 
 # Bugs
-- Dailies are different on different devices
 - Complete a level -> click "weiter" -> navigate back -> click start -> the level is now different 
   than before navigating back
 - The progress within one level is not stored, so one can "cheat" stars, by replaying the same level,

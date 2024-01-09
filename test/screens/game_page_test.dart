@@ -217,8 +217,6 @@ void main() {
   });
 
 
-
-
   group("UI tests", () {
     testWidgets(skip: false, "After loading, the components are shown", (tester) async {
       await tester.pumpWidget(MaterialApp(

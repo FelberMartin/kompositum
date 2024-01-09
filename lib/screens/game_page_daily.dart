@@ -20,7 +20,7 @@ class GamePageDailyState extends GamePageState {
 
   @override
   Future<void> preLevelUpdate(Object levelIdentifier, isLevelAdvance) async {
-    // Do nothing
+    poolGenerator.setBlockedCompounds([]);
   }
 
   @override
