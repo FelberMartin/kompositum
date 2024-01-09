@@ -220,34 +220,14 @@ void main() {
 
 
   group("UI tests", () {
-    testWidgets(skip: true, "After loading, the components are shown", (tester) async {
+    testWidgets(skip: false, "After loading, the components are shown", (tester) async {
       await tester.pumpWidget(MaterialApp(
+        theme: myTheme,
           home: GamePage(state: GamePageClassicState(levelProvider: levelProvider, poolGenerator: poolGenerator, keyValueStore: keyValueStore, swappableDetector: swappableDetector))
       ));
       await tester.pumpAndSettle();
 
-
-      expect(find.text("Apfel"), findsOneWidget);
-    });
-
-    // Test passes even if components are not shown in the app :(
-    testWidgets(skip: true, "After finished the first level and waiting for loading, the seconds level's components are shown", (tester) async {
-      final homePage = GamePage(state: GamePageClassicState(levelProvider: levelProvider, poolGenerator: poolGenerator, keyValueStore: keyValueStore, swappableDetector: swappableDetector));
-      await tester.pumpWidget(MaterialApp(home: homePage));
-      await tester.pumpAndSettle();
-
-      expect(find.text("Apfel"), findsOneWidget);
-
-      when(() => poolGenerator.generateFromLevelSetup(any()))
-          .thenAnswer((_) => Future.value([Compounds.Schneemann]));
-      final GamePageState state = tester.state(find.byType(GamePage));
-      state.toggleSelection(0);
-      state.toggleSelection(1);
-      await tester.pump(Duration(milliseconds: 1));
-      expect(find.text("Apfel"), findsNothing);
-
-      // await tester.pumpAndSettle();
-      expect(find.text("Schnee"), findsOneWidget);
+      expect(find.text("Apfel"), findsNWidgets(2));  // Due to the 3d container there are two widgets with the same text
     });
   });
 
