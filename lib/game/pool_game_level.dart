@@ -8,6 +8,8 @@ import 'package:kompositum/game/swappable_detector.dart';
 import '../data/models/compound.dart';
 import 'hints/hint.dart';
 
+
+
 class PoolGameLevel {
   final int maxShownComponentCount;
 
@@ -143,4 +145,49 @@ class PoolGameLevel {
   double getLevelProgress() {
     return 1 - _unsolvedCompounds.length / _allCompounds.length;
   }
+
+  static PoolGameLevel fromJson(Map<String, dynamic> json) {
+    final allCompounds = (json['_allCompounds'] as List)
+        .map((compound) => Compound.fromJson(compound))
+        .toList();
+    final unsolvedCompounds = (json['_unsolvedCompounds'] as List)
+        .map((compound) => Compound.fromJson(compound))
+        .toList();
+    final swappableCompounds = (json['swappableCompounds'] as List)
+        .map((compound) => Swappable.fromJson(compound))
+        .toList();
+    final shownComponents = (json['shownComponents'] as List)
+        .map((component) => UniqueComponent.fromJson(component))
+        .toList();
+    final hiddenComponents = (json['hiddenComponents'] as List)
+        .map((component) => UniqueComponent.fromJson(component))
+        .toList();
+    final hints = (json['hints'] as List)
+        .map((hint) => Hint.fromJson(hint))
+        .toList();
+    final displayedDifficulty = Difficulty.values[json['displayedDifficulty'] as int];
+    final maxShownComponentCount = json['maxShownComponentCount'] as int;
+
+    final poolGameLevel = PoolGameLevel(allCompounds,
+        swappableCompounds: swappableCompounds,
+        displayedDifficulty: displayedDifficulty,
+        maxShownComponentCount: maxShownComponentCount);
+
+    poolGameLevel.shownComponents.addAll(shownComponents);
+    poolGameLevel.hiddenComponents.addAll(hiddenComponents);
+    poolGameLevel.hints.addAll(hints);
+    poolGameLevel._unsolvedCompounds.addAll(unsolvedCompounds);
+    return poolGameLevel;
+  }
+
+  Map<String, dynamic> toJson() => {
+    '_allCompounds': _allCompounds.map((compound) => compound.toJson()).toList(),
+    '_unsolvedCompounds': _unsolvedCompounds.map((compound) => compound.toJson()).toList(),
+    'swappableCompounds': swappableCompounds.map((compound) => compound.toJson()).toList(),
+    'shownComponents': shownComponents.map((component) => component.toJson()).toList(),
+    'hiddenComponents': hiddenComponents.map((component) => component.toJson()).toList(),
+    'hints': hints.map((hint) => hint.toJson()).toList(),
+    'displayedDifficulty': displayedDifficulty.index,
+    'maxShownComponentCount': maxShownComponentCount,
+  };
 }

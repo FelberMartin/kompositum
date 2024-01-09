@@ -8,6 +8,31 @@ class Swappable {
   final Compound swapped;
 
   Swappable(this.original, this.swapped);
+
+  static Swappable fromJson(Map<String, dynamic> json) {
+    return Swappable(
+      Compound.fromJson(json['original']),
+      Compound.fromJson(json['swapped']),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    'original': original.toJson(),
+    'swapped': swapped.toJson(),
+  };
+
+  @override
+  String toString() {
+    return 'Swappable{original: $original, swapped: $swapped}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is Swappable && other.original == original && other.swapped == swapped;
+  }
+
+  @override
+  int get hashCode => original.hashCode ^ swapped.hashCode;
 }
 
 class SwappableDetector {

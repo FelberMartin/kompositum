@@ -20,7 +20,7 @@ class Compound {
   // The frequency class of the compound ranging from 0 (very frequent) to 28 (very infrequent)
   final int? frequencyClass;
 
-  static Compound fromMap(Map<String, dynamic> map) {
+  static Compound fromJson(Map<String, dynamic> map) {
     return Compound(
       name: map['name'] as String,
       modifier: map['modifier'] as String,
@@ -78,7 +78,7 @@ class Compound {
     );
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
       'name': name,
       'modifier': modifier,

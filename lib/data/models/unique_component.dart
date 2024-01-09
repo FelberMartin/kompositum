@@ -29,4 +29,13 @@ class UniqueComponent {
   String toString() {
     return 'UniqueComponent{text: $text, id: $id}';
   }
+
+  UniqueComponent.fromJson(Map<String, dynamic> json) :
+    text = json['text'],
+    id = json['id'];
+
+  Map<String, dynamic> toJson() => {
+    'text': text,
+    'id': id,
+  };
 }

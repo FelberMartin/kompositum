@@ -27,7 +27,7 @@ void main() {
             "head": "Haus",
             "frequencyClass": 1,
           };
-          final compound = Compound.fromMap(map);
+          final compound = Compound.fromJson(map);
           expect(compound.name, "Krankenhaus");
           expect(compound.modifier, "krank");
           expect(compound.head, "Haus");
@@ -44,7 +44,7 @@ void main() {
             "head": "Haus",
             "frequency_class": null,
           };
-          final compound = Compound.fromMap(map);
+          final compound = Compound.fromJson(map);
           expect(compound.name, "Krankenhaus");
           expect(compound.modifier, "krank");
           expect(compound.head, "Haus");
@@ -62,8 +62,8 @@ void main() {
         head: "Haus",
         frequencyClass: 1,
       );
-      final map = compound.toMap();
-      final compoundFromMap = Compound.fromMap(map);
+      final map = compound.toJson();
+      final compoundFromMap = Compound.fromJson(map);
       expect(compound, compoundFromMap);
     },
   );

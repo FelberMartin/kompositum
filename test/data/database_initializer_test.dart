@@ -77,7 +77,7 @@ void main() async {
 
         final compounds = await database.query("compounds");
         expect(compounds, isNotEmpty);
-        expect(compounds, compoundsFromOrigin.map((e) => e.toMap()));
+        expect(compounds, compoundsFromOrigin.map((e) => e.toJson()));
       },
     );
   });
@@ -95,7 +95,7 @@ void main() async {
 
         final compounds = await database.query("compounds");
         expect(compounds, isNotEmpty);
-        expect(compounds, compoundsFromOrigin.map((e) => e.toMap()));
+        expect(compounds, compoundsFromOrigin.map((e) => e.toJson()));
       },
     );
 
@@ -111,7 +111,7 @@ void main() async {
 
         final compounds = await database.query("compounds");
         expect(compounds, isNotEmpty);
-        expect(compounds, compoundsFromOrigin2.map((e) => e.toMap()));
+        expect(compounds, compoundsFromOrigin2.map((e) => e.toJson()));
       },
     );
   });

@@ -28,7 +28,7 @@ class DatabaseInterface {
   Future<List<Compound>> getAllCompounds() async {
     final db = await _database;
     final List<Map<String, dynamic>> maps = await db.query('compounds');
-    return maps.map((map) => Compound.fromMap(map)).toList();
+    return maps.map((map) => Compound.fromJson(map)).toList();
   }
 
   /// Get all the compound within the given compact frequency class.
@@ -47,7 +47,7 @@ class DatabaseInterface {
       where: frequencyClass == null ? null : 'frequencyClass <= ?',
       whereArgs: frequencyClass == null ? null : [frequencyClass],
     );
-    return maps.map((map) => Compound.fromMap(map)).toList();
+    return maps.map((map) => Compound.fromJson(map)).toList();
   }
 
   /// Get a compound with the given modifier and head. The modifier and
@@ -76,7 +76,7 @@ class DatabaseInterface {
     if (maps.isEmpty) {
       return null;
     }
-    return Compound.fromMap(maps.first);
+    return Compound.fromJson(maps.first);
   }
 
   /// Get a compound with the given modifier and head.
@@ -92,7 +92,7 @@ class DatabaseInterface {
     if (maps.isEmpty) {
       return null;
     }
-    return Compound.fromMap(maps.first);
+    return Compound.fromJson(maps.first);
   }
 
   /// Get the compound with the given name. If no compound with the given name
@@ -108,7 +108,7 @@ class DatabaseInterface {
     if (maps.isEmpty) {
       return null;
     }
-    return Compound.fromMap(maps.first);
+    return Compound.fromJson(maps.first);
   }
 
   /// Get a random compound with a frequency class lower or equal to the given
@@ -149,7 +149,7 @@ class DatabaseInterface {
     if (maps.isEmpty) {
       return null;
     }
-    return Compound.fromMap(maps.first);
+    return Compound.fromJson(maps.first);
   }
 
   /// Get a random compound with a frequency class lower or equal to the given
@@ -174,6 +174,6 @@ class DatabaseInterface {
 
     final sample = randomSampleWithoutReplacement(
         compoundDataMaps, min(count, compoundDataMaps.length), random: random);
-    return sample.map((map) => Compound.fromMap(map)).toList();
+    return sample.map((map) => Compound.fromJson(map)).toList();
   }
 }

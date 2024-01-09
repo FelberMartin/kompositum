@@ -54,4 +54,29 @@ class Hint {
         (component) => component.text == hintedCompound.modifier);
     return Hint(hintedComponent, HintComponentType.modifier);
   }
+
+  Hint.fromJson(Map<String, dynamic> json) :
+    hintedComponent = UniqueComponent.fromJson(json['hintedComponent']),
+    type = json['type'] == 'modifier' ? HintComponentType.modifier : HintComponentType.head;
+
+  Map<String, dynamic> toJson() => {
+    'hintedComponent': hintedComponent.toJson(),
+    'type': type == HintComponentType.modifier ? 'modifier' : 'head',
+  };
+
+  @override
+  String toString() {
+    return 'Hint{hintedComponent: $hintedComponent, type: $type}';
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Hint &&
+          runtimeType == other.runtimeType &&
+          hintedComponent == other.hintedComponent &&
+          type == other.type;
+
+  @override
+  int get hashCode => hintedComponent.hashCode ^ type.hashCode;
 }

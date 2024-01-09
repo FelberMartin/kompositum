@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:kompositum/data/models/compound.dart';
 import 'package:kompositum/data/models/unique_component.dart';
 import 'package:kompositum/game/hints/hint.dart';
@@ -176,6 +177,41 @@ void main() {
 
       removeCompoundHelper(sut, Compounds.Apfelbaum);
       expect(sut.hints, hasLength(1));
+    });
+  });
+
+  group("json", () {
+    test("should keep the main attributes after toJson -> fromJson", () {
+      sut = PoolGameLevel(
+        [Compounds.Krankenhaus, Compounds.Apfelbaum],
+        maxShownComponentCount: 3,
+        swappableCompounds: [Swappable(Compounds.Maschinenbau, Compounds.Baumaschine)],
+      );
+
+      final json = sut.toJson();
+      final sut2 = PoolGameLevel.fromJson(json);
+
+      expect(sut2.maxShownComponentCount, equals(3));
+      expect(sut2.displayedDifficulty, equals(sut.displayedDifficulty));
+      expect(sut2.shownComponents, containsAllInOrder(sut.shownComponents));
+      expect(sut2.hiddenComponents, containsAllInOrder(sut.hiddenComponents));
+      expect(sut2.swappableCompounds, containsAllInOrder(sut.swappableCompounds));
+    });
+
+    test("should contain info about unsolved compounds", () {
+      Map<String, dynamic> json = sut.toJson();
+      expect(json, contains("_unsolvedCompounds"));
+    });
+
+    test("should preserve the hints", () {
+      sut.requestHint();
+      sut.requestHint();
+      Map<String, dynamic> json = sut.toJson();
+      final sut2 = PoolGameLevel.fromJson(json);
+
+      expect(sut2.hints, hasLength(2));
+      expect(sut2.hints.first, equals(sut.hints.first));
+      expect(sut2.hints.last, equals(sut.hints.last));
     });
   });
 }

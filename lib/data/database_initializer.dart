@@ -69,7 +69,7 @@ class DatabaseInitializer {
     await compoundOrigin.getCompounds().then((compoundData) async {
       var batch = db.batch();
       for (final (index, compound) in compoundData.indexed) {
-        batch.insert("compounds", compound.toMap());
+        batch.insert("compounds", compound.toJson());
         if (index % batchSize == 0) {
           await batch.commit();
           batch = db.batch();
