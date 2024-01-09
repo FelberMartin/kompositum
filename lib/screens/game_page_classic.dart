@@ -1,3 +1,4 @@
+import '../data/models/compound.dart';
 import 'game_page.dart';
 
 class GamePageClassicState extends GamePageState {
@@ -6,11 +7,17 @@ class GamePageClassicState extends GamePageState {
   int currentLevel = 0;
 
   @override
-  void startGame() {
-    keyValueStore.getLevel().then((value) {
-      currentLevel = value;
+  void startGame() async {
+    currentLevel = await keyValueStore.getLevel();
+    final storedProgress = await keyValueStore.getClassicPoolGameLevel();
+    if (storedProgress != null) {
+      levelSetup = levelProvider.generateLevelSetup(currentLevel);
+      poolGameLevel = storedProgress;
+      setState(() { isLoading = false; });
+      print("Loaded level $currentLevel from storage");
+    } else {
       updateGameToLevel(currentLevel, isLevelAdvance: false);
-    });
+    }
   }
 
   @override
@@ -28,6 +35,11 @@ class GamePageClassicState extends GamePageState {
       final blocked = await keyValueStore.getBlockedCompoundNames();
       poolGenerator.setBlockedCompounds(blocked);
     }
+  }
+
+  @override
+  void onPoolGameLevelUpdate() {
+    keyValueStore.storeClassicPoolGameLevel(poolGameLevel);
   }
 
   @override

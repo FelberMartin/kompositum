@@ -1,6 +1,9 @@
 
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../game/pool_game_level.dart';
 import 'models/compound.dart';
 
 class KeyValueStore {
@@ -54,5 +57,16 @@ class KeyValueStore {
     return completedDaysString.map((dayString) => DateTime.parse(dayString)).toList();
   }
 
+  Future<void> storeClassicPoolGameLevel(PoolGameLevel level) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString("classicPoolGameLevel", jsonEncode(level.toJson()));
+  }
 
+  Future<PoolGameLevel?> getClassicPoolGameLevel() async {
+    final prefs = await SharedPreferences.getInstance();
+    final json = prefs.getString("classicPoolGameLevel");
+    if (json != null) {
+      return PoolGameLevel.fromJson(Map<String, dynamic>.from(jsonDecode(json)));
+    }
+  }
 }

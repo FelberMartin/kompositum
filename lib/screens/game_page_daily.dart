@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:kompositum/screens/game_page.dart';
 
+import '../data/models/compound.dart';
+
 class GamePageDailyState extends GamePageState {
   GamePageDailyState({
     required super.levelProvider,
@@ -21,6 +23,11 @@ class GamePageDailyState extends GamePageState {
   @override
   Future<void> preLevelUpdate(Object levelIdentifier, isLevelAdvance) async {
     poolGenerator.setBlockedCompounds([]);
+  }
+
+  @override
+  void onPoolGameLevelUpdate() {
+    // Do nothing
   }
 
   @override

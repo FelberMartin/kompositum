@@ -31,10 +31,6 @@
 - Sound Design
 
 # Bugs
-- Complete a level -> click "weiter" -> navigate back -> click start -> the level is now different 
-  than before navigating back
-- The progress within one level is not stored, so one can "cheat" stars, by replaying the same level,
-  but stopping before level completion, the stars collected so far will consist.
 - App is blackscreen when restarting it on phone (just a long loading time?)
 
 

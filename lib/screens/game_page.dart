@@ -113,6 +113,7 @@ abstract class GamePageState extends State<GamePage> {
       displayedDifficulty: levelSetup!.displayedDifficulty,
       swappableCompounds: swappables,
     );
+    onPoolGameLevelUpdate();
 
     setState(() {
       isLoading = false;
@@ -120,6 +121,10 @@ abstract class GamePageState extends State<GamePage> {
   }
 
   Future<void> preLevelUpdate(Object levelIdentifier, isLevelAdvance);
+
+  /// Abstract method to override in subclasses. Called whenever
+  /// the poolGameLevel is updated.
+  void onPoolGameLevelUpdate();
 
   void restartLevel() {
     updateGameToLevel(levelSetup!.levelIdentifier, isLevelAdvance: false);
@@ -187,6 +192,8 @@ abstract class GamePageState extends State<GamePage> {
     _increaseStarCount(Rewards.starsCompoundCompleted);
     emitWordCompletionEvent(compound.name);
     resetToNoSelection();
+    onPoolGameLevelUpdate();
+
     setState(() {
       dummyModifier = UniqueComponent(compound.modifier, 0);
       dummyHead = UniqueComponent(compound.head, 0);

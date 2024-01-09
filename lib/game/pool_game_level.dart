@@ -173,9 +173,12 @@ class PoolGameLevel {
         displayedDifficulty: displayedDifficulty,
         maxShownComponentCount: maxShownComponentCount);
 
+    poolGameLevel.shownComponents.clear();
     poolGameLevel.shownComponents.addAll(shownComponents);
+    poolGameLevel.hiddenComponents.clear();
     poolGameLevel.hiddenComponents.addAll(hiddenComponents);
     poolGameLevel.hints.addAll(hints);
+    poolGameLevel._unsolvedCompounds.clear();
     poolGameLevel._unsolvedCompounds.addAll(unsolvedCompounds);
     return poolGameLevel;
   }
