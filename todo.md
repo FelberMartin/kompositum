@@ -8,7 +8,6 @@
     - Show dialog similar to outOfAttempts
   - Special reward after completing month?
   - extra daily completion dialog? (with option to continue classic mode)
-  - In overview page, automatically focus the next playable daily
 - Sound
   - Create/play sounds
   - Mute button

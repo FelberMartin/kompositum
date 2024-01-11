@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/screens/game_page_daily.dart';
-import 'package:kompositum/util/date_extension.dart';
+import 'package:kompositum/util/date_util.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 import 'package:kompositum/widgets/common/my_icon_button.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -35,9 +35,11 @@ class DailyOverviewPage extends StatefulWidget {
 
 class _DailyOverviewPageState extends State<DailyOverviewPage> {
   late KeyValueStore keyValueStore = locator<KeyValueStore>();
+  late DateTime? _selectedDay;
+
+  DateTime _focusedDay = DateTime.now();
 
   int starCount = 0;
-  DateTime _selectedDay = DateTime.now();
   List<DateTime> completedDays = [];
 
   @override
@@ -47,18 +49,20 @@ class _DailyOverviewPageState extends State<DailyOverviewPage> {
     initializeDateFormatting('de_DE', null);
   }
 
-  void _updatePage() {
-    keyValueStore.getStarCount().then((value) {
-      setState(() {
-        starCount = value;
-      });
-    });
+  void _updatePage() async {
+    starCount = await keyValueStore.getStarCount();
+    completedDays = await keyValueStore.getDailiesCompleted();
+    _updateSelectedDay();
+  }
 
-    keyValueStore.getDailiesCompleted().then((value) {
-      setState(() {
-        completedDays = value;
-      });
-    });
+  void _updateSelectedDay() {
+    _selectedDay = findNextDateInMonthNotInList(
+      maxDate: DateTime.now(),
+      excludeList: completedDays,
+      inMonth: _focusedDay,
+    );
+    print("selectedDay: $_selectedDay");
+    setState(() {});
   }
 
   void _launchGame() {
@@ -69,7 +73,7 @@ class _DailyOverviewPageState extends State<DailyOverviewPage> {
         poolGenerator: locator<CompoundPoolGenerator>(),
         keyValueStore: locator<KeyValueStore>(),
         swappableDetector: locator<SwappableDetector>(),
-        date: _selectedDay,
+        date: _selectedDay!,
       ))),
     ).then((value) {
       _updatePage();
@@ -109,18 +113,20 @@ class _DailyOverviewPageState extends State<DailyOverviewPage> {
                     Expanded(flex: 2, child: Container()),
                     Calendar(
                       selectedDay: _selectedDay,
-                      onDaySelected: (day) {
-                        setState(() {
-                          _selectedDay = day;
-                        });
+                      focusedDay: _focusedDay,
+                      setSelectedDay: (day) {
+                        setState(() { _selectedDay = day; });
+                      },
+                      setFocusDay: (day) {
+                        _focusedDay = day;
+                        _updateSelectedDay();
                       },
                       completedDays: completedDays,
                     ),
                     Expanded(child: Container()),
                     MyPrimaryTextButtonLarge(
                       text: "Start",
-                      enabled: !completedDays.any((datetime) => datetime.isSameDate(_selectedDay))
-                          && _selectedDay.isBefore(DateTime.now()),
+                      enabled: isPlayEnabled(),
                       onPressed: () {
                         _launchGame();
                       },
@@ -134,19 +140,36 @@ class _DailyOverviewPageState extends State<DailyOverviewPage> {
       ],
     );
   }
+
+  bool isPlayEnabled() {
+    if (_selectedDay == null) {
+      return false;
+    }
+    if (completedDays.any((datetime) => datetime.isSameDate(_selectedDay!))) {
+      return false;
+    }
+    if (_selectedDay!.isAfter(DateTime.now())) {
+      return false;
+    }
+    return true;
+  }
 }
 
 class Calendar extends StatelessWidget {
 
   const Calendar({
     required this.selectedDay,
-    required this.onDaySelected,
+    required this.focusedDay,
+    required this.setSelectedDay,
+    required this.setFocusDay,
     required this.completedDays,
     super.key,
   });
 
-  final DateTime selectedDay;
-  final Function(DateTime) onDaySelected;
+  final DateTime? selectedDay;
+  final DateTime focusedDay;
+  final Function(DateTime) setSelectedDay;
+  final Function(DateTime) setFocusDay;
   final List<DateTime> completedDays;
 
   bool isCompleted(DateTime date) {
@@ -156,7 +179,7 @@ class Calendar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TableCalendar(
-      focusedDay: selectedDay,
+      focusedDay: focusedDay,
       firstDay: DateTime.utc(2023, 10, 1),  // TODO: change to value that makes sense
       lastDay: DateTime.now(),
       currentDay: DateTime.now(),
@@ -184,8 +207,15 @@ class Calendar extends StatelessWidget {
       selectedDayPredicate: (day) {
         return isSameDay(selectedDay, day);
       },
-      onDaySelected: (_selectedDay, focusedDay) {
-        onDaySelected(_selectedDay);
+      onDaySelected: (_selectedDay, _focusedDay) {
+        print("onDaySelected: $_selectedDay, $_focusedDay");
+        if (!isCompleted(_selectedDay)) {
+          setSelectedDay(_selectedDay);
+        }
+      },
+      onPageChanged: (focusedDay) {
+        print("onPageChanged: $focusedDay");
+        setFocusDay(focusedDay);
       },
       calendarBuilders: CalendarBuilders(
         defaultBuilder: (context, date, _) {
