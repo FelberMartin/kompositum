@@ -287,7 +287,7 @@ abstract class GamePageState extends State<GamePage> {
         buyHint();
         break;
       case NoAttemptsLeftDialogAction.restart:
-        adManager.showAd().then((value) => restartLevel());
+        adManager.showAd(context).then((value) => restartLevel());
         break;
     }
 
