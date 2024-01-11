@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 
+import '../../../config/my_icons.dart';
 import '../../../config/star_costs_rewards.dart';
 import '../../../config/my_theme.dart';
 import '../../common/my_dialog.dart';
@@ -70,9 +71,9 @@ class StarBonusInfo extends StatelessWidget {
             ),
             SizedBox(width: 4),
             Icon(
-              FontAwesomeIcons.solidStar,
+              MyIcons.star,
               color: MyColorPalette.of(context).star,
-              size: 32,
+              size: 46,
             ),
           ],
         ),

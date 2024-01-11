@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import '../../config/my_icons.dart';
 import '../../config/my_theme.dart';
 
 class StarIncreaseRequest {
@@ -177,7 +178,7 @@ class _StarFlyAnimation extends StatelessWidget {
           child: Opacity(
             opacity: _opacity.value,
             child: Icon(
-              Icons.star_rounded,
+              MyIcons.star,
               color: MyColorPalette.of(context).star,
               size: min(_sizeGrow.value, _sizeShrink.value),
               shadows: [

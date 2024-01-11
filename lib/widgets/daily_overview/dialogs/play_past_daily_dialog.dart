@@ -53,7 +53,6 @@ class PlayPastDailyDialog extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 6.0),
                   child: Icon(
                     MyIcons.star,
-                    size: 14,
                     color: MyColorPalette.of(context).star,
                   ),
                 ),

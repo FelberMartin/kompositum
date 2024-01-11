@@ -66,7 +66,6 @@ class _DailyOverviewPageState extends State<DailyOverviewPage> {
       excludeList: completedDays,
       inMonth: _focusedDay,
     );
-    print("selectedDay: $_selectedDay");
     setState(() {});
   }
 
@@ -243,13 +242,11 @@ class Calendar extends StatelessWidget {
         return isSameDay(selectedDay, day);
       },
       onDaySelected: (_selectedDay, _focusedDay) {
-        print("onDaySelected: $_selectedDay, $_focusedDay");
         if (!isCompleted(_selectedDay)) {
           setSelectedDay(_selectedDay);
         }
       },
       onPageChanged: (focusedDay) {
-        print("onPageChanged: $focusedDay");
         setFocusDay(focusedDay);
       },
       calendarBuilders: CalendarBuilders(
