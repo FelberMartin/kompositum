@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kompositum/config/star_costs_rewards.dart';
 import 'package:kompositum/widgets/common/my_3d_container.dart';
 
+import '../../config/my_icons.dart';
 import '../../config/my_theme.dart';
 import '../../game/hints/hint.dart';
 import '../../screens/game_page.dart';
@@ -37,7 +38,7 @@ class BottomContent extends StatefulWidget {
         componentInfos: [],
         hiddenComponentsCount: 0,
         hintButtonInfo: MyIconButtonInfo(
-          icon: FontAwesomeIcons.lightbulb,
+          icon: MyIcons.hint,
           onPressed: () {},
           enabled: false,
         ),
@@ -129,7 +130,7 @@ class _BottomContentState extends State<BottomContent> {
                   ),
                 ),
                 Icon(
-                  Icons.star_rounded,
+                  MyIcons.star,
                   color: MyColorPalette.of(context).star,
                   size: 16.0,
                 ),

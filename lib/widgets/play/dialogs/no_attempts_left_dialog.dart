@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 
+import '../../../config/my_icons.dart';
 import '../../../config/my_theme.dart';
 import '../../common/my_dialog.dart';
 
@@ -33,9 +34,9 @@ class NoAttemptsLeftDialog extends StatelessWidget {
       child: Column(
         children: [
           OptionCard(
-            icon: FontAwesomeIcons.lightbulb,
+            icon: MyIcons.hint,
             iconSubtitleText: "$hintCost",
-            iconSubtitleIcon: FontAwesomeIcons.solidStar,
+            iconSubtitleIcon: MyIcons.star,
             actionText: "Mit Tipp fortfahren",
             onActionPressed: () { onActionPressed(NoAttemptsLeftDialogAction.hint); },
             isEnabled: isHintAvailable,
@@ -44,7 +45,7 @@ class NoAttemptsLeftDialog extends StatelessWidget {
           OptionCard(
             icon: FontAwesomeIcons.redo,
             iconSubtitleText: "Werbung",
-            iconSubtitleIcon: FontAwesomeIcons.ad,
+            iconSubtitleIcon: MyIcons.ad,
             actionText: "Neustarten",
             onActionPressed: () { onActionPressed(NoAttemptsLeftDialogAction.restart); },
           ),

@@ -5,6 +5,8 @@ class Costs {
   static const int hintCostBase = 30;
   static const int hintCostIncreasePerFailedAttempt = 5;
 
+  static const int pastDailyCost = 80;
+
   static int hintCost({required int failedAttempts}) {
     return hintCostBase + failedAttempts * hintCostIncreasePerFailedAttempt;
   }

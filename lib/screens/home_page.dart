@@ -13,6 +13,7 @@ import 'package:kompositum/widgets/common/my_bottom_navigation_bar.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 
 import '../config/locator.dart';
+import '../config/my_icons.dart';
 import '../config/my_theme.dart';
 import '../data/key_value_store.dart';
 import '../game/pool_generator/compound_pool_generator.dart';
@@ -198,7 +199,7 @@ class DailyLevelContainer extends StatelessWidget {
               ),
               SizedBox(height: 16),
               Icon(
-                FontAwesomeIcons.solidCalendarDays,
+                MyIcons.daily,
                 color: Theme.of(context).colorScheme.onSecondary,
                 size: 32,
               ),

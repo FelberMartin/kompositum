@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kompositum/widgets/common/util/clip_shadow_path.dart';
 import 'package:kompositum/widgets/common/util/rounded_edge_clipper.dart';
 
+import '../../config/my_icons.dart';
 import '../../config/my_theme.dart';
 import 'my_icon_button.dart';
 
@@ -49,7 +50,7 @@ class MyDefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
             textStyle: Theme.of(context).textTheme.labelLarge,
           ),
           Icon(
-            Icons.star_rounded,
+            MyIcons.star,
             color: MyColorPalette.of(context).star,
           ),
           SizedBox(width: 16.0),

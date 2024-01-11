@@ -104,32 +104,71 @@ class MyPrimaryTextButtonLarge extends StatelessWidget {
   }
 }
 
+class MySecondaryButton extends StatelessWidget {
+
+  const MySecondaryButton({
+    required this.onPressed,
+    this.enabled = true,
+    required this.child,
+    super.key,
+  });
+
+  final bool enabled;
+  final Function onPressed;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return My3dContainer(
+      topColor: Theme.of(context).colorScheme.secondary,
+      sideColor: MyColorPalette.of(context).secondaryShade,
+      clickable: enabled,
+      onPressed: onPressed,
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: child,
+      ),
+    );
+  }
+}
+
 class MySecondaryTextButton extends StatelessWidget {
 
   const MySecondaryTextButton({
     required this.onPressed,
     required this.text,
+    this.enabled = true,
+    this.trailingIcon,
     super.key,
   });
 
   final Function onPressed;
   final String text;
+  final bool enabled;
+  final Widget? trailingIcon;
 
   @override
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme.labelMedium!;
-    return My3dContainer(
-      topColor: Theme.of(context).colorScheme.secondary,
-      sideColor: MyColorPalette.of(context).secondaryShade,
-      clickable: true,
+    return MySecondaryButton(
       onPressed: onPressed,
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Text(
-          text,
-          style: textStyle.copyWith(color: Theme.of(context).colorScheme.onSecondary),
+      child: Center(
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              text,
+              style: textStyle.copyWith(
+                  color: enabled
+                      ? Theme.of(context).colorScheme.onSecondary
+                      : MyColorPalette.of(context).textSecondary
+              ),
+            ),
+            if (trailingIcon != null) trailingIcon!,
+          ],
         ),
-      ),
+      )
     );
   }
 }

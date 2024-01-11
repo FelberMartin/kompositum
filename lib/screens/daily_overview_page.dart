@@ -5,17 +5,21 @@ import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/screens/game_page_daily.dart';
 import 'package:kompositum/util/date_util.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
+import 'package:kompositum/widgets/common/my_dialog.dart';
 import 'package:kompositum/widgets/common/my_icon_button.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../config/locator.dart';
 import '../config/my_theme.dart';
+import '../config/star_costs_rewards.dart';
 import '../data/key_value_store.dart';
 import '../game/pool_generator/compound_pool_generator.dart';
 import '../game/swappable_detector.dart';
+import '../util/ads/ad_manager.dart';
 import '../widgets/common/my_app_bar.dart';
 import '../widgets/common/my_background.dart';
 import '../widgets/common/my_bottom_navigation_bar.dart';
+import '../widgets/daily_overview/dialogs/play_past_daily_dialog.dart';
 import 'game_page.dart';
 
 void main() async {
@@ -35,8 +39,9 @@ class DailyOverviewPage extends StatefulWidget {
 
 class _DailyOverviewPageState extends State<DailyOverviewPage> {
   late KeyValueStore keyValueStore = locator<KeyValueStore>();
-  late DateTime? _selectedDay;
+  late AdManager adManager = locator<AdManager>();
 
+  DateTime? _selectedDay;
   DateTime _focusedDay = DateTime.now();
 
   int starCount = 0;
@@ -63,6 +68,36 @@ class _DailyOverviewPageState extends State<DailyOverviewPage> {
     );
     print("selectedDay: $_selectedDay");
     setState(() {});
+  }
+
+  void _onPlayPressed() {
+    if (_selectedDay == null) {
+      return;
+    }
+    if (_selectedDay!.isSameDate(DateTime.now())) {
+      _launchGame();
+      return;
+    }
+    _openPlayPastDailyDialog();
+  }
+
+  void _openPlayPastDailyDialog() {
+    animateDialog(context: context, dialog: PlayPastDailyDialog(
+      hasEnoughStars: starCount >= Costs.pastDailyCost,
+    )).then((result) {
+      if (result == null) {
+        return;
+      }
+      if (result == PlayPastDailyDialogResult.playWithStars) {
+        keyValueStore.increaseStarCount(-Costs.pastDailyCost);
+        _launchGame();
+      }
+      if (result == PlayPastDailyDialogResult.playWithAd) {
+        adManager.showAd().then((value) {
+          _launchGame();
+        });
+      }
+    });
   }
 
   void _launchGame() {
@@ -128,7 +163,7 @@ class _DailyOverviewPageState extends State<DailyOverviewPage> {
                       text: "Start",
                       enabled: isPlayEnabled(),
                       onPressed: () {
-                        _launchGame();
+                        _onPlayPressed();
                       },
                     ),
                     Expanded(child: Container()),
@@ -288,7 +323,7 @@ class DayContainer extends StatelessWidget {
         duration: const Duration(milliseconds: 100),
         decoration: BoxDecoration(
           color: color,
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(12.0),
           border: Border.all(
             color: isSelected ? Colors.white : Colors.transparent,
             width: 2.0,
@@ -301,7 +336,7 @@ class DayContainer extends StatelessWidget {
             child: isCompleted
                 ? Icon(
               FontAwesomeIcons.check,
-              color: Theme.of(context).colorScheme.onSecondary,
+              color: MyColorPalette.of(context).textSecondary,
               size: 16.0,
             )
                 : Text(

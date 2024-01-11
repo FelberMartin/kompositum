@@ -55,12 +55,12 @@ class MyDialog extends StatelessWidget {
   }
 }
 
-void animateDialog({
+Future<T?> animateDialog<T extends Object?>({
   required BuildContext context,
   bool barrierDismissible = true,
   required Widget dialog,
 }) {
-  showGeneralDialog(
+  return showGeneralDialog(
       barrierColor: Colors.black.withOpacity(0.5),
       transitionBuilder: (context, a1, a2, widget) {
         return Transform.scale(

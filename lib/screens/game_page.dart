@@ -12,11 +12,13 @@ import 'package:kompositum/widgets/common/my_background.dart';
 import 'package:kompositum/widgets/common/my_dialog.dart';
 import 'package:kompositum/widgets/play/star_fly_animation.dart';
 
+import '../config/locator.dart';
 import '../data/models/compound.dart';
 import '../game/attempts_watcher.dart';
 import '../game/hints/hint.dart';
 import '../game/level_provider.dart';
 import '../game/pool_game_level.dart';
+import '../util/ads/ad_manager.dart';
 import '../widgets/common/my_icon_button.dart';
 import '../widgets/play/bottom_content.dart';
 import '../widgets/play/combination_area.dart';
@@ -48,6 +50,8 @@ abstract class GamePageState extends State<GamePage> {
   final CompoundPoolGenerator poolGenerator;
   final KeyValueStore keyValueStore;
   final SwappableDetector swappableDetector;
+  late AdManager adManager = locator<AdManager>();
+
   late PoolGameLevel poolGameLevel;
   late AttemptsWatcher attemptsWatcher;
 
@@ -283,8 +287,7 @@ abstract class GamePageState extends State<GamePage> {
         buyHint();
         break;
       case NoAttemptsLeftDialogAction.restart:
-      // TODO: show advertisement
-        restartLevel();
+        adManager.showAd().then((value) => restartLevel());
         break;
     }
 
