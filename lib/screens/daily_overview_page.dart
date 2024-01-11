@@ -192,7 +192,6 @@ class Calendar extends StatelessWidget {
           return DayContainer(
             date: date,
             isSelected: selectedDay == date,
-            isToday: isSameDay(DateTime.now(), date),
             isInMonth: true,
             isCompleted: isCompleted(date),
           );
@@ -201,7 +200,6 @@ class Calendar extends StatelessWidget {
           return DayContainer(
             date: date,
             isSelected: selectedDay == date,
-            isToday: isSameDay(DateTime.now(), date),
             isInMonth: false,
             isCompleted: isCompleted(date),
           );
@@ -210,7 +208,6 @@ class Calendar extends StatelessWidget {
           return DayContainer(
             date: date,
             isSelected: true,
-            isToday: isSameDay(DateTime.now(), date),
             isInMonth: true,
             isCompleted: isCompleted(date),
           );
@@ -219,7 +216,6 @@ class Calendar extends StatelessWidget {
           return DayContainer(
             date: date,
             isSelected: selectedDay == date,
-            isToday: true,
             isInMonth: true,
             isCompleted: isCompleted(date),
           );
@@ -236,7 +232,6 @@ class DayContainer extends StatelessWidget {
   const DayContainer({
     required this.date,
     required this.isSelected,
-    required this.isToday,
     required this.isInMonth,
     required this.isCompleted,
     super.key,
@@ -244,7 +239,6 @@ class DayContainer extends StatelessWidget {
 
   final DateTime date;
   final bool isSelected;
-  final bool isToday;
   final bool isInMonth;
   final bool isCompleted;
 
@@ -260,27 +254,31 @@ class DayContainer extends StatelessWidget {
 
     return Opacity(
       opacity: isInMonth ? 1.0 : 0.5,
-      child: Container(
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 100),
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(8.0),
           border: Border.all(
-            color: isToday ? Colors.white : Colors.transparent,
+            color: isSelected ? Colors.white : Colors.transparent,
             width: 2.0,
           ),
         ),
         margin: const EdgeInsets.all(4.0),
         child: Center(
-          child: isCompleted
-            ? Icon(
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 400),
+            child: isCompleted
+                ? Icon(
               FontAwesomeIcons.check,
               color: Theme.of(context).colorScheme.onSecondary,
               size: 16.0,
             )
-            : Text(
-                date.day.toString(),
-                style: Theme.of(context).textTheme.labelMedium!,
+                : Text(
+              date.day.toString(),
+              style: Theme.of(context).textTheme.labelMedium!,
             ),
+          )
         ),
       ),
     );

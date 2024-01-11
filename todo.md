@@ -3,7 +3,6 @@
 ### Next up
 
 - Daily levels
-  - Animate day state changes (selected / completed)
   - How to play past dailies?
     - Show cost with start button (eg. 100 stars / ad)
     - Show dialog similar to outOfAttempts
