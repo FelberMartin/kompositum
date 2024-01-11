@@ -3,9 +3,6 @@
 ### Next up
 
 - Daily levels
-  - How to play past dailies?
-    - Show cost with start button (eg. 100 stars / ad)
-    - Show dialog similar to outOfAttempts
   - Special reward after completing month?
   - extra daily completion dialog? (with option to continue classic mode)
 - Also store attemptsCounter progress during games
