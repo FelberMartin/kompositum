@@ -54,7 +54,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
     return ClipPath(
       clipper: RoundedEdgeClipper(onBottom: false),
       child: SizedBox(
-        height: 80,
+        height: 66,
         child: BottomNavigationBar(
           items: items,
           onTap: (index) {

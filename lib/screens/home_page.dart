@@ -224,9 +224,14 @@ class DailyLevelContainer extends StatelessWidget {
                         color: Theme.of(context).colorScheme.onSecondary,
                         size: 32,
                       )
-                      : MySecondaryTextButton(
-                        text: "Start",
-                        onPressed: onPlayPressed,
+                      : Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          MySecondaryTextButton(
+                            text: "Start",
+                            onPressed: onPlayPressed,
+                          ),
+                        ],
                       ),
                 ),
               ),

@@ -5,7 +5,6 @@
 - Daily levels
   - extra daily completion dialog? (with option to continue classic mode)
 - Also store attemptsCounter progress during games
-- Make bottom and top bar slightly smaller
 - Sound
   - Create/play sounds
   - Mute button
@@ -24,7 +23,6 @@
 ### UI Design
 - App icon
 - App name
-- Sound Design
 
 # Bugs
 - App is blackscreen when restarting it on phone (just a long loading time?)

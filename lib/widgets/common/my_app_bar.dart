@@ -8,7 +8,7 @@ import '../../config/my_theme.dart';
 import 'my_icon_button.dart';
 
 
-const AppBarHeight = 80.0;
+const AppBarHeight = 66.0;
 
 class MyDefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
 

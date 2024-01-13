@@ -10,7 +10,7 @@ class My3dContainer extends StatefulWidget {
     this.clickable = false,
     this.onPressed,
     this.animationDuration = const Duration(milliseconds: 100),
-    this.cornerRadius = 12,
+    this.cornerRadius = 10,
   });
 
   final Widget child;
@@ -59,7 +59,7 @@ class _My3dContainerState extends State<My3dContainer> {
             child: _EmbedChild(
               backgroundColor: widget.topColor,
               borderColor: widget.sideColor,
-              elevation: 4,
+              elevation: 0,
               animationDuration: widget.animationDuration,
               cornerRadius: widget.cornerRadius,
               clickable: widget.clickable,
@@ -129,7 +129,7 @@ class _EmbedChild extends StatelessWidget {
             color: backgroundColor,
             border: Border.all(
               color: borderColor,
-              width: 1.0,   // Hairline border
+              width: 1.5,
             ),
           ),
           child: Listener(
