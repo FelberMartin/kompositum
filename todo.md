@@ -19,7 +19,7 @@
 
 ### UI Design
 - App icon
-- App name
+- App name: "Komposita: Wörter kombinieren/zusammensetzen"
 
 # Bugs
 - App is blackscreen when restarting it on phone (just a long loading time?)

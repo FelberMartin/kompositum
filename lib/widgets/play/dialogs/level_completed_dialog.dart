@@ -174,6 +174,7 @@ class LevelCompletedDialog extends StatelessWidget {
                 ],
               ),
             ),
+            SizedBox(height: 16),
             bottomContent,
           ],
         ),
