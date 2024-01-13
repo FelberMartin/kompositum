@@ -2,6 +2,8 @@
 ## 1.0 Release
 ### Next up
 
+- Improve Level completed dialog
+  - Use different congratualations (Siuu, Nicee, Tadaaaa, )
 - Daily levels
   - extra daily completion dialog? (with option to continue classic mode)
 - Also store attemptsCounter progress during games
@@ -10,15 +12,15 @@
   - Mute button
   - Vibrate after level/word-completion
   - Easter eggs (Apfelsaft, Orangensaft)
-- Improve Level completed dialog
 - Spinning wheel after completion / noAttemptsLeft?
 
 ### Later
 - Check whether animations are still laggy in non-debug build (-> maybe remove add/remove component animation)
 - Progress bar?
 - Optimize database loading speed (it is currently only loaded when generating the first level)
-- Ads?
+- Ads? (replace placeholder ads)
 - Guide on first launch? (or at least take directly to Level1 and skip homepage)
+- Fix overflows
 
 ### UI Design
 - App icon
@@ -53,4 +55,5 @@
     - AppBar
     - FlyStarAnimation
   - Animate component move in pool: maybe have to create Wrap widget as stack
+- Tablet compatibility
 

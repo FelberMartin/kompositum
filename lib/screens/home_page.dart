@@ -79,12 +79,7 @@ class _HomePageState extends State<HomePage> {
   void _launchGame() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => GamePage(state: GamePageClassicState(
-        levelProvider: locator<LevelProvider>(),
-        poolGenerator: locator<CompoundPoolGenerator>(),
-        keyValueStore: locator<KeyValueStore>(),
-        swappableDetector: locator<SwappableDetector>(),
-      ),),),
+      MaterialPageRoute(builder: (context) => GamePage(state: GamePageClassicState.fromLocator())),
     ).then((value) {
       _updatePage();
     });

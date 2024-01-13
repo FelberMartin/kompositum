@@ -53,12 +53,14 @@ class MyPrimaryTextButton extends StatelessWidget {
     return MyPrimaryButton(
       enabled: enabled,
       onPressed: onPressed,
-      child: Text(
-        text,
-        style: textStyle.copyWith(
-            color: enabled
-                ? Theme.of(context).colorScheme.onPrimary
-                : MyColorPalette.of(context).textSecondary
+      child: Center(
+        child: Text(
+          text,
+          style: textStyle.copyWith(
+              color: enabled
+                  ? Theme.of(context).colorScheme.onPrimary
+                  : MyColorPalette.of(context).textSecondary
+          ),
         ),
       ),
     );

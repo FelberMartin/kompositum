@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:kompositum/screens/game_page.dart';
 
+import '../config/locator.dart';
+import '../data/key_value_store.dart';
 import '../data/models/compound.dart';
+import '../game/level_provider.dart';
+import '../game/pool_generator/compound_pool_generator.dart';
+import '../game/swappable_detector.dart';
+import '../widgets/play/dialogs/level_completed_dialog.dart';
+import 'game_page_classic.dart';
 
 class GamePageDailyState extends GamePageState {
   GamePageDailyState({
@@ -37,11 +44,26 @@ class GamePageDailyState extends GamePageState {
   }
 
   @override
-  void onLevelCompletion() {
+  LevelCompletedDialogType getLevelCompletedDialogType() {
+    return LevelCompletedDialogType.daily;
+  }
+
+  @override
+  void onLevelCompletion(LevelCompletedDialogResultType resultType) {
     keyValueStore.getDailiesCompleted().then((value) {
       value.add(date);
       keyValueStore.storeDailiesCompleted(value);
     });
-    Navigator.pop(context);
+
+    if (resultType == LevelCompletedDialogResultType.daily_backToOverview) {
+      Navigator.pop(context);
+      return;
+    } else if (resultType == LevelCompletedDialogResultType.daily_continueWithClassic) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => GamePage(state: GamePageClassicState.fromLocator())),
+        );
+      return;
+    }
   }
 }

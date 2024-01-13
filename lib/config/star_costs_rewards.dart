@@ -5,7 +5,7 @@ class Costs {
   static const int hintCostBase = 30;
   static const int hintCostIncreasePerFailedAttempt = 5;
 
-  static const int pastDailyCost = 80;
+  static const int pastDailyCost = 60;
 
   static int hintCost({required int failedAttempts}) {
     return hintCostBase + failedAttempts * hintCostIncreasePerFailedAttempt;
@@ -26,6 +26,20 @@ class Rewards {
         return starsMediumLevel;
       case Difficulty.hard:
         return starsHardLevel;
+    }
+  }
+
+  static int getStarCountForFailedAttempts(
+    int failedAttempts,
+  ) {
+    if (failedAttempts == 0) {
+      return 3;
+    } else if (failedAttempts <= 3) {
+      return 2;
+    } else if (failedAttempts <=5) {
+      return 1;
+    } else {
+      return 0;
     }
   }
 }

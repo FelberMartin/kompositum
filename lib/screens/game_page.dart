@@ -314,7 +314,7 @@ abstract class GamePageState extends State<GamePage> {
   }
 
   int getHintCost() {
-    return Costs.hintCost(failedAttempts: attemptsWatcher.attemptsUsed);
+    return Costs.hintCost(failedAttempts: attemptsWatcher.attemptsFailed);
   }
 
   void showReportDialog() {
@@ -331,24 +331,32 @@ abstract class GamePageState extends State<GamePage> {
     );
   }
 
-  void showLevelCompletedDialog() {
+  void showLevelCompletedDialog() async {
+    final nextLevelNumber = await keyValueStore.getLevel();   // This is only used in the daily mode.
+    if (!context.mounted) {
+      return;
+    }
     animateDialog(
       context: context,
       barrierDismissible: false,
       dialog: LevelCompletedDialog(
+        type: getLevelCompletedDialogType(),
         difficulty: poolGameLevel.displayedDifficulty,
-        onContinuePressed: () {
+        failedAttempts: attemptsWatcher.overAllAttemptsFailed,
+        nextLevelNumber: nextLevelNumber,
+        onContinue: (result) {
           Navigator.pop(context);
-          var reward = Rewards.byDifficulty(poolGameLevel.displayedDifficulty);
-          _increaseStarCount(reward, origin: Origin.levelCompletion);
+          _increaseStarCount(result.starCountIncrease, origin: Origin.levelCompletion);
           resetToNoSelection();
-          onLevelCompletion();
+          onLevelCompletion(result.type);
         },
       ),
     );
   }
 
-  void onLevelCompletion();
+  LevelCompletedDialogType getLevelCompletedDialogType();
+
+  void onLevelCompletion(LevelCompletedDialogResultType resultType);
 
   bool shouldShowReportButton() {
     if (selectedModifier == null || selectedHead == null) {

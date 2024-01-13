@@ -3,8 +3,10 @@ class AttemptsWatcher {
 
   final int maxAttempts;
   int _attemptsLeft;
+  int _overAllAttemptsFailed = 0;
   int get attemptsLeft => _attemptsLeft;
-  int get attemptsUsed => maxAttempts - _attemptsLeft;
+  int get attemptsFailed => maxAttempts - _attemptsLeft;
+  int get overAllAttemptsFailed => _overAllAttemptsFailed;
 
   AttemptsWatcher({
     required this.maxAttempts,
@@ -12,6 +14,7 @@ class AttemptsWatcher {
 
   void attemptUsed() {
     _attemptsLeft--;
+    _overAllAttemptsFailed++;
   }
 
   void resetAttempts() {
