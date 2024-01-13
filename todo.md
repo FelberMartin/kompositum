@@ -2,8 +2,6 @@
 ## 1.0 Release
 ### Next up
 
-- Improve Level completed dialog
-  - Use different congratualations (Siuu, Nicee, Tadaaaa, )
 - Daily levels
   - extra daily completion dialog? (with option to continue classic mode)
 - Also store attemptsCounter progress during games

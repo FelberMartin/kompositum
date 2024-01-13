@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -42,20 +44,44 @@ class LevelCompletedDialogResult {
 }
 
 class LevelCompletedDialog extends StatelessWidget {
-  const LevelCompletedDialog({
+
+  static const List<String> titles = [
+    "Glückwunsch!",
+    "Super!",
+    "Fantastisch!",
+    "Perfekt!",
+    "Gut gemacht!",
+    "Bravo!",
+    "Genial!",
+    "Sensationell!",
+    "Klasse!",
+    "Wow!",
+    "Ausgezeichnet!",
+    "Top!",
+    "Großartig!",
+    "Bestens!",
+    "Einfach stark!"
+  ];
+
+  LevelCompletedDialog({
     super.key,
     required this.type,
     required this.failedAttempts,
     required this.difficulty,
     required this.nextLevelNumber,
     required this.onContinue,
-  });
+  }) {
+    title = titles[Random().nextInt(titles.length)];
+  }
 
   final LevelCompletedDialogType type;
   final int failedAttempts;
   final Difficulty difficulty;
   final int nextLevelNumber;
   final Function(LevelCompletedDialogResult) onContinue;
+
+  late final String title;
+
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +131,7 @@ class LevelCompletedDialog extends StatelessWidget {
     }
 
     return MyDialog(
-      title: "Glückwunsch!",
+      title: title,
       titleStyle: Theme.of(context).textTheme.titleMedium,
       subtitle: "Level geschaft!",
       child: Padding(
