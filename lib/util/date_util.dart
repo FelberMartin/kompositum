@@ -32,3 +32,26 @@ DateTime? findNextDateInMonthNotInList({
     }
   }
 }
+
+/// Returns whether every day in the given [month] is fully covered by the
+/// given [days].
+bool containsAllDaysInMonth({
+  required DateTime month,
+  required List<DateTime> days,
+}) {
+  if (days.isEmpty) {
+    return false;
+  }
+
+  final firstDay = DateTime(month.year, month.month, 1);
+  final lastDay = DateTime(month.year, month.month + 1, 0);
+
+  for (var i = firstDay.day; i <= lastDay.day; i++) {
+    final day = DateTime(month.year, month.month, i);
+    if (!days.any((datetime) => datetime.isSameDate(day))) {
+      return false;
+    }
+  }
+
+  return true;
+}

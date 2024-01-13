@@ -3,9 +3,9 @@
 ### Next up
 
 - Daily levels
-  - Special reward after completing month?
   - extra daily completion dialog? (with option to continue classic mode)
 - Also store attemptsCounter progress during games
+- Make bottom and top bar slightly smaller
 - Sound
   - Create/play sounds
   - Mute button

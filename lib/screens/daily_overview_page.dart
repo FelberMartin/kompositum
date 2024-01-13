@@ -1,9 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/screens/game_page_daily.dart';
 import 'package:kompositum/util/date_util.dart';
+import 'package:kompositum/util/emoji_provider.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 import 'package:kompositum/widgets/common/my_dialog.dart';
 import 'package:kompositum/widgets/common/my_icon_button.dart';
@@ -114,6 +117,13 @@ class _DailyOverviewPageState extends State<DailyOverviewPage> {
     });
   }
 
+  bool _isMonthCompleted() {
+    return containsAllDaysInMonth(
+      month: _focusedDay,
+      days: completedDays,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -140,11 +150,16 @@ class _DailyOverviewPageState extends State<DailyOverviewPage> {
             bottomNavigationBar: const MyBottomNavigationBar(selectedIndex: 1),
             body: Center(
               child: Padding(
-                padding: const EdgeInsets.all(24.0),
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Expanded(flex: 2, child: Container()),
+                    Expanded(child: Container()),
+                    MonthCompletionReward(
+                      month: _focusedDay,
+                      isCompleted: _isMonthCompleted(),
+                    ),
+                    Expanded(child: Container()),
                     Calendar(
                       selectedDay: _selectedDay,
                       focusedDay: _focusedDay,
@@ -186,6 +201,45 @@ class _DailyOverviewPageState extends State<DailyOverviewPage> {
       return false;
     }
     return true;
+  }
+}
+
+class MonthCompletionReward extends StatelessWidget {
+  const MonthCompletionReward({
+    required this.month,
+    required this.isCompleted,
+    super.key,
+  });
+
+  final DateTime month;
+  final bool isCompleted;
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 500),
+      transitionBuilder: (Widget child, Animation<double> animation) {
+        return ScaleTransition(scale: animation, child: child);
+      },
+      child: isCompleted
+        ? Text(
+            key: ValueKey(month),
+            EmojiProvider.instance.getEmojiForDailyMonthCompletion(month),
+            style: Theme.of(context).textTheme.labelLarge!.copyWith(
+              fontSize: 100,
+              fontFamily: "NotoEmoji"
+            )
+        )
+        : Text(
+            key: ValueKey("incomplete"),
+            "?",
+            style: Theme.of(context).textTheme.labelLarge!.copyWith(
+              fontSize: 100,
+              color: Colors.white.withOpacity(0.7),
+              fontWeight: FontWeight.bold,
+            )
+        )
+    );
   }
 }
 

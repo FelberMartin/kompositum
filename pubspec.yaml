@@ -121,3 +121,6 @@ flutter:
         - asset: fonts/Exo2-VariableFont_wght.ttf
         - asset: fonts/Exo2-Italic-VariableFont_wght.ttf
           style: italic
+    - family: NotoEmoji
+      fonts:
+        - asset: fonts/NotoColorEmoji-Regular.ttf

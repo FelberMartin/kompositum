@@ -71,4 +71,30 @@ void main() {
       expect(result, null);
     });
   });
+
+  group('containsAllDaysInMonth', () {
+    test('should return true if all days are in the list', () {
+      final result = containsAllDaysInMonth(
+        month: DateTime(2021, 1),
+        days: List.generate(31, (index) => DateTime(2021, 1, index + 1)),
+      );
+      expect(result, true);
+    });
+
+    test('should return false if not all days are in the list', () {
+      final result = containsAllDaysInMonth(
+        month: DateTime(2021, 1),
+        days: List.generate(30, (index) => DateTime(2021, 1, index + 1)),
+      );
+      expect(result, false);
+    });
+
+    test('should return false if the list is empty', () {
+      final result = containsAllDaysInMonth(
+        month: DateTime(2021, 1),
+        days: [],
+      );
+      expect(result, false);
+    });
+  });
 }
