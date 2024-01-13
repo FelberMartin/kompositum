@@ -2,8 +2,6 @@
 ## 1.0 Release
 ### Next up
 
-- Daily levels
-  - extra daily completion dialog? (with option to continue classic mode)
 - Also store attemptsCounter progress during games
 - Sound
   - Create/play sounds
@@ -18,7 +16,7 @@
 - Optimize database loading speed (it is currently only loaded when generating the first level)
 - Ads? (replace placeholder ads)
 - Guide on first launch? (or at least take directly to Level1 and skip homepage)
-- Fix overflows
+- Fix overflows (test on smaller devices)
 
 ### UI Design
 - App icon
