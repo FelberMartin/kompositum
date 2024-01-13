@@ -53,7 +53,6 @@ abstract class GamePageState extends State<GamePage> {
   late AdManager adManager = locator<AdManager>();
 
   late PoolGameLevel poolGameLevel;
-  late AttemptsWatcher attemptsWatcher;
 
   LevelSetup? levelSetup;
   int starCount = 0;
@@ -91,7 +90,6 @@ abstract class GamePageState extends State<GamePage> {
     keyValueStore.getBlockedCompoundNames().then((value) {
       poolGenerator.setBlockedCompounds(value);
     });
-    attemptsWatcher = AttemptsWatcher(maxAttempts: 5);
 
     startGame();
   }
@@ -173,23 +171,22 @@ abstract class GamePageState extends State<GamePage> {
       return;
     }
 
-    final compound = poolGameLevel.getCompoundIfExisting(
+    final compound = poolGameLevel.checkForCompound(
         selectedModifier!.text, selectedHead!.text);
     if (compound == null) {
-      attemptsWatcher.attemptUsed();
-      if (!attemptsWatcher.anyAttemptsLeft()) {
+      if (!poolGameLevel.attemptsWatcher.anyAttemptsLeft()) {
         showNoAttemptsLeftDialog();
       }
     } else {
       poolGameLevel.removeCompoundFromShown(compound, selectedModifier!,
           selectedHead!);
       _compoundFound(compound);
-      attemptsWatcher.resetAttempts();
       setState(() {});
       if (poolGameLevel.isLevelFinished()) {
         _levelFinished();
       }
     }
+    onPoolGameLevelUpdate();
   }
 
   void _compoundFound(Compound compound) {
@@ -291,7 +288,8 @@ abstract class GamePageState extends State<GamePage> {
         break;
     }
 
-    attemptsWatcher.resetAttempts();
+    poolGameLevel.attemptsWatcher.resetAttempts();
+    onPoolGameLevelUpdate();
   }
 
   void buyHint() {
@@ -310,11 +308,12 @@ abstract class GamePageState extends State<GamePage> {
     }
 
     _decreaseStarCount(cost);
+    onPoolGameLevelUpdate();
     setState(() {});
   }
 
   int getHintCost() {
-    return Costs.hintCost(failedAttempts: attemptsWatcher.attemptsFailed);
+    return Costs.hintCost(failedAttempts: poolGameLevel.attemptsWatcher.attemptsFailed);
   }
 
   void showReportDialog() {
@@ -342,7 +341,7 @@ abstract class GamePageState extends State<GamePage> {
       dialog: LevelCompletedDialog(
         type: getLevelCompletedDialogType(),
         difficulty: poolGameLevel.displayedDifficulty,
-        failedAttempts: attemptsWatcher.overAllAttemptsFailed,
+        failedAttempts: poolGameLevel.attemptsWatcher.overAllAttemptsFailed,
         nextLevelNumber: nextLevelNumber,
         onContinue: (result) {
           Navigator.pop(context);
@@ -398,8 +397,8 @@ abstract class GamePageState extends State<GamePage> {
                           selectedModifier: getSelectedModifierInfo(),
                           selectedHead: getSelectedHeadInfo(),
                           onResetSelection: resetSelection,
-                          maxAttempts: attemptsWatcher.maxAttempts,
-                          attemptsLeft: attemptsWatcher.attemptsLeft,
+                          maxAttempts: poolGameLevel.attemptsWatcher.maxAttempts,
+                          attemptsLeft: poolGameLevel.attemptsWatcher.attemptsLeft,
                           wordCompletionEventStream:
                               wordCompletionEventStream.stream,
                           isReportVisible: shouldShowReportButton(),

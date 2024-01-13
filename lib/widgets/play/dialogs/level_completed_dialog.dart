@@ -57,9 +57,7 @@ class LevelCompletedDialog extends StatelessWidget {
     "Klasse!",
     "Wow!",
     "Ausgezeichnet!",
-    "Top!",
     "Großartig!",
-    "Bestens!",
     "Einfach stark!"
   ];
 

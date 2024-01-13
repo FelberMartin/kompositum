@@ -6,6 +6,7 @@ import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 
 import '../data/models/compound.dart';
+import 'attempts_watcher.dart';
 import 'hints/hint.dart';
 
 
@@ -23,15 +24,20 @@ class PoolGameLevel {
   final Difficulty displayedDifficulty;
   final hints = <Hint>[];
 
+  late AttemptsWatcher attemptsWatcher;
+
   PoolGameLevel(List<Compound> allCompounds,
       {this.maxShownComponentCount = 11,
-      this.displayedDifficulty = Difficulty.easy,
-      this.swappableCompounds = const []}) {
+        this.displayedDifficulty = Difficulty.easy,
+        this.swappableCompounds = const [],
+      }
+    ) {
     _allCompounds.addAll(allCompounds);
     _unsolvedCompounds.addAll(allCompounds);
     final components = UniqueComponent.fromCompounds(allCompounds);
     hiddenComponents.addAll(components);
     _fillShownComponents();
+    attemptsWatcher = AttemptsWatcher();
   }
 
   void _fillShownComponents() {
@@ -79,6 +85,16 @@ class PoolGameLevel {
             hint.hintedComponent.text == compound.modifier) ||
         (hint.type == HintComponentType.head &&
             hint.hintedComponent.text == compound.head));
+  }
+
+  Compound? checkForCompound(String modifier, String head) {
+    final compound = getCompoundIfExisting(modifier, head);
+    if (compound == null) {
+      attemptsWatcher.attemptUsed();
+    } else {
+      attemptsWatcher.resetAttempts();
+    }
+    return compound;
   }
 
   Compound? getCompoundIfExisting(String modifier, String head) {
@@ -167,6 +183,8 @@ class PoolGameLevel {
         .toList();
     final displayedDifficulty = Difficulty.values[json['displayedDifficulty'] as int];
     final maxShownComponentCount = json['maxShownComponentCount'] as int;
+    final attemptsWatcher = json.containsKey('attemptsWatcher') ? AttemptsWatcher.fromJson(json['attemptsWatcher']) : AttemptsWatcher();
+
 
     final poolGameLevel = PoolGameLevel(allCompounds,
         swappableCompounds: swappableCompounds,
@@ -180,6 +198,7 @@ class PoolGameLevel {
     poolGameLevel.hints.addAll(hints);
     poolGameLevel._unsolvedCompounds.clear();
     poolGameLevel._unsolvedCompounds.addAll(unsolvedCompounds);
+    poolGameLevel.attemptsWatcher = attemptsWatcher;
     return poolGameLevel;
   }
 
@@ -192,5 +211,6 @@ class PoolGameLevel {
     'hints': hints.map((hint) => hint.toJson()).toList(),
     'displayedDifficulty': displayedDifficulty.index,
     'maxShownComponentCount': maxShownComponentCount,
+    'attemptsWatcher': attemptsWatcher.toJson(),
   };
 }

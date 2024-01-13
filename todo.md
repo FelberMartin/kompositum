@@ -2,7 +2,6 @@
 ## 1.0 Release
 ### Next up
 
-- Also store attemptsCounter progress during games
 - Sound
   - Create/play sounds
   - Mute button
