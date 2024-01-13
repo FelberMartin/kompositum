@@ -269,8 +269,8 @@ abstract class GamePageState extends State<GamePage> {
       barrierDismissible: false,
       dialog: NoAttemptsLeftDialog(
         onActionPressed: onNoAttemptsLeftDialogClose,
-        isHintAvailable: poolGameLevel.canRequestHint() && starCount >= getHintCost(),
-        hintCost: getHintCost(),
+        isHintAvailable: poolGameLevel.canRequestHint(starCount),
+        hintCost: poolGameLevel.getHintCost(),
       ),
     );
   }
@@ -293,15 +293,11 @@ abstract class GamePageState extends State<GamePage> {
   }
 
   void buyHint() {
-    if (!poolGameLevel.canRequestHint()) {
+    if (!poolGameLevel.canRequestHint(starCount)) {
       return;
     }
-    final cost = getHintCost();
-    if (starCount < cost) {
-      return;
-    }
-
-    final hint = poolGameLevel.requestHint()!;
+    final cost = poolGameLevel.getHintCost();
+    final hint = poolGameLevel.requestHint(starCount)!;
     resetToNoSelection();
     if (hint.type == HintComponentType.modifier) {
       selectionTypeToComponentId[SelectionType.modifier] = hint.hintedComponent.id;
@@ -310,10 +306,6 @@ abstract class GamePageState extends State<GamePage> {
     _decreaseStarCount(cost);
     onPoolGameLevelUpdate();
     setState(() {});
-  }
-
-  int getHintCost() {
-    return Costs.hintCost(failedAttempts: poolGameLevel.attemptsWatcher.attemptsFailed);
   }
 
   void showReportDialog() {
@@ -410,13 +402,13 @@ abstract class GamePageState extends State<GamePage> {
                         componentInfos: getComponentInfos(),
                         hiddenComponentsCount:
                             poolGameLevel.hiddenComponents.length,
-                        hintCost: getHintCost(),
+                        hintCost: poolGameLevel.getHintCost(),
                         hintButtonInfo: MyIconButtonInfo(
                           icon: FontAwesomeIcons.lightbulb,
                           onPressed: () {
                             buyHint();
                           },
-                          enabled: poolGameLevel.canRequestHint() && starCount >= getHintCost(),
+                          enabled: poolGameLevel.canRequestHint(starCount),
                         ),
                       ),
                     ],

@@ -5,6 +5,7 @@ import 'package:kompositum/data/models/unique_component.dart';
 import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 
+import '../config/star_costs_rewards.dart';
 import '../data/models/compound.dart';
 import 'attempts_watcher.dart';
 import 'hints/hint.dart';
@@ -145,17 +146,22 @@ class PoolGameLevel {
         component.text == compound.head && component != shownComponent);
   }
 
-  Hint? requestHint() {
-    if (canRequestHint()) {
+  Hint? requestHint(int starCount) {
+    if (canRequestHint(starCount)) {
       final hint = Hint.generate(_allCompounds, shownComponents, hints);
       hints.add(hint);
       print("Hint: ${hint.hintedComponent} (${hint.type})");
       return hint;
     }
+    return null;
   }
 
-  bool canRequestHint() {
-    return hints.length < 2;
+  bool canRequestHint(int starCount) {
+    return hints.length < 2 && getHintCost() <= starCount;
+  }
+
+  int getHintCost() {
+    return Costs.hintCost(failedAttempts: attemptsWatcher.attemptsFailed);
   }
 
   double getLevelProgress() {

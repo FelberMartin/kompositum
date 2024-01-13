@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
+import 'package:kompositum/config/star_costs_rewards.dart';
 import 'package:kompositum/data/models/compound.dart';
 import 'package:kompositum/data/models/unique_component.dart';
 import 'package:kompositum/game/hints/hint.dart';
@@ -149,20 +150,25 @@ void main() {
 
   group("Hints", () {
     test("should add a hint when getHint is called", () {
-      sut.requestHint();
+      sut.requestHint(999);
       expect(sut.hints, hasLength(1));
     });
 
     test("should not add a hint when getHint is called and there are already two hints", () {
-      sut.requestHint();
-      sut.requestHint();
-      sut.requestHint();
+      sut.requestHint(999);
+      sut.requestHint(999);
+      sut.requestHint(999);
       expect(sut.hints, hasLength(2));
+    });
+
+    test("should not add a hint the hint is too expensive", () {
+      sut.requestHint(-10);
+      expect(sut.hints, isEmpty);
     });
 
     test("should remove the hint if the hinted component is solved", () {
       sut = PoolGameLevel([Compounds.Krankenhaus], maxShownComponentCount: 2);
-      sut.requestHint();
+      sut.requestHint(999);
       expect(sut.hints, hasLength(1));
       expect(sut.hints.first.hintedComponent.text, "krank");
       expect(sut.hints.first.type, equals(HintComponentType.modifier));
@@ -204,14 +210,43 @@ void main() {
     });
 
     test("should preserve the hints", () {
-      sut.requestHint();
-      sut.requestHint();
+      sut.requestHint(999);
+      sut.requestHint(999);
       Map<String, dynamic> json = sut.toJson();
       final sut2 = PoolGameLevel.fromJson(json);
 
       expect(sut2.hints, hasLength(2));
       expect(sut2.hints.first, equals(sut.hints.first));
       expect(sut2.hints.last, equals(sut.hints.last));
+    });
+  });
+
+  group("getHintCost", () {
+    test("should be the base with no used attempts", () async {
+      expect(sut.getHintCost(), Costs.hintCostBase);
+    });
+
+    test("should be the base plus the increase per failed attempt", () async {
+      sut.attemptsWatcher.attemptUsed();
+      expect(sut.getHintCost(), Costs.hintCostBase + Costs.hintCostIncreasePerFailedAttempt);
+    });
+  });
+
+  group("attemptsCounter", ()
+  {
+    test(
+        "should reduce the attemptsCounter on a false compound entered", () async {
+      sut.checkForCompound("Apfel", "Schnee");
+
+      expect(sut.attemptsWatcher.attemptsLeft,
+          sut.attemptsWatcher.maxAttempts - 1);
+    });
+
+    test(
+        "should reset the attemptsCounter after completing a compound", () async {
+      sut.checkForCompound("krank", "Haus");
+
+      expect(sut.attemptsWatcher.attemptsLeft, sut.attemptsWatcher.maxAttempts);
     });
   });
 }
