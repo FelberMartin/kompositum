@@ -72,7 +72,7 @@ class _My3dContainerState extends State<My3dContainer> {
                 setState(() {
                   _isPressedDown = false;
                 });
-                if (widget.onPressed != null) widget.onPressed!();
+                widget.onPressed?.call();
               },
               onTapCancel: () {
                 setState(() {

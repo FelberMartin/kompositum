@@ -2,6 +2,13 @@
 ## 1.0 Release
 ### Next up
 
+- Improve performance
+  - Lags in the app when finding compound
+  - Long  first loading time
+- UI adjustments
+  - Add gradients to buttons
+  - Add blur to background?
+  - Use diamonds/gems instead of stars?
 - Sound
   - Create/play sounds
   - Mute button

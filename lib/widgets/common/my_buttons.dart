@@ -153,6 +153,7 @@ class MySecondaryTextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme.labelMedium!;
     return MySecondaryButton(
+      enabled: enabled,
       onPressed: onPressed,
       child: Center(
         child: Row(
