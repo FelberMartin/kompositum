@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/widgets.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -28,7 +30,8 @@ class DatabaseInitializer {
       await _resetDatabase(db);
     }
 
-    final count = await db.query("compounds").then((value) => value.length);
+    final query = await db.rawQuery("select count(*) from compounds");
+    final count = query.first.values.first;
     print("Database initialized with $count compounds");
     return db;
   }
