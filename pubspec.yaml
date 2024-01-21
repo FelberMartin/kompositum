@@ -53,6 +53,8 @@ dependencies:
   flutter_svg: ^2.0.9
   intl: ^0.18.1
   table_calendar: ^3.0.9
+  objectbox: ^2.4.0
+  objectbox_flutter_libs: any
 
 dev_dependencies:
   flutter_test:
@@ -67,6 +69,8 @@ dev_dependencies:
   test: ^1.24.3
   sqflite_common_ffi: ^2.3.0+2
   mocktail: ^1.0.1
+  build_runner: ^2.4.8
+  objectbox_generator: any
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

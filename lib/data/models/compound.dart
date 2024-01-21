@@ -4,11 +4,16 @@
 // - head (double)
 
 import 'package:kompositum/data/models/unique_component.dart';
+import 'package:objectbox/objectbox.dart';
 
 import 'compact_frequency_class.dart';
 
+@Entity()
 class Compound {
+  int id;
+
   // The full name of the compound e.g. "Krankenhaus"
+  @Index()
   final String name;
 
   // The modifier of the compound e.g. "krank"
@@ -22,6 +27,7 @@ class Compound {
 
   static Compound fromJson(Map<String, dynamic> map) {
     return Compound(
+      id: map['id'] as int,
       name: map['name'] as String,
       modifier: map['modifier'] as String,
       head: map['head'] as String,
@@ -29,7 +35,8 @@ class Compound {
     );
   }
 
-  const Compound({
+  Compound({
+    required this.id,
     required this.name,
     required this.modifier,
     required this.head,
@@ -62,6 +69,7 @@ class Compound {
 
   Compound withFrequencyClass(int? frequencyClass) {
     return Compound(
+      id: id,
       name: name,
       modifier: modifier,
       head: head,
@@ -71,6 +79,7 @@ class Compound {
 
   Compound withCompactFrequencyClass(CompactFrequencyClass frequencyClass) {
     return Compound(
+      id: id,
       name: name,
       modifier: modifier,
       head: head,
@@ -80,6 +89,7 @@ class Compound {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'name': name,
       'modifier': modifier,
       'head': head,

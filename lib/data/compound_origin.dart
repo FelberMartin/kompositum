@@ -24,6 +24,7 @@ class CompoundOrigin {
   static Compound fromCsvLine(String line) {
     final values = line.split(",");
     return Compound(
+      id: 0,
       name: values[0],
       modifier: values[1],
       head: values[2],
