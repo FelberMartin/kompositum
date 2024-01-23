@@ -68,5 +68,6 @@ class KeyValueStore {
     if (json != null) {
       return PoolGameLevel.fromJson(Map<String, dynamic>.from(jsonDecode(json)));
     }
+    return null;
   }
 }

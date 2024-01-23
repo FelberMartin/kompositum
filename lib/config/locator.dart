@@ -24,7 +24,7 @@ void setupLocator({env = "test"}) {
   locator.registerSingleton<KeyValueStore>(KeyValueStore());
   locator.registerSingleton<CompoundPoolGenerator>(GraphBasedPoolGenerator(locator<DatabaseInterface>()));
   locator.registerSingleton<LevelProvider>(LogarithmicLevelProvider());
-  SharedPreferences.setMockInitialValues({"level": 1});
+  // SharedPreferences.setMockInitialValues({"level": 1});
 
   locator.registerSingleton<SwappableDetector>(SwappableDetector(locator<DatabaseInterface>()));
   locator.registerSingleton<AdManager>(AdManager());

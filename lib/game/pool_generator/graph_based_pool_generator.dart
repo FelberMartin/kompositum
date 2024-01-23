@@ -45,7 +45,7 @@ class GraphBasedPoolGenerator extends CompoundPoolGenerator {
         break;
       }
       final compound =
-          await databaseInterface.getCompoundCaseInsensitive(pair.$1, pair.$2);
+          await databaseInterface.getCompound(pair.$1, pair.$2);
       if (compound == null) {
         throw Exception("Compound not found: ${pair.$1}+${pair.$2}");
       }

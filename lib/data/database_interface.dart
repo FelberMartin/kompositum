@@ -46,17 +46,6 @@ class DatabaseInterface {
     return query.find();
   }
 
-  /// Get a compound with the given modifier and head. The modifier and
-  /// head are not case sensitive.
-  /// If no compound with the given modifier and head exists, null is returned.
-  Future<Compound?> getCompoundCaseInsensitive(String modifier, String head) async {
-    final db = await _database;
-    final query = db.box<Compound>().query(Compound_.modifier.equals(modifier.toLowerCase()) &
-        Compound_.head.equals(head.toLowerCase())).build();
-    // TODO: This is currently not truly case insensitive
-    return query.findFirst();
-  }
-
   /// Get a compound with the given modifier and head.
   /// If no compound with the given modifier and head exists, null is returned.
   Future<Compound?> getCompound(String modifier, String head) async {
