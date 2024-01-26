@@ -44,6 +44,7 @@ void main() {
   final swappableDetector = MockSwappableDetector();
 
   setUp(() {
+    SharedPreferences.setMockInitialValues({});
     poolGenerator = MockPoolGenerator();
     registerFallbackValue(LevelSetup(levelIdentifier: "", compoundCount: 2, poolGenerationSeed: 1));
     when(() => poolGenerator.generateFromLevelSetup(any()))
