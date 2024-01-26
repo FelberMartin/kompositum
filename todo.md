@@ -2,9 +2,7 @@
 ## 1.0 Release
 ### Next up
 
-- Improve performance
-  - Lags in the app when finding compound
-  - Long  first loading time
+
 - UI adjustments
   - Add gradients to buttons
   - Add blur to background?
@@ -18,9 +16,7 @@
 - Spinning wheel after completion / noAttemptsLeft?
 
 ### Later
-- Check whether animations are still laggy in non-debug build (-> maybe remove add/remove component animation)
 - Progress bar?
-- Optimize database loading speed (it is currently only loaded when generating the first level)
 - Ads? (replace placeholder ads)
 - Guide on first launch? (or at least take directly to Level1 and skip homepage)
 - Fix overflows (test on smaller devices)
