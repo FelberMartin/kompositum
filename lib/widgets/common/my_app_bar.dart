@@ -49,9 +49,11 @@ class MyDefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
             thousandSeparator: ".",
             textStyle: Theme.of(context).textTheme.labelLarge,
           ),
+          SizedBox(width: 4.0),
           Icon(
             MyIcons.star,
             color: MyColorPalette.of(context).star,
+            size: 18,
           ),
           SizedBox(width: 16.0),
         ],

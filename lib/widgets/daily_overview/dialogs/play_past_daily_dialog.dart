@@ -54,6 +54,7 @@ class PlayPastDailyDialog extends StatelessWidget {
                   child: Icon(
                     MyIcons.star,
                     color: MyColorPalette.of(context).star,
+                    size: 16,
                   ),
                 ),
             ),

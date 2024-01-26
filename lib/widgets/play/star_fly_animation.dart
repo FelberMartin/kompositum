@@ -144,14 +144,14 @@ class _StarFlyAnimation extends StatelessWidget {
   ));
   late final Animation<double> _sizeGrow = Tween<double>(
     begin: 0,
-    end: 48,
+    end: 36,
   ).animate(CurvedAnimation(
     parent: controller,
     curve: const Interval(0.0, 0.04, curve: Curves.easeOut),
   ));
   late final Animation<double> _sizeShrink = Tween<double>(
-    begin: 48,
-    end: 24,
+    begin: 36,
+    end: 20,
   ).animate(CurvedAnimation(
     parent: controller,
     curve: const Interval(0.5, 0.9, curve: Curves.easeIn),

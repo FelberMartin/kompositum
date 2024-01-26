@@ -129,10 +129,11 @@ class _BottomContentState extends State<BottomContent> {
                     color: MyColorPalette.of(context).textSecondary,
                   ),
                 ),
+                SizedBox(width: 2.0),
                 Icon(
                   MyIcons.star,
                   color: MyColorPalette.of(context).star,
-                  size: 16.0,
+                  size: 12.0,
                 ),
               ],
             ),

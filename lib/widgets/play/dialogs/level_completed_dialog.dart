@@ -226,9 +226,10 @@ class _TotalRowState extends State<TotalRow> {
           textStyle: Theme.of(context).textTheme.titleMedium,
           duration: Duration(milliseconds: _totalStars * 60),
         ),
+        SizedBox(width: 5.0),
         Icon(
           MyIcons.star,
-          size: 32,
+          size: 24,
           color: MyColorPalette.of(context).star,
         ),
       ],
@@ -269,9 +270,11 @@ class StarItem extends StatelessWidget {
               "+$starCount",
               style: Theme.of(context).textTheme.labelLarge,
             ),
+            SizedBox(width: 3.0),
             Icon(
               MyIcons.star,
               color: MyColorPalette.of(context).star,
+              size: 16,
             )
           ],
         ),
