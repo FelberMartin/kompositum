@@ -3,6 +3,8 @@ import 'package:kompositum/game/pool_generator/graph_based_pool_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 import 'package:kompositum/util/ads/ad_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:path_provider/path_provider.dart';
+
 
 import '../data/compound_origin.dart';
 import '../data/database_initializer.dart';
@@ -13,13 +15,17 @@ import '../game/pool_generator/compound_pool_generator.dart';
 
 final locator = GetIt.instance;
 
-void setupLocator({env = "test"}) {
+void setupLocator({env = "test"}) async {
   locator.registerSingleton<CompoundOrigin>(CompoundOrigin("assets/filtered_compounds.csv"));
-  if (env == "prod") {
-    locator.registerSingleton<DatabaseInitializer>(DatabaseInitializer(locator<CompoundOrigin>(), reset: false));
-  } else {
-    locator.registerSingleton<DatabaseInitializer>(DatabaseInitializer(locator<CompoundOrigin>(), reset: true, useInMemoryDatabase: true));
-  }
+
+  final docsDir = await getApplicationDocumentsDirectory();
+  final reset = env == "test" ? true : false;
+
+  locator.registerSingleton<DatabaseInitializer>(DatabaseInitializer(
+      compoundOrigin: locator<CompoundOrigin>(),
+      path: docsDir.path,
+      reset: reset
+  ));
   locator.registerSingleton<DatabaseInterface>(DatabaseInterface(locator<DatabaseInitializer>()));
   locator.registerSingleton<KeyValueStore>(KeyValueStore());
   locator.registerSingleton<CompoundPoolGenerator>(GraphBasedPoolGenerator(locator<DatabaseInterface>()));

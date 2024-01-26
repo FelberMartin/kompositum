@@ -43,16 +43,6 @@ void main() {
   final keyValueStore = KeyValueStore();
   final swappableDetector = MockSwappableDetector();
 
-  setUpAll(() {
-    // Initialize FFI
-    sqfliteFfiInit();
-    // Change the default factory
-    databaseFactory = databaseFactoryFfi;
-
-    setupLocator(env: "test");
-    SharedPreferences.setMockInitialValues({});
-  });
-
   setUp(() {
     poolGenerator = MockPoolGenerator();
     registerFallbackValue(LevelSetup(levelIdentifier: "", compoundCount: 2, poolGenerationSeed: 1));

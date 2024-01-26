@@ -247,9 +247,6 @@ void runGeneralPoolGeneratorTests(
   // This is a exploratory test, it does not test a specific behavior
   test(skip: true, "print the generation times for the first 30 levels",
       () async {
-    // Init ffi database
-    sqfliteFfiInit();
-    databaseFactory = databaseFactoryFfi;
 
     setupLocator();
     final poolGenerator = GraphBasedPoolGenerator(

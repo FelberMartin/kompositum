@@ -22,6 +22,7 @@ void main() {
         "should return a compound with the given values",
         () {
           final map = {
+            "id": 0,
             "name": "Krankenhaus",
             "modifier": "krank",
             "head": "Haus",
@@ -39,6 +40,7 @@ void main() {
         "should return a compound with null as frequency class if the frequency class is not given",
         () {
           final map = {
+            "id": 0,
             "name": "Krankenhaus",
             "modifier": "krank",
             "head": "Haus",
@@ -56,7 +58,8 @@ void main() {
   test(
     "toMap and fromMap work together correctly",
     () {
-      const compound = Compound(
+      var compound = Compound(
+        id: 0,
         name: "Krankenhaus",
         modifier: "krank",
         head: "Haus",
@@ -71,7 +74,8 @@ void main() {
   test(
     "withFrequencyClass works as expected",
     () {
-      const compound = Compound(
+      var compound = Compound(
+        id: 0,
         name: "Krankenhaus",
         modifier: "krank",
         head: "Haus",
@@ -85,7 +89,8 @@ void main() {
   test(
     "withCompactFrequencyClass works as expected",
     () {
-      const compound = Compound(
+      var compound = Compound(
+        id: 0,
         name: "Krankenhaus",
         modifier: "krank",
         head: "Haus",
@@ -97,38 +102,38 @@ void main() {
 
   group("isSolvedBy", () {
     test("should return false if the compound is not solved by the given components", () {
-      const compound = Compounds.Schneemann;
+      var compound = Compounds.Schneemann;
       final components = getUniqueComponents(["krank", "Haus"]);
       expect(compound.isSolvedBy(components), false);
     });
 
     test("should return true if the compound is solved by the given components", () {
-      const compound = Compounds.Schneemann;
+      var compound = Compounds.Schneemann;
       final components = getUniqueComponents(["Schnee", "Mann"]);
       expect(compound.isSolvedBy(components), true);
     });
 
     test("should return true if the compound is solved by the given components in a different order", () {
-      const compound = Compounds.Schneemann;
+      var compound = Compounds.Schneemann;
       final components = getUniqueComponents(["Mann", "Schnee"]);
       expect(compound.isSolvedBy(components), true);
     });
 
     test("should return false if only one component is given", () {
-      const compound = Compounds.Schneemann;
+      var compound = Compounds.Schneemann;
       final components = getUniqueComponents(["Mann"]);
       expect(compound.isSolvedBy(components), false);
     });
 
     test("should return false in edgecase Kindeskind", () {
-      const compound = Compounds.Kindeskind;
+      var compound = Compounds.Kindeskind;
       final components = getUniqueComponents(["Kind"]);
       expect(compound.isSolvedBy(components), false);
     });
 
     test("should return true in edgecase Kindeskind", ()
     {
-      const compound = Compounds.Kindeskind;
+      var compound = Compounds.Kindeskind;
       final components = getUniqueComponents(["Kind", "Kind"]);
       expect(compound.isSolvedBy(components), true);
     });
@@ -136,25 +141,25 @@ void main() {
 
   group("isOnlyPartialySolvedBy", () {
     test("should return false if the compound is not at all solved by the given components", () {
-      const compound = Compounds.Schneemann;
+      var compound = Compounds.Schneemann;
       final components = getUniqueComponents(["krank", "Haus"]);
       expect(compound.isOnlyPartiallySolvedBy(components), false);
     });
 
     test("should return false if the compound is solved by the given components", () {
-      const compound = Compounds.Schneemann;
+      var compound = Compounds.Schneemann;
       final components = getUniqueComponents(["Schnee", "Mann"]);
       expect(compound.isOnlyPartiallySolvedBy(components), false);
     });
 
     test("should return true if the compound is only partially solved by the given components", () {
-      const compound = Compounds.Schneemann;
+      var compound = Compounds.Schneemann;
       final components = getUniqueComponents(["Schnee", "Apfel"]);
       expect(compound.isOnlyPartiallySolvedBy(components), true);
     });
 
     test("should return true for edgecase Kindeskind", () {
-      const compound = Compounds.Kindeskind;
+      var compound = Compounds.Kindeskind;
       final components = getUniqueComponents(["Kind"]);
       expect(compound.isOnlyPartiallySolvedBy(components), true);
     });

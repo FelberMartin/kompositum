@@ -87,4 +87,9 @@ class MockDatabaseInterface implements DatabaseInterface {
     compound.name == name));
   }
 
+  @override
+  Future<void> close() async {
+    // NOOP
+  }
+
 }

@@ -45,3 +45,5 @@ app.*.map.json
 
 # ObjectBox generated files
 /lib/objectbox.g.dart
+/test/data/compounds/data.mdb
+/test/data/compounds/lock.mdb

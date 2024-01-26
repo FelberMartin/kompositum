@@ -9,6 +9,7 @@
   - Add gradients to buttons
   - Add blur to background?
   - Use diamonds/gems instead of stars?
+  - PastDailyDialog: PayButton is higher
 - Sound
   - Create/play sounds
   - Mute button

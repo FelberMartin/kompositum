@@ -18,6 +18,11 @@ class DatabaseInterface {
     _database = databaseInitializer.getInitializedDatabase();
   }
 
+  Future<void> close() async {
+    final db = await _database;
+    db.close();
+  }
+
   /// Get the number of compounds stored in the database
   Future<int> getCompoundCount() async {
     final db = await _database;

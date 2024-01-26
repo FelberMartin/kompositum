@@ -69,7 +69,7 @@ class Compound {
 
   Compound withFrequencyClass(int? frequencyClass) {
     return Compound(
-      id: id,
+      id: 0,
       name: name,
       modifier: modifier,
       head: head,
@@ -79,7 +79,7 @@ class Compound {
 
   Compound withCompactFrequencyClass(CompactFrequencyClass frequencyClass) {
     return Compound(
-      id: id,
+      id: 0,
       name: name,
       modifier: modifier,
       head: head,
@@ -99,7 +99,7 @@ class Compound {
 
   @override
   String toString() {
-    return 'Compound{name: $name, modifier: $modifier, head: $head, frequencyClass: $frequencyClass}';
+    return 'Compound{id: $id, name: $name, modifier: $modifier, head: $head, frequencyClass: $frequencyClass}';
   }
 
   @override

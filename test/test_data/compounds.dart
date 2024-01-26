@@ -2,105 +2,119 @@ import 'package:kompositum/data/models/compound.dart';
 
 class Compounds {
 
-  static const Krankenhaus = Compound(
+  static var Krankenhaus = Compound(
+    id: 0,
     name: "Krankenhaus",
     modifier: "krank",
     head: "Haus",
     frequencyClass: 1,
   );
 
-  static const Spielplatz = Compound(
+  static var Spielplatz = Compound(
+    id: 0,
     name: "Spielplatz",
     modifier: "Spiel",
     head: "Platz",
     frequencyClass: 1,
   );
 
-  static const Adamsapfel = Compound(
+  static var Adamsapfel = Compound(
+    id: 0,
     name: "Adamsapfel",
     modifier: "Adam",
     head: "Apfel",
     frequencyClass: 1,
   );
 
-  static const Apfelbaum = Compound(
+  static var Apfelbaum = Compound(
+    id: 0,
     name: "Apfelbaum",
     modifier: "Apfel",
     head: "Baum",
     frequencyClass: 1,
   );
 
-  static const Apfelkuchen = Compound(
+  static var Apfelkuchen = Compound(
+    id: 0,
     name: "Apfelkuchen",
     modifier: "Apfel",
     head: "Kuchen",
     frequencyClass: 1,
   );
 
-  static const Kuchenform = Compound(
+  static var Kuchenform = Compound(
+    id: 0,
     name: "Kuchenform",
     modifier: "Kuchen",
     head: "Form",
     frequencyClass: 1,
   );
 
-  static const Formsache = Compound(
+  static var Formsache = Compound(
+    id: 0,
     name: "Formsache",
     modifier: "Form",
     head: "Sache",
     frequencyClass: 1,
   );
 
-  static const SachSchaden = Compound(
+  static var SachSchaden = Compound(
+    id: 0,
     name: "Sachschaden",
     modifier: "Sach",
     head: "Schaden",
     frequencyClass: 1,
   );
 
-  static const Schneemann = Compound(
+  static var Schneemann = Compound(
+    id: 0,
     name: "Schneemann",
     modifier: "Schnee",
     head: "Mann",
     frequencyClass: 1,
   );
 
-  static const Fruehschoppen = Compound(
+  static var Fruehschoppen = Compound(
+    id: 0,
     name: "Frühschoppen",
     modifier: "früh",
     head: "Schoppen",
     frequencyClass: 1,
   );
 
-  static const Ueberdachung = Compound(
+  static var Ueberdachung = Compound(
+    id: 0,
     name: "Überdachung",
     modifier: "Über",
     head: "Dach",
     frequencyClass: 1,
   );
 
-  static const Maschinenbau = Compound(
+  static var Maschinenbau = Compound(
+    id: 0,
     name: "Maschinenbau",
     modifier: "Maschine",
     head: "Bau",
     frequencyClass: 1,
   );
 
-  static const Baumaschine = Compound(
+  static var Baumaschine = Compound(
+    id: 0,
     name: "Baumaschine",
     modifier: "Bau",
     head: "Maschine",
     frequencyClass: 1,
   );
 
-  static const Kindeskind = Compound(
+  static var Kindeskind = Compound(
+    id: 0,
     name: "Kindeskind",
     modifier: "Kind",
     head: "Kind",
     frequencyClass: 1,
   );
 
-  static const all = [
+  static var all = [
     Krankenhaus,
     Spielplatz,
     Adamsapfel,

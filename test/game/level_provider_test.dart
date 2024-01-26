@@ -24,16 +24,6 @@ void main() {
 
   late LevelProvider sut;
 
-  setUpAll(() {
-    // Initialize FFI
-    sqfliteFfiInit();
-    // Change the default factory
-    databaseFactory = databaseFactoryFfi;
-
-    setupLocator();
-
-  });
-
   /// This test is only here to manually find good seeds for the compounds generation.
   test(skip: true, "find good seeds", () async {
     final poolGenerator = locator<CompoundPoolGenerator>();

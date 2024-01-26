@@ -85,19 +85,22 @@ void main() {
       "should return the components in the csv file",
           () async {
         final expected = [
-          const Compound(
+          Compound(
+            id: 0,
             name: "Aalbestand",
             modifier: "Aal",
             head: "Bestand",
             frequencyClass: 22,
           ),
-          const Compound(
+          Compound(
+            id: 1,
             name: "Aalfang",
             modifier: "Aal",
             head: "Fang",
             frequencyClass: 20,
           ),
-          const Compound(
+          Compound(
+            id: 2,
             name: "Aalfisch",
             modifier: "Aal",
             head: "Fisch",
