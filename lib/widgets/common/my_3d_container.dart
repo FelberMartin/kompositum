@@ -117,7 +117,6 @@ class _EmbedChild extends StatelessWidget {
   Widget build(BuildContext context) {
     if (clickable) assert(onTapDown != null && onTapUp != null);
     return Card(
-        color: backgroundColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(cornerRadius),
         ),
@@ -126,10 +125,18 @@ class _EmbedChild extends StatelessWidget {
           duration: const Duration(milliseconds: 140),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(cornerRadius),
-            color: backgroundColor,
             border: Border.all(
               color: borderColor,
               width: 1.5,
+            ),
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              stops: [0.0, 0.7],
+              colors: [
+                borderColor,
+                backgroundColor,
+              ],
             ),
           ),
           child: Listener(

@@ -3,9 +3,6 @@
 ### Next up
 
 
-- UI adjustments
-  - Add gradients to buttons
-  - Add blur to background?
 - Sound
   - Create/play sounds
   - Mute button
@@ -14,6 +11,7 @@
 - Spinning wheel after completion / noAttemptsLeft?
 
 ### Later
+- Keep Gradients on 3d_containers?
 - Progress bar?
 - Ads? (replace placeholder ads)
 - Guide on first launch? (or at least take directly to Level1 and skip homepage)
