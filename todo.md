@@ -2,14 +2,11 @@
 ## 1.0 Release
 ### Next up
 
-- App Icon 
-- App Name + replace com.example... -> com.development_felber.compose
 - Sound
   - Create/play sounds
   - Mute button
   - Vibrate after level/word-completion
   - Easter eggs (Apfelsaft, Orangensaft)
-- Spinning wheel after completion / noAttemptsLeft?
 
 ### Later
 - Keep Gradients on 3d_containers?
@@ -18,15 +15,13 @@
 - Guide on first launch? (or at least take directly to Level1 and skip homepage)
 - Fix overflows (test on smaller devices)
 
-### UI Design
-- App icon
-- App name: "Komposita: Wörter kombinieren/zusammensetzen"
 
 # Bugs
 - App is blackscreen when restarting it on phone (just a long loading time?)
 
 
 ### Misc
+- Spinning wheel after completion / noAttemptsLeft?
 - Remark by Felix: do not hide components. Instead make pool scrollable
 - Gameplay idea: When starting a new level, a first modifier is already selected.
 - English compounds?
