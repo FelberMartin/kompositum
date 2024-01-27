@@ -55,6 +55,7 @@ dependencies:
   table_calendar: ^3.0.9
   objectbox: ^2.4.0
   objectbox_flutter_libs: any
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
@@ -128,3 +129,10 @@ flutter:
     - family: NotoEmoji
       fonts:
         - asset: fonts/NotoColorEmoji-Regular.ttf
+
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "assets/app_icon.png"
+#  adaptive_icon_background: "assets/app_icon_background.png"
+#  adaptive_icon_foreground: "assets/app_icon_fg.png"

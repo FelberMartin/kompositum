@@ -2,7 +2,8 @@
 ## 1.0 Release
 ### Next up
 
-
+- App Icon 
+- App Name + replace com.example...
 - Sound
   - Create/play sounds
   - Mute button
