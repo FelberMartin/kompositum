@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
     return MaterialApp(
-      title: 'Kompositum',    // TODO: Change title
+      title: 'Compose',
       theme: myTheme,
       locale: const Locale('de', 'DE'),
       home: HomePage(),

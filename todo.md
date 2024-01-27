@@ -3,7 +3,7 @@
 ### Next up
 
 - App Icon 
-- App Name + replace com.example...
+- App Name + replace com.example... -> com.development_felber.compose
 - Sound
   - Create/play sounds
   - Mute button
