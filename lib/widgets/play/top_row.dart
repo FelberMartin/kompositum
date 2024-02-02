@@ -1,3 +1,4 @@
+import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -26,16 +27,28 @@ class TopRow extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget titleWidget = Text(
+      title,
+      style: Theme.of(context).textTheme.titleMedium,
+    );
+    if (title.startsWith("Level ")) {
+      final prefix = "Level ";
+      final value = int.parse(title.split(" ")[1]);
+      titleWidget = AnimatedFlipCounter(
+        duration: const Duration(milliseconds: 600),
+        value: value,
+        prefix: prefix,
+        textStyle: Theme.of(context).textTheme.titleMedium,
+      );
+    }
+
     return MyDefaultAppBar(
       navigationIcon: FontAwesomeIcons.chevronLeft,
       onNavigationPressed: onBackPressed,
       middleContent: Column(
         children: [
           SizedBox(height: 4.0),
-          Text(
-            title,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          titleWidget,
           SizedBox(height: 4.0),
           Text(
             displayedDifficulty.toUiString().toLowerCase(),
