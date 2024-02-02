@@ -2,6 +2,9 @@
 ## 1.0 Release
 ### Next up
 
+- Launch icon
+- Add increase animation to Level indicator on top
+- Add basics for word collection?
 - Sound
   - Create/play sounds
   - Mute button
