@@ -2,7 +2,6 @@
 ## 1.0 Release
 ### Next up
 
-- Launch icon
 - Add basics for word collection?
 - Sound
   - Create/play sounds

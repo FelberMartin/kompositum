@@ -18,6 +18,10 @@ class DatabaseInterface {
     _database = databaseInitializer.getInitializedDatabase();
   }
 
+  Future<void> waitForInitialization() async {
+    await _database;
+  }
+
   Future<void> close() async {
     final db = await _database;
     db.close();

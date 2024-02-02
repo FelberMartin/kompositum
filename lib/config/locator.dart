@@ -15,7 +15,7 @@ import '../game/pool_generator/compound_pool_generator.dart';
 
 final locator = GetIt.instance;
 
-void setupLocator({env = "test"}) async {
+Future<void> setupLocator({env = "prod"}) async {
   locator.registerSingleton<CompoundOrigin>(CompoundOrigin("assets/filtered_compounds.csv"));
 
   final docsDir = await getApplicationDocumentsDirectory();
