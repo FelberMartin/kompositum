@@ -31,6 +31,10 @@ class GamePageClassicState extends GamePageState {
     currentLevel = await keyValueStore.getLevel();
     final storedProgress = await keyValueStore.getClassicPoolGameLevel();
     if (storedProgress != null) {
+      if (storedProgress.shownComponents.isEmpty) {
+        updateGameToLevel(currentLevel + 1, isLevelAdvance: true);
+        return;
+      }
       levelSetup = levelProvider.generateLevelSetup(currentLevel);
       poolGameLevel = storedProgress;
       setState(() { isLoading = false; });
