@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../config/my_icons.dart';
 import '../../config/my_theme.dart';
+import '../../util/audio_manager.dart';
 
 class StarIncreaseRequest {
   final int amount;
@@ -48,8 +49,15 @@ class _StarFlyAnimationsState extends State<StarFlyAnimations> {
           var key = UniqueKey();
           keys[key] = request.origin;
           setState(() {});
+          sound();
         });
       }
+    });
+  }
+
+  void sound() {
+    Future.delayed(Duration(milliseconds: 700), () {
+      AudioManager.instance.playStarCollected();
     });
   }
 

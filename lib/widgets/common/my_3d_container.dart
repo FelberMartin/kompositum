@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import '../../util/audio_manager.dart';
 
 class My3dContainer extends StatefulWidget {
 
@@ -72,6 +75,7 @@ class _My3dContainerState extends State<My3dContainer> {
                 setState(() {
                   _isPressedDown = false;
                 });
+                AudioManager.instance.playButtonClicked();
                 widget.onPressed?.call();
               },
               onTapCancel: () {

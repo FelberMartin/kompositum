@@ -57,6 +57,7 @@ dependencies:
   objectbox_flutter_libs: any
   flutter_launcher_icons: ^0.13.1
   flutter_native_splash: ^2.3.7
+  audioplayers: ^5.2.1
 
 dev_dependencies:
   flutter_test:
@@ -89,6 +90,8 @@ flutter:
     - assets/filtered_compounds.csv
     - test/test_data/test_compounds.csv
     - assets/background.svg
+    - assets/sounds/pickup_gold.wav
+    - assets/sounds/star2.mp3
 
   # To add assets to your application, add an assets section, like this:
   # assets:
