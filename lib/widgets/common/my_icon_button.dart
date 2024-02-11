@@ -54,18 +54,20 @@ class MyIconButton extends StatelessWidget {
     final iconColor = enabled
         ? Theme.of(context).colorScheme.onSecondary
         : MyColorPalette.of(context).textSecondary;
-    const size = 48.0;
+    const size = 40.0;
+    const padding = 8.0;
     return My3dContainer(
       topColor: Theme.of(context).colorScheme.secondary,
       sideColor: MyColorPalette.of(context).secondaryShade,
       clickable: enabled,
       onPressed: onPressed,
-      cornerRadius: size / 2,
+      cornerRadius: size,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(padding),
         child: Icon(
           icon,
           color: iconColor,
+          size: size - 2 * padding,
         ),
       ),
     );

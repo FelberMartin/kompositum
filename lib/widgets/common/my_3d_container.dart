@@ -75,8 +75,8 @@ class _My3dContainerState extends State<My3dContainer> {
                 setState(() {
                   _isPressedDown = false;
                 });
-                AudioManager.instance.playButtonClicked();
                 widget.onPressed?.call();
+                AudioManager.instance.playButtonClicked();
               },
               onTapCancel: () {
                 setState(() {

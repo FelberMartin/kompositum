@@ -2,14 +2,16 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kompositum/config/my_icons.dart';
 import 'package:kompositum/widgets/common/my_icon_button.dart';
 
 import '../../screens/game_page.dart';
+import '../../util/audio_manager.dart';
 import '../common/my_buttons.dart';
 import '../common/util/icon_styled_text.dart';
 import 'bottom_content.dart';
 
-class CombinationArea extends StatelessWidget {
+class CombinationArea extends StatefulWidget {
 
   const CombinationArea({
     super.key,
@@ -44,22 +46,40 @@ class CombinationArea extends StatelessWidget {
   );
 
   @override
+  State<CombinationArea> createState() => _CombinationAreaState();
+}
+
+class _CombinationAreaState extends State<CombinationArea> {
+  @override
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.center,
       children: [
         CompoundMergeRow(
-          selectedModifier: selectedModifier,
-          selectedHead: selectedHead,
-          onResetSelection: onResetSelection,
-          maxAttempts: maxAttempts,
-          attemptsLeft: attemptsLeft,
-          isReportVisible: isReportVisible,
-          onReportPressed: onReportPressed,
+          selectedModifier: widget.selectedModifier,
+          selectedHead: widget.selectedHead,
+          onResetSelection: widget.onResetSelection,
+          maxAttempts: widget.maxAttempts,
+          attemptsLeft: widget.attemptsLeft,
+          isReportVisible: widget.isReportVisible,
+          onReportPressed: widget.onReportPressed,
         ),
         AnimatedTextFadeOut(
-          textStream: wordCompletionEventStream,
+          textStream: widget.wordCompletionEventStream,
         ),
+        Align(
+          alignment: Alignment.topRight,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: MyIconButton(
+              icon: AudioManager.instance.isMuted ? MyIcons.unmute : MyIcons.mute,
+              onPressed: () {
+                AudioManager.instance.toggleMute();
+                setState(() {});
+              },
+            ),
+          ),
+        )
       ],
     );
   }

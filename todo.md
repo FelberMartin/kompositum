@@ -3,8 +3,6 @@
 ### Next up
 
 - Add basics for word collection?
-- Sound
-  - Mute button
 
 ### Later
 - Keep Gradients on 3d_containers?
