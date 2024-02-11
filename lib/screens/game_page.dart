@@ -178,10 +178,12 @@ abstract class GamePageState extends State<GamePage> {
       if (!poolGameLevel.attemptsWatcher.anyAttemptsLeft()) {
         showNoAttemptsLeftDialog();
       }
+      AudioManager.instance.playCompoundIncorrect();
     } else {
       poolGameLevel.removeCompoundFromShown(compound, selectedModifier!,
           selectedHead!);
       _compoundFound(compound);
+      AudioManager.instance.playCompoundFound();
       setState(() {});
       if (poolGameLevel.isLevelFinished()) {
         _levelFinished();
@@ -228,6 +230,7 @@ abstract class GamePageState extends State<GamePage> {
 
   void _levelFinished() async {
     await Future.delayed(const Duration(milliseconds: 1200));
+    AudioManager.instance.playLevelComplete();
     showLevelCompletedDialog();
   }
 
@@ -304,6 +307,7 @@ abstract class GamePageState extends State<GamePage> {
       selectionTypeToComponentId[SelectionType.modifier] = hint.hintedComponent.id;
     }
 
+    AudioManager.instance.playHint();
     _decreaseStarCount(cost);
     onPoolGameLevelUpdate();
     setState(() {});

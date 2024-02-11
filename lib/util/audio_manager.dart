@@ -31,15 +31,31 @@ class AudioManager {
   }
 
   void playStarCollected() {
-    _playAsset("star2.mp3");
+    _playAsset("score.mp3");
   }
 
-  void _playAsset(String asset) async {
+  void playLevelComplete() {
+    _playAsset("success_02.wav", volume: 0.3);
+  }
+
+  void playHint() {
+    _playAsset("hint.wav");
+  }
+
+  void playCompoundFound() {
+    _playAsset("correct.wav", volume: 0.15);
+  }
+
+  void playCompoundIncorrect() {
+    _playAsset("incorrect.wav", volume: 0.3);
+  }
+
+  void _playAsset(String asset, {double volume = 0.4}) async {
     if (isMuted) return;
     final player = AudioPlayer();
     player.setPlayerMode(PlayerMode.lowLatency);
     await player.setSource(AssetSource("sounds/$asset"));
-    await player.setVolume(0.3);
+    await player.setVolume(volume);
     await player.resume();
   }
 

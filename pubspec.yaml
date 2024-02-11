@@ -92,6 +92,12 @@ flutter:
     - assets/background.svg
     - assets/sounds/pickup_gold.wav
     - assets/sounds/star2.mp3
+    - assets/sounds/score.mp3
+    - assets/sounds/levelup.wav
+    - assets/sounds/success_02.wav
+    - assets/sounds/hint.wav
+    - assets/sounds/correct.wav
+    - assets/sounds/incorrect.wav
 
   # To add assets to your application, add an assets section, like this:
   # assets:

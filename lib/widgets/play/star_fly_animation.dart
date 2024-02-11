@@ -56,7 +56,7 @@ class _StarFlyAnimationsState extends State<StarFlyAnimations> {
   }
 
   void sound() {
-    Future.delayed(Duration(milliseconds: 700), () {
+    Future.delayed(Duration(milliseconds: 900), () {
       AudioManager.instance.playStarCollected();
     });
   }

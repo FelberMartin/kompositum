@@ -92,4 +92,9 @@ class MockDatabaseInterface implements DatabaseInterface {
     // NOOP
   }
 
+  @override
+  Future<void> waitForInitialization() {
+    return Future.value();
+  }
+
 }
