@@ -90,9 +90,7 @@ flutter:
     - assets/filtered_compounds.csv
     - test/test_data/test_compounds.csv
     - assets/background.svg
-    - assets/sounds/pickup_gold.wav
-    - assets/sounds/star2.mp3
-    - assets/sounds/score.mp3
+    - assets/sounds/score.wav
     - assets/sounds/levelup.wav
     - assets/sounds/success_02.wav
     - assets/sounds/hint.wav
