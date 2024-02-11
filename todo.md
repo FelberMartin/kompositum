@@ -5,7 +5,6 @@
 - Add basics for word collection?
 - Sound
   - Mute button
-  - Easter eggs (Apfelsaft, Orangensaft)
 
 ### Later
 - Keep Gradients on 3d_containers?

@@ -197,6 +197,7 @@ abstract class GamePageState extends State<GamePage> {
     emitWordCompletionEvent(compound.name);
     resetToNoSelection();
     onPoolGameLevelUpdate();
+    _checkForEasterEgg(compound);
 
     setState(() {
       dummyModifier = UniqueComponent(compound.modifier, 0);
@@ -207,6 +208,14 @@ abstract class GamePageState extends State<GamePage> {
         dummyModifier = null;
         dummyHead = null;
       });
+    });
+  }
+
+  void _checkForEasterEgg(Compound compound) {
+    EasterEgg.values.forEach((easterEgg) {
+      if (compound.name.toLowerCase() == easterEgg.compound.toLowerCase()) {
+        AudioManager.instance.playEasterEgg(easterEgg);
+      }
     });
   }
 

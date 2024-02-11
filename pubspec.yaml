@@ -97,6 +97,8 @@ flutter:
     - assets/sounds/correct.wav
     - assets/sounds/incorrect.wav
     - assets/sounds/tap.wav
+    - assets/sounds/orangensaft.wav
+    - assets/sounds/apfelsaft.wav
 
   # To add assets to your application, add an assets section, like this:
   # assets:

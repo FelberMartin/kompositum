@@ -52,6 +52,18 @@ class AudioManager {
     await player.resume();
   }
 
+  void playEasterEgg(EasterEgg easterEgg) {
+    _playAsset(easterEgg.asset);
+  }
+}
+
+enum EasterEgg {
+  Orangensaft("Orangensaft", "orangensaft.wav"),
+  Apfelsaft("Apfelsaft", "apfelsaft.wav");
+
+  final String compound;
+  final String asset;
+  const EasterEgg(this.compound, this.asset);
 }
 
 void main() {
@@ -95,6 +107,29 @@ void main() {
               AudioManager.instance.playHint();
             },
             child: Text("Hint"),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              AudioManager.instance.playEasterEgg(EasterEgg.Orangensaft);
+            },
+            child: Text("Orangensaft"),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              AudioManager.instance.playEasterEgg(EasterEgg.Apfelsaft);
+            },
+            child: Text("Apfelsaft"),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              AudioManager.instance.toggleMute();
+            },
+            child: Column(
+              children: [
+                Text("Toggle mute"),
+                Icon(AudioManager.instance.isMuted ? Icons.volume_off : Icons.volume_up),
+              ],
+            ),
           ),
         ],
       )));
