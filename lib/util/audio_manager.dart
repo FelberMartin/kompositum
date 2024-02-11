@@ -1,6 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../config/my_theme.dart';
 
@@ -12,9 +11,7 @@ class AudioManager {
     return _instance!;
   }
 
-  AudioManager._() {
-
-  }
+  AudioManager._();
 
   var isMuted = false;
 
@@ -22,15 +19,8 @@ class AudioManager {
     isMuted = !isMuted;
   }
 
-  // - button click
-  // - star collected
-  // - compound found?
-  // - compound incorrect
-  // - last compound found? (vibrate)
-
   void playButtonClicked() {
-    if (isMuted) return;
-    SystemSound.play(SystemSoundType.click);
+    _playAsset("tap.wav");
   }
 
   void playStarCollected() {

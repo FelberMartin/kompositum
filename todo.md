@@ -4,9 +4,7 @@
 
 - Add basics for word collection?
 - Sound
-  - Create/play sounds
   - Mute button
-  - Vibrate after level/word-completion
   - Easter eggs (Apfelsaft, Orangensaft)
 
 ### Later
