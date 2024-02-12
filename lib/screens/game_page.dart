@@ -399,6 +399,7 @@ abstract class GamePageState extends State<GamePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Expanded(
+                        flex: 2,
                         child: isLoading ? CombinationArea.loading(wordCompletionEventStream.stream) : CombinationArea(
                           selectedModifier: getSelectedModifierInfo(),
                           selectedHead: getSelectedHeadInfo(),
@@ -411,19 +412,23 @@ abstract class GamePageState extends State<GamePage> {
                           onReportPressed: showReportDialog,
                         ),
                       ),
-                      isLoading ? BottomContent.loading() : BottomContent(
-                        onToggleSelection: toggleSelection,
-                        componentInfos: getComponentInfos(),
-                        hiddenComponentsCount:
-                            poolGameLevel.hiddenComponents.length,
-                        hintCost: poolGameLevel.getHintCost(),
-                        hintButtonInfo: MyIconButtonInfo(
-                          icon: FontAwesomeIcons.lightbulb,
-                          onPressed: () {
-                            buyHint();
-                          },
-                          enabled: poolGameLevel.canRequestHint(starCount),
-                        ),
+                      Expanded(
+                        flex: 3,
+                        child:
+                          isLoading ? BottomContent.loading() : BottomContent(
+                            onToggleSelection: toggleSelection,
+                            componentInfos: getComponentInfos(),
+                            hiddenComponentsCount:
+                                poolGameLevel.hiddenComponents.length,
+                            hintCost: poolGameLevel.getHintCost(),
+                            hintButtonInfo: MyIconButtonInfo(
+                              icon: FontAwesomeIcons.lightbulb,
+                              onPressed: () {
+                                buyHint();
+                              },
+                              enabled: poolGameLevel.canRequestHint(starCount),
+                            ),
+                          ),
                       ),
                     ],
                   ),

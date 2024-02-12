@@ -2,14 +2,18 @@
 ## 1.0 Release
 ### Next up
 
+- Ads? (replace placeholder ads)
+- Guide on first launch? (or at least take directly to Level1 and skip homepage)
+- Fix overflows (test on smaller devices)
+  - Daily overview
+  - Report missing word
+  - Level completion: Continue button
+- Test performance with remove stack for 3d container (only use border decoration)
 - Add basics for word collection?
 
 ### Later
 - Keep Gradients on 3d_containers?
 - Progress bar?
-- Ads? (replace placeholder ads)
-- Guide on first launch? (or at least take directly to Level1 and skip homepage)
-- Fix overflows (test on smaller devices)
 
 
 # Bugs
@@ -26,6 +30,7 @@
   eg a trophy (emoji) 
   - Maybe spinning wheel for which trophy to get?
   - Or for collecting 100 words one can spin to get a trophy
+- Feature idea: watch ad to double level finished rewards
 
 
 ## After 1.0 Release
