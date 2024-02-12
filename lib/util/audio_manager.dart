@@ -14,6 +14,7 @@ class AudioManager {
   AudioManager._();
 
   var isMuted = false;
+  final _playersByAsset = <String, AudioPlayer>{};
 
   void toggleMute() {
     isMuted = !isMuted;
@@ -45,15 +46,30 @@ class AudioManager {
 
   void _playAsset(String asset, {double volume = 0.3}) async {
     if (isMuted) return;
-    final player = AudioPlayer();
-    player.setPlayerMode(PlayerMode.lowLatency);
-    await player.setSource(AssetSource("sounds/$asset"));
-    await player.setVolume(volume);
-    await player.resume();
+
+    if (_playersByAsset.containsKey(asset)) {
+      _playersByAsset[asset]!.stop();
+    } else {
+      final player = AudioPlayer();
+      player.setPlayerMode(PlayerMode.lowLatency);
+      await player.setSource(AssetSource("sounds/$asset"));
+      await player.setVolume(volume);
+      await player.setReleaseMode(ReleaseMode.stop);
+      _playersByAsset[asset] = player;
+    }
+
+    await _playersByAsset[asset]!.resume();
   }
 
   void playEasterEgg(EasterEgg easterEgg) {
     _playAsset(easterEgg.asset);
+  }
+
+  void dispose() {
+    for (final player in _playersByAsset.values) {
+      player.dispose();
+    }
+    _playersByAsset.clear();
   }
 }
 

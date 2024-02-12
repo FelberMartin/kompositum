@@ -75,6 +75,15 @@ class _CombinationAreaState extends State<CombinationArea> {
               icon: AudioManager.instance.isMuted ? MyIcons.unmute : MyIcons.mute,
               onPressed: () {
                 AudioManager.instance.toggleMute();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(AudioManager.instance.isMuted
+                        ? "Lautlos"
+                        : "Ton an"),
+                    behavior: SnackBarBehavior.floating,
+                    duration: const Duration(milliseconds: 1500),
+                  ),
+                );
                 setState(() {});
               },
             ),

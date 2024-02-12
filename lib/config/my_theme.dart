@@ -122,8 +122,8 @@ final myTheme = ThemeData(
       onError: undefined,
       background: undefined,
       onBackground: undefined,
-      surface: undefined,
-      onSurface: undefined,
+      surface: _palette.secondaryShade,
+      onSurface: _palette.secondaryShade,
   ),
   extensions: [
     _palette,
