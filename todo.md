@@ -7,7 +7,7 @@
 - Fix overflows (test on smaller devices)
   - Daily overview
   - Report missing word
-  - Level completion: Continue button
+  - GamePage: make pool scrollable if too big
 - Test performance with remove stack for 3d container (only use border decoration)
 - Add basics for word collection?
 
