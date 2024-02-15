@@ -194,11 +194,13 @@ class ComponentWrapper extends StatelessWidget {
       sideColor: MyColorPalette.of(context).textSecondary.darken(),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 2.0) + const EdgeInsets.all(12.0),
-        child: Text(
-          text,
-          style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                color: Theme.of(context).colorScheme.primary,
-              ),
+        child: FittedBox(
+          child: Text(
+            text,
+            style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+          ),
         ),
       ),
     );

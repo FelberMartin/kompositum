@@ -226,7 +226,7 @@ class MonthCompletionReward extends StatelessWidget {
             key: ValueKey(month),
             EmojiProvider.instance.getEmojiForDailyMonthCompletion(month),
             style: Theme.of(context).textTheme.labelLarge!.copyWith(
-              fontSize: 100,
+              fontSize: 90,
               fontFamily: "NotoEmoji"
             )
         )
@@ -234,7 +234,7 @@ class MonthCompletionReward extends StatelessWidget {
             key: ValueKey("incomplete"),
             "?",
             style: Theme.of(context).textTheme.labelLarge!.copyWith(
-              fontSize: 100,
+              fontSize: 90,
               color: Colors.white.withOpacity(0.7),
               fontWeight: FontWeight.bold,
             )
@@ -268,10 +268,11 @@ class Calendar extends StatelessWidget {
   Widget build(BuildContext context) {
     return TableCalendar(
       focusedDay: focusedDay,
-      firstDay: DateTime.utc(2023, 10, 1),  // TODO: change to value that makes sense
+      firstDay: DateTime.utc(2023, 12, 1),
       lastDay: DateTime.now(),
       currentDay: DateTime.now(),
       locale: "de_DE",
+      rowHeight: 48,
       startingDayOfWeek: StartingDayOfWeek.monday,
       headerStyle: HeaderStyle(
         titleCentered: true,

@@ -146,17 +146,12 @@ class _BottomContentState extends State<BottomContent> {
       clipper: RoundedEdgeClipper(onBottom: false),
       child: Container(
         height: 400,
+        width: double.infinity,
         color: Theme.of(context).colorScheme.secondary,
         child: Stack(
-          alignment: Alignment.bottomCenter,
+          alignment: Alignment(0.0, -0.2),  // Slightly to the top
           children: [
-            Column(
-              children: [
-                Expanded(flex: 3, child: Container()),
-                mainContent,
-                Expanded(flex: 5, child: Container()),
-              ],
-            ),
+            SingleChildScrollView(child: mainContent),
             Positioned(
                 bottom: 16,
                 left: 16,

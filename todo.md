@@ -4,10 +4,6 @@
 
 - Ads? (replace placeholder ads)
 - Guide on first launch? (or at least take directly to Level1 and skip homepage)
-- Fix overflows (test on smaller devices)
-  - Daily overview
-  - Report missing word
-  - GamePage: make pool scrollable if too big
 - Test performance with remove stack for 3d container (only use border decoration)
 - Add basics for word collection?
 
