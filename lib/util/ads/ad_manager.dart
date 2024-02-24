@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:kompositum/config/my_theme.dart';
 import 'package:kompositum/widgets/common/my_3d_container.dart';
@@ -7,22 +9,27 @@ import '../../widgets/common/my_icon_button.dart';
 
 class AdManager {
   Future<void> showAd(BuildContext context) async {
-    final adWidget = PlaceholderAd();
+    final Completer<void> adClosed = Completer<void>();
+    final adWidget = PlaceholderAd(completer: adClosed);
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) =>
             WillPopScope(onWillPop: () async => false, child: adWidget),
       ),
     );
+
+    return adClosed.future;
   }
 }
 
 void main() {
-  runApp(MaterialApp(theme: myTheme, home: const PlaceholderAd()));
+  runApp(MaterialApp(theme: myTheme, home: PlaceholderAd(completer: Completer(),),));
 }
 
 class PlaceholderAd extends StatefulWidget {
-  const PlaceholderAd({super.key});
+  final Completer<void> completer;
+
+  const PlaceholderAd({super.key, required this.completer});
 
   @override
   State<PlaceholderAd> createState() => _PlaceholderAdState();
@@ -78,7 +85,10 @@ class _PlaceholderAdState extends State<PlaceholderAd> {
                       )
                     : MyIconButton(
                         icon: MyIcons.close,
-                        onPressed: () => Navigator.of(context).pop(),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          widget.completer.complete();
+                        },
                       ),
               ),
             ),
