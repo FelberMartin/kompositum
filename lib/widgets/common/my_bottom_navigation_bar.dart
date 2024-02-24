@@ -25,11 +25,16 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
 
   final items = const [
     BottomNavigationBarItem(
-      icon: Icon(MyIcons.home),
+      icon: Icon(
+          key: Key("tabBarHome"),
+          MyIcons.home
+      ),
       label: "Home",
     ),
     BottomNavigationBarItem(
-      icon: Icon(MyIcons.daily),
+      icon: Icon(
+          key: Key("tabBarDaily"),
+          MyIcons.daily),
       label: "Daily",
     ),
   ];

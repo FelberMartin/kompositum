@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:get_it/get_it.dart';
 import 'package:kompositum/game/pool_generator/graph_based_pool_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
@@ -16,7 +18,7 @@ final locator = GetIt.instance;
 Future<void> setupLocator({env = "prod"}) async {
   locator.registerSingleton<CompoundOrigin>(CompoundOrigin("assets/filtered_compounds.csv"));
 
-  final docsDir = await getApplicationDocumentsDirectory();
+  final docsDir = env == "test" ? Directory("") : await getApplicationDocumentsDirectory();
   final reset = env == "test" ? true : false;
 
   locator.registerSingleton<DatabaseInitializer>(DatabaseInitializer(

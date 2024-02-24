@@ -58,6 +58,12 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
     _updatePage();
     initializeDateFormatting("de", null);
+
+    keyValueStore.isFirstLaunch().then((value) {
+      if (value) {
+        _launchGame();
+      }
+    });
   }
 
   @override

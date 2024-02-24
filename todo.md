@@ -3,7 +3,6 @@
 ### Next up
 
 - Ads? (replace placeholder ads)
-- Guide on first launch? (or at least take directly to Level1 and skip homepage)
 - Test performance with remove stack for 3d container (only use border decoration)
 - Add basics for word collection?
 
@@ -44,4 +43,5 @@
     - FlyStarAnimation
   - Animate component move in pool: maybe have to create Wrap widget as stack
 - Tablet compatibility
+- Advanced guide on first launch?
 

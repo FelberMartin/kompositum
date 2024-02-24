@@ -47,3 +47,5 @@ app.*.map.json
 /lib/objectbox.g.dart
 /test/data/compounds/data.mdb
 /test/data/compounds/lock.mdb
+/compounds/data.mdb
+/compounds/lock.mdb
