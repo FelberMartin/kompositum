@@ -7,6 +7,7 @@ class MyIcons {
 
   static const IconData home = FontAwesomeIcons.house;
   static const IconData daily = FontAwesomeIcons.solidCalendarDays;
+  static const IconData close = FontAwesomeIcons.xmark;
 
   static const IconData star = FontAwesomeIcons.solidGem;
   static const IconData ad = FontAwesomeIcons.rectangleAd;

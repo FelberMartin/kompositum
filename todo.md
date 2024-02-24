@@ -2,7 +2,6 @@
 ## 1.0 Release
 ### Next up
 
-- Ads? (replace placeholder ads)
 - Add basics for word collection?
 
 ### Later

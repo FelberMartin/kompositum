@@ -87,6 +87,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/app_icon_fg.png
     - assets/filtered_compounds.csv
     - test/test_data/test_compounds.csv
     - assets/background.svg

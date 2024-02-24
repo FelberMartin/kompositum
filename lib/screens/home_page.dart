@@ -130,7 +130,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         Scaffold(
           backgroundColor: Colors.transparent,
           appBar: MyDefaultAppBar(
-            navigationIcon: FontAwesomeIcons.xmark,
+            navigationIcon: MyIcons.close,
             onNavigationPressed: () {
               if (Platform.isAndroid) {
                 SystemNavigator.pop();
