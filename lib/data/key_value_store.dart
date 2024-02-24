@@ -73,6 +73,6 @@ class KeyValueStore {
 
   Future<bool> isFirstLaunch() async {
     final level = await getLevel();
-    return true;
+    return level == 1;
   }
 }
