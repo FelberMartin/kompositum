@@ -2,12 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:kompositum/screens/game_page.dart';
 
-import '../config/locator.dart';
-import '../data/key_value_store.dart';
-import '../data/models/compound.dart';
-import '../game/level_provider.dart';
-import '../game/pool_generator/compound_pool_generator.dart';
-import '../game/swappable_detector.dart';
 import '../widgets/play/dialogs/level_completed_dialog.dart';
 import 'game_page_classic.dart';
 

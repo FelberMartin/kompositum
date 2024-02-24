@@ -2,13 +2,12 @@ import 'dart:math';
 
 import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 
 import '../../../config/my_icons.dart';
-import '../../../config/star_costs_rewards.dart';
 import '../../../config/my_theme.dart';
+import '../../../config/star_costs_rewards.dart';
 import '../../common/my_dialog.dart';
 
 void main() => runApp(MaterialApp(

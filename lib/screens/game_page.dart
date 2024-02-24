@@ -15,7 +15,6 @@ import 'package:kompositum/widgets/play/star_fly_animation.dart';
 
 import '../config/locator.dart';
 import '../data/models/compound.dart';
-import '../game/attempts_watcher.dart';
 import '../game/hints/hint.dart';
 import '../game/level_provider.dart';
 import '../game/pool_game_level.dart';

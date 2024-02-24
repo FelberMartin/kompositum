@@ -1,15 +1,9 @@
-import 'package:flutter/material.dart';
-
 import '../config/locator.dart';
-import '../config/star_costs_rewards.dart';
 import '../data/key_value_store.dart';
-import '../data/models/compound.dart';
 import '../game/level_provider.dart';
 import '../game/pool_generator/compound_pool_generator.dart';
 import '../game/swappable_detector.dart';
-import '../widgets/common/my_dialog.dart';
 import '../widgets/play/dialogs/level_completed_dialog.dart';
-import '../widgets/play/star_fly_animation.dart';
 import 'game_page.dart';
 
 class GamePageClassicState extends GamePageState {

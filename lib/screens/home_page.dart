@@ -19,7 +19,6 @@ import '../config/my_theme.dart';
 import '../data/key_value_store.dart';
 import '../game/pool_generator/compound_pool_generator.dart';
 import '../game/swappable_detector.dart';
-import '../util/color_util.dart';
 import '../widgets/common/my_app_bar.dart';
 import '../widgets/common/my_background.dart';
 import '../widgets/common/util/clip_shadow_path.dart';

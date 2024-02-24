@@ -8,7 +8,6 @@ import '../../config/my_icons.dart';
 import '../../config/my_theme.dart';
 import '../../game/hints/hint.dart';
 import '../../screens/game_page.dart';
-import '../../util/color_util.dart';
 import '../common/my_icon_button.dart';
 import '../common/util/rounded_edge_clipper.dart';
 

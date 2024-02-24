@@ -2,9 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:kompositum/game/pool_generator/graph_based_pool_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 import 'package:kompositum/util/ads/ad_manager.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:path_provider/path_provider.dart';
-
 
 import '../data/compound_origin.dart';
 import '../data/database_initializer.dart';
