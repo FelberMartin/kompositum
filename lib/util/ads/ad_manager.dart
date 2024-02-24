@@ -14,7 +14,7 @@ class AdManager {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) =>
-            WillPopScope(onWillPop: () async => false, child: adWidget),
+            PopScope(canPop: false, child: adWidget),
       ),
     );
 
