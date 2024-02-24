@@ -3,7 +3,6 @@
 ### Next up
 
 - Ads? (replace placeholder ads)
-- Test performance with remove stack for 3d container (only use border decoration)
 - Add basics for word collection?
 
 ### Later
