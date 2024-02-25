@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart' as flutter_test;
-import 'package:kompositum/data/models/compound.dart';
 import 'package:kompositum/data/compound_origin.dart';
 import 'package:kompositum/data/database_initializer.dart';
+import 'package:kompositum/data/models/compound.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 

@@ -1,21 +1,16 @@
 import 'dart:math';
 
-import 'package:kompositum/data/models/compound.dart';
-import 'package:kompositum/data/compound_origin.dart';
-import 'package:kompositum/data/database_initializer.dart';
+import 'package:kompositum/config/locator.dart';
 import 'package:kompositum/data/database_interface.dart';
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/data/models/compact_frequency_class.dart';
+import 'package:kompositum/data/models/compound.dart';
+import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 import 'package:kompositum/game/pool_generator/graph_based_pool_generator.dart';
-import 'package:kompositum/game/level_provider.dart';
-import 'package:kompositum/config/locator.dart';
 import 'package:kompositum/util/random_util.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:test/test.dart';
-import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
 
 import '../../data/mock_database_interface.dart';
 import '../../test_data/compounds.dart';

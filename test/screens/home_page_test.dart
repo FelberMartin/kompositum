@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kompositum/config/locator.dart';
 import 'package:kompositum/config/my_theme.dart';
-import 'package:kompositum/data/key_value_store.dart';
-import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/screens/daily_overview_page.dart';
 import 'package:kompositum/screens/game_page.dart';
 import 'package:kompositum/screens/home_page.dart';

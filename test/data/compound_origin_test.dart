@@ -1,5 +1,5 @@
-import 'package:kompositum/data/models/compound.dart';
 import 'package:kompositum/data/compound_origin.dart';
+import 'package:kompositum/data/models/compound.dart';
 import 'package:test/test.dart';
 
 void main() {

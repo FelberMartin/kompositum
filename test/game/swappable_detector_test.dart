@@ -1,4 +1,3 @@
-import 'package:kompositum/data/database_interface.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 import 'package:test/test.dart';
 

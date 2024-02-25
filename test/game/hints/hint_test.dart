@@ -1,5 +1,3 @@
-import 'package:kompositum/data/models/compound.dart';
-import 'package:kompositum/data/models/unique_component.dart';
 import 'package:kompositum/game/hints/hint.dart';
 import 'package:test/test.dart';
 
