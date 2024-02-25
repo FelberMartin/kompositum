@@ -23,6 +23,7 @@ class CombinationArea extends StatefulWidget {
     required this.wordCompletionEventStream,
     required this.isReportVisible,
     required this.onReportPressed,
+    required this.progress,
   });
 
   final ComponentInfo? selectedModifier;
@@ -33,6 +34,7 @@ class CombinationArea extends StatefulWidget {
   final Stream<String> wordCompletionEventStream;
   final bool isReportVisible;
   final Function() onReportPressed;
+  final double progress;
 
   factory CombinationArea.loading(stream) => CombinationArea(
     selectedModifier: null,
@@ -43,6 +45,7 @@ class CombinationArea extends StatefulWidget {
     wordCompletionEventStream: stream,
     isReportVisible: false,
     onReportPressed: () {},
+    progress: 0.0,
   );
 
   @override
@@ -55,6 +58,35 @@ class _CombinationAreaState extends State<CombinationArea> {
     return Stack(
       alignment: Alignment.center,
       children: [
+        Align(
+          alignment: Alignment.topCenter,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 12.0),
+            child: Container(
+              width: 120,
+              height: 14,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.secondary,
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: AnimatedFractionallySizedBox(
+                  duration: const Duration(milliseconds: 200),
+                  curve: Curves.easeInOut,
+                  alignment: Alignment.centerLeft,
+                  widthFactor: widget.progress == 0.0 ? 0.07 : widget.progress,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.onSecondary,
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          )
+        ),
         CompoundMergeRow(
           selectedModifier: widget.selectedModifier,
           selectedHead: widget.selectedHead,

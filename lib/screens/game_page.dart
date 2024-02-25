@@ -389,7 +389,6 @@ abstract class GamePageState extends State<GamePage> {
                   },
                   displayedDifficulty: levelSetup!.displayedDifficulty,
                   title: getLevelTitle(),
-                  levelProgress: true ? 0 : poolGameLevel.getLevelProgress(), // The progress is currently not shown
                   starCount: starCount,
                 ),
           backgroundColor: Colors.transparent,
@@ -409,6 +408,7 @@ abstract class GamePageState extends State<GamePage> {
                               wordCompletionEventStream.stream,
                           isReportVisible: shouldShowReportButton(),
                           onReportPressed: showReportDialog,
+                          progress: poolGameLevel.getLevelProgress(),
                         ),
                       ),
                       Expanded(

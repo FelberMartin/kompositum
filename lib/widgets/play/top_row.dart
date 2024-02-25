@@ -12,14 +12,12 @@ class TopRow extends StatelessWidget implements PreferredSizeWidget {
     required this.onBackPressed,
     required this.displayedDifficulty,
     required this.title,
-    required this.levelProgress,
     required this.starCount,
   });
 
   final VoidCallback onBackPressed;
   final Difficulty displayedDifficulty;
   final String title;
-  final double levelProgress;
   final int starCount;
 
   @override

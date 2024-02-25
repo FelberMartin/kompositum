@@ -5,9 +5,6 @@
 - Add basics for word collection?
 
 ### Later
-- Keep Gradients on 3d_containers?
-- Progress bar?
-
 
 # Bugs
 - App is blackscreen when restarting it on phone (just a long loading time?)
