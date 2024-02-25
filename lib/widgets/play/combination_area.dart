@@ -58,35 +58,13 @@ class _CombinationAreaState extends State<CombinationArea> {
     return Stack(
       alignment: Alignment.center,
       children: [
-        Align(
-          alignment: Alignment.topCenter,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 12.0),
-            child: Container(
-              width: 120,
-              height: 14,
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.secondary,
-                borderRadius: BorderRadius.circular(50),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: AnimatedFractionallySizedBox(
-                  duration: const Duration(milliseconds: 200),
-                  curve: Curves.easeInOut,
-                  alignment: Alignment.centerLeft,
-                  widthFactor: widget.progress == 0.0 ? 0.07 : widget.progress,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.onSecondary,
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          )
-        ),
+        // Align(
+        //   alignment: Alignment.topCenter,
+        //   child: Padding(
+        //     padding: const EdgeInsets.only(top: 12.0),
+        //     child: ProgressBar(progress: widget.progress),
+        //   )
+        // ),
         CompoundMergeRow(
           selectedModifier: widget.selectedModifier,
           selectedHead: widget.selectedHead,
@@ -122,6 +100,42 @@ class _CombinationAreaState extends State<CombinationArea> {
           ),
         )
       ],
+    );
+  }
+}
+
+class ProgressBar extends StatelessWidget {
+  const ProgressBar({
+    super.key,
+    required this.progress,
+  });
+
+  final double progress;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 120,
+      height: 14,
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.secondary,
+        borderRadius: BorderRadius.circular(50),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: AnimatedFractionallySizedBox(
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeInOut,
+          alignment: Alignment.centerLeft,
+          widthFactor: progress == 0.0 ? 0.07 : progress,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.onSecondary,
+              borderRadius: BorderRadius.circular(50),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
