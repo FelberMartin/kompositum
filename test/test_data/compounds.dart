@@ -114,6 +114,14 @@ class Compounds {
     frequencyClass: 1,
   );
 
+  static var Wortschatz = Compound(
+    id: 0,
+    name: "Wortschatz",
+    modifier: "Wort",
+    head: "Schatz",
+    frequencyClass: 16,
+  );
+
   static var all = [
     Krankenhaus,
     Spielplatz,
@@ -125,5 +133,6 @@ class Compounds {
     SachSchaden,
     Schneemann,
     Fruehschoppen,
+    Wortschatz,
   ];
 }

@@ -16,7 +16,11 @@ abstract class CompoundPoolGenerator {
   CompoundPoolGenerator(this.databaseInterface,
       {this.blockLastN = 50});
 
-  Future<List<Compound>> generateFromLevelSetup(LevelSetup levelSetup) {
+  Future<List<Compound>> generateFromLevelSetup(LevelSetup levelSetup) async {
+    if (levelSetup.levelIdentifier == 1) {
+      final wortschatz = await databaseInterface.getCompoundByName("Wortschatz");
+      return [wortschatz!];
+    }
     return generate(
       compoundCount: levelSetup.compoundCount,
       frequencyClass: levelSetup.frequencyClass,

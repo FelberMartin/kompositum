@@ -2,6 +2,7 @@
 ## 1.0 Release
 ### Next up
 
+- Update App name
 - Add basics for word collection?
 
 ### Later

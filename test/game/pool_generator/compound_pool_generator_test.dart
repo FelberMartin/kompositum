@@ -239,6 +239,17 @@ void runGeneralPoolGeneratorTests(
     });
   });
 
+  test("Should return Wort + Schatz for the first level", () async {
+    databaseInterface.compounds = Compounds.all;
+    final poolGenerator = GraphBasedPoolGenerator(databaseInterface);
+    final levelProvider = LogarithmicLevelProvider();
+    final levelSetup = levelProvider.generateLevelSetup(1);
+    final compounds = await poolGenerator.generateFromLevelSetup(levelSetup);
+    expect(compounds, [Compounds.Wortschatz]);
+  });
+
+
+
   // This is a exploratory test, it does not test a specific behavior
   test(skip: true, "print the generation times for the first 30 levels",
       () async {
