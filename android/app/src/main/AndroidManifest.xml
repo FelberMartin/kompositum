@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.development_felber.compose">
     <application
-        android:label="Compose - Wörter kombinieren"
+        android:label="Wortschatz"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
