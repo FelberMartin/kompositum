@@ -21,7 +21,7 @@ class AudioManager {
   }
 
   void playButtonClicked() {
-    _playAsset("tap.wav");
+    _playAsset("tap.wav", volume: 0.2);
   }
 
   void playStarCollected() {
