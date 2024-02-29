@@ -87,10 +87,10 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/app_icon_fg.png
+    - assets/images/app_icon/app_icon_fg.png
     - assets/filtered_compounds.csv
     - test/test_data/test_compounds.csv
-    - assets/background.svg
+    - assets/images/background.svg
     - assets/sounds/score.wav
     - assets/sounds/levelup.wav
     - assets/sounds/success_02.wav
@@ -145,6 +145,6 @@ flutter:
 flutter_launcher_icons:
   android: true
   ios: false
-  image_path: "assets/app_icon.png"
-  adaptive_icon_background: "assets/app_icon.png"
-  adaptive_icon_foreground: "assets/app_icon.png"
+  image_path: "assets/images/app_icon/app_icon.png"
+  adaptive_icon_background: "assets/images/app_icon/app_icon_bg.png"
+  adaptive_icon_foreground: "assets/images/app_icon/app_icon_fg.png"

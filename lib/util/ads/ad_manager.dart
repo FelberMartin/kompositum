@@ -103,7 +103,7 @@ class _PlaceholderAdState extends State<PlaceholderAd> {
                       style: Theme.of(context).textTheme.titleMedium),
                   Expanded(child: Container()),
                   Image(
-                    image: AssetImage('assets/app_icon_fg.png'),
+                    image: AssetImage('assets/images/app_icon/app_icon_fg.png'),
                     height: 280,
                   ),
                   Expanded(child: Container()),

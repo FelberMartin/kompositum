@@ -21,7 +21,7 @@ class MyBackground extends StatelessWidget {
       placeholderBuilder: (context) => Container(
         color: MyColorPalette.of(context).background,
       ),
-      "assets/background.svg",
+      "assets/images/background.svg",
       fit: BoxFit.cover,
     );
   }
