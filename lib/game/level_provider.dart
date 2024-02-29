@@ -160,7 +160,7 @@ class DailyLevelProvider extends LevelProvider {
     final seed = date.day + date.month * 100 + date.year * 10000;
 
     final difficulty = LevelProvider._getRandomDifficulty(1, 1, 1, seed: seed);
-    final compoundCount = Random(seed).nextInt(6) + 5;
+    final compoundCount = Random(seed).nextInt(10) + 5;
 
     return LevelSetup(
       levelIdentifier: date,
