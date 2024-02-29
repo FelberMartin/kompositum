@@ -98,32 +98,36 @@ class _PlaceholderAdState extends State<PlaceholderAd> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(height: 50),
-                  Expanded(flex: 4, child: Container()),
-                  Text("Dir gefällt das Spiel?",
-                      style: Theme.of(context).textTheme.titleMedium),
+                  Expanded(flex: 2, child: Container()),
+                  RichText(
+                    textAlign: TextAlign.center,
+                    text: new TextSpan(
+                      style: Theme.of(context).textTheme.titleMedium,
+                      children: <TextSpan>[
+                        new TextSpan(text: "Dir gefällt "),
+                        new TextSpan(
+                            text: "Wortschatz",
+                            style: new TextStyle(
+                                color: MyColorPalette.of(context).primary)),
+                        new TextSpan(text: "?"),
+                      ],
+                    ),
+                  ),
                   Expanded(child: Container()),
                   Image(
-                    image: AssetImage('assets/images/app_icon/app_icon_fg.png'),
-                    height: 280,
+                    image: AssetImage('assets/images/app_icon/fg_cropped.png'),
+                    height: 200,
                   ),
                   Expanded(child: Container()),
                   SizedBox(
                     width: 200,
-                    child: RichText(
-                      text: new TextSpan(
-                        style: Theme.of(context).textTheme.titleMedium,
-                        children: <TextSpan>[
-                          new TextSpan(text: "Dann "),
-                          new TextSpan(
-                              text: "empfehle",
-                              style: new TextStyle(
-                                  color: MyColorPalette.of(context).primary)),
-                          new TextSpan(text: " es deinen Freunden!"),
-                        ],
-                      ),
-                    ),
+                    child: Text(
+                      "Dann empfehle es deinen Freunden!",
+                      style: Theme.of(context).textTheme.titleMedium,
+                      textAlign: TextAlign.center,
+                    )
                   ),
-                  Expanded(flex: 5, child: Container()),
+                  Expanded(flex: 3, child: Container()),
                 ],
               ),
             ),
