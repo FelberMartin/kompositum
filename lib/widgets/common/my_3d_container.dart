@@ -131,6 +131,7 @@ class _EmbedChild extends StatelessWidget {
             border: Border.all(
               color: borderColor,
               width: 1.5,
+              strokeAlign: BorderSide.strokeAlignCenter,
             ),
             gradient: LinearGradient(
               begin: Alignment.topCenter,
