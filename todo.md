@@ -2,7 +2,6 @@
 ## 1.0 Release
 ### Next up
 
-- Update icon to be brighter
 - Add basics for word collection?
 
 ### Later
