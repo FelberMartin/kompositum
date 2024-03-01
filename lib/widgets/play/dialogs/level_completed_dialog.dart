@@ -127,55 +127,58 @@ class LevelCompletedDialog extends StatelessWidget {
       );
     }
 
-    return MyDialog(
-      title: title,
-      titleStyle: Theme.of(context).textTheme.titleMedium,
-      subtitle: "Level geschaft!",
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 32.0),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                    child: Column(
-                      children: [
-                        StarItem(
-                          title: "Fehlversuche",
-                          value: failedAttempts.toString(),
-                          starCount: starsForFailedAttempts,
-                        ),
-                        SizedBox(height: 16),
-                        StarItem(
-                          title: "Schwierigkeit",
-                          value: difficulty.toUiString().toLowerCase(),
-                          starCount: starsForDifficulty,
-                        ),
-                      ],
+    return PopScope(
+      canPop: false,
+      child: MyDialog(
+        title: title,
+        titleStyle: Theme.of(context).textTheme.titleMedium,
+        subtitle: "Level geschaft!",
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 32.0),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                      child: Column(
+                        children: [
+                          StarItem(
+                            title: "Fehlversuche",
+                            value: failedAttempts.toString(),
+                            starCount: starsForFailedAttempts,
+                          ),
+                          SizedBox(height: 16),
+                          StarItem(
+                            title: "Schwierigkeit",
+                            value: difficulty.toUiString().toLowerCase(),
+                            starCount: starsForDifficulty,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 10),
-                  Container(
-                    height: 4,
-                    decoration: BoxDecoration(
-                      color: MyColorPalette.of(context).textSecondary,
-                      borderRadius: BorderRadius.circular(2),
+                    SizedBox(height: 10),
+                    Container(
+                      height: 4,
+                      decoration: BoxDecoration(
+                        color: MyColorPalette.of(context).textSecondary,
+                        borderRadius: BorderRadius.circular(2),
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                    child: TotalRow(totalStars: totalStars),
-                  )
-                ],
+                    SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                      child: TotalRow(totalStars: totalStars),
+                    )
+                  ],
+                ),
               ),
-            ),
-            SizedBox(height: 16),
-            bottomContent,
-          ],
+              SizedBox(height: 16),
+              bottomContent,
+            ],
+          ),
         ),
       ),
     );

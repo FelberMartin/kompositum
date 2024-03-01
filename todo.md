@@ -2,6 +2,8 @@
 ## 1.0 Release
 ### Next up
 
+- Weird border around 3dcontainers
+- Update icon to be brighter
 - Add basics for word collection?
 
 ### Later
