@@ -110,7 +110,7 @@ class LogarithmicLevelProvider extends LevelProvider {
     assert(levelIdentifier is int);
     final levelNumber = levelIdentifier as int;
 
-    if (levelNumber < 10) {
+    if (levelNumber < 5) {
       return _generateForFirstLevels(levelNumber);
     }
 
@@ -135,8 +135,8 @@ class LogarithmicLevelProvider extends LevelProvider {
 
   Difficulty _getDifficulty(int x, {int? seed}) {
     final weightEasy = 10.0;
-    final weightMedium = 1.9 * log(6 * x);
-    final weightHard = min(0.1 * x, 25.0);
+    final weightMedium = 2 * log(0.3 * x * x);
+    final weightHard = min(0.2 * x, 25.0);
     return LevelProvider._getRandomDifficulty(weightEasy, weightMedium, weightHard, seed: seed);
   }
 
