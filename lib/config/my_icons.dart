@@ -13,6 +13,6 @@ class MyIcons {
   static const IconData ad = FontAwesomeIcons.rectangleAd;
   static const IconData hint = FontAwesomeIcons.lightbulb;
 
-  static const IconData mute = FontAwesomeIcons.volumeXmark;
-  static const IconData unmute = FontAwesomeIcons.volumeHigh;
+  static const IconData muted = FontAwesomeIcons.volumeXmark;
+  static const IconData unmuted = FontAwesomeIcons.volumeHigh;
 }

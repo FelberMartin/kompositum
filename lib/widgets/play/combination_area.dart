@@ -82,7 +82,8 @@ class _CombinationAreaState extends State<CombinationArea> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: MyIconButton(
-              icon: AudioManager.instance.isMuted ? MyIcons.unmute : MyIcons.mute,
+              icon: AudioManager.instance.isMuted ? MyIcons.muted : MyIcons.unmuted,
+              additionalPadding: const EdgeInsets.only(right: 2.0, left: -2.0),
               onPressed: () {
                 AudioManager.instance.toggleMute();
                 ScaffoldMessenger.of(context).showSnackBar(

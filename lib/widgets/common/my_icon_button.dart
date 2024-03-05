@@ -22,6 +22,7 @@ class MyIconButton extends StatelessWidget {
     required this.icon,
     required this.onPressed,
     this.enabled = true,
+    this.additionalPadding = EdgeInsets.zero,
     super.key,
   });
 
@@ -30,7 +31,8 @@ class MyIconButton extends StatelessWidget {
     super.key,
   }) : icon = info.icon,
        onPressed = info.onPressed,
-       enabled = info.enabled;
+       enabled = info.enabled,
+       additionalPadding = EdgeInsets.zero;
 
   static Widget centered({
     required IconData icon,
@@ -48,6 +50,7 @@ class MyIconButton extends StatelessWidget {
   final IconData icon;
   final Function onPressed;
   final bool enabled;
+  final EdgeInsets additionalPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +66,7 @@ class MyIconButton extends StatelessWidget {
       onPressed: onPressed,
       cornerRadius: size,
       child: Padding(
-        padding: EdgeInsets.all(padding),
+        padding: EdgeInsets.all(padding) + additionalPadding,
         child: Icon(
           icon,
           color: iconColor,
