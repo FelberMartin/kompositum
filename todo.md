@@ -2,8 +2,6 @@
 ## 1.0 Release
 ### Next up
 
-- ReportDialog: InputField cursor blinking
-- Check audio volumes
 - Add basics for word collection?
 
 ### Later

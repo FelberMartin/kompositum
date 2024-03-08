@@ -226,7 +226,8 @@ class InputRow extends StatelessWidget {
             decoration: InputDecoration(
               hintText: "Wort eingeben",
               hintStyle: Theme.of(context).textTheme.labelLarge!.copyWith(
-                color: MyColorPalette.of(context).textSecondary,
+                color: MyColorPalette.of(context).primary,
+                fontStyle: FontStyle.italic,
               ),
               filled: true,
               fillColor: MyColorPalette.of(context).textSecondary,
