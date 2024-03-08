@@ -268,7 +268,7 @@ class CompoundMergeRow extends StatelessWidget {
                     duration: const Duration(milliseconds: 500),
                     child: Center(
                       child: MyIconButton(
-                        icon: FontAwesomeIcons.flag,
+                        icon: MyIcons.report,
                         onPressed: onReportPressed,
                       ),
                     ),

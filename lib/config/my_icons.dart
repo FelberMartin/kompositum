@@ -12,7 +12,11 @@ class MyIcons {
   static const IconData star = FontAwesomeIcons.solidGem;
   static const IconData ad = FontAwesomeIcons.rectangleAd;
   static const IconData hint = FontAwesomeIcons.lightbulb;
+  static const IconData report = FontAwesomeIcons.flag;
 
   static const IconData muted = FontAwesomeIcons.volumeXmark;
   static const IconData unmuted = FontAwesomeIcons.volumeHigh;
+
+  static const IconData info = FontAwesomeIcons.circleInfo;
+  static const IconData clickIndicator = FontAwesomeIcons.solidHandPointer;
 }

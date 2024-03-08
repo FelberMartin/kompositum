@@ -260,13 +260,13 @@ class WordWrapper extends StatelessWidget {
       children: [
         componentWithAnimation,
         Positioned(
-          bottom: 0,
-          left: -4,
+          bottom: -2,
+          right: -4,
           child: AnimatedOpacity(
             duration: Duration(milliseconds: 500),
             opacity: showClickIndicator ? 1.0 : 0.0,
             child: RotationTransition(
-              turns: AlwaysStoppedAnimation(0.1),
+              turns: AlwaysStoppedAnimation(-0.1),
               child: ClickIndicator(),
             ),
           ),
@@ -326,7 +326,7 @@ class HintIndicator extends StatelessWidget {
         color: Theme.of(context).colorScheme.primary,
       ),
       child: Icon(
-        FontAwesomeIcons.lightbulb,
+        MyIcons.hint,
         color: MyColorPalette.of(context).star,
         size: size * 0.6,
       ),
@@ -370,9 +370,9 @@ class _ClickIndicatorState extends State<ClickIndicator> with SingleTickerProvid
     return ScaleTransition(
       scale: controller.drive(CurveTween(curve: Curves.easeInOut)),
       child: Icon(
-        FontAwesomeIcons.solidHandPointUp,
+        MyIcons.clickIndicator,
         color: MyColorPalette.of(context).onSecondary,
-        size: 32,
+        size: 28,
       ),
     );
   }

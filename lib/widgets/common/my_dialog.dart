@@ -18,6 +18,7 @@ class MyDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final titleStyle = this.titleStyle ?? Theme.of(context).textTheme.titleMedium;
     return Dialog(
       backgroundColor: Colors.transparent,
       child: ClipPath(
@@ -32,9 +33,7 @@ class MyDialog extends StatelessWidget {
                 Text(
                   title,
                   textAlign: TextAlign.center,
-                  style: titleStyle == null
-                      ? Theme.of(context).textTheme.titleSmall
-                      : titleStyle,
+                  style: titleStyle,
                 ),
                 if (subtitle != null) ...[
                   const SizedBox(height: 12),

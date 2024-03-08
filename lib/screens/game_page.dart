@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kompositum/config/my_icons.dart';
 import 'package:kompositum/config/star_costs_rewards.dart';
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/data/models/unique_component.dart';
@@ -45,9 +46,7 @@ abstract class GamePageState extends State<GamePage> {
     required this.poolGenerator,
     required this.keyValueStore,
     required this.swappableDetector
-  }) {
-    tutorialManager = TutorialManager(keyValueStore);
-  }
+  });
 
   final LevelProvider levelProvider;
   final CompoundPoolGenerator poolGenerator;
@@ -94,6 +93,15 @@ abstract class GamePageState extends State<GamePage> {
     keyValueStore.getBlockedCompoundNames().then((value) {
       poolGenerator.setBlockedCompounds(value);
     });
+
+    tutorialManager = TutorialManager(keyValueStore, (dialog) =>
+      Future.delayed(const Duration(milliseconds: 500)).then((value) => animateDialog(
+        context: context,
+        dialog: dialog,
+        barrierDismissible: false,
+      ))
+    );
+
 
     startGame();
   }
@@ -430,7 +438,7 @@ abstract class GamePageState extends State<GamePage> {
                                 poolGameLevel.hiddenComponents.length,
                             hintCost: poolGameLevel.getHintCost(),
                             hintButtonInfo: MyIconButtonInfo(
-                              icon: FontAwesomeIcons.lightbulb,
+                              icon: MyIcons.hint,
                               onPressed: () {
                                 buyHint();
                               },

@@ -75,7 +75,7 @@ class OptionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isHintOption = icon == FontAwesomeIcons.lightbulb;
+    final isHintOption = icon == MyIcons.hint;
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(

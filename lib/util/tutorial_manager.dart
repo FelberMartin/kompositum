@@ -1,8 +1,13 @@
+import 'package:flutter/material.dart';
+import 'package:kompositum/widgets/play/dialogs/tutorials/hidden_components_tutorial_dialog.dart';
+import 'package:kompositum/widgets/play/dialogs/tutorials/hints_tutorial_dialog.dart';
+
 import '../config/star_costs_rewards.dart';
 import '../data/key_value_store.dart';
 import '../data/models/unique_component.dart';
 import '../game/level_provider.dart';
 import '../game/pool_game_level.dart';
+import '../widgets/play/dialogs/tutorials/missing_compound_tutorial_dialog.dart';
 
 enum TutorialPart {
   CLICK_INDICATOR,
@@ -15,11 +20,12 @@ enum TutorialPart {
 class TutorialManager {
 
   final KeyValueStore _keyValueStore;
+  final Function(Widget) animateDialog;
 
   /** At which index the click indicator should be shown. -1 means no indicator. */
   int showClickIndicatorIndex = -1;
 
-  TutorialManager(this._keyValueStore);
+  TutorialManager(this._keyValueStore, this.animateDialog);
 
   void onNewLevelStart(LevelSetup levelSetup, PoolGameLevel poolGameLevel) {
     _checkClickIndicator(levelSetup.levelIdentifier, poolGameLevel.shownComponents);
@@ -38,7 +44,7 @@ class TutorialManager {
   void _checkHiddenComponents(int hiddenComponentsCount) async {
     final shown = await _keyValueStore.wasTutorialPartShown(TutorialPart.HIDDEN_COMPONENTS);
     if (!shown && hiddenComponentsCount > 0) {
-      // TODO: show dialog
+      animateDialog(HiddenComponentsTutorialDialog());
       await _keyValueStore.storeTutorialPartAsShown(TutorialPart.HIDDEN_COMPONENTS);
     }
   }
@@ -55,7 +61,7 @@ class TutorialManager {
   void _checkMissingCompound() async {
     final shown = await _keyValueStore.wasTutorialPartShown(TutorialPart.MISSING_COMPOUND);
     if (!shown) {
-      // TODO: show dialog
+      animateDialog(MissingCompoundTutorialDialog());
       await _keyValueStore.storeTutorialPartAsShown(TutorialPart.MISSING_COMPOUND);
     }
   }
@@ -63,7 +69,7 @@ class TutorialManager {
   void _checkHints(int overAllAttemptsFailed) async {
     final shown = await _keyValueStore.wasTutorialPartShown(TutorialPart.HINTS);
     if (!shown && overAllAttemptsFailed >= 2) {
-      // TODO: show dialog
+      animateDialog(HintsTutorialDialog());
       Costs.freeHintAvailable = true;
       await _keyValueStore.storeTutorialPartAsShown(TutorialPart.HINTS);
     }
