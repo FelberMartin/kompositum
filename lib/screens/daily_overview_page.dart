@@ -386,7 +386,7 @@ class DayContainer extends StatelessWidget {
             child: isCompleted
                 ? Icon(
               FontAwesomeIcons.check,
-              color: MyColorPalette.of(context).textSecondary,
+              color: MyColorPalette.of(context).onSecondary,
               size: 16.0,
             )
                 : Text(

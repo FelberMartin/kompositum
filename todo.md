@@ -2,7 +2,6 @@
 ## 1.0 Release
 ### Next up
 
-- DailyOverview: Make check icons white
 - ReportDialog: InputField cursor blinking
 - Check audio volumes
 - Add basics for word collection?
