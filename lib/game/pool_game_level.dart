@@ -151,6 +151,11 @@ class PoolGameLevel {
       final hint = Hint.generate(_allCompounds, shownComponents, hints);
       hints.add(hint);
       print("Hint: ${hint.hintedComponent} (${hint.type})");
+
+      // There is only one free hint.
+      if (Costs.freeHintAvailable) {
+        Costs.freeHintAvailable = false;
+      }
       return hint;
     }
     return null;

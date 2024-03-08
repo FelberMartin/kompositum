@@ -7,7 +7,12 @@ class Costs {
 
   static const int pastDailyCost = 60;
 
+  static bool freeHintAvailable = false;
+
   static int hintCost({required int failedAttempts}) {
+    if (freeHintAvailable) {
+      return 0;
+    }
     return hintCostBase + failedAttempts * hintCostIncreasePerFailedAttempt;
   }
 }

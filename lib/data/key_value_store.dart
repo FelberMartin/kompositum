@@ -4,9 +4,14 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../game/pool_game_level.dart';
+import '../util/tutorial_manager.dart';
 import 'models/compound.dart';
 
 class KeyValueStore {
+
+  KeyValueStore() {
+    SharedPreferences.setMockInitialValues({});
+  }
 
   Future<void> storeLevel(int level) async {
     final prefs = await SharedPreferences.getInstance();
@@ -74,5 +79,15 @@ class KeyValueStore {
   Future<bool> isFirstLaunch() async {
     final level = await getLevel();
     return level == 1;
+  }
+
+  Future<void> storeTutorialPartAsShown(TutorialPart part) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool("tutorialPartShown_${part.toString()}", true);
+  }
+
+  Future<bool> wasTutorialPartShown(TutorialPart part) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool("tutorialPartShown_${part.toString()}") ?? false;
   }
 }

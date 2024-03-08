@@ -23,6 +23,7 @@ class BottomContent extends StatefulWidget {
     required this.hintButtonInfo,
     this.isLoading = false,
     required this.hintCost,
+    this.showClickIndicatorIndex = -1,
   });
 
   final Function(int) onToggleSelection;
@@ -31,6 +32,7 @@ class BottomContent extends StatefulWidget {
   final MyIconButtonInfo hintButtonInfo;
   final bool isLoading;
   final int hintCost;
+  final int showClickIndicatorIndex;
 
   factory BottomContent.loading() => BottomContent(
         onToggleSelection: (id) {},
@@ -80,7 +82,7 @@ class _BottomContentState extends State<BottomContent> {
       runSpacing: 8.0,
       alignment: WrapAlignment.center,
       children: [
-        for (final componentInfo in allComponentsToShow)
+        for (final (index, componentInfo) in allComponentsToShow.indexed)
           WordWrapper(
             key: ValueKey(componentInfo.component.id),
             text: componentInfo.component.text,
@@ -90,6 +92,7 @@ class _BottomContentState extends State<BottomContent> {
             },
             hint: componentInfo.hint?.type,
             isVisible: !removedComponents.contains(componentInfo) && !addedComponents.contains(componentInfo),
+            showClickIndicator: widget.showClickIndicatorIndex == index,
           ),
       ],
     );
@@ -203,6 +206,7 @@ class WordWrapper extends StatelessWidget {
     required this.onSelectionChanged,
     this.hint,
     this.isVisible = true,
+    this.showClickIndicator = false,
   });
 
   final String text;
@@ -210,6 +214,7 @@ class WordWrapper extends StatelessWidget {
   final ValueChanged<bool> onSelectionChanged;
   final HintComponentType? hint;
   final bool isVisible;
+  final bool showClickIndicator;
 
   @override
   Widget build(BuildContext context) {
@@ -239,7 +244,7 @@ class WordWrapper extends StatelessWidget {
       ),
     );
 
-    return AnimatedPadding(
+    final componentWithAnimation = AnimatedPadding(
       duration: wordWrapperAnimationDuration,
       padding: EdgeInsets.symmetric(horizontal: !isVisible ? 0.0 : 4.0),
       child: AnimatedOpacity(
@@ -247,6 +252,26 @@ class WordWrapper extends StatelessWidget {
         duration: wordWrapperAnimationDuration * 1.0,
         child: ComponentWithHint(button: button, hint: hint),
       ),
+    );
+
+    return Stack(
+      alignment: Alignment.center,
+      clipBehavior: Clip.none,
+      children: [
+        componentWithAnimation,
+        Positioned(
+          bottom: 0,
+          left: -4,
+          child: AnimatedOpacity(
+            duration: Duration(milliseconds: 500),
+            opacity: showClickIndicator ? 1.0 : 0.0,
+            child: RotationTransition(
+              turns: AlwaysStoppedAnimation(0.1),
+              child: ClickIndicator(),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -304,6 +329,50 @@ class HintIndicator extends StatelessWidget {
         FontAwesomeIcons.lightbulb,
         color: MyColorPalette.of(context).star,
         size: size * 0.6,
+      ),
+    );
+  }
+}
+
+class ClickIndicator extends StatefulWidget {
+  const ClickIndicator({
+    super.key,
+  });
+
+  @override
+  State<ClickIndicator> createState() => _ClickIndicatorState();
+}
+
+class _ClickIndicatorState extends State<ClickIndicator> with SingleTickerProviderStateMixin {
+  // It should be a icon button with a pulsating animation.
+
+  late AnimationController controller;
+
+  @override
+  void initState() {
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1500),
+      lowerBound: 0.5,
+      upperBound: 1.0,
+    )..repeat(reverse: true);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ScaleTransition(
+      scale: controller.drive(CurveTween(curve: Curves.easeInOut)),
+      child: Icon(
+        FontAwesomeIcons.solidHandPointUp,
+        color: MyColorPalette.of(context).onSecondary,
+        size: 32,
       ),
     );
   }

@@ -9,6 +9,7 @@ import 'package:kompositum/data/models/unique_component.dart';
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 import 'package:kompositum/util/audio_manager.dart';
+import 'package:kompositum/util/tutorial_manager.dart';
 import 'package:kompositum/widgets/common/my_background.dart';
 import 'package:kompositum/widgets/common/my_dialog.dart';
 import 'package:kompositum/widgets/play/star_fly_animation.dart';
@@ -44,13 +45,16 @@ abstract class GamePageState extends State<GamePage> {
     required this.poolGenerator,
     required this.keyValueStore,
     required this.swappableDetector
-  });
+  }) {
+    tutorialManager = TutorialManager(keyValueStore);
+  }
 
   final LevelProvider levelProvider;
   final CompoundPoolGenerator poolGenerator;
   final KeyValueStore keyValueStore;
   final SwappableDetector swappableDetector;
   late AdManager adManager = locator<AdManager>();
+  late TutorialManager tutorialManager;
 
   late PoolGameLevel poolGameLevel;
 
@@ -115,6 +119,7 @@ abstract class GamePageState extends State<GamePage> {
       displayedDifficulty: levelSetup!.displayedDifficulty,
       swappableCompounds: swappables,
     );
+    tutorialManager.onNewLevelStart(levelSetup!, poolGameLevel);
     onPoolGameLevelUpdate();
 
     setState(() {
@@ -163,6 +168,7 @@ abstract class GamePageState extends State<GamePage> {
       selectionTypeToComponentId[SelectionType.head] = componentId;
     }
     _checkCompoundCompletion();
+    tutorialManager.onComponentClicked();
     setState(() {});
   }
 
@@ -173,12 +179,15 @@ abstract class GamePageState extends State<GamePage> {
 
     final compound = poolGameLevel.checkForCompound(
         selectedModifier!.text, selectedHead!.text);
+
+    // Invalid compound
     if (compound == null) {
       if (!poolGameLevel.attemptsWatcher.anyAttemptsLeft()) {
         showNoAttemptsLeftDialog();
       }
       AudioManager.instance.playCompoundIncorrect();
-    } else {
+      tutorialManager.onCombinedInvalidCompound(poolGameLevel);
+    } else {    // Valid compound
       poolGameLevel.removeCompoundFromShown(compound, selectedModifier!,
           selectedHead!);
       _compoundFound(compound);
@@ -427,6 +436,7 @@ abstract class GamePageState extends State<GamePage> {
                               },
                               enabled: poolGameLevel.canRequestHint(starCount),
                             ),
+                            showClickIndicatorIndex: tutorialManager.showClickIndicatorIndex,
                           ),
                       ),
                     ],
