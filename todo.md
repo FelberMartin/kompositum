@@ -2,6 +2,13 @@
 ## 1.0 Release
 ### Next up
 
+- DailyOverview: Make check icons white
+- ReportDialog: InputField cursor blinking
+- Add tutorial elements / dialogs
+  - Finger indicators for level 1
+  - First tip for free (after first 3/5 attempts used)
+  - Missing Compound: with first wrong
+  - Hidden words
 - Add basics for word collection?
 
 ### Later
