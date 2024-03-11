@@ -1,6 +1,6 @@
 [![test-my-app](https://github.com/FelberMartin/kompositum/actions/workflows/tests.yml/badge.svg)](https://github.com/FelberMartin/kompositum/actions/workflows/tests.yml)
 
-![feature_graphic.png](assets%2Fimages%2Fplaystore%2Ffeature_graphic.png)
+<img src="./assets/images/playstore/feature_graphic.png" height="200" />
 
 # 💎 Wortschatz - Wörter Suche
 
