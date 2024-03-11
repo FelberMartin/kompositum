@@ -2,6 +2,8 @@
 
 ![feature_graphic.png](assets%2Fimages%2Fplaystore%2Ffeature_graphic.png)
 
+# 💎 Wortschatz - Wörter Suche
+
 **Wortschatz** is a fun german word building app, where you have combine words to valid compounds.
 The app is written with Flutter (dart) and is currently available for Android on the Google Play Store.
 
@@ -12,3 +14,10 @@ The app is written with Flutter (dart) and is currently available for Android on
   <img src="./assets/images/playstore/hint.png" width="200" />
 </p>
 
+## 📩 Feedback
+
+You have a feature request, discovered a bug or any other kind of feedback?
+
+- Reach out to me via email (development.felber@gmail.com),
+- Write a review in the Google Play Store,
+- Or create an [issue here on GitHub](https://github.com/FelberMartin/kompositum/issues/new)
