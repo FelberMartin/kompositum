@@ -20,12 +20,12 @@ enum TutorialPart {
 class TutorialManager {
 
   final KeyValueStore _keyValueStore;
-  final Function(Widget) animateDialog;
+  Function(Widget)? animateDialog;
 
   /** At which index the click indicator should be shown. -1 means no indicator. */
   int showClickIndicatorIndex = -1;
 
-  TutorialManager(this._keyValueStore, this.animateDialog);
+  TutorialManager(this._keyValueStore);
 
   void onNewLevelStart(LevelSetup levelSetup, PoolGameLevel poolGameLevel) {
     _checkClickIndicator(levelSetup.levelIdentifier, poolGameLevel.shownComponents);
@@ -43,7 +43,7 @@ class TutorialManager {
   void _checkHiddenComponents(int hiddenComponentsCount) async {
     final shown = await _keyValueStore.wasTutorialPartShown(TutorialPart.HIDDEN_COMPONENTS);
     if (!shown && hiddenComponentsCount > 0) {
-      animateDialog(HiddenComponentsTutorialDialog());
+      animateDialog?.call(HiddenComponentsTutorialDialog());
       await _keyValueStore.storeTutorialPartAsShown(TutorialPart.HIDDEN_COMPONENTS);
     }
   }
@@ -60,7 +60,7 @@ class TutorialManager {
   void _checkMissingCompound() async {
     final shown = await _keyValueStore.wasTutorialPartShown(TutorialPart.MISSING_COMPOUND);
     if (!shown) {
-      animateDialog(MissingCompoundTutorialDialog());
+      animateDialog?.call(MissingCompoundTutorialDialog());
       await _keyValueStore.storeTutorialPartAsShown(TutorialPart.MISSING_COMPOUND);
     }
   }
@@ -68,7 +68,7 @@ class TutorialManager {
   void _checkHints(int overAllAttemptsFailed) async {
     final shown = await _keyValueStore.wasTutorialPartShown(TutorialPart.HINTS);
     if (!shown && overAllAttemptsFailed >= 2) {
-      animateDialog(HintsTutorialDialog());
+      animateDialog?.call(HintsTutorialDialog());
       Costs.freeHintAvailable = true;
       await _keyValueStore.storeTutorialPartAsShown(TutorialPart.HINTS);
     }

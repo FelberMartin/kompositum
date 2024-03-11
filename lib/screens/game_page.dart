@@ -45,15 +45,16 @@ abstract class GamePageState extends State<GamePage> {
     required this.levelProvider,
     required this.poolGenerator,
     required this.keyValueStore,
-    required this.swappableDetector
+    required this.swappableDetector,
+    required this.tutorialManager,
   });
 
   final LevelProvider levelProvider;
   final CompoundPoolGenerator poolGenerator;
   final KeyValueStore keyValueStore;
   final SwappableDetector swappableDetector;
+  final TutorialManager tutorialManager;
   late AdManager adManager = locator<AdManager>();
-  late TutorialManager tutorialManager;
 
   late PoolGameLevel poolGameLevel;
 
@@ -94,16 +95,16 @@ abstract class GamePageState extends State<GamePage> {
       poolGenerator.setBlockedCompounds(value);
     });
 
-    tutorialManager = TutorialManager(keyValueStore, (dialog) =>
-      Future.delayed(const Duration(milliseconds: 500)).then((value) => animateDialog(
-        context: context,
-        dialog: dialog,
-        barrierDismissible: false,
-      ))
-    );
-
-
+    tutorialManager.animateDialog = _launchTutorialDialog;
     startGame();
+  }
+
+  void _launchTutorialDialog(Widget dialog) {
+    Future.delayed(const Duration(milliseconds: 500)).then((value) => animateDialog(
+      context: context,
+      dialog: dialog,
+      barrierDismissible: false,
+    ));
   }
 
   void startGame();

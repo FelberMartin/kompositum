@@ -103,14 +103,9 @@ class _DailyOverviewPageState extends State<DailyOverviewPage> {
   void _launchGame() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => GamePage(state: GamePageDailyState(
-        levelProvider: DailyLevelProvider(),
-        poolGenerator: locator<CompoundPoolGenerator>(),
-        keyValueStore: locator<KeyValueStore>(),
-        swappableDetector: locator<SwappableDetector>(),
-        date: _selectedDay!,
-      ))),
-    ).then((value) {
+      MaterialPageRoute(builder: (context) => GamePage(
+          state: GamePageDailyState.fromLocator(_selectedDay!))
+    )).then((value) {
       _updatePage();
     });
   }

@@ -108,13 +108,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   void _launchDailyLevel() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => GamePage(state: GamePageDailyState(
-        levelProvider: DailyLevelProvider(),
-        poolGenerator: locator<CompoundPoolGenerator>(),
-        keyValueStore: locator<KeyValueStore>(),
-        swappableDetector: locator<SwappableDetector>(),
-        date: DateTime.now(),
-      ),),),
+      MaterialPageRoute(builder: (context) => GamePage(
+        state: GamePageDailyState.fromLocator(DateTime.now(),
+        ),),),
     ).then((value) {
       _updatePage();
     });

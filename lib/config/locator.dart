@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:kompositum/game/pool_generator/graph_based_pool_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 import 'package:kompositum/util/ads/ad_manager.dart';
+import 'package:kompositum/util/tutorial_manager.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../data/compound_origin.dart';
@@ -34,4 +35,5 @@ Future<void> setupLocator({env = "prod"}) async {
 
   locator.registerSingleton<SwappableDetector>(SwappableDetector(locator<DatabaseInterface>()));
   locator.registerSingleton<AdManager>(AdManager());
+  locator.registerSingleton<TutorialManager>(TutorialManager(locator<KeyValueStore>()));
 }

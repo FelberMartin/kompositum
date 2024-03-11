@@ -10,6 +10,7 @@ import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 import 'package:kompositum/screens/game_page.dart';
 import 'package:kompositum/screens/game_page_classic.dart';
+import 'package:kompositum/util/tutorial_manager.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -34,20 +35,44 @@ class MockSwappableDetector extends Mock implements SwappableDetector {
   }
 }
 
+class MockTutorialManager extends Mock implements TutorialManager {
+
+  @override
+  int get showClickIndicatorIndex => -1;
+
+  @override
+  void onNewLevelStart(LevelSetup levelSetup, PoolGameLevel poolGameLevel) {}
+
+  @override
+  void onCombinedInvalidCompound(PoolGameLevel poolGameLevel) {}
+
+  @override
+  void onComponentClicked() {}
+}
+
 void main() {
   late MockPoolGenerator poolGenerator;
   final levelProvider = BasicLevelProvider();
   final keyValueStore = KeyValueStore();
   final swappableDetector = MockSwappableDetector();
+  final tutorialManager = MockTutorialManager();
 
   setUp(() {
     SharedPreferences.setMockInitialValues({});
     poolGenerator = MockPoolGenerator();
-    registerFallbackValue(LevelSetup(levelIdentifier: "", compoundCount: 2, poolGenerationSeed: 1));
+    registerFallbackValue(LevelSetup(
+        levelIdentifier: "", compoundCount: 2, poolGenerationSeed: 1));
     when(() => poolGenerator.generateFromLevelSetup(any()))
         .thenAnswer((_) => Future.value([Compounds.Apfelbaum]));
   });
 
+  /**
+   * This function is used to pump the widget tree multiple times and does NOT
+   * wait for the animations to finish (in contrast to pumpAndSettle).
+   */
+  Future<void> nonBlockingPump(WidgetTester tester) async {
+    for (int i = 0; i < 5; i++) { await tester.pump(Duration(seconds: 1)); }
+  }
 
   group("Functionality tests", () {
     late GamePageState sut;
@@ -55,17 +80,22 @@ void main() {
     Future<void> _pumpGamePage(WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
         theme: myTheme,
-        home: GamePage(state: GamePageClassicState(
-            levelProvider: levelProvider, poolGenerator: poolGenerator,
-            keyValueStore: keyValueStore, swappableDetector: swappableDetector
-        )),
+        home: GamePage(
+            state: GamePageClassicState(
+                levelProvider: levelProvider,
+                poolGenerator: poolGenerator,
+                keyValueStore: keyValueStore,
+                swappableDetector: swappableDetector,
+                tutorialManager: tutorialManager)),
       ));
-      await tester.pumpAndSettle();
+      await nonBlockingPump(tester);
       sut = tester.state(find.byType(GamePage));
     }
 
     group("toggleSelection", () {
-      testWidgets("should select the toggled component as modifier, if nothing else is selected", (tester) async {
+      testWidgets(
+          "should select the toggled component as modifier, if nothing else is selected",
+          (tester) async {
         await _pumpGamePage(tester);
         sut.poolGameLevel = PoolGameLevel([Compounds.Apfelbaum]);
         final component = sut.poolGameLevel.shownComponents[0];
@@ -74,7 +104,9 @@ void main() {
         expect(sut.selectedModifier, component);
       });
 
-      testWidgets("should selected the toggled component as head, if a modifier is already selected", (tester) async {
+      testWidgets(
+          "should selected the toggled component as head, if a modifier is already selected",
+          (tester) async {
         await _pumpGamePage(tester);
         sut.poolGameLevel = PoolGameLevel([Compounds.Apfelbaum]);
         final modifier = sut.poolGameLevel.shownComponents[0];
@@ -85,7 +117,9 @@ void main() {
         expect(sut.selectedHead, head);
       });
 
-      testWidgets("should unselect the toggled component, if it is already selected", (tester) async {
+      testWidgets(
+          "should unselect the toggled component, if it is already selected",
+          (tester) async {
         await _pumpGamePage(tester);
         sut.poolGameLevel = PoolGameLevel([Compounds.Apfelbaum]);
         final modifier = sut.poolGameLevel.shownComponents[0];
@@ -96,37 +130,45 @@ void main() {
       });
     });
 
-    testWidgets("should reset the selection after completing a compound", (tester) async {
+    testWidgets("should reset the selection after completing a compound",
+        (tester) async {
       await _pumpGamePage(tester);
-      sut.poolGameLevel = PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
-      sut.toggleSelection(0);   // Apfel
-      sut.toggleSelection(1);   // Baum
+      sut.poolGameLevel =
+          PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
+      sut.toggleSelection(0); // Apfel
+      sut.toggleSelection(1); // Baum
 
-      await tester.pumpAndSettle(Duration(seconds: 2));
+      await nonBlockingPump(tester);
 
       expect(sut.selectedModifier, null);
       expect(sut.selectedHead, null);
     });
 
     group("buyHint", () {
-      testWidgets("should set the selection to the new hint if the new hint is the modifier", (tester) async {
+      testWidgets(
+          "should set the selection to the new hint if the new hint is the modifier",
+          (tester) async {
         await _pumpGamePage(tester);
         sut.starCount = 1000;
-        sut.poolGameLevel = PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
-        sut.toggleSelection(1);   // Baum
-        sut.toggleSelection(2);   // Schnee
+        sut.poolGameLevel =
+            PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
+        sut.toggleSelection(1); // Baum
+        sut.toggleSelection(2); // Schnee
         sut.buyHint();
 
-        expect(sut.selectedModifier, sut.poolGameLevel.hints[0].hintedComponent);
+        expect(
+            sut.selectedModifier, sut.poolGameLevel.hints[0].hintedComponent);
         expect(sut.selectedHead, isNull);
       });
 
-      testWidgets("should reset the selection if the new hint is the head", (tester) async {
+      testWidgets("should reset the selection if the new hint is the head",
+          (tester) async {
         await _pumpGamePage(tester);
         sut.starCount = 1000;
-        sut.poolGameLevel = PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
-        sut.toggleSelection(1);   // Baum
-        sut.toggleSelection(2);   // Schnee
+        sut.poolGameLevel =
+            PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
+        sut.toggleSelection(1); // Baum
+        sut.toggleSelection(2); // Schnee
         sut.buyHint();
         sut.buyHint();
 
@@ -135,7 +177,8 @@ void main() {
       });
 
       // This test fails when running all tests, but succeeds when running only this test
-      testWidgets(skip: true, "should reduce the starCount by the normal cost", (tester) async {
+      testWidgets(skip: true, "should reduce the starCount by the normal cost",
+          (tester) async {
         await _pumpGamePage(tester);
         sut.starCount = 100;
         final hintCost = sut.poolGameLevel.getHintCost();
@@ -146,31 +189,40 @@ void main() {
       });
     });
 
-    testWidgets("solving a compound should increase the star counter", (tester) async {
+    testWidgets("solving a compound should increase the star counter",
+        (tester) async {
       await _pumpGamePage(tester);
-      sut.poolGameLevel = PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
+      sut.poolGameLevel =
+          PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
       final starCountBefore = sut.starCount;
 
-      sut.toggleSelection(0);   // Apfel
-      sut.toggleSelection(1);   // Baum
+      sut.toggleSelection(0); // Apfel
+      sut.toggleSelection(1); // Baum
 
-      await tester.pumpAndSettle(Duration(milliseconds: 2000));
+      await nonBlockingPump(tester);
       expect(sut.starCount, starCountBefore + Rewards.starsCompoundCompleted);
     });
-
   });
-
 
   group("UI tests", () {
-    testWidgets(skip: true, "After loading, the components are shown", (tester) async {
+    testWidgets(skip: true, "After loading, the components are shown",
+        (tester) async {
       await tester.pumpWidget(MaterialApp(
-        theme: myTheme,
-          home: GamePage(state: GamePageClassicState(levelProvider: levelProvider, poolGenerator: poolGenerator, keyValueStore: keyValueStore, swappableDetector: swappableDetector))
-      ));
+          theme: myTheme,
+          home: GamePage(
+              state: GamePageClassicState(
+            levelProvider: levelProvider,
+            poolGenerator: poolGenerator,
+            keyValueStore: keyValueStore,
+            swappableDetector: swappableDetector,
+            tutorialManager: tutorialManager,
+          ))));
       await tester.pumpAndSettle(Duration(seconds: 2));
 
-      expect(find.text("Apfel"), findsNWidgets(2));  // Due to the 3d container there are two widgets with the same text
+      expect(
+          find.text("Apfel"),
+          findsNWidgets(
+              2)); // Due to the 3d container there are two widgets with the same text
     });
   });
-
 }

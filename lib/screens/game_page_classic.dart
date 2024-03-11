@@ -3,11 +3,18 @@ import '../data/key_value_store.dart';
 import '../game/level_provider.dart';
 import '../game/pool_generator/compound_pool_generator.dart';
 import '../game/swappable_detector.dart';
+import '../util/tutorial_manager.dart';
 import '../widgets/play/dialogs/level_completed_dialog.dart';
 import 'game_page.dart';
 
 class GamePageClassicState extends GamePageState {
-  GamePageClassicState({required super.levelProvider, required super.poolGenerator, required super.keyValueStore, required super.swappableDetector});
+  GamePageClassicState({
+    required super.levelProvider,
+    required super.poolGenerator,
+    required super.keyValueStore,
+    required super.swappableDetector,
+    required super.tutorialManager,
+  });
 
   factory GamePageClassicState.fromLocator() {
     return GamePageClassicState(
@@ -15,6 +22,7 @@ class GamePageClassicState extends GamePageState {
       poolGenerator: locator<CompoundPoolGenerator>(),
       keyValueStore: locator<KeyValueStore>(),
       swappableDetector: locator<SwappableDetector>(),
+      tutorialManager: locator<TutorialManager>(),
     );
   }
 
@@ -31,7 +39,9 @@ class GamePageClassicState extends GamePageState {
       }
       levelSetup = levelProvider.generateLevelSetup(currentLevel);
       poolGameLevel = storedProgress;
-      setState(() { isLoading = false; });
+      setState(() {
+        isLoading = false;
+      });
       print("Loaded level $currentLevel from storage");
     } else {
       updateGameToLevel(currentLevel, isLevelAdvance: false);
@@ -75,5 +85,4 @@ class GamePageClassicState extends GamePageState {
     assert(resultType == LevelCompletedDialogResultType.classic_continue);
     updateGameToLevel(currentLevel + 1, isLevelAdvance: true);
   }
-
 }
