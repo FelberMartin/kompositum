@@ -263,6 +263,7 @@ class WordWrapper extends StatelessWidget {
           bottom: -2,
           right: -4,
           child: AnimatedOpacity(
+            key: ValueKey("clickIndicator"),
             duration: Duration(milliseconds: 500),
             opacity: showClickIndicator ? 1.0 : 0.0,
             child: RotationTransition(

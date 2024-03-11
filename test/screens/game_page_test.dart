@@ -55,7 +55,33 @@ void main() {
   final levelProvider = BasicLevelProvider();
   final keyValueStore = KeyValueStore();
   final swappableDetector = MockSwappableDetector();
-  final tutorialManager = MockTutorialManager();
+  TutorialManager tutorialManager = MockTutorialManager();
+
+  late GamePageState sut;
+
+  /**
+   * This function is used to pump the widget tree multiple times and does NOT
+   * wait for the animations to finish (in contrast to pumpAndSettle).
+   */
+  Future<void> nonBlockingPump(WidgetTester tester) async {
+    for (int i = 0; i < 5; i++) { await tester.pump(Duration(seconds: 1)); }
+  }
+
+  Future<void> _pumpGamePage(WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(
+      theme: myTheme,
+      home: GamePage(
+          state: GamePageClassicState(
+              levelProvider: levelProvider,
+              poolGenerator: poolGenerator,
+              keyValueStore: keyValueStore,
+              swappableDetector: swappableDetector,
+              tutorialManager: tutorialManager)),
+    ));
+    await nonBlockingPump(tester);
+    sut = tester.state(find.byType(GamePage));
+  }
+
 
   setUp(() {
     SharedPreferences.setMockInitialValues({});
@@ -66,31 +92,8 @@ void main() {
         .thenAnswer((_) => Future.value([Compounds.Apfelbaum]));
   });
 
-  /**
-   * This function is used to pump the widget tree multiple times and does NOT
-   * wait for the animations to finish (in contrast to pumpAndSettle).
-   */
-  Future<void> nonBlockingPump(WidgetTester tester) async {
-    for (int i = 0; i < 5; i++) { await tester.pump(Duration(seconds: 1)); }
-  }
-
   group("Functionality tests", () {
-    late GamePageState sut;
 
-    Future<void> _pumpGamePage(WidgetTester tester) async {
-      await tester.pumpWidget(MaterialApp(
-        theme: myTheme,
-        home: GamePage(
-            state: GamePageClassicState(
-                levelProvider: levelProvider,
-                poolGenerator: poolGenerator,
-                keyValueStore: keyValueStore,
-                swappableDetector: swappableDetector,
-                tutorialManager: tutorialManager)),
-      ));
-      await nonBlockingPump(tester);
-      sut = tester.state(find.byType(GamePage));
-    }
 
     group("toggleSelection", () {
       testWidgets(
@@ -177,13 +180,13 @@ void main() {
       });
 
       // This test fails when running all tests, but succeeds when running only this test
-      testWidgets(skip: true, "should reduce the starCount by the normal cost",
+      testWidgets(skip: false, "should reduce the starCount by the normal cost",
           (tester) async {
         await _pumpGamePage(tester);
         sut.starCount = 100;
         final hintCost = sut.poolGameLevel.getHintCost();
         sut.buyHint();
-        await tester.pumpAndSettle(Duration(seconds: 2));
+        await nonBlockingPump(tester);
 
         expect(sut.starCount, 100 - hintCost);
       });
@@ -205,24 +208,32 @@ void main() {
   });
 
   group("UI tests", () {
-    testWidgets(skip: true, "After loading, the components are shown",
+    testWidgets("After loading, the components are shown",
         (tester) async {
-      await tester.pumpWidget(MaterialApp(
-          theme: myTheme,
-          home: GamePage(
-              state: GamePageClassicState(
-            levelProvider: levelProvider,
-            poolGenerator: poolGenerator,
-            keyValueStore: keyValueStore,
-            swappableDetector: swappableDetector,
-            tutorialManager: tutorialManager,
-          ))));
-      await tester.pumpAndSettle(Duration(seconds: 2));
+      await _pumpGamePage(tester);
 
-      expect(
-          find.text("Apfel"),
-          findsNWidgets(
-              2)); // Due to the 3d container there are two widgets with the same text
+      expect(find.text("Apfel").hitTestable(), findsOneWidget);
     });
+
+    testWidgets("The clickindicator is shown at the beginning of the first level",
+        (tester) async {
+      when(() => poolGenerator.generateFromLevelSetup(any()))
+          .thenAnswer((_) => Future.value([Compounds.Wortschatz]));
+      tutorialManager = TutorialManager(keyValueStore);
+      await _pumpGamePage(tester);
+
+      final widgets = tester.widgetList(find.byKey(ValueKey("clickIndicator")));
+      expect(widgets.any((widget) => widget is AnimatedOpacity && widget.opacity == 1.0), true);
+    });
+
+    testWidgets("The clickindicator is not shown for the second level",
+            (tester) async {
+          SharedPreferences.setMockInitialValues({"level": 2});
+          tutorialManager = TutorialManager(keyValueStore);
+          await _pumpGamePage(tester);
+
+          final widgets = tester.widgetList(find.byKey(ValueKey("clickIndicator")));
+          expect(widgets.any((widget) => widget is AnimatedOpacity && widget.opacity == 1.0), false);
+        });
   });
 }
