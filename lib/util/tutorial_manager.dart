@@ -10,7 +10,7 @@ import '../game/pool_game_level.dart';
 import '../widgets/play/dialogs/tutorials/missing_compound_tutorial_dialog.dart';
 
 enum TutorialPart {
-  CLICK_INDICATOR,
+  CLICK_INDICATOR,    // Note: This is currently not used.
   MISSING_COMPOUND,
   HINTS,
   HIDDEN_COMPONENTS,
@@ -33,11 +33,10 @@ class TutorialManager {
   }
 
   void _checkClickIndicator(Object levelIdentifier, List<UniqueComponent> shownComponents) async {
-    final shown = await _keyValueStore.wasTutorialPartShown(TutorialPart.CLICK_INDICATOR);
-    if (!shown && levelIdentifier == 1) {
+    // Always show the click indicator for the first level. Regardless of whether it was already shown.
+    if (levelIdentifier == 1) {
       // The first level is always "Wort" + "Schatz".
       showClickIndicatorIndex = shownComponents.indexWhere((component) => component.text == "Wort");
-      await _keyValueStore.storeTutorialPartAsShown(TutorialPart.CLICK_INDICATOR);
     }
   }
 

@@ -2,7 +2,6 @@
 ## 1.0 Release
 ### Next up
 
-- ClickIndicator always for level 1
 - dont use attempt for one wrong combination twice
 - Update readme
 - Add basics for word collection?
