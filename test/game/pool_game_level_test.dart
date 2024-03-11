@@ -222,7 +222,7 @@ void main() {
     });
 
     test("should be the base plus the increase per failed attempt", () async {
-      sut.attemptsWatcher.attemptUsed();
+      sut.attemptsWatcher.attemptUsed("Blau", "Apfel");
       expect(sut.getHintCost(), Costs.hintCostBase + Costs.hintCostIncreasePerFailedAttempt);
     });
   });

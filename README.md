@@ -1,18 +1,14 @@
 [![test-my-app](https://github.com/FelberMartin/kompositum/actions/workflows/tests.yml/badge.svg)](https://github.com/FelberMartin/kompositum/actions/workflows/tests.yml)
 
-# app
+![feature_graphic.png](assets%2Fimages%2Fplaystore%2Ffeature_graphic.png)
 
-A new Flutter project.
+**Wortschatz** is a fun german word building app, where you have combine words to valid compounds.
+The app is written with Flutter (dart) and is currently available for Android on the Google Play Store.
 
-## Getting Started
+<p float="left">
+  <img src="./assets/images/playstore/simple.png" width="200" />
+  <img src="./assets/images/playstore/daily.png" width="200" />
+  <img src="./assets/images/playstore/medium.png" width="200" />
+  <img src="./assets/images/playstore/hint.png" width="200" />
+</p>
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

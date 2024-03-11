@@ -2,8 +2,7 @@
 ## 1.0 Release
 ### Next up
 
-- dont use attempt for one wrong combination twice
-- Update readme
+- Run tests
 - Add basics for word collection?
 
 ### Later
