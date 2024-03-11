@@ -91,7 +91,7 @@ class PoolGameLevel {
   Compound? checkForCompound(String modifier, String head) {
     final compound = getCompoundIfExisting(modifier, head);
     if (compound == null) {
-      attemptsWatcher.attemptUsed();
+      attemptsWatcher.attemptUsed(modifier, head);
     } else {
       attemptsWatcher.resetAttempts();
     }

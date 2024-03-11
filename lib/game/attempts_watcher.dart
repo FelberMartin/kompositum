@@ -9,11 +9,17 @@ class AttemptsWatcher {
   int get attemptsFailed => maxAttempts - _attemptsLeft;
   int get overAllAttemptsFailed => _overAllAttemptsFailed;
 
+  final List<String> _usedAttempts = [];
+
   AttemptsWatcher({
     this.maxAttempts = 5,
   }) : _attemptsLeft = maxAttempts;
 
-  void attemptUsed() {
+  void attemptUsed(String modifier, String head) {
+    if (_usedAttempts.contains(modifier + head)) {
+      return;
+    }
+    _usedAttempts.add(modifier + head);
     _attemptsLeft--;
     _overAllAttemptsFailed++;
   }
@@ -30,6 +36,10 @@ class AttemptsWatcher {
     final result = AttemptsWatcher(maxAttempts: json['maxAttempts']);
     result._attemptsLeft = json['attemptsLeft'];
     result._overAllAttemptsFailed = json['overAllAttemptsFailed'];
+    if (json.containsKey('usedAttempts')) {
+      result._usedAttempts.addAll(
+          (json['usedAttempts'] as List).cast<String>());
+    }
     return result;
   }
 
@@ -38,6 +48,7 @@ class AttemptsWatcher {
       'maxAttempts': maxAttempts,
       'attemptsLeft': _attemptsLeft,
       'overAllAttemptsFailed': _overAllAttemptsFailed,
+      'usedAttempts': _usedAttempts,
     };
   }
 }
