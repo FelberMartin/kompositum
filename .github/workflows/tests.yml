@@ -1,36 +1,21 @@
 name: Run Flutter Test
 on: [push, workflow_dispatch]
 jobs:
-  build:
-    runs-on: macos-latest
-    strategy:
-      matrix:
-        api-level:
-          - 29
+  drive:
+    runs-on: win-latest
     steps:
-
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up java
-        uses: actions/setup-java@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
         with:
-          java-version: '12.x'
-
-      - name: Set up Flutter SDK
-        uses: subosito/flutter-action@v2
+          distribution: 'temurin'
+          java-version: '17'
+      - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.10.1'
-
-      - run: flutter upgrade
-
+          
       - name: Install dependencies
         run: flutter pub get
-
-      - name: Update dependencies
-        run: flutter pub upgrade
-
+      
       - name: Run Build_Runner
         run: flutter pub run build_runner build --delete-conflicting-outputs
 
