@@ -109,8 +109,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => GamePage(
-        state: GamePageDailyState.fromLocator(DateTime.now(),
-        ),),),
+        state: GamePageDailyState.fromLocator(DateTime.now()))),
     ).then((value) {
       _updatePage();
     });

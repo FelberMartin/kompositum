@@ -209,6 +209,8 @@ class MonthCompletionReward extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final fontSize = height / 8;
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 500),
       transitionBuilder: (Widget child, Animation<double> animation) {
@@ -219,7 +221,7 @@ class MonthCompletionReward extends StatelessWidget {
             key: ValueKey(month),
             EmojiProvider.instance.getEmojiForDailyMonthCompletion(month),
             style: Theme.of(context).textTheme.labelLarge!.copyWith(
-              fontSize: 90,
+              fontSize: fontSize,
               fontFamily: "NotoEmoji"
             )
         )
@@ -227,7 +229,7 @@ class MonthCompletionReward extends StatelessWidget {
             key: ValueKey("incomplete"),
             "?",
             style: Theme.of(context).textTheme.labelLarge!.copyWith(
-              fontSize: 90,
+              fontSize: fontSize,
               color: Colors.white.withOpacity(0.7),
               fontWeight: FontWeight.bold,
             )
@@ -259,13 +261,14 @@ class Calendar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
     return TableCalendar(
       focusedDay: focusedDay,
       firstDay: DateTime.utc(2023, 12, 1),
       lastDay: DateTime.now(),
       currentDay: DateTime.now(),
       locale: "de_DE",
-      rowHeight: 48,
+      rowHeight: height > 650 ? 48 : 32,
       startingDayOfWeek: StartingDayOfWeek.monday,
       headerStyle: HeaderStyle(
         titleCentered: true,

@@ -1,4 +1,5 @@
 
+import 'package:flutter_test/flutter_test.dart';
 import 'package:test/test.dart';
 
 Matcher isNotInList(List<dynamic> expected) => _IsNotInList(expected);
@@ -18,4 +19,12 @@ class _IsNotInList<T> extends Matcher {
   bool matches(Object? item, Map matchState) {
     return !_list.contains(item);
   }
+}
+
+/**
+ * This function is used to pump the widget tree multiple times and does NOT
+ * wait for the animations to finish (in contrast to pumpAndSettle).
+ */
+Future<void> nonBlockingPump(WidgetTester tester, [int times = 5]) async {
+  for (int i = 0; i < times; i++) { await tester.pump(Duration(seconds: 1)); }
 }

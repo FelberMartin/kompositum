@@ -2,9 +2,7 @@
 ## 1.0 Release
 ### Next up
 
-- Fix tests (pump and settle timed out)
 - Make voter on github green
-- Add basics for word collection?
 
 ### Later
 

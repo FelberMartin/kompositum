@@ -15,6 +15,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../test_data/compounds.dart';
+import '../test_util.dart';
 
 class MockPoolGenerator extends Mock implements CompoundPoolGenerator {
   @override
@@ -58,14 +59,6 @@ void main() {
   TutorialManager tutorialManager = MockTutorialManager();
 
   late GamePageState sut;
-
-  /**
-   * This function is used to pump the widget tree multiple times and does NOT
-   * wait for the animations to finish (in contrast to pumpAndSettle).
-   */
-  Future<void> nonBlockingPump(WidgetTester tester) async {
-    for (int i = 0; i < 5; i++) { await tester.pump(Duration(seconds: 1)); }
-  }
 
   Future<void> _pumpGamePage(WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(
