@@ -2,7 +2,7 @@ name: Run Flutter Test
 on: [push, workflow_dispatch]
 jobs:
   drive:
-    runs-on: win-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-java@v3
