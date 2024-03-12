@@ -5,6 +5,8 @@
 - Make voter on github green
 
 ### Later
+- Images on google play: remove debug label (just use gimp?)
+
 
 # Bugs
 - App is blackscreen when restarting it on phone (just a long loading time?)
@@ -21,6 +23,7 @@
   - Maybe spinning wheel for which trophy to get?
   - Or for collecting 100 words one can spin to get a trophy
 - Feature idea: watch ad to double level finished rewards
+- Hint idea: reshuffle components in pool / hidden components
 
 
 ## After 1.0 Release
