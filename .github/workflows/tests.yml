@@ -1,4 +1,4 @@
-name: Run Flutter Test
+name: Run Flutter Tests
 on: [push, workflow_dispatch]
 jobs:
   drive:

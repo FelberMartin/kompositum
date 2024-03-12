@@ -2,7 +2,7 @@
 ## 1.0 Release
 ### Next up
 
-- Make voter on github green
+
 
 ### Later
 - Images on google play: remove debug label (just use gimp?)
