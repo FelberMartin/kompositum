@@ -49,3 +49,6 @@ app.*.map.json
 /test/data/compounds/lock.mdb
 /compounds/data.mdb
 /compounds/lock.mdb
+
+# Firestore
+/lib/firebase_options.dart

@@ -4,7 +4,7 @@
 
 # 💎 Wortschatz - Wörter Suche
 
-**Wortschatz** is a fun german word building app, where you have combine words to valid compounds.
+**Wortschatz** is a fun german word building app, where you have to combine words to valid compounds.
 The app is written with Flutter (dart) and is currently available for Android on the Google Play Store.
 
 <p float="left">

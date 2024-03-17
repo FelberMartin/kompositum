@@ -33,3 +33,13 @@ void sendPendingDataToFirestore() {
     rethrow;
   }
 }
+
+Future<QuerySnapshot<Map<String, dynamic>>> fetchAllReportedCompounds() async {
+  try {
+    final reports = await db.collection('reported_compounds').get();
+    return reports;
+  } catch (e) {
+    print('Error fetching data from Firestore: $e');
+    rethrow;
+  }
+}
