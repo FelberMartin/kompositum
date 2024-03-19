@@ -1,3 +1,4 @@
+import 'package:kompositum/util/app_version_provider.dart';
 import 'package:path/path.dart';
 
 import '../objectbox.g.dart';
@@ -6,19 +7,23 @@ import 'models/compound.dart';
 
 class DatabaseInitializer {
   final CompoundOrigin compoundOrigin;
-  final bool reset;
+  final AppVersionProvider appVersionProvider;
+
+  final bool forceReset;
   final String path;
 
   DatabaseInitializer({
     required this.compoundOrigin,
+    required this.appVersionProvider,
     required this.path,
-    this.reset = false
+    this.forceReset = false
   });
-
 
   Future<Store> getInitializedDatabase() async {
     final store = await openStore(directory: join(path, "compounds"));
     final count = store.box<Compound>().count();
+
+    final reset = forceReset || appVersionProvider.didAppVersionChange;
 
     if (count == 0) {
       await _insertCompoundsFromCompoundData(store);
@@ -49,4 +54,6 @@ class DatabaseInitializer {
       store.box<Compound>().putMany(compoundData);
     });
   }
+
+
 }

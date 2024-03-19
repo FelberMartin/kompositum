@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:kompositum/game/pool_generator/graph_based_pool_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 import 'package:kompositum/util/ads/ad_manager.dart';
+import 'package:kompositum/util/app_version_provider.dart';
 import 'package:kompositum/util/tutorial_manager.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -22,13 +23,15 @@ Future<void> setupLocator({env = "prod"}) async {
   final docsDir = env == "test" ? Directory("") : await getApplicationDocumentsDirectory();
   final reset = env == "test" ? true : false;
 
+  locator.registerSingleton<KeyValueStore>(KeyValueStore());
+  locator.registerSingleton<AppVersionProvider>(AppVersionProvider(locator<KeyValueStore>()));
   locator.registerSingleton<DatabaseInitializer>(DatabaseInitializer(
       compoundOrigin: locator<CompoundOrigin>(),
+      appVersionProvider: locator<AppVersionProvider>(),
       path: docsDir.path,
-      reset: reset
+      forceReset: reset
   ));
   locator.registerSingleton<DatabaseInterface>(DatabaseInterface(locator<DatabaseInitializer>()));
-  locator.registerSingleton<KeyValueStore>(KeyValueStore());
   locator.registerSingleton<CompoundPoolGenerator>(GraphBasedPoolGenerator(locator<DatabaseInterface>()));
   locator.registerSingleton<LevelProvider>(LogarithmicLevelProvider());
   // SharedPreferences.setMockInitialValues({"level": 1});

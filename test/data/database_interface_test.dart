@@ -1,8 +1,11 @@
 import 'package:flutter/widgets.dart';
 import 'package:kompositum/data/database_initializer.dart';
 import 'package:kompositum/data/database_interface.dart';
+import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/data/models/compact_frequency_class.dart';
+import 'package:kompositum/util/app_version_provider.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
 
 import '../test_data/compounds.dart';
@@ -12,6 +15,16 @@ void main() {
   late DatabaseInterface sut;
   late DatabaseInitializer databaseInitializer;
   late MockCompoundOrigin compoundOrigin;
+  final AppVersionProvider appVersionProvider = MockAppVersionProvider();
+
+  DatabaseInitializer _createDatabaseInitializer({bool reset = true}) {
+    return DatabaseInitializer(
+      compoundOrigin: compoundOrigin,
+      appVersionProvider: appVersionProvider,
+      path: "test/data",
+      forceReset: reset,
+    );
+  }
 
   setUp(() {
     WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +33,8 @@ void main() {
     when(() => compoundOrigin.getCompounds())
         .thenAnswer((_) async => Compounds.all);
 
-    databaseInitializer = DatabaseInitializer(compoundOrigin: compoundOrigin, reset: true, path: 'test/data');
+    SharedPreferences.setMockInitialValues({});
+    databaseInitializer = _createDatabaseInitializer();
     sut = DatabaseInterface(databaseInitializer);
   });
 
@@ -113,7 +127,7 @@ void main() {
             Compounds.Kuchenform.withFrequencyClass(5),
             Compounds.Krankenhaus.withFrequencyClass(null),
           ]);
-      databaseInitializer = DatabaseInitializer(compoundOrigin: compoundOrigin, reset: true, path: 'test/data');
+      databaseInitializer = _createDatabaseInitializer();
       sut = DatabaseInterface(databaseInitializer);
 
       final compounds = await sut.getCompoundsByFrequencyClass(5);
@@ -136,7 +150,7 @@ void main() {
             Compounds.Krankenhaus.withCompactFrequencyClass(
                 CompactFrequencyClass.hard),
           ]);
-      databaseInitializer = DatabaseInitializer(compoundOrigin: compoundOrigin, reset: true, path: 'test/data');
+      databaseInitializer = _createDatabaseInitializer();
       sut = DatabaseInterface(databaseInitializer);
 
       final compounds = await sut

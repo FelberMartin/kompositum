@@ -58,6 +58,7 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   flutter_native_splash: ^2.3.7
   audioplayers: ^5.2.1
+  package_info_plus: ^5.0.1
 
 dev_dependencies:
   flutter_test:
