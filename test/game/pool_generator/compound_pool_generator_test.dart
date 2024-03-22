@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:kompositum/config/locator.dart';
 import 'package:kompositum/data/database_interface.dart';
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/data/models/compact_frequency_class.dart';
@@ -12,6 +11,7 @@ import 'package:kompositum/util/random_util.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
+import '../../config/test_locator.dart';
 import '../../data/mock_database_interface.dart';
 import '../../test_data/compounds.dart';
 
@@ -253,7 +253,7 @@ void runGeneralPoolGeneratorTests(
   test(skip: true, "print the generation times for the first 30 levels",
       () async {
 
-    setupLocator();
+    setupTestLocator();
     final poolGenerator = GraphBasedPoolGenerator(
         locator<DatabaseInterface>());
     final levelProvider = BasicLevelProvider();
