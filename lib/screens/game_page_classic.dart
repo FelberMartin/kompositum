@@ -6,6 +6,7 @@ import '../game/swappable_detector.dart';
 import '../util/tutorial_manager.dart';
 import '../widgets/play/dialogs/level_completed_dialog.dart';
 import 'game_page.dart';
+import 'package:kompositum/game/pool_game_level.dart';
 
 class GamePageClassicState extends GamePageState {
   GamePageClassicState({
@@ -33,18 +34,22 @@ class GamePageClassicState extends GamePageState {
     currentLevel = await keyValueStore.getLevel();
     final storedProgress = await keyValueStore.getClassicPoolGameLevel();
     if (storedProgress != null) {
-      if (storedProgress.shownComponents.isEmpty) {
-        updateGameToLevel(currentLevel + 1, isLevelAdvance: true);
-        return;
-      }
+      _loadLevelFromStored(storedProgress);
+      print("Loaded level $currentLevel from storage");
+    } else {
+      updateGameToLevel(currentLevel, isLevelAdvance: false);
+    }
+  }
+
+  void _loadLevelFromStored(PoolGameLevel storedProgress) {
+    if (storedProgress.shownComponents.isEmpty) {
+      updateGameToLevel(currentLevel + 1, isLevelAdvance: true);
+    } else {
       levelSetup = levelProvider.generateLevelSetup(currentLevel);
       poolGameLevel = storedProgress;
       setState(() {
         isLoading = false;
       });
-      print("Loaded level $currentLevel from storage");
-    } else {
-      updateGameToLevel(currentLevel, isLevelAdvance: false);
     }
   }
 

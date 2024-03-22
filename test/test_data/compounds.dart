@@ -10,6 +10,14 @@ class Compounds {
     frequencyClass: 1,
   );
 
+  static var Krankenhaus_v2 = Compound(
+    id: 0,
+    name: "Krankenhaus",
+    modifier: "Kranke",
+    head: "Haus",
+    frequencyClass: 1,
+  );
+
   static var Spielplatz = Compound(
     id: 0,
     name: "Spielplatz",

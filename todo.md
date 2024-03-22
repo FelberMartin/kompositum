@@ -2,6 +2,7 @@
 ## 1.0 Release
 ### Next up
 
+- reset attempts after using hint
 
 
 ### Later
@@ -9,7 +10,7 @@
 
 
 # Bugs
-- App is blackscreen when restarting it on phone (just a long loading time?)
+- 
 
 
 ### Misc
@@ -27,14 +28,9 @@
 
 
 ## After 1.0 Release
-- Further Report functionality:
-  - Add second csv file with manually added compounds that were not in the dataset
-  - Make compound graph case insensitive? (reduce number of reports?)
-  - Database: Allow multiple compounds with the same compound text (use UUID), to allow multiple 
-    valid combinations for a compound.
 - More game modes
 - UI Improvements:
-  - Indicate compound completion in the combination area (eg flash big textbuttons)
+  - Indicate compound completion in the combination area (eg flash big textbuttons, or the plus sign)
   - Keep common UI components on screen, and only change children during navigation
     - BottomTabBar
     - AppBar

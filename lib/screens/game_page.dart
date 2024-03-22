@@ -345,6 +345,7 @@ abstract class GamePageState extends State<GamePage> {
       dialog: ReportDialog(
         modifier: selectedModifier!.text,
         head: selectedHead!.text,
+        levelIdentifier: levelSetup!.levelIdentifier,
         onClose: () {
           Navigator.pop(context);
           resetToNoSelection();

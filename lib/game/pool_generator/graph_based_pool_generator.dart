@@ -20,21 +20,19 @@ class GraphBasedPoolGenerator extends CompoundPoolGenerator {
   }
 
   @override
-  Future<List<Compound>> generateRestricted(
-      {required int compoundCount,
-      required CompactFrequencyClass frequencyClass,
-      List<Compound> blockedCompounds = const [],
-      int? seed}) async {
+  Future<List<Compound>> generateRestricted({
+    required int compoundCount,
+    required CompactFrequencyClass frequencyClass,
+    List<Compound> blockedCompounds = const [],
+    int? seed
+  }) async {
     final stopWatch = Stopwatch()..start();
     final fullGraph = await _fullGraph;
 
     var selectableCompounds = await databaseInterface
         .getCompoundsByCompactFrequencyClass(frequencyClass);
     final selectableGraph = CompoundGraph.fromCompounds(selectableCompounds);
-
-    for (final blockedCompound in blockedCompounds) {
-      selectableGraph.removeCompound(blockedCompound);
-    }
+    selectableGraph.removeCompounds(blockedCompounds);
 
     final compounds = <Compound>[];
     final random = seed == null ? Random() : Random(seed);
@@ -45,7 +43,7 @@ class GraphBasedPoolGenerator extends CompoundPoolGenerator {
         break;
       }
       final compound =
-          await databaseInterface.getCompound(pair.$1, pair.$2);
+          await databaseInterface.getCompound(pair.$1, pair.$2, caseSensitive: false);
       if (compound == null) {
         throw Exception("Compound not found: ${pair.$1}+${pair.$2}");
       }
@@ -54,8 +52,10 @@ class GraphBasedPoolGenerator extends CompoundPoolGenerator {
       selectableGraph.removeComponents(conflicts);
     }
 
+    stopWatch.stop();
     print(
-        "Remaining selectable compounds: ${selectableGraph.getAllComponents().length} (took ${stopWatch.elapsedMilliseconds} ms)");
+        "Remaining selectable compounds: ${selectableGraph.getAllComponents().length}"
+            " (took ${stopWatch.elapsedMilliseconds} ms)");
 
     return compounds;
   }

@@ -21,6 +21,7 @@ void main() async {
       home: ReportDialog(
         modifier: "Baum",
         head: "Schuh",
+        levelIdentifier: 1,
         onClose: () {},
       )));
 }
@@ -30,11 +31,13 @@ class ReportDialog extends StatefulWidget {
     super.key,
     required this.modifier,
     required this.head,
+    required this.levelIdentifier,
     required this.onClose,
   });
 
   final String modifier;
   final String head;
+  final Object levelIdentifier;
   final Function onClose;
 
   @override
@@ -48,7 +51,7 @@ class _ReportDialogState extends State<ReportDialog> {
 
   void onSendPressed() async {
     setState(() {
-      sendFuture = sendDataToFirestore(compoundText, widget.modifier, widget.head);
+      sendFuture = sendDataToFirestore(compoundText, widget.modifier, widget.head, widget.levelIdentifier.toString());
     });
     await sendFuture;
     await Future.delayed(const Duration(milliseconds: 500));

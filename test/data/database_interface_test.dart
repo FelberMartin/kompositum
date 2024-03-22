@@ -1,8 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'package:kompositum/data/database_initializer.dart';
 import 'package:kompositum/data/database_interface.dart';
+import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/data/models/compact_frequency_class.dart';
+import 'package:kompositum/data/models/compound.dart';
+import 'package:kompositum/util/app_version_provider.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
 
 import '../test_data/compounds.dart';
@@ -12,6 +16,16 @@ void main() {
   late DatabaseInterface sut;
   late DatabaseInitializer databaseInitializer;
   late MockCompoundOrigin compoundOrigin;
+  final AppVersionProvider appVersionProvider = MockAppVersionProvider();
+
+  DatabaseInitializer _createDatabaseInitializer({bool reset = true}) {
+    return DatabaseInitializer(
+      compoundOrigin: compoundOrigin,
+      appVersionProvider: appVersionProvider,
+      path: "test/data",
+      forceReset: reset,
+    );
+  }
 
   setUp(() {
     WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +34,8 @@ void main() {
     when(() => compoundOrigin.getCompounds())
         .thenAnswer((_) async => Compounds.all);
 
-    databaseInitializer = DatabaseInitializer(compoundOrigin: compoundOrigin, reset: true, path: 'test/data');
+    SharedPreferences.setMockInitialValues({});
+    databaseInitializer = _createDatabaseInitializer();
     sut = DatabaseInterface(databaseInitializer);
   });
 
@@ -78,6 +93,34 @@ void main() {
         expect(compound, isNull);
       },
     );
+
+    test(
+      "should return the compound with case insensitive", () async {
+        await sut.close();
+        final compound = Compound(id: 0, name: "Krankenhaus", modifier: "Kranke", head: "Haus", frequencyClass: 1);
+
+        when(() => compoundOrigin.getCompounds()).thenAnswer((_) async => [compound]);
+        databaseInitializer = _createDatabaseInitializer();
+        sut = DatabaseInterface(databaseInitializer);
+
+        final result = await sut.getCompound("kranke", "haus", caseSensitive: false);
+        expect(result, compound);
+      });
+
+
+    test(
+      "should return the compound with the more frequent frequency class if there are multiple ones",
+          () async {
+            await sut.close();
+            final compound1 = Compound(id: 0, name: "Nationalelf", modifier: "national", head: "elf", frequencyClass: 4);
+            final compound2 = Compound(id: 0, name: "Nationalelf", modifier: "national", head: "Elf", frequencyClass: 1);
+            when(() => compoundOrigin.getCompounds()).thenAnswer((_) async => [compound1, compound2]);
+            databaseInitializer = _createDatabaseInitializer();
+            sut = DatabaseInterface(databaseInitializer);
+
+            final compound = await sut.getCompound("national", "elf", caseSensitive: false);
+            expect(compound, compound2);
+          });
   });
 
   group("getCompoundByName", () {
@@ -101,6 +144,34 @@ void main() {
         expect(compound, isNull);
       },
     );
+
+    test("should return the compound with the more frequent frequency class if there are multiple ones", () async {
+      await sut.close();
+      when(() => compoundOrigin.getCompounds()).thenAnswer((_) async =>
+      [
+        Compounds.Krankenhaus.withFrequencyClass(1),
+        Compounds.Krankenhaus_v2.withFrequencyClass(5),
+      ]);
+      databaseInitializer = _createDatabaseInitializer();
+      sut = DatabaseInterface(databaseInitializer);
+
+      final compound = await sut.getCompoundByName("Krankenhaus");
+      expect(compound, Compounds.Krankenhaus);
+    });
+
+    test("should return the compound with the more frequent frequency class if there are multiple ones", () async {
+      await sut.close();
+      when(() => compoundOrigin.getCompounds()).thenAnswer((_) async =>
+      [
+        Compounds.Krankenhaus_v2.withFrequencyClass(null),
+        Compounds.Krankenhaus.withFrequencyClass(1),
+      ]);
+      databaseInitializer = _createDatabaseInitializer();
+      sut = DatabaseInterface(databaseInitializer);
+
+      final compound = await sut.getCompoundByName("Krankenhaus");
+      expect(compound, Compounds.Krankenhaus);
+    });
   });
 
   group("getCompoundsByFrequencyClass", () {
@@ -113,7 +184,7 @@ void main() {
             Compounds.Kuchenform.withFrequencyClass(5),
             Compounds.Krankenhaus.withFrequencyClass(null),
           ]);
-      databaseInitializer = DatabaseInitializer(compoundOrigin: compoundOrigin, reset: true, path: 'test/data');
+      databaseInitializer = _createDatabaseInitializer();
       sut = DatabaseInterface(databaseInitializer);
 
       final compounds = await sut.getCompoundsByFrequencyClass(5);
@@ -136,7 +207,7 @@ void main() {
             Compounds.Krankenhaus.withCompactFrequencyClass(
                 CompactFrequencyClass.hard),
           ]);
-      databaseInitializer = DatabaseInitializer(compoundOrigin: compoundOrigin, reset: true, path: 'test/data');
+      databaseInitializer = _createDatabaseInitializer();
       sut = DatabaseInterface(databaseInitializer);
 
       final compounds = await sut

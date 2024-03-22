@@ -90,4 +90,14 @@ class KeyValueStore {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getBool("tutorialPartShown_${part.toString()}") ?? false;
   }
+
+  Future<String> getPreviousAppVersion() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString("previousAppVersion") ?? "1.0.0";
+  }
+
+  Future<void> storeAppVersion(String version) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString("previousAppVersion", version);
+  }
 }

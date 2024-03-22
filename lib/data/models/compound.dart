@@ -1,8 +1,3 @@
-// Create a data class Compound that has the following properties:
-// - name (String)
-// - modifier (String)
-// - head (double)
-
 import 'package:kompositum/data/models/unique_component.dart';
 import 'package:objectbox/objectbox.dart';
 
@@ -10,19 +5,21 @@ import 'compact_frequency_class.dart';
 
 @Entity()
 class Compound {
+  /// The unique identifier of the compound. This will be set by objectbox.
+  @Id()
   int id;
 
-  // The full name of the compound e.g. "Krankenhaus"
+  /// The full name of the compound e.g. "Krankenhaus"
   @Index()
   final String name;
 
-  // The modifier of the compound e.g. "krank"
+  /// The modifier of the compound e.g. "krank"
   final String modifier;
 
-  // The head of the compound e.g. "Haus"
+  /// The head of the compound e.g. "Haus"
   final String head;
 
-  // The frequency class of the compound ranging from 0 (very frequent) to 28 (very infrequent)
+  /// The frequency class of the compound ranging from 0 (very frequent) to 28 (very infrequent)
   final int? frequencyClass;
 
   static Compound fromJson(Map<String, dynamic> map) {
@@ -118,7 +115,4 @@ class Compound {
       modifier.hashCode ^
       head.hashCode ^
       frequencyClass.hashCode;
-
-
-
 }

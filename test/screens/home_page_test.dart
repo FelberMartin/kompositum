@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kompositum/config/locator.dart';
 import 'package:kompositum/config/my_theme.dart';
 import 'package:kompositum/screens/daily_overview_page.dart';
 import 'package:kompositum/screens/game_page.dart';
 import 'package:kompositum/screens/home_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../config/test_locator.dart';
 import '../test_util.dart';
 
 void main() {
 
   setUpAll(() async {
     SharedPreferences.setMockInitialValues({"level": 3});
-    await setupLocator(env: "test");
+    await setupTestLocator();
   });
 
   testWidgets("Click daily in tabBar takes to DailyOverViewPage", (WidgetTester tester) async {

@@ -76,9 +76,14 @@ class MockDatabaseInterface implements DatabaseInterface {
   }
 
   @override
-  Future<Compound?> getCompound(String modifier, String head) {
+  Future<Compound?> getCompound(String modifier, String head, {bool caseSensitive = true}) {
+    if (caseSensitive) {
+      return Future.value(compounds.firstWhereOrNull((compound) =>
+      compound.modifier == modifier && compound.head == head));
+    }
     return Future.value(compounds.firstWhereOrNull((compound) =>
-    compound.modifier == modifier && compound.head == head));
+    compound.modifier.toLowerCase() == modifier.toLowerCase() &&
+        compound.head.toLowerCase() == head.toLowerCase()));
   }
 
   @override

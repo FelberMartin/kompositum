@@ -31,6 +31,4 @@ class CompoundOrigin {
       frequencyClass: double.tryParse(values[3])?.toInt(),
     );
   }
-
-
 }
