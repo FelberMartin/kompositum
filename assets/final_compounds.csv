@@ -1642,8 +1642,8 @@ Allradauto,Allrad,Auto,
 Allradfahrzeug,Allrad,Fahrzeug,19.0
 Allradversion,Allrad,Version,
 Allroundtalent,allround,Talent,20.0
-Alltag,all,Tag,
 Alltag,alle,Tag,11.0
+Alltag,all,Tag,
 Alltagsarbeit,Alltag,Arbeit,19.0
 Alltagsausgabe,Alltag,Ausgabe,
 Alltagsbedarf,Alltag,Bedarf,22.0
@@ -2401,6 +2401,7 @@ Ananassaft,Ananas,Saft,20.0
 Ananasscheibe,Ananas,Scheibe,22.0
 Ananaswürfel,Ananas,Würfel,
 Anarchosyndikalismus,anarcho,Syndikalismus,23.0
+Anbau,an,Bau,
 Anbaufläche,Anbau,Fläche,16.0
 Anbaugebiet,Anbau,Gebiet,15.0
 Anbaugerät,Anbau,Gerät,
@@ -2430,8 +2431,8 @@ Andachtsstätte,Andacht,Stätte,21.0
 Andenbär,Anden,Bär,
 Andenhochland,Anden,Hochland,21.0
 Andenkatze,Anden,Katze,
-Andenken,an,denken,
 Andenken,an,Denken,14.0
+Andenken,an,denken,
 Andenkenladen,Andenken,Laden,20.0
 Andenland,Anden,Land,20.0
 Andenregion,Anden,Region,21.0
@@ -2860,6 +2861,7 @@ Anrufbeantworter,Anruf,Beantworter,15.0
 Anrufbus,Anruf,Bus,
 Anruferidentifikation,Anrufer,Identifikation,
 Ansagedienst,Ansage,Dienst,19.0
+Ansagen,an,Sagen,
 Ansagetext,Ansage,Text,20.0
 Ansatzmöglichkeit,Ansatz,Möglichkeit,
 Ansatzpunkt,Ansatz,Punkt,16.0
@@ -8797,6 +8799,7 @@ Beispielrechnung,Beispiel,Rechnung,19.0
 Beispielsammlung,Beispiel,Sammlung,23.0
 Beispielsatz,Beispiel,Satz,22.0
 Beispielsfall,Beispiel,Fall,21.0
+Beispielsweise,Beispiel,Weise,
 Beispieltext,Beispiel,Text,
 Beistandspakt,Beistand,Pakt,20.0
 Beistandspflicht,Beistand,Pflicht,19.0
@@ -15515,6 +15518,7 @@ Chorherrenstift,Chorherr,Stift,19.0
 Chorkapelle,Chor,Kapelle,
 Chorkind,Chor,Kind,20.0
 Chorklang,Chor,Klang,18.0
+Chorklasse,Chor,Klasse,
 Chorknabe,Chor,Knabe,18.0
 Chorkollege,Chor,Kollege,
 Chorkonzert,Chor,Konzert,16.0
@@ -36915,6 +36919,7 @@ Grundgehalt,grund,Gehalt,17.0
 Grundgerüst,grund,Gerüst,18.0
 Grundgesamtheit,grund,Gesamtheit,21.0
 Grundgesetz,grund,Gesetz,12.0
+Grundgesetz,Grund,Gesetz,
 Grundgesetzänderung,Grundgesetz,Änderung,16.0
 Grundgestalt,grund,Gestalt,23.0
 Grundglied,Grund,Glied,
@@ -58042,8 +58047,8 @@ Lokalverbot,Lokal,Verbot,20.0
 Lokalverein,lokal,Verein,
 Lokalverkehr,lokal,Verkehr,22.0
 Lokalverwaltung,lokal,Verwaltung,20.0
-Lokalwahl,Lokal,Wahl,
 Lokalwahl,lokal,Wahl,19.0
+Lokalwahl,Lokal,Wahl,
 Lokalzeit,lokal,Zeit,18.0
 Lokalzeitung,lokal,Zeitung,16.0
 Lokalzug,lokal,Zug,22.0
@@ -65522,8 +65527,8 @@ Nationaldichter,national,Dichter,19.0
 Nationaldress,national,Dress,20.0
 Nationaleigentum,national,Eigentum,
 Nationaleinkommen,national,Einkommen,20.0
-Nationalelf,national,elf,
 Nationalelf,national,Elf,14.0
+Nationalelf,national,elf,
 Nationalepos,national,Epos,20.0
 Nationalfahne,national,Fahne,19.0
 Nationalfarbe,national,Farbe,18.0
@@ -71904,6 +71909,7 @@ Polizeistation,Polizei,Station,15.0
 Polizeistatistik,Polizei,Statistik,18.0
 Polizeistelle,Polizei,Stelle,19.0
 Polizeistreife,Polizei,Streife,15.0
+Polizeistreife,Polizist,Streife,
 Polizeistunde,Polizei,Stunde,18.0
 Polizeitaktik,Polizei,Taktik,20.0
 Polizeitaucher,Polizei,Taucher,19.0
@@ -81670,8 +81676,8 @@ Schlagerhit,Schlager,Hit,21.0
 Schlagerkönig,Schlager,König,21.0
 Schlagermarkt,Schlager,Markt,
 Schlagermelodie,Schlager,Melodie,20.0
-Schlagermusik,schlagen,Musik,
 Schlagermusik,Schlager,Musik,19.0
+Schlagermusik,schlagen,Musik,
 Schlagernacht,Schlager,Nacht,20.0
 Schlagerparade,Schlager,Parade,18.0
 Schlagerstar,Schlager,Star,17.0
@@ -81717,8 +81723,8 @@ Schlagwortregister,Schlagwort,Register,23.0
 Schlagwortverzeichnis,Schlagwort,Verzeichnis,
 Schlagzahl,Schlag,Zahl,18.0
 Schlagzeile,schlagen,Zeile,12.0
-Schlagzeug,schlagen,Zeug,
 Schlagzeug,Schlag,Zeug,13.0
+Schlagzeug,schlagen,Zeug,
 Schlagzeugsolo,Schlagzeug,Solo,20.0
 Schlagzeugspiel,Schlagzeug,Spiel,20.0
 Schlagzeugspieler,Schlagzeug,Spieler,
@@ -85034,6 +85040,7 @@ Selbstherrscher,selbst,Herrscher,22.0
 Selbsthilfe,selbst,Hilfe,14.0
 Selbsthilfebuch,Selbsthilfe,Buch,22.0
 Selbsthilfeeinrichtung,Selbsthilfe,Einrichtung,20.0
+Selbsthilfeforum,Selbsthilfe,Forum,
 Selbsthilfegruppe,Selbsthilfe,Gruppe,13.0
 Selbsthilfekontaktstelle,Selbsthilfe,Kontaktstelle,20.0
 Selbsthilfekraft,Selbsthilfe,Kraft,22.0
@@ -86426,8 +86433,8 @@ Sitzfläche,sitzen,Fläche,17.0
 Sitzgarnitur,Sitz,Garnitur,18.0
 Sitzgefühl,sitzen,Gefühl,
 Sitzgelegenheit,sitzen,Gelegenheit,16.0
-Sitzgruppe,sitzen,Gruppe,
 Sitzgruppe,Sitz,Gruppe,17.0
+Sitzgruppe,sitzen,Gruppe,
 Sitzgurt,Sitz,Gurt,20.0
 Sitzgymnastik,Sitz,Gymnastik,
 Sitzhaltung,sitzen,Haltung,19.0
@@ -107119,8 +107126,8 @@ Werklohn,Werk,Lohn,21.0
 Werkmeister,Werk,Meister,18.0
 Werkmodell,Werk,Modell,
 Werkphase,Werk,Phase,20.0
-Werkraum,Werk,Raum,
 Werkraum,werken,Raum,16.0
+Werkraum,Werk,Raum,
 Werkrealschule,Werk,Realschule,18.0
 Werkreihe,Werk,Reihe,20.0
 Werksangabe,Werk,Angabe,19.0
@@ -112332,6 +112339,7 @@ Zündsystem,zünden,System,21.0
 Zündverteiler,zünden,Verteiler,23.0
 Zündvorrichtung,zünden,Vorrichtung,21.0
 Zündzeitpunkt,zünden,Zeitpunkt,22.0
+anhören,an,Hören,
 Ägäisküste,Ägäis,Küste,
 Ähnlichkeitsprinzip,Ähnlichkeit,Prinzip,
 Ähnlichkeitstheorie,Ähnlichkeit,Theorie,

@@ -16,7 +16,7 @@ void main() async {
   final reports = await fetchAllReportedCompounds();
 
   // Print the reports to the console in a csv format
-  final header = 'compound,modifier,head,time';
+  final header = 'compound,modifier,head,time,level,app_version';
   print(header);
 
   // Do the printing from above in a for loop
@@ -25,7 +25,9 @@ void main() async {
     final modifier = report['modifier'];
     final head = report['head'];
     final time = report['time'].toDate();
-    print('$compound,$modifier,$head,$time');
+    final level = report.data()['level'] ?? '';
+    final appVersion = report.data()['app_version'] ?? '';
+    print('$compound,$modifier,$head,$time,$level,$appVersion');
   }
 
   print('Fetched ${reports.docs.length} reports');
