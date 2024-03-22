@@ -1,10 +1,14 @@
 
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:kompositum/util/app_version_provider.dart';
+
+import '../../config/locator.dart';
 
 final db = FirebaseFirestore.instance;
 
 Future<void> sendDataToFirestore(String compound, String modifier, String head, String level) async {
+  final appVersion = await locator<AppVersionProvider>().getAppVersion();
   try {
     db.collection('reported_compounds').add({
       'compound': compound,
@@ -12,6 +16,7 @@ Future<void> sendDataToFirestore(String compound, String modifier, String head, 
       'head': head,
       'time': DateTime.now(),
       'level': level,
+      'app_version': appVersion,
     });
 
     print('Data added to Firestore successfully');

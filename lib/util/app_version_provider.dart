@@ -12,10 +12,14 @@ class AppVersionProvider {
     _checkAppVersion();
   }
 
+  Future<String> getAppVersion() async {
+    final packageInfo = await PackageInfo.fromPlatform();
+    return packageInfo.version;
+  }
+
   Future<void> _checkAppVersion() async {
     final currentVersion = await keyValueStore.getPreviousAppVersion();
-    final packageInfo = await PackageInfo.fromPlatform();
-    final newVersion = packageInfo.version;
+    final newVersion = await getAppVersion();
     if (currentVersion != newVersion) {
       print("App version changed from $currentVersion to $newVersion");
       await keyValueStore.storeAppVersion(newVersion);

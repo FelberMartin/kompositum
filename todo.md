@@ -32,7 +32,7 @@
 ## After 1.0 Release
 - More game modes
 - UI Improvements:
-  - Indicate compound completion in the combination area (eg flash big textbuttons)
+  - Indicate compound completion in the combination area (eg flash big textbuttons, or the plus sign)
   - Keep common UI components on screen, and only change children during navigation
     - BottomTabBar
     - AppBar
