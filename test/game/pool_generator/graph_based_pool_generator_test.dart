@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:kompositum/data/models/compact_frequency_class.dart';
+import 'package:kompositum/data/models/compound.dart';
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 import 'package:kompositum/game/pool_generator/graph_based_pool_generator.dart';
 import 'package:test/test.dart';
@@ -24,26 +27,46 @@ void main() {
 
   test("should return a smaller pool if there would otherwise be conflicts",
       () async {
-    databaseInterface.compounds = [
-      Compounds.Apfelkuchen,
-      Compounds.Kuchenform,
-      Compounds.Formsache
-    ];
-    sut = GraphBasedPoolGenerator(databaseInterface);
-    final compounds = await sut.generate(
-      frequencyClass: CompactFrequencyClass.easy,
-      compoundCount: 3,
-    );
-    expect(compounds.length, 1);
+    for (int i = 0; i < 10; i++) {
+      databaseInterface.compounds = [
+        Compounds.Apfelkuchen,
+        Compounds.Kuchenform,
+        Compounds.Formsache
+      ];
+      sut = GraphBasedPoolGenerator(databaseInterface);
+      final compounds = await sut.generate(
+        frequencyClass: CompactFrequencyClass.easy,
+        compoundCount: 3,
+      );
+      expect(compounds.length, 1);
+    }
   });
 
   test("should not return duplicates", () async {
-    databaseInterface.compounds = [Compounds.Apfelkuchen, Compounds.Schneemann];
-    sut = GraphBasedPoolGenerator(databaseInterface);
-    final compounds = await sut.generateRestricted(
-      frequencyClass: CompactFrequencyClass.easy,
-      compoundCount: 3,
-    );
-    expect(compounds.length, 2);
+    for (int i = 0; i < 10; i++) {
+      databaseInterface.compounds = [Compounds.Apfelkuchen, Compounds.Schneemann];
+        sut = GraphBasedPoolGenerator(databaseInterface);
+        final compounds = await sut.generateRestricted(
+        frequencyClass: CompactFrequencyClass.easy,
+        compoundCount: 3,
+        );
+        expect(compounds.length, 2);
+      }
+  });
+
+  test("Nationalelf: prevent modifier head pairs if they would otherwise be conflicts (considering lowercase)", () async {
+    for (int i = 0; i < 10; i++) {
+      databaseInterface.compounds = [
+        Compound(id: 0, name: "Nationalmannschaft", modifier: "national", head: "Mannschaft", frequencyClass: 1),
+        Compound(id: 0, name: "Elfmeter", modifier: "elf", head: "Meter", frequencyClass: 1),
+        Compound(id: 0, name: "Nationalelf", modifier: "national", head: "Elf", frequencyClass: 1),
+      ];
+      sut = GraphBasedPoolGenerator(databaseInterface);
+      final compounds = await sut.generate(
+        frequencyClass: CompactFrequencyClass.easy,
+        compoundCount: 3,
+      );
+      expect(compounds.length, 1);
+    }
   });
 }

@@ -64,9 +64,8 @@ void main() {
 }
 
 void runGeneralPoolGeneratorTests(
-    Function(DatabaseInterface,
-            {int blockLastN})
-        createSut) {
+    Function(DatabaseInterface, {int blockLastN}) createSut
+) {
   late CompoundPoolGenerator sut;
   late MockDatabaseInterface databaseInterface;
 

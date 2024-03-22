@@ -53,10 +53,14 @@ class DatabaseInterface {
 
   /// Get a compound with the given modifier and head.
   /// If no compound with the given modifier and head exists, null is returned.
-  Future<Compound?> getCompound(String modifier, String head) async {
+  Future<Compound?> getCompound(String modifier, String head, {bool caseSensitive = true}) async {
     final db = await _database;
-    final query = db.box<Compound>().query(Compound_.modifier.equals(modifier) &
-        Compound_.head.equals(head)).build();
+    final query = db.box<Compound>().query(
+        Compound_.modifier.equals(modifier, caseSensitive: caseSensitive) &
+        Compound_.head.equals(head, caseSensitive: caseSensitive)
+    ).order(
+        Compound_.frequencyClass, flags: Order.nullsLast
+    ).build();
     return query.findFirst();
   }
 
@@ -66,8 +70,11 @@ class DatabaseInterface {
   /// the more frequent frequency class.
   Future<Compound?> getCompoundByName(String name) async {
     final db = await _database;
-    final query = db.box<Compound>().query(Compound_.name.equals(name)).order(
-        Compound_.frequencyClass, flags: Order.nullsLast).build();
+    final query = db.box<Compound>().query(
+        Compound_.name.equals(name)
+    ).order(
+        Compound_.frequencyClass, flags: Order.nullsLast
+    ).build();
     return query.findFirst();
   }
 }

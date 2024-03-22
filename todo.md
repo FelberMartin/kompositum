@@ -3,8 +3,6 @@
 ### Next up
 
 - reset attempts after using hint
-- Further Report functionality:
-  - Make compound graph case insensitive? (reduce number of reports?)
 
 
 ### Later

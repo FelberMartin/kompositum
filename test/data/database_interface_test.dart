@@ -3,6 +3,7 @@ import 'package:kompositum/data/database_initializer.dart';
 import 'package:kompositum/data/database_interface.dart';
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/data/models/compact_frequency_class.dart';
+import 'package:kompositum/data/models/compound.dart';
 import 'package:kompositum/util/app_version_provider.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -92,6 +93,34 @@ void main() {
         expect(compound, isNull);
       },
     );
+
+    test(
+      "should return the compound with case insensitive", () async {
+        await sut.close();
+        final compound = Compound(id: 0, name: "Krankenhaus", modifier: "Kranke", head: "Haus", frequencyClass: 1);
+
+        when(() => compoundOrigin.getCompounds()).thenAnswer((_) async => [compound]);
+        databaseInitializer = _createDatabaseInitializer();
+        sut = DatabaseInterface(databaseInitializer);
+
+        final result = await sut.getCompound("kranke", "haus", caseSensitive: false);
+        expect(result, compound);
+      });
+
+
+    test(
+      "should return the compound with the more frequent frequency class if there are multiple ones",
+          () async {
+            await sut.close();
+            final compound1 = Compound(id: 0, name: "Nationalelf", modifier: "national", head: "elf", frequencyClass: 4);
+            final compound2 = Compound(id: 0, name: "Nationalelf", modifier: "national", head: "Elf", frequencyClass: 1);
+            when(() => compoundOrigin.getCompounds()).thenAnswer((_) async => [compound1, compound2]);
+            databaseInitializer = _createDatabaseInitializer();
+            sut = DatabaseInterface(databaseInitializer);
+
+            final compound = await sut.getCompound("national", "elf", caseSensitive: false);
+            expect(compound, compound2);
+          });
   });
 
   group("getCompoundByName", () {

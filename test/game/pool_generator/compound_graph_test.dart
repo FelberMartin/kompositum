@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:kompositum/data/models/compound.dart';
 import 'package:kompositum/game/pool_generator/compound_graph.dart';
 import 'package:test/test.dart';
 
@@ -9,7 +10,11 @@ void main() {
   group("fromCompounds", () {
     test("should create a graph from compounds", () {
       final compounds = Compounds.all;
-      final allComponents = compounds.map((compound) => compound.getComponents()).expand((element) => element).toList();
+      final allComponents = compounds
+          .map((compound) => compound.getComponents())
+          .expand((element) => element)
+          .map((component) => component.toLowerCase())
+          .toList();
       final compoundGraph = CompoundGraph.fromCompounds(compounds);
       expect(compoundGraph.getAllComponents(), allComponents.toSet().toList());
     });
@@ -17,7 +22,7 @@ void main() {
     test("should create a graph from compounds with multiple modifiers", () {
       final compounds = [Compounds.Apfelbaum, Compounds.Apfelkuchen];
       final compoundGraph = CompoundGraph.fromCompounds(compounds);
-      expect(compoundGraph.getAllComponents(), ["Apfel", "Baum", "Kuchen"]);
+      expect(compoundGraph.getAllComponents(), ["apfel", "baum", "kuchen"]);
     });
   });
 
@@ -25,7 +30,16 @@ void main() {
     test("should add a compound to the graph", () {
       final compoundGraph = CompoundGraph();
       compoundGraph.addCompound(Compounds.Apfelbaum);
-      expect(compoundGraph.getAllComponents(), ["Apfel", "Baum"]);
+      expect(compoundGraph.getAllComponents(), ["apfel", "baum"]);
+    });
+
+    test("should not add two links if the same compound is added twice", () {
+      final compoundGraph = CompoundGraph();
+      compoundGraph.addCompound(Compounds.Apfelbaum);
+      compoundGraph.addCompound(Compounds.Apfelbaum);
+      expect(compoundGraph.getAllComponents(), ["apfel", "baum"]);
+      compoundGraph.removeCompound(Compounds.Apfelbaum);
+      expect(compoundGraph.hasLink("apfel", "baum"), isFalse);
     });
   });
 
@@ -46,7 +60,7 @@ void main() {
         Compounds.Apfelbaum, Compounds.Apfelkuchen
       ]);
       compoundGraph.removeComponents(["Apfel"]);
-      expect(compoundGraph.getAllComponents(), containsAll(["Kuchen", "Baum"]));
+      expect(compoundGraph.getAllComponents(), containsAll(["kuchen", "baum"]));
     });
   });
 
@@ -55,7 +69,7 @@ void main() {
       final compoundGraph = CompoundGraph.fromCompounds([
         Compounds.Apfelbaum, Compounds.Apfelkuchen, Compounds.Schneemann
       ]);
-      expect(compoundGraph.getNeighbors("Apfel"), containsAll(["Baum", "Kuchen"]));
+      expect(compoundGraph.getNeighbors("Apfel"), containsAll(["baum", "kuchen"]));
     });
   });
 
@@ -64,7 +78,7 @@ void main() {
       final compoundGraph = CompoundGraph.fromCompounds([Compounds.Apfelbaum]);
       final conflicts = compoundGraph.getConflictingComponents(Compounds.Apfelbaum);
       expect(conflicts, isNotEmpty);
-      expect(conflicts, containsAll(["Apfel", "Baum"]));
+      expect(conflicts, containsAll(["apfel", "baum"]));
     });
 
     test("should remove conflicting compounds from the graph", () {
@@ -73,8 +87,8 @@ void main() {
         Compounds.SachSchaden, Compounds.Schneemann
       ]);
       final conflicts = compoundGraph.getConflictingComponents(Compounds.Apfelkuchen);
-      expect(conflicts, containsAll(["Apfel", "Kuchen", "Form"]));
-      expect(conflicts, isNot(containsAll(["Sache", "Schaden", "Schnee", "Mann"])));
+      expect(conflicts, containsAll(["apfel", "kuchen", "form"]));
+      expect(conflicts, isNot(containsAll(["sache", "schaden", "schnee", "mann"])));
     });
   });
 
@@ -84,7 +98,7 @@ void main() {
         Compounds.Apfelbaum
       ]);
       final pair = compoundGraph.getRandomModifierHeadPair(Random());
-      expect(pair, ("Apfel", "Baum"));
+      expect(pair, ("apfel", "baum"));
     });
 
     test("should return null if no components exist", () {
@@ -136,8 +150,17 @@ void main() {
       compoundGraph.removeComponents(["Apfel"]);
       for (int i = 0; i < 5; i++) {
         final pair = compoundGraph.getRandomModifierHeadPair(Random());
-        expect(pair, ("Schnee", "Mann"));
+        expect(pair, ("schnee", "mann"));
       }
+    });
+  });
+
+  group("graph is now case insensitive", () {
+    test("should add only one component if the same component is added twice, once uppercased and once lowercased", () {
+      final compoundGraph = CompoundGraph();
+      compoundGraph.addCompound(Compound(id: 0, name: "Apfelbaum", modifier: "Apfel", head: "Baum"));
+      compoundGraph.addCompound(Compound(id: 0, name: "apfelbaum", modifier: "apfel", head: "baum"));
+      expect(compoundGraph.getAllComponents(), ["apfel", "baum"]);
     });
   });
 }
