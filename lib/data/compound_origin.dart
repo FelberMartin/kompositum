@@ -32,18 +32,3 @@ class CompoundOrigin {
     );
   }
 }
-
-class BlockedCompoundOrigin {
-
-  // TODO: CompoundOrigin should already add the reported compounds and remove the blocked ones.
-
-  Future<List<String>> getCompoundNames() {
-    WidgetsFlutterBinding.ensureInitialized();
-    return rootBundle.loadString("assets/blocked_compounds.csv").then((csv) {
-      // Return a list of the strings in the csv file. They are separated by newlines.
-      // The the file has no header, so we don't skip the first line.
-      return csv.split("\n").toList();
-    });
-  }
-}
-

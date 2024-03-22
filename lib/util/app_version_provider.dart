@@ -17,6 +17,7 @@ class AppVersionProvider {
     final packageInfo = await PackageInfo.fromPlatform();
     final newVersion = packageInfo.version;
     if (currentVersion != newVersion) {
+      print("App version changed from $currentVersion to $newVersion");
       await keyValueStore.storeAppVersion(newVersion);
       _didAppVersionChange = true;
     }

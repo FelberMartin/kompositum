@@ -4,11 +4,10 @@
 
 - reset attempts after using hint
 - Further Report functionality:
-  - Add second csv file with manually added compounds that were not in the dataset
   - Make compound graph case insensitive? (reduce number of reports?)
   - Database: Allow multiple compounds with the same compound text (use UUID), to allow multiple
     valid combinations for a compound.
-  - csv with blocked compounds: Ackermann
+  - There can now be multiple compounds for a single compound string (add tests!)
 
 
 ### Later

@@ -54,6 +54,4 @@ class DatabaseInitializer {
       store.box<Compound>().putMany(compoundData);
     });
   }
-
-
 }
