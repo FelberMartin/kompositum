@@ -27,12 +27,13 @@ class PoolGameLevel {
 
   late AttemptsWatcher attemptsWatcher;
 
-  PoolGameLevel(List<Compound> allCompounds,
-      {this.maxShownComponentCount = 11,
-        this.displayedDifficulty = Difficulty.easy,
-        this.swappableCompounds = const [],
-      }
-    ) {
+  PoolGameLevel(
+    List<Compound> allCompounds,
+    {
+      this.maxShownComponentCount = 11,
+      this.displayedDifficulty = Difficulty.easy,
+      this.swappableCompounds = const [],
+  }) {
     _allCompounds.addAll(allCompounds);
     _unsolvedCompounds.addAll(allCompounds);
     final components = UniqueComponent.fromCompounds(allCompounds);
