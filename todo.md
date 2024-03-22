@@ -5,9 +5,8 @@
 - reset attempts after using hint
 - Further Report functionality:
   - Make compound graph case insensitive? (reduce number of reports?)
-  - Database: Allow multiple compounds with the same compound text (use UUID), to allow multiple
-    valid combinations for a compound.
   - There can now be multiple compounds for a single compound string (add tests!)
+  - When loading a stored level, deal with now suddenly blocked compounds
 
 
 ### Later
