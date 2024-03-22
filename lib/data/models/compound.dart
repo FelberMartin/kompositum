@@ -6,6 +6,7 @@ import 'compact_frequency_class.dart';
 @Entity()
 class Compound {
   /// The unique identifier of the compound. This will be set by objectbox.
+  @Id()
   int id;
 
   /// The full name of the compound e.g. "Krankenhaus"
@@ -114,7 +115,4 @@ class Compound {
       modifier.hashCode ^
       head.hashCode ^
       frequencyClass.hashCode;
-
-
-
 }

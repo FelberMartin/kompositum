@@ -115,6 +115,34 @@ void main() {
         expect(compound, isNull);
       },
     );
+
+    test("should return the compound with the more frequent frequency class if there are multiple ones", () async {
+      await sut.close();
+      when(() => compoundOrigin.getCompounds()).thenAnswer((_) async =>
+      [
+        Compounds.Krankenhaus.withFrequencyClass(1),
+        Compounds.Krankenhaus_v2.withFrequencyClass(5),
+      ]);
+      databaseInitializer = _createDatabaseInitializer();
+      sut = DatabaseInterface(databaseInitializer);
+
+      final compound = await sut.getCompoundByName("Krankenhaus");
+      expect(compound, Compounds.Krankenhaus);
+    });
+
+    test("should return the compound with the more frequent frequency class if there are multiple ones", () async {
+      await sut.close();
+      when(() => compoundOrigin.getCompounds()).thenAnswer((_) async =>
+      [
+        Compounds.Krankenhaus_v2.withFrequencyClass(null),
+        Compounds.Krankenhaus.withFrequencyClass(1),
+      ]);
+      databaseInitializer = _createDatabaseInitializer();
+      sut = DatabaseInterface(databaseInitializer);
+
+      final compound = await sut.getCompoundByName("Krankenhaus");
+      expect(compound, Compounds.Krankenhaus);
+    });
   });
 
   group("getCompoundsByFrequencyClass", () {
