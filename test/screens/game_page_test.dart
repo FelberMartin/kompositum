@@ -172,6 +172,19 @@ void main() {
         expect(sut.selectedHead, isNull);
       });
 
+      testWidgets("should reset the attempts when buying a hint",
+          (tester) async {
+        await _pumpGamePage(tester);
+        sut.starCount = 1000;
+        sut.poolGameLevel = PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
+        sut.toggleSelection(1); // Baum
+        sut.toggleSelection(2); // Schnee
+        expect(sut.poolGameLevel.attemptsWatcher.attemptsLeft, 4);
+        sut.buyHint();
+
+        expect(sut.poolGameLevel.attemptsWatcher.attemptsLeft, 5);
+      });
+
       // This test fails when running all tests, but succeeds when running only this test
       testWidgets(skip: false, "should reduce the starCount by the normal cost",
           (tester) async {

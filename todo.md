@@ -2,8 +2,6 @@
 ## 1.0 Release
 ### Next up
 
-- reset attempts after using hint
-
 
 ### Later
 - Images on google play: remove debug label (just use gimp?)

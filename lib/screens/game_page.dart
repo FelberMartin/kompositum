@@ -336,6 +336,7 @@ abstract class GamePageState extends State<GamePage> {
     AudioManager.instance.playHint();
     _decreaseStarCount(cost);
     onPoolGameLevelUpdate();
+    poolGameLevel.attemptsWatcher.resetAttempts();
     setState(() {});
   }
 
