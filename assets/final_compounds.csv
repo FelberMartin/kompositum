@@ -2430,8 +2430,8 @@ Andachtsstätte,Andacht,Stätte,21.0
 Andenbär,Anden,Bär,
 Andenhochland,Anden,Hochland,21.0
 Andenkatze,Anden,Katze,
-Andenken,an,Denken,14.0
 Andenken,an,denken,
+Andenken,an,Denken,14.0
 Andenkenladen,Andenken,Laden,20.0
 Andenland,Anden,Land,20.0
 Andenregion,Anden,Region,21.0
@@ -14589,7 +14589,6 @@ Businessplan,Business,Plan,17.0
 Businsasse,Bus,Insasse,18.0
 Buskarte,Bus,Karte,21.0
 Busladung,Bus,Ladung,19.0
-Buslinie,Bus,Linie,
 Buslinie,Bus,Linie,14.0
 Busliniennetz,Buslinie,Netz,22.0
 Buslinienverkehr,Buslinie,Verkehr,
@@ -18521,8 +18520,8 @@ Dummbeutel,dumm,Beutel,22.0
 Dummenfang,Dumme,Fang,23.0
 Dummkopf,dumm,Kopf,17.0
 Dumpfbacke,dumpf,Backe,22.0
-Dumpinglohn,dumping,Lohn,
 Dumpinglohn,Dumping,Lohn,18.0
+Dumpinglohn,dumping,Lohn,
 Dumpingpreis,Dumping,Preis,17.0
 Dunkelbier,dunkel,Bier,21.0
 Dunkelfeld,dunkel,Feld,19.0
@@ -30782,7 +30781,6 @@ Förderungsrichtlinie,Förderung,Richtlinie,20.0
 Förderungswerk,Förderung,Werk,
 Förderunterricht,fördern,Unterricht,17.0
 Förderverein,fördern,Verein,12.0
-Förderverein,fördern,Verein,
 Fördervertrag,fördern,Vertrag,20.0
 Fördervolumen,fördern,Volumen,19.0
 Fördervoraussetzung,fördern,Voraussetzung,21.0
@@ -56824,7 +56822,6 @@ Lernkartei,lernen,Kartei,
 Lernklima,lernen,Klima,20.0
 Lernkontrolle,lernen,Kontrolle,22.0
 Lernkonzept,lernen,Konzept,
-Lernkonzept,lernen,Konzept,
 Lernkultur,lernen,Kultur,19.0
 Lernkurve,lernen,Kurve,21.0
 Lernleistung,lernen,Leistung,20.0
@@ -62677,7 +62674,6 @@ Mittelläufer,mittlere,Läufer,21.0
 Mittelmacht,mittlere,Macht,19.0
 Mittelmanagement,mittlere,Management,22.0
 Mittelmaß,mittlere,Maß,15.0
-Mittelmaß,mittlere,Maß,
 Mittelmeeranrainer,Mittelmeer,Anrainer,20.0
 Mittelmeerflotte,Mittelmeer,Flotte,23.0
 Mittelmeergebiet,Mittelmeer,Gebiet,20.0
@@ -62769,7 +62765,6 @@ Mittelwellenbereich,Mittelwelle,Bereich,
 Mittelwellenfrequenz,Mittelwelle,Frequenz,22.0
 Mittelwellensender,Mittelwelle,Sender,21.0
 Mittelwert,mittlere,Wert,16.0
-Mittelwert,mittlere,Wert,
 Mittelwert,Mittel,Wert,
 Mittelwesten,mittlere,Westen,20.0
 Mittelzentrum,mittlere,Zentrum,16.0
@@ -81722,8 +81717,8 @@ Schlagwortregister,Schlagwort,Register,23.0
 Schlagwortverzeichnis,Schlagwort,Verzeichnis,
 Schlagzahl,Schlag,Zahl,18.0
 Schlagzeile,schlagen,Zeile,12.0
-Schlagzeug,Schlag,Zeug,13.0
 Schlagzeug,schlagen,Zeug,
+Schlagzeug,Schlag,Zeug,13.0
 Schlagzeugsolo,Schlagzeug,Solo,20.0
 Schlagzeugspiel,Schlagzeug,Spiel,20.0
 Schlagzeugspieler,Schlagzeug,Spieler,
@@ -88208,7 +88203,6 @@ Spielelement,Spiel,Element,20.0
 Spielemagazin,Spiel,Magazin,
 Spielemarkt,Spiel,Markt,21.0
 Spielemesse,Spiel,Messe,20.0
-Spielende,Spiel,Ende,
 Spielende,Spiel,Ende,15.0
 Spieleprogrammierer,Spiel,Programmierer,
 Spieleranzahl,Spieler,Anzahl,

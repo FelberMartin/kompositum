@@ -4,13 +4,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 final db = FirebaseFirestore.instance;
 
-Future<void> sendDataToFirestore(String compound, String modifier, String head) async {
+Future<void> sendDataToFirestore(String compound, String modifier, String head, String level) async {
   try {
     db.collection('reported_compounds').add({
       'compound': compound,
       'modifier': modifier,
       'head': head,
       'time': DateTime.now(),
+      'level': level,
     });
 
     print('Data added to Firestore successfully');
