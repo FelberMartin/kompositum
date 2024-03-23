@@ -1,15 +1,17 @@
 # TODOs    
 ## 1.0 Release
 ### Next up
-- Share button for ad screen
 - Test easter eggs (orangensaft) sound
+- Run `flutter pub run build_runner build`
 
 ### Later
 - Images on google play: remove debug label (just use gimp?)
 
 
 # Bugs
-- 
+- Andreas: 3 components were removed from pool, apparently by tapping twice quickly on two 
+  different components, and there was a correct compound within them 
+  -> Non reproducible, version 1.0.0 
 
 
 ### Misc

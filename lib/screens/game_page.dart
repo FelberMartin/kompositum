@@ -158,16 +158,18 @@ abstract class GamePageState extends State<GamePage> {
   }
 
   void resetToNoSelection() {
-    resetSelection(SelectionType.modifier);
+    resetSelection(SelectionType.modifier, shouldSetState: false);
     resetSelection(SelectionType.head);
   }
 
-  void resetSelection(SelectionType selectionType) {
+  void resetSelection(SelectionType selectionType, {bool shouldSetState = true}) {
     selectionTypeToComponentId[selectionType] = -1;
-    setState(() {});
+    if (shouldSetState) {
+      setState(() {});
+    }
   }
 
-  void toggleSelection(int componentId) async {
+  void toggleSelection(int componentId) {
     final selectionType = getSelectionTypeForComponentId(componentId);
     if (selectionType != null) {
       selectionTypeToComponentId[selectionType] = -1;
@@ -181,7 +183,7 @@ abstract class GamePageState extends State<GamePage> {
     setState(() {});
   }
 
-  void _checkCompoundCompletion() async {
+  void _checkCompoundCompletion() {
     if (selectedModifier == null || selectedHead == null) {
       return;
     }
