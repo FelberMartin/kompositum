@@ -63,8 +63,8 @@ class PoolGameLevel {
     if (compoundToRemove == null) {
       return;
     }
-    // There was weird bug where 3 components were removed, to pontentially fix it, I added this check
-    if (compoundToRemove.modifier != modifier.text || compoundToRemove.head != head.text) {
+    // There was weird bug where 3 components were removed, to potentially fix it, I added this check
+    if (compound.modifier != modifier.text || compound.head != head.text) {
       return;
     }
     _removeHintsForCompound(compoundToRemove);
