@@ -19,4 +19,5 @@ class MyIcons {
 
   static const IconData info = FontAwesomeIcons.circleInfo;
   static const IconData clickIndicator = FontAwesomeIcons.solidHandPointer;
+  static const IconData share = FontAwesomeIcons.share;
 }

@@ -39,12 +39,14 @@ class MyPrimaryTextButton extends StatelessWidget {
     required this.onPressed,
     required this.text,
     this.enabled = true,
+    this.leadingIcon,
     super.key,
   });
 
   final Function onPressed;
   final String text;
   final bool enabled;
+  final Widget? leadingIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -53,13 +55,20 @@ class MyPrimaryTextButton extends StatelessWidget {
       enabled: enabled,
       onPressed: onPressed,
       child: Center(
-        child: Text(
-          text,
-          style: textStyle.copyWith(
-              color: enabled
-                  ? Theme.of(context).colorScheme.onPrimary
-                  : MyColorPalette.of(context).textSecondary
-          ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            if (leadingIcon != null) leadingIcon!,
+            Text(
+              text,
+              style: textStyle.copyWith(
+                  color: enabled
+                      ? Theme.of(context).colorScheme.onPrimary
+                      : MyColorPalette.of(context).textSecondary
+              ),
+            ),
+          ],
         ),
       ),
     );

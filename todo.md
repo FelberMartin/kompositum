@@ -2,6 +2,7 @@
 ## 1.0 Release
 ### Next up
 - Share button for ad screen
+- Test easter eggs (orangensaft) sound
 
 ### Later
 - Images on google play: remove debug label (just use gimp?)
