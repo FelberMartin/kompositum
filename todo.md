@@ -1,7 +1,6 @@
 # TODOs    
 ## 1.0 Release
 ### Next up
-- Test easter eggs (orangensaft) sound
 
 ### Later
 - Images on google play: remove debug label (just use gimp?)
@@ -22,6 +21,7 @@
   eg a trophy (emoji) 
   - Maybe spinning wheel for which trophy to get?
   - Or for collecting 100 words one can spin to get a trophy
+- Level completion dialog title depending on performance
 - Gameplay idea: When starting a new level, a first modifier is already selected.
 - English compounds?
 
