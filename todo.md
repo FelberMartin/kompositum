@@ -2,7 +2,6 @@
 ## 1.0 Release
 ### Next up
 - Test easter eggs (orangensaft) sound
-- Run `flutter pub run build_runner build`
 
 ### Later
 - Images on google play: remove debug label (just use gimp?)

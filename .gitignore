@@ -44,7 +44,6 @@ app.*.map.json
 /android/app/release
 
 # ObjectBox generated files
-/lib/objectbox.g.dart
 /test/data/compounds/data.mdb
 /test/data/compounds/lock.mdb
 /compounds/data.mdb
