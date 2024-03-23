@@ -121,14 +121,14 @@ class PoolGameLevel {
   UniqueComponent getNextShownComponent({int? seed}) {
     final random = seed == null ? Random() : Random(seed);
     final refillCount = maxShownComponentCount - shownComponents.length;
-    if (refillCount > 1 || _isCompoundInShownComponents()) {
+    if (refillCount > 1 || _isAnyCompoundInShownComponents()) {
       return hiddenComponents[random.nextInt(hiddenComponents.length)];
     }
 
     return _findMissingComponentForRandomCompound(random);
   }
 
-  bool _isCompoundInShownComponents() {
+  bool _isAnyCompoundInShownComponents() {
     return _allCompounds
         .any((compound) => compound.isSolvedBy(shownComponents));
   }
