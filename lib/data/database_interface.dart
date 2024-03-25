@@ -53,6 +53,8 @@ class DatabaseInterface {
 
   /// Get a compound with the given modifier and head.
   /// If no compound with the given modifier and head exists, null is returned.
+  /// Note: The objectbox caseSensitivity only works for ASCII characters, so
+  /// not for the German umlauts.
   Future<Compound?> getCompound(String modifier, String head, {bool caseSensitive = true}) async {
     final db = await _database;
     final query = db.box<Compound>().query(

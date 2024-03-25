@@ -22,7 +22,7 @@ void main() {
     return DatabaseInitializer(
       compoundOrigin: compoundOrigin,
       appVersionProvider: appVersionProvider,
-      path: "test/data",
+      path: "test/test_data",
       forceReset: reset,
     );
   }
@@ -107,7 +107,6 @@ void main() {
         expect(result, compound);
       });
 
-
     test(
       "should return the compound with the more frequent frequency class if there are multiple ones",
           () async {
@@ -121,6 +120,35 @@ void main() {
             final compound = await sut.getCompound("national", "elf", caseSensitive: false);
             expect(compound, compound2);
           });
+
+    test(
+      "edgeCase Überflussgesellschaft: should NOT return the compound with umlauts (with case insensitive)",
+          () async {
+            // The objectbox caseSensitivity only works for ASCII characters, so not for the German umlauts.
+            // This edgecase is tackled in the graph_based_pool_generator_test.dart
+            await sut.close();
+            final compound = Compound(id: 0, name: "Überflussgesellschaft", modifier: "Überfluss", head: "Gesellschaft", frequencyClass: 1);
+            when(() => compoundOrigin.getCompounds()).thenAnswer((_) async => [compound]);
+            databaseInitializer = _createDatabaseInitializer();
+            sut = DatabaseInterface(databaseInitializer);
+
+            final result = await sut.getCompound("überfluss", "gesellschaft", caseSensitive: false);
+            expect(result, null);
+          });
+
+    test(
+        "edgeCase ß: should return the compound with special characters",
+            () async {
+          await sut.close();
+          final compound = Compound(id: 0, name: "Fußball", modifier: "Fuß", head: "Ball", frequencyClass: 1);
+          when(() => compoundOrigin.getCompounds()).thenAnswer((_) async => [compound]);
+          databaseInitializer = _createDatabaseInitializer();
+          sut = DatabaseInterface(databaseInitializer);
+
+          final result = await sut.getCompound("fuß", "ball", caseSensitive: false);
+          expect(result, compound);
+        });
+
   });
 
   group("getCompoundByName", () {

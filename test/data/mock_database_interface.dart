@@ -17,12 +17,6 @@ class MockDatabaseInterface implements DatabaseInterface {
   }
 
   @override
-  Future<Compound?> getCompoundCaseInsensitive(String modifier, String head) {
-    return Future.value(compounds.firstWhereOrNull((compound) =>
-    compound.modifier == modifier && compound.head == head));
-  }
-
-  @override
   Future<List<Compound>> getCompoundsByFrequencyClass(
       int? frequencyClass) {
     if (frequencyClass == null) {
@@ -52,28 +46,8 @@ class MockDatabaseInterface implements DatabaseInterface {
   }
 
   @override
-  Future<List<Compound>> getRandomCompounds(
-      {required int count, required int? maxFrequencyClass, int? seed}) async {
-    final random = seed == null ? Random() : Random(seed);
-    final compoundsFiltered = maxFrequencyClass == null
-        ? compounds
-        : compounds
-        .where((compound) => compound.frequencyClass! <= maxFrequencyClass)
-        .toList();
-    final sample = randomSampleWithoutReplacement(compoundsFiltered, count,
-        random: random);
-    return Future.value(sample);
-  }
-
-  @override
   // TODO: implement databaseInitializer
   DatabaseInitializer get databaseInitializer => throw UnimplementedError();
-
-  @override
-  Future<Compound?> getRandomCompoundRestricted({required int? maxFrequencyClass, List<String> forbiddenComponents = const []}) {
-    // TODO: implement getRandomCompoundRestricted
-    throw UnimplementedError();
-  }
 
   @override
   Future<Compound?> getCompound(String modifier, String head, {bool caseSensitive = true}) {

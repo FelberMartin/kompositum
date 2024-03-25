@@ -44,8 +44,8 @@ app.*.map.json
 /android/app/release
 
 # ObjectBox generated files
-/test/data/compounds/data.mdb
-/test/data/compounds/lock.mdb
+/test/test_data/compounds/data.mdb
+/test/test_data/compounds/lock.mdb
 /compounds/data.mdb
 /compounds/lock.mdb
 

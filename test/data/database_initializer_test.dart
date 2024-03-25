@@ -28,7 +28,7 @@ void main() async {
     return DatabaseInitializer(
       compoundOrigin: compoundOrigin,
       appVersionProvider: appVersionProvider,
-      path: "test/data",
+      path: "test/test_data",
       forceReset: reset,
     );
   }

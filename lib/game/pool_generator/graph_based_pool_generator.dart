@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
+import 'package:kompositum/util/string_util.dart';
 
 import '../../data/models/compact_frequency_class.dart';
 import '../../data/models/compound.dart';
@@ -42,10 +43,18 @@ class GraphBasedPoolGenerator extends CompoundPoolGenerator {
       if (pair == null) {
         break;
       }
-      final compound =
+      var compound =
           await databaseInterface.getCompound(pair.$1, pair.$2, caseSensitive: false);
       if (compound == null) {
-        throw Exception("Compound not found: ${pair.$1}+${pair.$2}");
+        // This may happen due to the problem with the case sensitivity and umlauts.
+        // See also the comment in database_interface.getCompound.
+        compound = await databaseInterface.getCompound(pair.$1.capitalize(),
+            pair.$2.capitalize(), caseSensitive: false);
+        if (compound == null) {
+          // This is really unfortunate, but we have to live with it. Just skip this compound.
+          print("Compound not found: ${pair.$1}+${pair.$2}");
+          continue;
+        }
       }
       compounds.add(compound);
       final conflicts = fullGraph.getConflictingComponents(compound);
