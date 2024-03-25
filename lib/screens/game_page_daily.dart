@@ -35,7 +35,7 @@ class GamePageDailyState extends GamePageState {
   final DateTime date;
 
   @override
-  void startGame() {
+  Future<void> startGame() async {
     updateGameToLevel(date, isLevelAdvance: false);
   }
 

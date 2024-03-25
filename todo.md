@@ -1,8 +1,6 @@
 # TODOs    
 ## 1.0 Release
 ### Next up
-- Try share button on physical device
-- Don't load levels with odd component counts from store
 - Push new version with share button + new reports
 
 ### Later

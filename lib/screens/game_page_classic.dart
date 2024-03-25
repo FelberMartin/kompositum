@@ -1,5 +1,6 @@
 import '../config/locator.dart';
 import '../data/key_value_store.dart';
+import '../game/level_loader.dart';
 import '../game/level_provider.dart';
 import '../game/pool_generator/compound_pool_generator.dart';
 import '../game/swappable_detector.dart';
@@ -30,23 +31,24 @@ class GamePageClassicState extends GamePageState {
   int currentLevel = 0;
 
   @override
-  void startGame() async {
+  Future<void> startGame() async {
     currentLevel = await keyValueStore.getLevel();
-    final storedProgress = await keyValueStore.getClassicPoolGameLevel();
-    if (storedProgress != null) {
-      _loadLevelFromStored(storedProgress);
-      print("Loaded level $currentLevel from storage");
-    } else {
-      updateGameToLevel(currentLevel, isLevelAdvance: false);
-    }
+    final levelLoader = LevelLoader(keyValueStore);
+    levelLoader.loadLevel().then(_onPoolGameLevelLoaded).catchError((error) {
+      // Skip the corrupted level and advance to the next level.
+      print("Error loading level: $error");
+      updateGameToLevel(currentLevel + 1, isLevelAdvance: true);
+    });
   }
 
-  void _loadLevelFromStored(PoolGameLevel storedProgress) {
-    if (storedProgress.shownComponents.isEmpty) {
-      updateGameToLevel(currentLevel + 1, isLevelAdvance: true);
+  void _onPoolGameLevelLoaded(PoolGameLevel? loadedLevel) {
+    if (loadedLevel == null) {
+      // Should only happen for the first level or if stored level is got deleted.
+      updateGameToLevel(currentLevel, isLevelAdvance: false);
     } else {
+      // Default case: Load the stored level.
       levelSetup = levelProvider.generateLevelSetup(currentLevel);
-      poolGameLevel = storedProgress;
+      poolGameLevel = loadedLevel;
       setState(() {
         isLoading = false;
       });
