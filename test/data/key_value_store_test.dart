@@ -8,8 +8,14 @@ void main() {
   late KeyValueStore sut;
 
   setUpAll(() {
-    SharedPreferences.setMockInitialValues({});
+    SharedPreferences.setMockInitialValues({"test": "true"});
     sut = KeyValueStore();
+  });
+
+  test("should not set mockvalues", () async {
+    final prefs = await SharedPreferences.getInstance();
+    expect(prefs.getString("test"), "true");
+    expect(prefs.getString("level"), null);
   });
 
   group("level", () {

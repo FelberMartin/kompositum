@@ -2,7 +2,6 @@
 ## 1.0 Release
 ### Next up
 - Try share button on physical device
-- Add test for key_value_store
 - Don't load levels with odd component counts from store
 - Push new version with share button + new reports
 
