@@ -1,15 +1,27 @@
 # TODOs    
 ## 1.0 Release
 ### Next up
+- Try share button on physical device
+- Add test for key_value_store
+- Don't load levels with odd component counts from store
+- Push new version with share button + new reports
 
 ### Later
+- Show combined words longer (or show history, or show longer if it took longer to find)
+- LevelFinishedDialog: diamonds for used attempts confusing (remove diamonds for attempts, or
+  write "2/3", 
 - Images on google play: remove debug label (just use gimp?)
 
 
 # Bugs
+- For some levels after clicking continue in the finished dialog, the loading of the next level
+  does not finish. See chat with Felix. E.g. finishing level 177 (version 1.1.0)
+- After restarting a level with ads, the new words are different than before
+- Mama: used 15 attempts (shown in completed dialog), but no AllAttemptsUsed dialog is shown (level 109)
 - Andreas: 3 components were removed from pool, apparently by tapping twice quickly on two 
   different components, and there was a correct compound within them 
   -> Non reproducible, version 1.0.0 
+- Sounds are not always played consistently
 
 
 ### Misc
