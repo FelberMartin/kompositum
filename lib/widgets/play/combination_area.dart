@@ -73,6 +73,7 @@ class _CombinationAreaState extends State<CombinationArea> {
           attemptsLeft: widget.attemptsLeft,
           isReportVisible: widget.isReportVisible,
           onReportPressed: widget.onReportPressed,
+          wordCompletionEventStream: widget.wordCompletionEventStream,
         ),
         AnimatedTextFadeOut(
           textStream: widget.wordCompletionEventStream,
@@ -213,7 +214,7 @@ class AnimatedTextFadeOutState extends State<AnimatedTextFadeOut>
   }
 }
 
-class CompoundMergeRow extends StatelessWidget {
+class CompoundMergeRow extends StatefulWidget {
   const CompoundMergeRow({
     super.key,
     required this.selectedModifier,
@@ -223,6 +224,7 @@ class CompoundMergeRow extends StatelessWidget {
     required this.attemptsLeft,
     required this.isReportVisible,
     required this.onReportPressed,
+    required this.wordCompletionEventStream,
   });
 
   final ComponentInfo? selectedModifier;
@@ -232,8 +234,40 @@ class CompoundMergeRow extends StatelessWidget {
   final int attemptsLeft;
   final bool isReportVisible;
   final Function() onReportPressed;
+  final Stream<String> wordCompletionEventStream;
 
+  @override
+  State<CompoundMergeRow> createState() => _CompoundMergeRowState();
+}
+
+class _CompoundMergeRowState extends State<CompoundMergeRow> with SingleTickerProviderStateMixin {
   final _placeholder = "    ";
+
+  late StreamSubscription<String> _textStreamSubscription;
+
+  double _scale = 1.0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _textStreamSubscription = widget.wordCompletionEventStream.listen((_) {
+      _onWordCompletion();
+    });
+  }
+
+  void _onWordCompletion() {
+    _scale = 1.6;
+    Future.delayed(const Duration(milliseconds: 200), () {
+      _scale = 1.0;
+    });
+  }
+
+  @override
+  void dispose() {
+    _textStreamSubscription.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -245,13 +279,13 @@ class CompoundMergeRow extends StatelessWidget {
           child: Container(
             alignment: Alignment.centerRight,
             child: ComponentWithHint(
-              hint: selectedModifier?.hint?.type,
+              hint: widget.selectedModifier?.hint?.type,
               size: 32.0,
               button: MyPrimaryTextButtonLarge(
                 onPressed: () {
-                  onResetSelection(SelectionType.modifier);
+                  widget.onResetSelection(SelectionType.modifier);
                 },
-                text: selectedModifier?.component.text ?? _placeholder,
+                text: widget.selectedModifier?.component.text ?? _placeholder,
               ),
             ),
           ),
@@ -264,20 +298,27 @@ class CompoundMergeRow extends StatelessWidget {
               children: [
                 Expanded(
                   child: AnimatedOpacity(
-                    opacity: isReportVisible ? 1.0 : 0.0,
+                    opacity: widget.isReportVisible ? 1.0 : 0.0,
                     duration: const Duration(milliseconds: 500),
                     child: Center(
                       child: MyIconButton(
                         icon: MyIcons.report,
-                        onPressed: onReportPressed,
+                        onPressed: widget.onReportPressed,
                       ),
                     ),
                   ),
                 ),
-                Expanded(child: Center(child: IconStyledText(text: "+"))),
+                Expanded(child: Center(child: AnimatedScale(
+                  duration: const Duration(milliseconds: 200),
+                  curve: Curves.easeInOutCubic,
+                  scale: _scale,
+                  child: IconStyledText(
+                      text: "+",
+                  ),
+                ))),
                 Expanded(
                   child: Text(
-                    attemptsLeft < maxAttempts ? "$attemptsLeft/$maxAttempts" : "",
+                    widget.attemptsLeft < widget.maxAttempts ? "${widget.attemptsLeft}/${widget.maxAttempts}" : "",
                     style: Theme.of(context).textTheme.labelLarge!.copyWith(
                       color: Theme.of(context).colorScheme.primary,
                     ),
@@ -292,13 +333,13 @@ class CompoundMergeRow extends StatelessWidget {
           child: Container(
             alignment: Alignment.centerLeft,
             child: ComponentWithHint(
-              hint: selectedHead?.hint?.type,
+              hint: widget.selectedHead?.hint?.type,
               size: 32.0,
               button: MyPrimaryTextButtonLarge(
                 onPressed: () {
-                  onResetSelection(SelectionType.head);
+                  widget.onResetSelection(SelectionType.head);
                 },
-                text: selectedHead?.component.text ?? _placeholder,
+                text: widget.selectedHead?.component.text ?? _placeholder,
               ),
             ),
           ),

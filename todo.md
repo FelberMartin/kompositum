@@ -1,9 +1,12 @@
 # TODOs    
 ## 1.0 Release
 ### Next up
+- Create gameEventStream to centrally handle starIncrease, wordCompletion, wrongCompound, ...
+- Shake plus sign on wrongCompound
+- Show combined words longer (or show history, or show longer if it took longer to find)
+
 
 ### Later
-- Show combined words longer (or show history, or show longer if it took longer to find)
 - LevelFinishedDialog: diamonds for used attempts confusing (remove diamonds for attempts, or
   write "2/3", 
 - Images on google play: remove debug label (just use gimp?)
@@ -33,7 +36,6 @@
   - See notion page
   - Redesign home page
 - UI Improvements:
-  - Indicate compound completion in the combination area (eg flash big textbuttons, or the plus sign)
   - Keep common UI components on screen, and only change children during navigation
     - BottomTabBar
     - AppBar
