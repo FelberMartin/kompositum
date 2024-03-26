@@ -1876,6 +1876,7 @@ Altenfreizeit,Alte,Freizeit,
 Altenglisch,alt,Englisch,
 Altenheilkunde,Alte,Heilkunde,
 Altenheim,Alte,Heim,13.0
+Altenheim,alt,Heim,
 Altenheimbewohner,Altenheim,Bewohner,19.0
 Altenheimplatz,Altenheim,Platz,20.0
 Altenhilfe,Alte,Hilfe,16.0
@@ -2515,6 +2516,7 @@ Anfängergruppe,Anfänger,Gruppe,19.0
 Anfängerkurs,Anfänger,Kurs,16.0
 Anfängerschwimmen,Anfänger,Schwimmen,
 Anfängertraining,Anfänger,Training,19.0
+Anführer,an,Führer,
 Anführungsstrich,Anführung,Strich,20.0
 Anführungszeichen,Anführung,Zeichen,18.0
 Angeberauto,Angeber,Auto,
@@ -4842,6 +4844,7 @@ Aufsichtsrecht,Aufsicht,Recht,21.0
 Aufsichtsstelle,Aufsicht,Stelle,21.0
 Aufspannmöglichkeit,aufspannen,Möglichkeit,
 Aufsprung,auf,Sprung,20.0
+Aufstand,auf,Stand,
 Aufstandsbekämpfung,Aufstand,Bekämpfung,20.0
 Aufstandsbewegung,Aufstand,Bewegung,20.0
 Aufstandsgebiet,Aufstand,Gebiet,23.0
@@ -12656,6 +12659,7 @@ Bogenschuss,Bogen,Schuss,
 Bogenschütze,Bogen,Schütze,16.0
 Bogensehne,Bogen,Sehne,22.0
 Bogensekunde,Bogen,Sekunde,21.0
+Bogenspannung,Bogen,Spannung,
 Bogenstange,Bogen,Stange,
 Bogenstrich,Bogen,Strich,20.0
 Bohneneintopf,Bohne,Eintopf,21.0
@@ -27190,6 +27194,7 @@ Fischbrühe,Fisch,Brühe,
 Fischcurry,Fisch,Curry,
 Fischdampfer,Fisch,Dampfer,22.0
 Fischerboot,Fischer,Boot,17.0
+Fischerboot,Fisch,Boot,
 Fischerdorf,Fischer,Dorf,17.0
 Fischerdörfchen,Fischer,Dörfchen,
 Fischereiabkommen,Fischerei,Abkommen,21.0
@@ -32970,6 +32975,7 @@ Gemeinschaftsgrundschule,Gemeinschaft,Grundschule,
 Gemeinschaftsgut,Gemeinschaft,Gut,21.0
 Gemeinschaftshaus,Gemeinschaft,Haus,15.0
 Gemeinschaftsinitiative,Gemeinschaft,Initiative,18.0
+Gemeinschaftsinteresse,Gemeinschaft,Interesse,
 Gemeinschaftskasse,Gemeinschaft,Kasse,20.0
 Gemeinschaftskeller,Gemeinschaft,Keller,
 Gemeinschaftsklo,Gemeinschaft,Klo,23.0
@@ -35604,6 +35610,7 @@ Gleichrichtung,gleich,Richtung,23.0
 Gleichschritt,gleich,Schritt,16.0
 Gleichspannung,gleich,Spannung,
 Gleichstand,gleich,Stand,16.0
+Gleichstellung,gleich,,
 Gleichstellungsauftrag,Gleichstellung,Auftrag,23.0
 Gleichstellungsbeauftragte,Gleichstellung,Beauftragte,15.0
 Gleichstellungsfrage,Gleichstellung,Frage,20.0
@@ -48457,6 +48464,7 @@ Kirchenstuhl,Kirche,Stuhl,22.0
 Kirchensynode,Kirche,Synode,20.0
 Kirchentag,Kirche,Tag,15.0
 Kirchentagsbesucher,Kirchentag,Besucher,20.0
+Kirchentagung,Kirche,Tagung,
 Kirchenteilung,Kirche,Teilung,
 Kirchentonart,Kirche,Tonart,21.0
 Kirchentür,Kirche,Tür,19.0
@@ -53606,6 +53614,7 @@ Kurzreferat,kurz,Referat,18.0
 Kurzreise,kurz,Reise,18.0
 Kurzrezension,kurz,Rezension,
 Kurzroman,kurz,Roman,20.0
+Kurzschluss,kurz,Schluss,
 Kurzschlusshandlung,Kurzschluss,Handlung,19.0
 Kurzschlussreaktion,Kurzschluss,Reaktion,19.0
 Kurzschlusstat,Kurzschluss,Tat,
@@ -62308,6 +62317,7 @@ Ministerialerlass,ministerial,Erlass,23.0
 Ministerialrat,ministerial,Rat,16.0
 Ministerialverwaltung,ministerial,Verwaltung,21.0
 Ministeriumsangabe,Ministerium,Angabe,19.0
+Ministeriumsausschuss,Ministerium,Ausschuss,
 Ministeriumssprecher,Ministerium,Sprecher,15.0
 Ministerkabinett,Minister,Kabinett,22.0
 Ministerkollege,Minister,Kollege,18.0
@@ -62599,6 +62609,7 @@ Mitteilungspflicht,Mitteilung,Pflicht,20.0
 Mittelabschnitt,mittlere,Abschnitt,18.0
 Mittelachse,mittlere,Achse,20.0
 Mittelalter,mittlere,Alter,13.0
+Mittelalter,Mittel,Alter,
 Mittelalterfest,Mittelalter,Fest,
 Mittelalterforschung,Mittelalter,Forschung,22.0
 Mittelaltermarkt,Mittelalter,Markt,19.0
@@ -80056,6 +80067,7 @@ Sammeltitel,sammeln,Titel,22.0
 Sammeltour,sammeln,Tour,20.0
 Sammeltransport,sammeln,Transport,20.0
 Sammeltrieb,sammeln,Trieb,21.0
+Sammeltstätte,sammeln,Stätte,
 Sammeltätigkeit,sammeln,Tätigkeit,20.0
 Sammelunterkunft,sammeln,Unterkunft,19.0
 Sammelverfahren,sammeln,Verfahren,21.0
@@ -82778,6 +82790,7 @@ Schreibservice,schreiben,Service,23.0
 Schreibset,schreiben,Set,21.0
 Schreibstift,schreiben,Stift,20.0
 Schreibstil,schreiben,Stil,19.0
+Schreibstil,Schreiben,Stil,
 Schreibstube,schreiben,Stube,18.0
 Schreibtafel,schreiben,Tafel,21.0
 Schreibtechnik,schreiben,Technik,20.0
@@ -86453,6 +86466,7 @@ Sitzordnung,Sitz,Ordnung,18.0
 Sitzpinkler,sitzen,Pinkler,
 Sitzplan,Sitz,Plan,
 Sitzplatz,Sitz,Platz,14.0
+Sitzplatz,sitzen,Platz,
 Sitzplatzangebot,Sitzplatz,Angebot,20.0
 Sitzplatzkapazität,Sitzplatz,Kapazität,20.0
 Sitzplatzkarte,Sitzplatz,Karte,18.0
@@ -86468,6 +86482,7 @@ Sitzstange,Sitz,Stange,20.0
 Sitzstreik,sitzen,Streik,18.0
 Sitzstufe,Sitz,Stufe,
 Sitztribüne,Sitz,Tribüne,21.0
+Sitzungsausschuss,Sitzung,Ausschuss,
 Sitzungsbeginn,Sitzung,Beginn,18.0
 Sitzungsbericht,Sitzung,Bericht,22.0
 Sitzungsdauer,Sitzung,Dauer,
@@ -88393,6 +88408,7 @@ Spielsteuerung,Spiel,Steuerung,
 Spielstil,Spiel,Stil,19.0
 Spielstrategie,Spiel,Strategie,22.0
 Spielstraße,spielen,Straße,17.0
+Spielstraße,Spiel,Straße,
 Spielstube,Spiel,Stube,19.0
 Spielstunde,Spiel,Stunde,19.0
 Spielstärke,Spiel,Stärke,16.0
@@ -89248,6 +89264,7 @@ Sprechgerät,sprechen,Gerät,22.0
 Sprechgesang,sprechen,Gesang,17.0
 Sprechmuschel,sprechen,Muschel,22.0
 Sprechpause,sprechen,Pause,21.0
+Sprechpause,Sprecher,Pause,
 Sprechplatte,sprechen,Platte,23.0
 Sprechrhythmus,sprechen,Rhythmus,
 Sprechrolle,sprechen,Rolle,19.0
@@ -102480,6 +102497,7 @@ Vertiefungsrichtung,Vertiefung,Richtung,20.0
 Vertiefungsstudium,Vertiefung,Studium,21.0
 Vertikalbewegung,vertikal,Bewegung,
 Vertikalkreis,vertikal,Kreis,
+Vertragsabgabe,Vertrag,Abnahme,
 Vertragsablauf,Vertrag,Ablauf,20.0
 Vertragsabschluss,Vertrag,Abschluss,15.0
 Vertragsangebot,Vertrag,Angebot,18.0
@@ -103754,6 +103772,7 @@ Vordiplom,vor,Diplom,18.0
 Voreinstellung,vor,Einstellung,20.0
 Vorentwurf,vor,Entwurf,17.0
 Vorerfahrung,vor,Erfahrung,20.0
+Vorfahrt,vor,Fahrt,
 Vorfahrtsrecht,Vorfahrt,Recht,21.0
 Vorfahrtsregel,Vorfahrt,Regel,19.0
 Vorfahrtsregelung,Vorfahrt,Regelung,19.0
@@ -103989,6 +104008,7 @@ Vorschaubild,Vorschau,Bild,
 Vorschaufunktion,Vorschau,Funktion,
 Vorschein,vor,Schein,14.0
 Vorschiff,vor,Schiff,20.0
+Vorschlag,vor,schlagen,
 Vorschlaghammer,vorschlagen,Hammer,18.0
 Vorschlagsliste,Vorschlag,Liste,17.0
 Vorschlagsrecht,Vorschlag,Recht,17.0
@@ -107207,6 +107227,7 @@ Werkvertragsrecht,Werk,Vertragsrecht,
 Werkverzeichnis,Werk,Verzeichnis,18.0
 Werkzeichnung,Werk,Zeichnung,23.0
 Werkzeug,werken,Zeug,13.0
+Werkzeug,Werk,Zeug,
 Werkzeugbau,Werkzeug,Bau,18.0
 Werkzeugfabrik,Werkzeug,Fabrik,22.0
 Werkzeuggebrauch,Werkzeug,Gebrauch,22.0
@@ -112628,6 +112649,7 @@ anhören,an,Hören,
 Überblicksdarstellung,Überblick,Darstellung,22.0
 Überblickswerk,Überblick,Werk,
 Überblickswissen,Überblick,Wissen,23.0
+Überbringer,über,Bringer,
 Überbrückungsgeld,Überbrückung,Geld,18.0
 Überbrückungshilfe,Überbrückung,Hilfe,19.0
 Überbrückungskredit,Überbrückung,Kredit,18.0
@@ -112640,6 +112662,7 @@ anhören,an,Hören,
 Überernährung,über,Ernährung,21.0
 Übererregung,über,Erregung,23.0
 Überfahrt,über,Fahrt,16.0
+Überfall,über,Fall,
 Überfallkommando,Überfall,Kommando,20.0
 Überfamilie,über,Familie,21.0
 Überfang,über,Fang,
@@ -113038,3 +113061,4 @@ anhören,an,Hören,
 Übungszeit,Übung,Zeit,18.0
 Übungsziel,Übung,Ziel,20.0
 Übungszweck,Übung,Zweck,19.0
+überschlagen,über,schlagen,

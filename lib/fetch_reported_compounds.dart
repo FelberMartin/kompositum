@@ -25,8 +25,8 @@ void main() async {
     final modifier = report['modifier'];
     final head = report['head'];
     final time = report['time'].toDate();
-    final level = report.data()['level'] ?? '';
-    final appVersion = report.data()['app_version'] ?? '';
+    final level = report.data()['level'] ?? 'null';
+    final appVersion = report.data()['app_version'] ?? 'null';
     print('$compound,$modifier,$head,$time,$level,$appVersion');
   }
 
