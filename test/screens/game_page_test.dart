@@ -3,56 +3,24 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:kompositum/config/my_theme.dart';
 import 'package:kompositum/config/star_costs_rewards.dart';
 import 'package:kompositum/data/key_value_store.dart';
-import 'package:kompositum/data/models/compound.dart';
 import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/game/pool_game_level.dart';
-import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
-import 'package:kompositum/game/swappable_detector.dart';
 import 'package:kompositum/screens/game_page.dart';
 import 'package:kompositum/screens/game_page_classic.dart';
 import 'package:kompositum/util/tutorial_manager.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../mocks/mock_compound_pool_generator.dart';
+import '../mocks/mock_database_interface.dart';
+import '../mocks/mock_swappable_detector.dart';
+import '../mocks/mock_tutorial_manager.dart';
 import '../test_data/compounds.dart';
 import '../test_util.dart';
 
-class MockPoolGenerator extends Mock implements CompoundPoolGenerator {
-  @override
-  List<Compound> getBlockedCompounds() {
-    return [];
-  }
-
-  @override
-  Future<void> setBlockedCompounds(List<String> blockedCompoundNames) {
-    return Future.value();
-  }
-}
-
-class MockSwappableDetector extends Mock implements SwappableDetector {
-  @override
-  Future<List<Swappable>> getSwappables(List<Compound> compounds) {
-    return Future.value([]);
-  }
-}
-
-class MockTutorialManager extends Mock implements TutorialManager {
-
-  @override
-  int get showClickIndicatorIndex => -1;
-
-  @override
-  void onNewLevelStart(LevelSetup levelSetup, PoolGameLevel poolGameLevel) {}
-
-  @override
-  void onCombinedInvalidCompound(PoolGameLevel poolGameLevel) {}
-
-  @override
-  void onComponentClicked() {}
-}
 
 void main() {
-  late MockPoolGenerator poolGenerator;
+  late MockCompoundPoolGenerator poolGenerator;
   final levelProvider = BasicLevelProvider();
   final keyValueStore = KeyValueStore();
   final swappableDetector = MockSwappableDetector();
@@ -78,7 +46,7 @@ void main() {
 
   setUp(() {
     SharedPreferences.setMockInitialValues({});
-    poolGenerator = MockPoolGenerator();
+    poolGenerator = MockCompoundPoolGenerator();
     registerFallbackValue(LevelSetup(
         levelIdentifier: "", compoundCount: 2, poolGenerationSeed: 1));
     when(() => poolGenerator.generateFromLevelSetup(any()))
@@ -86,8 +54,6 @@ void main() {
   });
 
   group("Functionality tests", () {
-
-
     group("toggleSelection", () {
       testWidgets(
           "should select the toggled component as modifier, if nothing else is selected",

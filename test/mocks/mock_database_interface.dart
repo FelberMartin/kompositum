@@ -1,11 +1,8 @@
-import 'dart:math';
-
 import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
 import 'package:kompositum/data/database_initializer.dart';
 import 'package:kompositum/data/database_interface.dart';
 import 'package:kompositum/data/models/compact_frequency_class.dart';
 import 'package:kompositum/data/models/compound.dart';
-import 'package:kompositum/util/random_util.dart';
 
 
 class MockDatabaseInterface implements DatabaseInterface {

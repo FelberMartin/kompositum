@@ -2,19 +2,14 @@ import 'package:flutter_test/flutter_test.dart' as flutter_test;
 import 'package:kompositum/data/compound_origin.dart';
 import 'package:kompositum/data/database_initializer.dart';
 import 'package:kompositum/data/models/compound.dart';
-import 'package:kompositum/objectbox.g.dart';
-import 'package:kompositum/util/app_version_provider.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
 
+import '../mocks/mock_apper_version_provider.dart';
+import '../mocks/mock_compound_origin.dart';
 import '../test_data/compounds.dart';
 
-class MockCompoundOrigin extends Mock implements CompoundOrigin {}
-
-class MockAppVersionProvider extends Mock implements AppVersionProvider {
-  bool didAppVersionChange = false;
-}
 
 void main() async {
   late CompoundOrigin compoundOrigin;

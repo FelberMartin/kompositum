@@ -1,8 +1,7 @@
 # TODOs    
 ## 1.0 Release
 ### Next up
-- Push new version with share button + new reports
-- Test file restructuring: move mocks to mock folder
+- Add new reports
 
 ### Later
 - Show combined words longer (or show history, or show longer if it took longer to find)

@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:kompositum/data/database_initializer.dart';
 import 'package:kompositum/data/database_interface.dart';
-import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/data/models/compact_frequency_class.dart';
 import 'package:kompositum/data/models/compound.dart';
 import 'package:kompositum/util/app_version_provider.dart';
@@ -9,8 +8,9 @@ import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
 
+import '../mocks/mock_apper_version_provider.dart';
+import '../mocks/mock_compound_origin.dart';
 import '../test_data/compounds.dart';
-import 'database_initializer_test.dart';
 
 void main() {
   late DatabaseInterface sut;

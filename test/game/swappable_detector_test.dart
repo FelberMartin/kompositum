@@ -1,7 +1,7 @@
 import 'package:kompositum/game/swappable_detector.dart';
 import 'package:test/test.dart';
 
-import '../data/mock_database_interface.dart';
+import '../mocks/mock_database_interface.dart';
 import '../test_data/compounds.dart';
 
 void main() {

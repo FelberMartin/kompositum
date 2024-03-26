@@ -13,7 +13,7 @@ import 'package:kompositum/util/ads/ad_manager.dart';
 import 'package:kompositum/util/app_version_provider.dart';
 import 'package:kompositum/util/tutorial_manager.dart';
 
-import '../data/database_initializer_test.dart';
+import '../mocks/mock_apper_version_provider.dart';
 
 final locator = GetIt.instance;
 
