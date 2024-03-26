@@ -12,7 +12,6 @@
 
 
 # Bugs
-- B04 After restarting a level with ads, the new words are different than before
 - B02 Sounds are not always played consistently
 
 

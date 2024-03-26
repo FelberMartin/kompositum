@@ -68,7 +68,7 @@ class GamePageClassicState extends GamePageState {
       keyValueStore.storeBlockedCompounds(poolGenerator.getBlockedCompounds());
     } else {
       final blocked = await keyValueStore.getBlockedCompoundNames();
-      poolGenerator.setBlockedCompounds(blocked);
+      await poolGenerator.setBlockedCompounds(blocked);
     }
   }
 

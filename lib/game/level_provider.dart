@@ -18,6 +18,17 @@ class LevelSetup {
     this.maxShownComponentCount = 11,
     this.displayedDifficulty = Difficulty.easy,
   });
+
+  @override
+  String toString() {
+    return "LevelSetup("
+        "levelIdentifier: $levelIdentifier, "
+        "compoundCount: $compoundCount, "
+        "poolGenerationSeed: $poolGenerationSeed, "
+        "maxShownComponentCount: $maxShownComponentCount, "
+        "frequencyClass: $frequencyClass, "
+        "displayedDifficulty: $displayedDifficulty)";
+  }
 }
 
 abstract class LevelProvider {

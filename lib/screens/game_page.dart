@@ -110,7 +110,7 @@ abstract class GamePageState extends State<GamePage> {
   Future<void> startGame();
 
   void updateGameToLevel(Object levelIdentifier, {bool isLevelAdvance = true}) async {
-    preLevelUpdate(levelIdentifier, isLevelAdvance);
+    await preLevelUpdate(levelIdentifier, isLevelAdvance);
     setState(() {
       isLoading = true;
     });
