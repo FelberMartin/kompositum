@@ -1,7 +1,6 @@
 # TODOs    
 ## 1.0 Release
 ### Next up
-- Add new reports
 
 ### Later
 - Show combined words longer (or show history, or show longer if it took longer to find)
