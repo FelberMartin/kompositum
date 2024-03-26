@@ -23,7 +23,8 @@ class PlaceholderAd extends StatefulWidget {
 }
 
 class _PlaceholderAdState extends State<PlaceholderAd> {
-  int secondsLeft = 12;
+  static const PLAYHOLDER_AD_DURATION_SECONDS = 15;
+  int secondsLeft = PLAYHOLDER_AD_DURATION_SECONDS;
 
   @override
   void initState() {

@@ -13,10 +13,6 @@
 
 # Bugs
 - B04 After restarting a level with ads, the new words are different than before
-- B05 Mama: used 15 attempts (shown in completed dialog), but no AllAttemptsUsed dialog is shown (level 109)
-- B01 Andreas: 3 components were removed from pool, apparently by tapping twice quickly on two 
-  different components, and there was a correct compound within them 
-  -> Non reproducible, version 1.0.0 
 - B02 Sounds are not always played consistently
 
 
