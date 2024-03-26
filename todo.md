@@ -8,10 +8,10 @@
 - LevelFinishedDialog: diamonds for used attempts confusing (remove diamonds for attempts, or
   write "2/3", 
 - Images on google play: remove debug label (just use gimp?)
-- Make dailies easier (or more variance) ?
 
 
 # Bugs
+- B06
 - B02 Sounds are not always played consistently
 
 
