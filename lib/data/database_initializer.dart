@@ -23,7 +23,7 @@ class DatabaseInitializer {
     final store = await openStore(directory: join(path, "compounds"));
     final count = store.box<Compound>().count();
 
-    final reset = forceReset || appVersionProvider.didAppVersionChange;
+    final reset = forceReset || await appVersionProvider.didAppVersionChange;
 
     if (count == 0) {
       await _insertCompoundsFromCompoundData(store);

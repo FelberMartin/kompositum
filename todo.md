@@ -13,7 +13,8 @@
 
 
 # Bugs
-- B06
+- B07
+- B06 Level 9: Chorklasse is invalid compound, but it was reported
 - B02 Sounds are not always played consistently
 
 

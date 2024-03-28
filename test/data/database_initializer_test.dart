@@ -118,7 +118,7 @@ void main() async {
       expect(compoundsBefore, compoundsFromOrigin);
       databaseBefore.close();
 
-      appVersionProvider.didAppVersionChange = true;
+      appVersionProvider.didAppVersionChange = Future.value(true);
 
       when(() => compoundOrigin.getCompounds())
           .thenAnswer((_) async => [Compounds.Schneemann]);

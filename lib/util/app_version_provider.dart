@@ -5,11 +5,11 @@ class AppVersionProvider {
 
   final KeyValueStore keyValueStore;
 
-  var _didAppVersionChange = false;
-  bool get didAppVersionChange => _didAppVersionChange;
+  late Future<bool> _didAppVersionChange;
+  Future<bool> get didAppVersionChange => _didAppVersionChange;
 
   AppVersionProvider(this.keyValueStore) {
-    _checkAppVersion();
+    _didAppVersionChange = _checkAppVersion();
   }
 
   Future<String> getAppVersion() async {
@@ -17,13 +17,14 @@ class AppVersionProvider {
     return packageInfo.version;
   }
 
-  Future<void> _checkAppVersion() async {
+  Future<bool> _checkAppVersion() async {
     final currentVersion = await keyValueStore.getPreviousAppVersion();
     final newVersion = await getAppVersion();
     if (currentVersion != newVersion) {
       print("App version changed from $currentVersion to $newVersion");
       await keyValueStore.storeAppVersion(newVersion);
-      _didAppVersionChange = true;
+      return true;
     }
+    return false;
   }
 }
