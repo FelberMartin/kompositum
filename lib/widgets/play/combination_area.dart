@@ -263,7 +263,7 @@ class _CompoundMergeRowState extends State<CompoundMergeRow> with SingleTickerPr
 
   void _onWordCompletion() {
     _scale = 1.6;
-    Future.delayed(const Duration(milliseconds: 200), () {
+    Future.delayed(Duration(milliseconds: 50), () {
       _scale = 1.0;
     });
   }
@@ -276,80 +276,96 @@ class _CompoundMergeRowState extends State<CompoundMergeRow> with SingleTickerPr
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    final Function(Widget) animateScale = (child) {
+      return AnimatedScale(
+        duration: Duration(milliseconds: 50),
+        curve: Curves.easeInCubic,
+        scale: _scale,
+        child: child,
+      );
+    };
+
+    final componentLeft = _buildComponentButton(widget.selectedModifier, SelectionType.modifier);
+    final componentLeftWrapped = Expanded(
+      flex: 1,
+      child: Container(
+          alignment: Alignment.centerRight,
+          child: componentLeft,
+      ),
+    );
+
+    final componentRight = _buildComponentButton(widget.selectedHead, SelectionType.head);
+    final componentRightWrapped = Expanded(
+      flex: 1,
+      child: Container(
+          alignment: Alignment.centerLeft,
+          child: componentRight,
+      ),
+    );
+
+    final reportButton = MyIconButton(
+      icon: MyIcons.report,
+      onPressed: widget.onReportPressed,
+    );
+    final reportButtonAnimated = AnimatedOpacity(
+      opacity: widget.isReportVisible ? 1.0 : 0.0,
+      duration: const Duration(milliseconds: 500),
+      child: reportButton,
+    );
+    final plusSign = Expanded(
+      child: Center(
+        child: animateScale(IconStyledText(
+          text: "+",
+        ),
+      ),)
+    );
+    final attemptsCounter = Expanded(
+      child: Text(
+        widget.attemptsLeft < widget.maxAttempts ? "${widget.attemptsLeft}/${widget.maxAttempts}" : "",
+        style: Theme.of(context).textTheme.labelLarge!.copyWith(
+          color: Theme.of(context).colorScheme.primary,
+        ),
+      ),
+    );
+
+    final middleColumn = Column(
+      children: [
+        reportButtonAnimated,
+        plusSign,
+        attemptsCounter,
+      ],
+    );
+    final middleColumnWrapped = Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: SizedBox(
+          height: 156,
+          child: middleColumn,
+        ),
+    );
+
+    final row = Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Expanded(
-          flex: 1,
-          child: Container(
-            alignment: Alignment.centerRight,
-            child: ComponentWithHint(
-              hint: widget.selectedModifier?.hint?.type,
-              size: 32.0,
-              button: MyPrimaryTextButtonLarge(
-                onPressed: () {
-                  widget.onResetSelection(SelectionType.modifier);
-                },
-                text: widget.selectedModifier?.component.text ?? _placeholder,
-              ),
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: SizedBox(
-            height: 156,
-            child: Column(
-              children: [
-                Expanded(
-                  child: AnimatedOpacity(
-                    opacity: widget.isReportVisible ? 1.0 : 0.0,
-                    duration: const Duration(milliseconds: 500),
-                    child: Center(
-                      child: MyIconButton(
-                        icon: MyIcons.report,
-                        onPressed: widget.onReportPressed,
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(child: Center(child: AnimatedScale(
-                  duration: const Duration(milliseconds: 200),
-                  curve: Curves.easeInOutCubic,
-                  scale: _scale,
-                  child: IconStyledText(
-                      text: "+",
-                  ),
-                ))),
-                Expanded(
-                  child: Text(
-                    widget.attemptsLeft < widget.maxAttempts ? "${widget.attemptsLeft}/${widget.maxAttempts}" : "",
-                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 1,
-          child: Container(
-            alignment: Alignment.centerLeft,
-            child: ComponentWithHint(
-              hint: widget.selectedHead?.hint?.type,
-              size: 32.0,
-              button: MyPrimaryTextButtonLarge(
-                onPressed: () {
-                  widget.onResetSelection(SelectionType.head);
-                },
-                text: widget.selectedHead?.component.text ?? _placeholder,
-              ),
-            ),
-          ),
-        ),
+        componentLeftWrapped,
+        middleColumnWrapped,
+        componentRightWrapped,
       ],
+    );
+
+    return row;
+  }
+
+  Widget _buildComponentButton(ComponentInfo? componentInfo, SelectionType type) {
+    final button = MyPrimaryTextButtonLarge(
+      onPressed: () {
+        widget.onResetSelection(type);
+      },
+      text: componentInfo?.component.text ?? _placeholder,
+    );
+    return ComponentWithHint(
+      hint: widget.selectedModifier?.hint?.type,
+      size: 32.0,
+      button: button,
     );
   }
 }
