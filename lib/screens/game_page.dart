@@ -95,6 +95,9 @@ abstract class GamePageState extends State<GamePage> {
     });
 
     tutorialManager.animateDialog = _launchTutorialDialog;
+    tutorialManager.registerGameEventStream(gameEventStreamController.stream);
+    AudioManager.instance.registerGameEventStream(gameEventStreamController.stream);
+
     startGame();
   }
 
@@ -127,7 +130,7 @@ abstract class GamePageState extends State<GamePage> {
       displayedDifficulty: levelSetup!.displayedDifficulty,
       swappableCompounds: swappables,
     );
-    tutorialManager.onNewLevelStart(levelSetup!, poolGameLevel);
+    _emitGameEvent(NewLevelStartGameEvent(levelSetup!, poolGameLevel));
     onPoolGameLevelUpdate();
 
     setState(() {
@@ -178,7 +181,7 @@ abstract class GamePageState extends State<GamePage> {
       selectionTypeToComponentId[SelectionType.head] = componentId;
     }
     _checkCompoundCompletion();
-    tutorialManager.onComponentClicked();
+    _emitGameEvent(const ComponentClickedGameEvent());
     setState(() {});
   }
 
@@ -195,14 +198,11 @@ abstract class GamePageState extends State<GamePage> {
       if (!poolGameLevel.attemptsWatcher.anyAttemptsLeft()) {
         showNoAttemptsLeftDialog();
       }
-      gameEventStreamController.sink.add(const CompoundInvalidGameEvent());
-      AudioManager.instance.playCompoundIncorrect();
-      tutorialManager.onCombinedInvalidCompound(poolGameLevel);
+      _emitGameEvent(CompoundInvalidGameEvent(poolGameLevel));
     } else {    // Valid compound
       poolGameLevel.removeCompoundFromShown(compound, selectedModifier!,
           selectedHead!);
       _compoundFound(compound);
-      AudioManager.instance.playCompoundFound();
       setState(() {});
       if (poolGameLevel.isLevelFinished()) {
         _levelFinished();
@@ -213,7 +213,7 @@ abstract class GamePageState extends State<GamePage> {
 
   void _compoundFound(Compound compound) {
     _increaseStarCount(Rewards.starsCompoundCompleted);
-    emitCompoundFoundGameEvent(compound);
+    _emitGameEvent(CompoundFoundGameEvent(compound));
     resetToNoSelection();
     onPoolGameLevelUpdate();
     _checkForEasterEgg(compound);
@@ -242,7 +242,7 @@ abstract class GamePageState extends State<GamePage> {
       {StarIncreaseRequestOrigin origin = StarIncreaseRequestOrigin.compoundCompletion}
   ) {
     assert(amount >= 0);
-    gameEventStreamController.sink.add(StarIncreaseRequestGameEvent(amount, origin));
+    _emitGameEvent(StarIncreaseRequestGameEvent(amount, origin));
     keyValueStore.increaseStarCount(amount);
     setState(() {});
   }
@@ -254,18 +254,20 @@ abstract class GamePageState extends State<GamePage> {
     setState(() {});
   }
 
-  void emitCompoundFoundGameEvent(Compound compound) {
-    gameEventStreamController.sink.add(CompoundFoundGameEvent(compound));
+  void _emitGameEvent(GameEvent event) {
+    gameEventStreamController.sink.add(event);
   }
 
   void _levelFinished() async {
     await Future.delayed(const Duration(milliseconds: 1200));
-    AudioManager.instance.playLevelComplete();
+    _emitGameEvent(const LevelCompletedGameEvent());
     showLevelCompletedDialog();
   }
 
   @override
   void dispose() {
+    tutorialManager.deregisterGameEventStream();
+    AudioManager.instance.deregisterGameEventStream();
     gameEventStreamController.close();
     super.dispose();
   }
@@ -337,7 +339,7 @@ abstract class GamePageState extends State<GamePage> {
       selectionTypeToComponentId[SelectionType.modifier] = hint.hintedComponent.id;
     }
 
-    AudioManager.instance.playHint();
+    _emitGameEvent(HintBoughtGameEvent(hint));
     _decreaseStarCount(cost);
     onPoolGameLevelUpdate();
     poolGameLevel.attemptsWatcher.resetAttempts();

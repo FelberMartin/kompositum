@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
 import '../config/my_theme.dart';
+import '../game/game_event.dart';
 
 class AudioManager {
 
@@ -15,6 +18,25 @@ class AudioManager {
 
   var isMuted = false;
   final _playersByAsset = <String, AudioPlayer>{};
+  StreamSubscription? _gameEventStreamSubscription;
+
+  void registerGameEventStream(Stream<GameEvent> gameEventStream) {
+    _gameEventStreamSubscription = gameEventStream.listen((event) {
+      if (event is CompoundFoundGameEvent) {
+        playCompoundFound();
+      } else if (event is CompoundInvalidGameEvent) {
+        playCompoundIncorrect();
+      } else if (event is LevelCompletedGameEvent) {
+        playLevelComplete();
+      } else if (event is HintBoughtGameEvent) {
+        playHint();
+      }
+    });
+  }
+
+  void deregisterGameEventStream() {
+    _gameEventStreamSubscription?.cancel();
+  }
 
   void toggleMute() {
     isMuted = !isMuted;
@@ -70,6 +92,7 @@ class AudioManager {
       player.dispose();
     }
     _playersByAsset.clear();
+    _gameEventStreamSubscription?.cancel();
   }
 }
 
@@ -83,6 +106,8 @@ enum EasterEgg {
 }
 
 void main() {
+
+
   runApp(MaterialApp(
       theme: myTheme,
       home: Column(

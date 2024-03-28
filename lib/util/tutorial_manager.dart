@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:kompositum/game/game_event.dart';
 import 'package:kompositum/widgets/play/dialogs/tutorials/hidden_components_tutorial_dialog.dart';
 import 'package:kompositum/widgets/play/dialogs/tutorials/hints_tutorial_dialog.dart';
 
@@ -21,13 +24,31 @@ class TutorialManager {
 
   final KeyValueStore _keyValueStore;
   Function(Widget)? animateDialog;
+  StreamSubscription<GameEvent>? _gameEventStreamSubscription;
 
   /** At which index the click indicator should be shown. -1 means no indicator. */
   int showClickIndicatorIndex = -1;
 
   TutorialManager(this._keyValueStore);
 
-  void onNewLevelStart(LevelSetup levelSetup, PoolGameLevel poolGameLevel) {
+  void registerGameEventStream(Stream<GameEvent> gameEventStream) {
+    _gameEventStreamSubscription = gameEventStream.listen((event) {
+      if (event is NewLevelStartGameEvent) {
+        _onNewLevelStart(event.levelSetup, event.poolGameLevel);
+      } else if (event is ComponentClickedGameEvent) {
+        _onComponentClicked();
+      } else if (event is CompoundInvalidGameEvent) {
+        _onCombinedInvalidCompound(event.poolGameLevel);
+      }
+    });
+  }
+
+  void deregisterGameEventStream() {
+    _gameEventStreamSubscription?.cancel();
+    animateDialog = null;
+  }
+
+  void _onNewLevelStart(LevelSetup levelSetup, PoolGameLevel poolGameLevel) {
     _checkClickIndicator(levelSetup.levelIdentifier, poolGameLevel.shownComponents);
     _checkHiddenComponents(poolGameLevel.hiddenComponents.length);
   }
@@ -48,11 +69,11 @@ class TutorialManager {
     }
   }
 
-  void onComponentClicked() {
+  void _onComponentClicked() {
     showClickIndicatorIndex = -1;
   }
 
-  void onCombinedInvalidCompound(PoolGameLevel poolGameLevel) {
+  void _onCombinedInvalidCompound(PoolGameLevel poolGameLevel) {
     _checkMissingCompound();
     _checkHints(poolGameLevel.attemptsWatcher.overAllAttemptsFailed);
   }
@@ -73,6 +94,4 @@ class TutorialManager {
       await _keyValueStore.storeTutorialPartAsShown(TutorialPart.HINTS);
     }
   }
-
-
 }

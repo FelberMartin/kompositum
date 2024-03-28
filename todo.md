@@ -1,7 +1,6 @@
 # TODOs    
 ## 1.0 Release
 ### Next up
-- Use gameEventStream in tutorial manager
 - Shake plus sign on wrongCompound
 - Show combined words longer (or show history, or show longer if it took longer to find)
 
