@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kompositum/config/my_icons.dart';
+import 'package:kompositum/game/game_event.dart';
 import 'package:kompositum/widgets/common/my_icon_button.dart';
 
 import '../../screens/game_page.dart';
@@ -20,7 +21,7 @@ class CombinationArea extends StatefulWidget {
     required this.onResetSelection,
     required this.maxAttempts,
     required this.attemptsLeft,
-    required this.wordCompletionEventStream,
+    required this.gameEventStream,
     required this.isReportVisible,
     required this.onReportPressed,
     required this.progress,
@@ -31,7 +32,7 @@ class CombinationArea extends StatefulWidget {
   final void Function(SelectionType) onResetSelection;
   final int maxAttempts;
   final int attemptsLeft;
-  final Stream<String> wordCompletionEventStream;
+  final Stream<GameEvent> gameEventStream;
   final bool isReportVisible;
   final Function() onReportPressed;
   final double progress;
@@ -42,7 +43,7 @@ class CombinationArea extends StatefulWidget {
     onResetSelection: (type) {},
     maxAttempts: 0,
     attemptsLeft: 0,
-    wordCompletionEventStream: stream,
+    gameEventStream: stream,
     isReportVisible: false,
     onReportPressed: () {},
     progress: 0.0,
@@ -73,10 +74,10 @@ class _CombinationAreaState extends State<CombinationArea> {
           attemptsLeft: widget.attemptsLeft,
           isReportVisible: widget.isReportVisible,
           onReportPressed: widget.onReportPressed,
-          wordCompletionEventStream: widget.wordCompletionEventStream,
+          gameEventStream: widget.gameEventStream,
         ),
         AnimatedTextFadeOut(
-          textStream: widget.wordCompletionEventStream,
+          gameEventStream: widget.gameEventStream,
         ),
         Align(
           alignment: Alignment.topRight,
@@ -147,9 +148,9 @@ class ProgressBar extends StatelessWidget {
 
 
 class AnimatedTextFadeOut extends StatefulWidget {
-  const AnimatedTextFadeOut({super.key, required this.textStream});
+  const AnimatedTextFadeOut({super.key, required this.gameEventStream});
 
-  final Stream<String> textStream;
+  final Stream<GameEvent> gameEventStream;
 
   @override
   AnimatedTextFadeOutState createState() => AnimatedTextFadeOutState();
@@ -160,7 +161,7 @@ class AnimatedTextFadeOutState extends State<AnimatedTextFadeOut>
 
   late AnimationController _controller;
   late Animation<AlignmentGeometry> _alignAnimation;
-  late StreamSubscription<String> _textStreamSubscription;
+  late StreamSubscription<GameEvent> _gameEventStreamSubscription;
 
   String _displayText = "";
 
@@ -180,15 +181,17 @@ class AnimatedTextFadeOutState extends State<AnimatedTextFadeOut>
       curve: Curves.easeIn,
     ));
 
-    _textStreamSubscription = widget.textStream.listen((text) {
-      _displayText = text;
-      _controller.reverse(from: 1.0);
+    _gameEventStreamSubscription = widget.gameEventStream.listen((gameEvent) {
+      if (gameEvent is CompoundFoundGameEvent) {
+        _displayText = gameEvent.compound.name;
+        _controller.reverse(from: 1.0);
+      }
     });
   }
 
   @override
   void dispose() {
-    _textStreamSubscription.cancel();
+    _gameEventStreamSubscription.cancel();
     _controller.dispose();
     super.dispose();
   }
@@ -224,7 +227,7 @@ class CompoundMergeRow extends StatefulWidget {
     required this.attemptsLeft,
     required this.isReportVisible,
     required this.onReportPressed,
-    required this.wordCompletionEventStream,
+    required this.gameEventStream,
   });
 
   final ComponentInfo? selectedModifier;
@@ -234,7 +237,7 @@ class CompoundMergeRow extends StatefulWidget {
   final int attemptsLeft;
   final bool isReportVisible;
   final Function() onReportPressed;
-  final Stream<String> wordCompletionEventStream;
+  final Stream<GameEvent> gameEventStream;
 
   @override
   State<CompoundMergeRow> createState() => _CompoundMergeRowState();
@@ -243,7 +246,7 @@ class CompoundMergeRow extends StatefulWidget {
 class _CompoundMergeRowState extends State<CompoundMergeRow> with SingleTickerProviderStateMixin {
   final _placeholder = "    ";
 
-  late StreamSubscription<String> _textStreamSubscription;
+  late StreamSubscription<GameEvent> _textStreamSubscription;
 
   double _scale = 1.0;
 
@@ -251,8 +254,10 @@ class _CompoundMergeRowState extends State<CompoundMergeRow> with SingleTickerPr
   void initState() {
     super.initState();
 
-    _textStreamSubscription = widget.wordCompletionEventStream.listen((_) {
-      _onWordCompletion();
+    _textStreamSubscription = widget.gameEventStream.listen((gameEvent) {
+      if (gameEvent is CompoundFoundGameEvent) {
+        _onWordCompletion();
+      }
     });
   }
 

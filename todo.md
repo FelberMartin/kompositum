@@ -1,7 +1,7 @@
 # TODOs    
 ## 1.0 Release
 ### Next up
-- Create gameEventStream to centrally handle starIncrease, wordCompletion, wrongCompound, ...
+- Use gameEventStream in tutorial manager
 - Shake plus sign on wrongCompound
 - Show combined words longer (or show history, or show longer if it took longer to find)
 
@@ -14,7 +14,6 @@
 
 # Bugs
 - B07
-- B06 Level 9: Chorklasse is invalid compound, but it was reported
 - B02 Sounds are not always played consistently
 
 

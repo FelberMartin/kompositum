@@ -2,31 +2,20 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:kompositum/game/game_event.dart';
 
 import '../../config/my_icons.dart';
 import '../../config/my_theme.dart';
 import '../../util/audio_manager.dart';
 
-class StarIncreaseRequest {
-  final int amount;
-  final Origin origin;
-
-  StarIncreaseRequest(this.amount, this.origin);
-}
-
-enum Origin {
-  compoundCompletion,
-  levelCompletion,
-}
-
 class StarFlyAnimations extends StatefulWidget {
   const StarFlyAnimations({
-    required this.starIncreaseRequestStream,
+    required this.gameEventStream,
     required this.onIncreaseStarCount,
     super.key,
   });
 
-  final Stream<StarIncreaseRequest> starIncreaseRequestStream;
+  final Stream<GameEvent> gameEventStream;
   final Function(int) onIncreaseStarCount;
 
   @override
@@ -35,27 +24,33 @@ class StarFlyAnimations extends StatefulWidget {
 
 class _StarFlyAnimationsState extends State<StarFlyAnimations> {
 
-  Map<Key, Origin> keys = {};
-  late StreamSubscription<StarIncreaseRequest> _subscription;
+  Map<Key, StarIncreaseRequestOrigin> keys = {};
+  late StreamSubscription<GameEvent> _subscription;
 
   @override
   void initState() {
     super.initState();
-    _subscription = widget.starIncreaseRequestStream.listen((request) {
-      const delay = 100;
-      for (var i = 0; i < request.amount; i++) {
-        Future.delayed(Duration(milliseconds: i * delay), () {
-          if (!mounted) return;
-          var key = UniqueKey();
-          keys[key] = request.origin;
-          setState(() {});
-          sound();
-        });
+    _subscription = widget.gameEventStream.listen((gameEvent) {
+      if (gameEvent is StarIncreaseRequestGameEvent) {
+        _onStarIncreaseRequest(gameEvent.amount, gameEvent.origin);
       }
     });
   }
 
-  void sound() {
+  void _onStarIncreaseRequest(int amount, StarIncreaseRequestOrigin origin) {
+    const delay = 100;
+    for (var i = 0; i < amount; i++) {
+      Future.delayed(Duration(milliseconds: i * delay), () {
+        if (!mounted) return;
+        var key = UniqueKey();
+        keys[key] = origin;
+        setState(() {});
+        _scheduleStarCollectedSound();
+      });
+    }
+  }
+
+  void _scheduleStarCollectedSound() {
     Future.delayed(Duration(milliseconds: 900), () {
       AudioManager.instance.playStarCollected();
     });
@@ -76,7 +71,7 @@ class _StarFlyAnimationsState extends State<StarFlyAnimations> {
         for (var entries in keys.entries)
           _StarFlyAnimationWrapper(
             key: entries.key,
-            begin: entries.value == Origin.compoundCompletion
+            begin: entries.value == StarIncreaseRequestOrigin.compoundCompletion
                 ? Offset(size.width / 2, size.height / 3.5)
                 : Offset(size.width / 2, size.height / 2),
             onAnimationEnd: () {

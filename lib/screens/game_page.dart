@@ -17,6 +17,7 @@ import 'package:kompositum/widgets/play/star_fly_animation.dart';
 
 import '../config/locator.dart';
 import '../data/models/compound.dart';
+import '../game/game_event.dart';
 import '../game/hints/hint.dart';
 import '../game/level_provider.dart';
 import '../game/pool_game_level.dart';
@@ -62,11 +63,9 @@ abstract class GamePageState extends State<GamePage> {
   int starCount = 0;
   bool isLoading = true;
 
-  final StreamController<String> wordCompletionEventStream =
-      StreamController<String>.broadcast();
-  var starCountIncreaseStream =
-      StreamController<StarIncreaseRequest>.broadcast();
-
+  /// For emitting relevant game events to the UI and external listeners (e.g. AudioManager or TutorialManager).
+  final StreamController<GameEvent> gameEventStreamController =
+      StreamController<GameEvent>.broadcast();
 
   Map<SelectionType, int> selectionTypeToComponentId = {
     SelectionType.modifier: -1,
@@ -196,6 +195,7 @@ abstract class GamePageState extends State<GamePage> {
       if (!poolGameLevel.attemptsWatcher.anyAttemptsLeft()) {
         showNoAttemptsLeftDialog();
       }
+      gameEventStreamController.sink.add(const CompoundInvalidGameEvent());
       AudioManager.instance.playCompoundIncorrect();
       tutorialManager.onCombinedInvalidCompound(poolGameLevel);
     } else {    // Valid compound
@@ -213,7 +213,7 @@ abstract class GamePageState extends State<GamePage> {
 
   void _compoundFound(Compound compound) {
     _increaseStarCount(Rewards.starsCompoundCompleted);
-    emitWordCompletionEvent(compound.name);
+    emitCompoundFoundGameEvent(compound);
     resetToNoSelection();
     onPoolGameLevelUpdate();
     _checkForEasterEgg(compound);
@@ -238,9 +238,11 @@ abstract class GamePageState extends State<GamePage> {
     });
   }
 
-  void _increaseStarCount(int amount, {Origin origin = Origin.compoundCompletion}) {
+  void _increaseStarCount(int amount,
+      {StarIncreaseRequestOrigin origin = StarIncreaseRequestOrigin.compoundCompletion}
+  ) {
     assert(amount >= 0);
-    starCountIncreaseStream.sink.add(StarIncreaseRequest(amount, origin));
+    gameEventStreamController.sink.add(StarIncreaseRequestGameEvent(amount, origin));
     keyValueStore.increaseStarCount(amount);
     setState(() {});
   }
@@ -252,8 +254,8 @@ abstract class GamePageState extends State<GamePage> {
     setState(() {});
   }
 
-  void emitWordCompletionEvent(String word) {
-    wordCompletionEventStream.sink.add(word);
+  void emitCompoundFoundGameEvent(Compound compound) {
+    gameEventStreamController.sink.add(CompoundFoundGameEvent(compound));
   }
 
   void _levelFinished() async {
@@ -264,7 +266,7 @@ abstract class GamePageState extends State<GamePage> {
 
   @override
   void dispose() {
-    wordCompletionEventStream.close();
+    gameEventStreamController.close();
     super.dispose();
   }
 
@@ -372,7 +374,7 @@ abstract class GamePageState extends State<GamePage> {
         nextLevelNumber: nextLevelNumber,
         onContinue: (result) {
           Navigator.pop(context);
-          _increaseStarCount(result.starCountIncrease, origin: Origin.levelCompletion);
+          _increaseStarCount(result.starCountIncrease, origin: StarIncreaseRequestOrigin.levelCompletion);
           resetToNoSelection();
           onLevelCompletion(result.type);
         },
@@ -420,14 +422,14 @@ abstract class GamePageState extends State<GamePage> {
                     children: <Widget>[
                       Expanded(
                         flex: 2,
-                        child: isLoading ? CombinationArea.loading(wordCompletionEventStream.stream) : CombinationArea(
+                        child: isLoading ? CombinationArea.loading(gameEventStreamController.stream) : CombinationArea(
                           selectedModifier: getSelectedModifierInfo(),
                           selectedHead: getSelectedHeadInfo(),
                           onResetSelection: resetSelection,
                           maxAttempts: poolGameLevel.attemptsWatcher.maxAttempts,
                           attemptsLeft: poolGameLevel.attemptsWatcher.attemptsLeft,
-                          wordCompletionEventStream:
-                              wordCompletionEventStream.stream,
+                          gameEventStream:
+                              gameEventStreamController.stream,
                           isReportVisible: shouldShowReportButton(),
                           onReportPressed: showReportDialog,
                           progress: poolGameLevel.getLevelProgress(),
@@ -461,7 +463,7 @@ abstract class GamePageState extends State<GamePage> {
             starCount += amount;
             setState(() {});
           },
-          starIncreaseRequestStream: starCountIncreaseStream.stream,
+          gameEventStream: gameEventStreamController.stream,
         ),
       ],
     );
