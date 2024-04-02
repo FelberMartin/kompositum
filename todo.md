@@ -2,7 +2,9 @@
 ## 1.0 Release
 ### Next up
 - Shake plus sign on wrongCompound
-- Show combined words longer (or show history, or show longer if it took longer to find)
+- Show combined words longer (or show history, or show longer if it took longer to find, fade out later)
+- No attempts dialog is back navigation dismissable
+- Store whether audio is muted
 
 
 ### Later
@@ -12,7 +14,8 @@
 
 
 # Bugs
-- B07
+- B08 Noerl: When quickly taping words after a right word pair is combined to a compound, one loses one attempt.
+- B07 When closing the app when the NoAttemptsLeftDialog is shown and then reopening one can get to -1/5 attempts.
 - B02 Sounds are not always played consistently
 
 
