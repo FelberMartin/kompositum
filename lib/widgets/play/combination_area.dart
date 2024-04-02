@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kompositum/config/my_icons.dart';
 import 'package:kompositum/game/game_event.dart';
 import 'package:kompositum/widgets/common/my_icon_button.dart';
+import 'package:kompositum/widgets/common/shake_widget.dart';
 
 import '../../screens/game_page.dart';
 import '../../util/audio_manager.dart';
@@ -249,6 +250,7 @@ class _CompoundMergeRowState extends State<CompoundMergeRow> with SingleTickerPr
   late StreamSubscription<GameEvent> _textStreamSubscription;
 
   double _scale = 1.0;
+  final GlobalKey<ShakeWidgetState> _shakeKey = GlobalKey<ShakeWidgetState>();
 
   @override
   void initState() {
@@ -257,6 +259,8 @@ class _CompoundMergeRowState extends State<CompoundMergeRow> with SingleTickerPr
     _textStreamSubscription = widget.gameEventStream.listen((gameEvent) {
       if (gameEvent is CompoundFoundGameEvent) {
         _onWordCompletion();
+      } else if (gameEvent is CompoundInvalidGameEvent) {
+        _shakeKey.currentState?.shake();
       }
     });
   }
@@ -314,10 +318,14 @@ class _CompoundMergeRowState extends State<CompoundMergeRow> with SingleTickerPr
     );
     final plusSign = Expanded(
       child: Center(
-        child: animateScale(IconStyledText(
+        child: ShakeWidget(
+          key: _shakeKey,
+          duration: const Duration(milliseconds: 300),
+          child: Center(child: animateScale(IconStyledText(
           text: "+",
         ),
-      ),)
+      ),),)
+      ),
     );
     final attemptsCounter = Expanded(
       child: Text(
