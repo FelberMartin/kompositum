@@ -177,6 +177,22 @@ void main() {
       await nonBlockingPump(tester);
       expect(sut.starCount, starCountBefore + Rewards.starsCompoundCompleted);
     });
+
+    testWidgets("B08: When quickly clicking a component after solving a compound, the attempts should not be reduced",
+            (tester) async {
+          await _pumpGamePage(tester);
+          sut.poolGameLevel =
+              PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
+          sut.toggleSelection(0); // Apfel
+          sut.toggleSelection(1); // Baum
+          expect(sut.poolGameLevel.shownComponents.length, 2);
+          expect(sut.poolGameLevel.attemptsWatcher.attemptsLeft, 5);
+
+          sut.toggleSelection(2); // Schnee
+          expect(sut.selectedModifier?.text, "Schnee");
+          await nonBlockingPump(tester);
+          expect(sut.poolGameLevel.attemptsWatcher.attemptsLeft, 5);
+        });
   });
 
   group("UI tests", () {

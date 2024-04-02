@@ -11,7 +11,6 @@
 
 # Bugs
 - B09 
-- B08 Noerl: When quickly taping words after a right word pair is combined to a compound, one loses one attempt.
 - B02 Sounds are not always played consistently
 
 

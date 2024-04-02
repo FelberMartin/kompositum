@@ -186,6 +186,12 @@ abstract class GamePageState extends State<GamePage> {
   }
 
   void _checkCompoundCompletion() {
+    if (dummyModifier != null && dummyHead != null) {
+      // Reset dummy values, as they are only used for the animation, and not
+      // relevant for the actual game state.
+      dummyModifier = null;
+      dummyHead = null;
+    }
     if (selectedModifier == null || selectedHead == null) {
       return;
     }
