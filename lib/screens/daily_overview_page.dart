@@ -357,12 +357,26 @@ class DayContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var color = Colors.transparent;
+    Gradient? gradient;
     if (isCompleted) {
-      color = Theme.of(context).colorScheme.secondary;
+      gradient = LinearGradient(
+        colors: [
+          MyColorPalette.of(context).secondaryShade,
+          MyColorPalette.of(context).secondary,
+        ],
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+      );
     }
     if (isSelected) {
-      color = Theme.of(context).colorScheme.primary;
+      gradient = LinearGradient(
+        colors: [
+          MyColorPalette.of(context).primaryShade,
+          MyColorPalette.of(context).primary,
+        ],
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+      );
     }
 
     return Opacity(
@@ -370,7 +384,7 @@ class DayContainer extends StatelessWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 100),
         decoration: BoxDecoration(
-          color: color,
+          gradient: gradient,
           borderRadius: BorderRadius.circular(12.0),
           border: Border.all(
             color: isSelected ? Colors.white : Colors.transparent,

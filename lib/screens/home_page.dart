@@ -196,7 +196,16 @@ class DailyLevelContainer extends StatelessWidget {
         constraints: const BoxConstraints(
           minWidth: 200,
         ),
-        color: Theme.of(context).colorScheme.secondary,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              MyColorPalette.of(context).secondaryShade,
+              MyColorPalette.of(context).secondary,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 32.0),
           child: Column(
