@@ -252,6 +252,9 @@ class _CompoundMergeRowState extends State<CompoundMergeRow> with SingleTickerPr
   double _scale = 1.0;
   final GlobalKey<ShakeWidgetState> _shakeKey = GlobalKey<ShakeWidgetState>();
 
+  static const _scaleDuration = Duration(milliseconds: 200);
+
+
   @override
   void initState() {
     super.initState();
@@ -266,8 +269,8 @@ class _CompoundMergeRowState extends State<CompoundMergeRow> with SingleTickerPr
   }
 
   void _onWordCompletion() {
-    _scale = 1.6;
-    Future.delayed(Duration(milliseconds: 50), () {
+    _scale = 1.05;
+    Future.delayed(_scaleDuration, () {
       _scale = 1.0;
     });
   }
@@ -282,8 +285,8 @@ class _CompoundMergeRowState extends State<CompoundMergeRow> with SingleTickerPr
   Widget build(BuildContext context) {
     final Function(Widget) animateScale = (child) {
       return AnimatedScale(
-        duration: Duration(milliseconds: 50),
-        curve: Curves.easeInCubic,
+        duration: _scaleDuration,
+        curve: Curves.easeInOut,
         scale: _scale,
         child: child,
       );
@@ -321,10 +324,10 @@ class _CompoundMergeRowState extends State<CompoundMergeRow> with SingleTickerPr
         child: ShakeWidget(
           key: _shakeKey,
           duration: const Duration(milliseconds: 300),
-          child: Center(child: animateScale(IconStyledText(
+          child: Center(child: IconStyledText(
           text: "+",
         ),
-      ),),)
+      ),),
       ),
     );
     final attemptsCounter = Expanded(
@@ -360,7 +363,7 @@ class _CompoundMergeRowState extends State<CompoundMergeRow> with SingleTickerPr
       ],
     );
 
-    return row;
+    return animateScale(row);
   }
 
   Widget _buildComponentButton(ComponentInfo? componentInfo, SelectionType type) {
