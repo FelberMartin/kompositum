@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
     return MaterialApp(
-      title: 'Compose - Wörter kombinieren',
+      title: 'Wortschatz',
       theme: myTheme,
       locale: const Locale('de', 'DE'),
       home: HomePage(),
