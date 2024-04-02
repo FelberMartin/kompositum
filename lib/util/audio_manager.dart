@@ -83,7 +83,7 @@ class AudioManager {
     if (_isMuted) return;
 
     if (_playersByAsset.containsKey(asset)) {
-      _playersByAsset[asset]!.stop();
+      await _playersByAsset[asset]!.stop();
     } else {
       final player = AudioPlayer();
       player.setPlayerMode(PlayerMode.lowLatency);

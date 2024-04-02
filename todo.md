@@ -4,6 +4,7 @@
 
 
 ### Later
+- DailyOverview: make prettier
 - LevelFinishedDialog: diamonds for used attempts confusing (remove diamonds for attempts, or
   write "2/3", 
 - Images on google play: remove debug label (just use gimp?)
@@ -11,7 +12,6 @@
 
 # Bugs
 - B09 
-- B02 Sounds are not always played consistently
 
 
 ### Misc
