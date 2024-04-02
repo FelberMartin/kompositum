@@ -3,7 +3,7 @@ import '../game/level_provider.dart';
 
 class Costs {
   static const int hintCostBase = 30;
-  static const int hintCostIncreasePerFailedAttempt = 5;
+  static const int hintCostIncreasePerFailedAttempt = 3;
 
   static const int pastDailyCost = 60;
 
