@@ -16,9 +16,11 @@ class AudioManager {
 
   AudioManager._();
 
-  var isMuted = false;
+  var _isMuted = false;
+  bool get isMuted => _isMuted;
   final _playersByAsset = <String, AudioPlayer>{};
   StreamSubscription? _gameEventStreamSubscription;
+  Function(bool)? onMuteChanged;
 
   void registerGameEventStream(Stream<GameEvent> gameEventStream) {
     _gameEventStreamSubscription = gameEventStream.listen((event) {
@@ -38,8 +40,13 @@ class AudioManager {
     _gameEventStreamSubscription?.cancel();
   }
 
+  void setMute(bool mute) {
+    _isMuted = mute;
+    onMuteChanged?.call(_isMuted);
+  }
+
   void toggleMute() {
-    isMuted = !isMuted;
+    setMute(!_isMuted);
   }
 
   void playButtonClicked() {
@@ -67,7 +74,7 @@ class AudioManager {
   }
 
   void _playAsset(String asset, {double volume = 0.3}) async {
-    if (isMuted) return;
+    if (_isMuted) return;
 
     if (_playersByAsset.containsKey(asset)) {
       _playersByAsset[asset]!.stop();
@@ -168,7 +175,7 @@ void main() {
             child: Column(
               children: [
                 Text("Toggle mute"),
-                Icon(AudioManager.instance.isMuted ? Icons.volume_off : Icons.volume_up),
+                Icon(AudioManager.instance._isMuted ? Icons.volume_off : Icons.volume_up),
               ],
             ),
           ),

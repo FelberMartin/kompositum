@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 
+import 'package:kompositum/util/audio_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../game/pool_game_level.dart';
@@ -11,6 +12,17 @@ class KeyValueStore {
 
   KeyValueStore() {
     // SharedPreferences.setMockInitialValues({"level": 177});
+
+    _initAudioManager();
+  }
+
+  void _initAudioManager() {
+    AudioManager.instance.onMuteChanged = (isMuted) {
+      storeIsAudioMuted(isMuted);
+    };
+    getIsAudioMuted().then((isMuted) {
+      AudioManager.instance.setMute(isMuted);
+    });
   }
 
   Future<void> storeLevel(int level) async {
@@ -99,5 +111,15 @@ class KeyValueStore {
   Future<void> storeAppVersion(String version) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString("previousAppVersion", version);
+  }
+
+  Future<bool> getIsAudioMuted() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool("isAudioMuted") ?? false;
+  }
+
+  Future<void> storeIsAudioMuted(bool isMuted) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool("isAudioMuted", isMuted);
   }
 }

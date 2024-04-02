@@ -1,7 +1,6 @@
 # TODOs    
 ## 1.0 Release
 ### Next up
-- Store whether audio is muted
 
 
 ### Later
