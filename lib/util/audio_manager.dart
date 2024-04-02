@@ -4,6 +4,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
 import '../config/my_theme.dart';
+import '../data/key_value_store.dart';
 import '../game/game_event.dart';
 
 class AudioManager {
@@ -20,7 +21,12 @@ class AudioManager {
   bool get isMuted => _isMuted;
   final _playersByAsset = <String, AudioPlayer>{};
   StreamSubscription? _gameEventStreamSubscription;
-  Function(bool)? onMuteChanged;
+  KeyValueStore? _keyValueStore;
+
+  void registerKeyValueStore(KeyValueStore keyValueStore) async {
+    _keyValueStore = keyValueStore;
+    _isMuted = await keyValueStore.getIsAudioMuted();
+  }
 
   void registerGameEventStream(Stream<GameEvent> gameEventStream) {
     _gameEventStreamSubscription = gameEventStream.listen((event) {
@@ -42,7 +48,7 @@ class AudioManager {
 
   void setMute(bool mute) {
     _isMuted = mute;
-    onMuteChanged?.call(_isMuted);
+    _keyValueStore?.storeIsAudioMuted(mute);
   }
 
   void toggleMute() {

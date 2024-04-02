@@ -12,17 +12,6 @@ class KeyValueStore {
 
   KeyValueStore() {
     // SharedPreferences.setMockInitialValues({"level": 177});
-
-    _initAudioManager();
-  }
-
-  void _initAudioManager() {
-    AudioManager.instance.onMuteChanged = (isMuted) {
-      storeIsAudioMuted(isMuted);
-    };
-    getIsAudioMuted().then((isMuted) {
-      AudioManager.instance.setMute(isMuted);
-    });
   }
 
   Future<void> storeLevel(int level) async {

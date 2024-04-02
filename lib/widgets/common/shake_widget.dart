@@ -67,6 +67,12 @@ class ShakeWidgetState extends State<ShakeWidget>   with SingleTickerProviderSta
     animationController.forward(from:0);
   }
 
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
+
   double _shake() {
     double progress = widget.curve.transform(animationController.value);
     return sin(progress * pi * widget.shakeCount);  // change 10 to make it vibrate faster

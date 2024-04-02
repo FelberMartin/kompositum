@@ -4,9 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:kompositum/config/my_theme.dart';
 import 'package:kompositum/screens/home_page.dart';
+import 'package:kompositum/util/audio_manager.dart';
 
 import 'config/locator.dart';
 import 'data/database_interface.dart';
+import 'data/key_value_store.dart';
 import 'data/remote/firestore.dart';
 import 'firebase_options.dart';
 
@@ -15,8 +17,13 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   await setupLocator();
+  _initAudioManager();
   _initAndRemoveSplashScreen();
   runApp(const MyApp());
+}
+
+void _initAudioManager() {
+  AudioManager.instance.registerKeyValueStore(locator<KeyValueStore>());
 }
 
 void _initAndRemoveSplashScreen() async {
