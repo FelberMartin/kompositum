@@ -7,6 +7,7 @@ import 'package:kompositum/game/game_event.dart';
 import 'package:kompositum/widgets/common/my_icon_button.dart';
 import 'package:kompositum/widgets/common/shake_widget.dart';
 
+import '../../config/my_theme.dart';
 import '../../screens/game_page.dart';
 import '../../util/audio_manager.dart';
 import '../common/my_buttons.dart';
@@ -162,6 +163,7 @@ class AnimatedTextFadeOutState extends State<AnimatedTextFadeOut>
 
   late AnimationController _controller;
   late Animation<AlignmentGeometry> _alignAnimation;
+  late Animation<double> _opacityAnimation;
   late StreamSubscription<GameEvent> _gameEventStreamSubscription;
 
   String _displayText = "";
@@ -171,21 +173,29 @@ class AnimatedTextFadeOutState extends State<AnimatedTextFadeOut>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      reverseDuration: const Duration(milliseconds: 1500),
+      duration: const Duration(milliseconds: 2500),
     );
 
     _alignAnimation = Tween<AlignmentGeometry>(
-      begin: Alignment.topCenter, // Changed because the controller is reversed
-      end: Alignment.center,
+      begin: Alignment.topCenter * 0.4,
+      end: Alignment.topCenter,
     ).animate(CurvedAnimation(
       parent: _controller,
-      curve: Curves.easeIn,
+      curve: Curves.easeOutCubic,
+    ));
+
+    _opacityAnimation = Tween<double>(
+      begin: 1.0,
+      end: 0.0,
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInExpo,
     ));
 
     _gameEventStreamSubscription = widget.gameEventStream.listen((gameEvent) {
       if (gameEvent is CompoundFoundGameEvent) {
         _displayText = gameEvent.compound.name;
-        _controller.reverse(from: 1.0);
+        _controller.forward(from: 0.0);
       }
     });
   }
@@ -205,12 +215,14 @@ class AnimatedTextFadeOutState extends State<AnimatedTextFadeOut>
     return AlignTransition(
       alignment: _alignAnimation,
       child: FadeTransition(
-        opacity: _controller,
+        opacity: _opacityAnimation,
         child: FittedBox(
           fit: BoxFit.scaleDown,
           child: Text(
             _displayText,
-            style: Theme.of(context).textTheme.titleMedium,
+            style: Theme.of(context).textTheme.titleMedium!.copyWith(
+              color: MyColorPalette.of(context).primaryShade,
+            ),
           ),
         ),
       ),

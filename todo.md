@@ -1,7 +1,6 @@
 # TODOs    
 ## 1.0 Release
 ### Next up
-- Show combined words longer (or show history, or show longer if it took longer to find, fade out later)
 - No attempts dialog is back navigation dismissable
 - Store whether audio is muted
 
