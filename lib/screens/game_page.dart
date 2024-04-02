@@ -303,6 +303,7 @@ abstract class GamePageState extends State<GamePage> {
     animateDialog(
       context: context,
       barrierDismissible: false,
+      canPop: false,
       dialog: NoAttemptsLeftDialog(
         onActionPressed: onNoAttemptsLeftDialogClose,
         isHintAvailable: poolGameLevel.canRequestHint(starCount),
@@ -369,6 +370,7 @@ abstract class GamePageState extends State<GamePage> {
     animateDialog(
       context: context,
       barrierDismissible: false,
+      canPop: false,
       dialog: LevelCompletedDialog(
         type: getLevelCompletedDialogType(),
         difficulty: poolGameLevel.displayedDifficulty,

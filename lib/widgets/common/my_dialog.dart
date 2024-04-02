@@ -57,6 +57,7 @@ class MyDialog extends StatelessWidget {
 Future<T?> animateDialog<T extends Object?>({
   required BuildContext context,
   bool barrierDismissible = true,
+  bool canPop = true,
   required Widget dialog,
 }) {
   return showGeneralDialog(
@@ -66,7 +67,10 @@ Future<T?> animateDialog<T extends Object?>({
           scale: a1.value,
           child: Opacity(
             opacity: a1.value,
-            child: dialog,
+            child: PopScope(
+                canPop: canPop,
+                child: dialog
+            )
           ),
         );
       },

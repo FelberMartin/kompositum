@@ -1,7 +1,6 @@
 # TODOs    
 ## 1.0 Release
 ### Next up
-- No attempts dialog is back navigation dismissable
 - Store whether audio is muted
 
 
