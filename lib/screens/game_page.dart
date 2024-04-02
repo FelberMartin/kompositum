@@ -195,7 +195,7 @@ abstract class GamePageState extends State<GamePage> {
 
     // Invalid compound
     if (compound == null) {
-      if (!poolGameLevel.attemptsWatcher.anyAttemptsLeft()) {
+      if (poolGameLevel.attemptsWatcher.allAttemptsUsed()) {
         showNoAttemptsLeftDialog();
       }
       _emitGameEvent(CompoundInvalidGameEvent(poolGameLevel));

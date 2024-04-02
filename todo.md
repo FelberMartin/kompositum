@@ -12,7 +12,6 @@
 # Bugs
 - B09 
 - B08 Noerl: When quickly taping words after a right word pair is combined to a compound, one loses one attempt.
-- B07 When closing the app when the NoAttemptsLeftDialog is shown and then reopening one can get to -1/5 attempts.
 - B02 Sounds are not always played consistently
 
 

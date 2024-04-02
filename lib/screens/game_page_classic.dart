@@ -49,6 +49,9 @@ class GamePageClassicState extends GamePageState {
       // Default case: Load the stored level.
       levelSetup = levelProvider.generateLevelSetup(currentLevel);
       poolGameLevel = loadedLevel;
+      if (poolGameLevel.attemptsWatcher.allAttemptsUsed()) {
+        showNoAttemptsLeftDialog();
+      }
       setState(() {
         isLoading = false;
       });

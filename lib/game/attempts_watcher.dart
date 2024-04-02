@@ -32,6 +32,10 @@ class AttemptsWatcher {
     return _attemptsLeft > 0;
   }
 
+  bool allAttemptsUsed() {
+    return !anyAttemptsLeft();
+  }
+
   static AttemptsWatcher fromJson(Map<String, dynamic> json) {
     final result = AttemptsWatcher(maxAttempts: json['maxAttempts']);
     result._attemptsLeft = json['attemptsLeft'];
