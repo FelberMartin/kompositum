@@ -91,6 +91,7 @@ flutter:
   assets:
     - assets/images/app_icon/fg_cropped.png
     - assets/final_compounds.csv
+    - assets/compounds_with_level.csv
     - test/test_data/test_compounds.csv
     - assets/images/background.svg
     - assets/sounds/score.wav
