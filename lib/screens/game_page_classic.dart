@@ -31,7 +31,10 @@ class GamePageClassicState extends GamePageState {
   int currentLevel = 0;
 
   @override
-  Future<void> startGame() async {
+  void startGame() async {
+    final blocked = await keyValueStore.getBlockedCompoundNames();
+    await poolGenerator.setBlockedCompounds(blocked);
+
     currentLevel = await keyValueStore.getLevel();
     final levelLoader = LevelLoader(keyValueStore);
     levelLoader.loadLevel().then(_onPoolGameLevelLoaded).catchError((error) {
@@ -64,11 +67,11 @@ class GamePageClassicState extends GamePageState {
     final newLevelNumber = levelIdentifier as int;
     if (isLevelAdvance) {
       currentLevel = newLevelNumber;
-      keyValueStore.storeLevel(newLevelNumber);
+      await keyValueStore.storeLevel(newLevelNumber);
       // Save the blocked compounds BEFORE the generation of the new level,
       // so that when regenerating the same level later, the same compounds
       // are blocked.
-      keyValueStore.storeBlockedCompounds(poolGenerator.getBlockedCompounds());
+      await keyValueStore.storeBlockedCompounds(poolGenerator.getBlockedCompounds());
     } else {
       final blocked = await keyValueStore.getBlockedCompoundNames();
       await poolGenerator.setBlockedCompounds(blocked);

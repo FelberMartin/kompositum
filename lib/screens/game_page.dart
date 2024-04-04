@@ -90,9 +90,6 @@ abstract class GamePageState extends State<GamePage> {
     keyValueStore.getStarCount().then((value) {
       starCount = value;
     });
-    keyValueStore.getBlockedCompoundNames().then((value) {
-      poolGenerator.setBlockedCompounds(value);
-    });
 
     tutorialManager.animateDialog = _launchTutorialDialog;
     tutorialManager.registerGameEventStream(gameEventStreamController.stream);
@@ -109,7 +106,7 @@ abstract class GamePageState extends State<GamePage> {
     ));
   }
 
-  Future<void> startGame();
+  void startGame();
 
   void updateGameToLevel(Object levelIdentifier, {bool isLevelAdvance = true}) async {
     await preLevelUpdate(levelIdentifier, isLevelAdvance);

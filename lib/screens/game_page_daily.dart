@@ -24,7 +24,7 @@ class GamePageDailyState extends GamePageState {
   factory GamePageDailyState.fromLocator(DateTime date) {
     return GamePageDailyState(
       levelProvider: DailyLevelProvider(),
-      poolGenerator: locator<CompoundPoolGenerator>(),
+      poolGenerator: locator<CompoundPoolGenerator>(instanceName: "DailyPoolGenerator"),
       keyValueStore: locator<KeyValueStore>(),
       swappableDetector: locator<SwappableDetector>(),
       tutorialManager: locator<TutorialManager>(),
@@ -35,13 +35,13 @@ class GamePageDailyState extends GamePageState {
   final DateTime date;
 
   @override
-  Future<void> startGame() async {
+  void startGame() async {
     updateGameToLevel(date, isLevelAdvance: false);
   }
 
   @override
   Future<void> preLevelUpdate(Object levelIdentifier, isLevelAdvance) async {
-    poolGenerator.setBlockedCompounds([]);
+    // Do nothing
   }
 
   @override

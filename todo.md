@@ -12,7 +12,7 @@
 # Bugs
 - B11 
 - B09 App going to blackscreen after pressing "back to overview" button after completing daily from homescreen
-- B10 Felix follow-up to B04, when playing dailies, level changes after restarting
+  -> not reproducable 
 
 
 ### Misc
