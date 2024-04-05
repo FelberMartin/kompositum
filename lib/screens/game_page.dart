@@ -7,6 +7,7 @@ import 'package:kompositum/config/my_icons.dart';
 import 'package:kompositum/config/star_costs_rewards.dart';
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/data/models/unique_component.dart';
+import 'package:kompositum/game/big_compound/big_compound_game_level.dart';
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 import 'package:kompositum/util/audio_manager.dart';
@@ -16,7 +17,9 @@ import 'package:kompositum/widgets/common/my_dialog.dart';
 import 'package:kompositum/widgets/play/star_fly_animation.dart';
 
 import '../config/locator.dart';
+import '../data/database_interface.dart';
 import '../data/models/compound.dart';
+import '../game/big_compound/big_compound_generator.dart';
 import '../game/game_event.dart';
 import '../game/hints/hint.dart';
 import '../game/level_provider.dart';
@@ -121,14 +124,15 @@ abstract class GamePageState extends State<GamePage> {
     levelSetup = levelProvider.generateLevelSetup(levelIdentifier);
     setState(() {});
 
-    final compounds = await poolGenerator.generateFromLevelSetup(levelSetup!);
-    final swappables = await swappableDetector.getSwappables(compounds);
+    final generator = BigCompoundGenerator(locator<DatabaseInterface>());
+    final tree = await generator.generate();
     print("Finished new pool for new level");
-    poolGameLevel = PoolGameLevel(
-      compounds,
+    print(tree.toString());
+    poolGameLevel = BigCompoundGameLevel(
+      tree,
       maxShownComponentCount: levelSetup!.maxShownComponentCount,
       displayedDifficulty: levelSetup!.displayedDifficulty,
-      swappableCompounds: swappables,
+      swappableCompounds: [],
     );
     _emitGameEvent(NewLevelStartGameEvent(levelSetup!, poolGameLevel));
     onPoolGameLevelUpdate();
@@ -225,8 +229,8 @@ abstract class GamePageState extends State<GamePage> {
     _checkForEasterEgg(compound);
 
     setState(() {
-      dummyModifier = UniqueComponent(compound.modifier, 0);
-      dummyHead = UniqueComponent(compound.head, 0);
+      dummyModifier = UniqueComponent(compound.modifier);
+      dummyHead = UniqueComponent(compound.head);
     });
     Future.delayed(Duration(milliseconds: 500), () {
       setState(() {

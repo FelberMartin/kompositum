@@ -2,21 +2,22 @@ import 'dart:math';
 
 import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
 import 'package:kompositum/data/models/unique_component.dart';
-import 'package:kompositum/game/big_compound_generator.dart';
+import 'package:kompositum/game/big_compound/component_tree.dart';
 import 'package:kompositum/game/level_provider.dart';
+import 'package:kompositum/game/pool_game_level.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 
-import '../config/star_costs_rewards.dart';
-import '../data/models/compound.dart';
-import 'attempts_watcher.dart';
-import 'hints/hint.dart';
+import '../../config/star_costs_rewards.dart';
+import '../../data/models/compound.dart';
+import '../attempts_watcher.dart';
+import '../hints/hint.dart';
 
 
 
-class BigCompoundGameLevel {
+class BigCompoundGameLevel implements PoolGameLevel {
   final int maxShownComponentCount;
 
-  final CompoundTree compoundTree;
+  final ComponentForest compoundForest;
   final _allCompounds = <Compound>[];
   final _unsolvedCompounds = <Compound>[];
   final List<Swappable> swappableCompounds;
@@ -31,25 +32,20 @@ class BigCompoundGameLevel {
   late AttemptsWatcher attemptsWatcher;
 
   BigCompoundGameLevel(
-      this.compoundTree,
+      this.compoundForest,
       {
         this.maxShownComponentCount = 11,
         this.displayedDifficulty = Difficulty.easy,
         this.swappableCompounds = const [],
       }) {
-    final allCompounds = compoundTree.getAllCompounds();
+    final allCompounds = compoundForest.getAllCompounds();
     _allCompounds.addAll(allCompounds);
     _unsolvedCompounds.addAll(allCompounds);
-    _allComponents.addAll(UniqueComponent.fromCompounds(allCompounds));
+    _allComponents.addAll(compoundForest.getAllNoneRootComponents());
 
-    final leaveCompounds = compoundTree.getLeaveCompounds();
-    final componentsAtStart = _allComponents.where((component) =>
-      leaveCompounds.any((compound) =>
-        compound.modifier == component.text || compound.head == component.text
-      )
-    );
+    final leaveComponents = compoundForest.getLeaveComponents();
+    hiddenComponents.addAll(leaveComponents);
 
-    hiddenComponents.addAll(componentsAtStart);
     _fillShownComponents();
     attemptsWatcher = AttemptsWatcher();
   }
@@ -84,8 +80,13 @@ class BigCompoundGameLevel {
     shownComponents.remove(head);
     _unsolvedCompounds.remove(compoundToRemove);
 
-    // TODO: add compoundToRemove / parent to shownComponents
     // TODO: use this game level in a new game_page_state
+    final parentComponent = _allComponents.firstWhereOrNull((component) =>
+      component.text == compoundToRemove.name
+    );
+    if (parentComponent != null) {
+      hiddenComponents.add(parentComponent);
+    }
 
     _fillShownComponents();
   }
@@ -192,5 +193,10 @@ class BigCompoundGameLevel {
 
   double getLevelProgress() {
     return 1 - _unsolvedCompounds.length / _allCompounds.length;
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {};
   }
 }

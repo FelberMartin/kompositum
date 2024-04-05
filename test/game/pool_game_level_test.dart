@@ -174,7 +174,7 @@ void main() {
 
     test("should not remove the hint if the hinted component is not solved", () {
       sut = PoolGameLevel([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 4);
-      sut.hints.add(Hint(UniqueComponent("krank", 123), HintComponentType.modifier));
+      sut.hints.add(Hint(UniqueComponent("krank"), HintComponentType.modifier));
 
       removeCompoundHelper(sut, Compounds.Apfelbaum);
       expect(sut.hints, hasLength(1));
