@@ -33,7 +33,6 @@ Future<void> setupLocator() async {
   ));
   locator.registerSingleton<DatabaseInterface>(DatabaseInterface(locator<DatabaseInitializer>()));
   locator.registerSingleton<CompoundPoolGenerator>(GraphBasedPoolGenerator(locator<DatabaseInterface>()));
-  locator.registerSingleton<CompoundPoolGenerator>(GraphBasedPoolGenerator(locator<DatabaseInterface>(), blockLastN: 0), instanceName: "DailyPoolGenerator");
 
   locator.registerSingleton<LevelProvider>(LogarithmicLevelProvider());
 

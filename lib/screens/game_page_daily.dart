@@ -24,7 +24,7 @@ class GamePageDailyState extends GamePageState {
   factory GamePageDailyState.fromLocator(DateTime date) {
     return GamePageDailyState(
       levelProvider: DailyLevelProvider(),
-      poolGenerator: locator<CompoundPoolGenerator>(instanceName: "DailyPoolGenerator"),
+      poolGenerator: locator<CompoundPoolGenerator>(),
       keyValueStore: locator<KeyValueStore>(),
       swappableDetector: locator<SwappableDetector>(),
       tutorialManager: locator<TutorialManager>(),

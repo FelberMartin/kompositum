@@ -25,6 +25,7 @@ abstract class CompoundPoolGenerator {
       compoundCount: levelSetup.compoundCount,
       frequencyClass: levelSetup.frequencyClass,
       seed: levelSetup.poolGenerationSeed,
+      ignoreBlockedCompounds: levelSetup.ignoreBlockedCompounds,
     );
   }
 
@@ -32,6 +33,7 @@ abstract class CompoundPoolGenerator {
     required CompactFrequencyClass frequencyClass,
     required int compoundCount,
     int? seed,
+    bool ignoreBlockedCompounds = false,
   }) async {
     assert(compoundCount > 0);
 
@@ -45,10 +47,12 @@ abstract class CompoundPoolGenerator {
     List<Compound> compounds = await generateRestricted(
         compoundCount: compoundCount,
         frequencyClass: frequencyClass,
-        blockedCompounds: blockedCompounds,
+        blockedCompounds: ignoreBlockedCompounds ? [] : blockedCompounds,
         seed: seed);
 
-    _updateBlockedCompounds(compounds);
+    if (!ignoreBlockedCompounds) {
+      _updateBlockedCompounds(compounds);
+    }
 
     if (compounds.isEmpty) {
       throw Exception("No compounds found for the given frequency class");

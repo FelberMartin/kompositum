@@ -9,6 +9,7 @@ class LevelSetup {
   final int maxShownComponentCount;
   final CompactFrequencyClass frequencyClass;
   final Difficulty displayedDifficulty;
+  final bool ignoreBlockedCompounds;
 
   LevelSetup({
     required this.levelIdentifier,
@@ -17,6 +18,7 @@ class LevelSetup {
     this.frequencyClass = CompactFrequencyClass.easy,
     this.maxShownComponentCount = 11,
     this.displayedDifficulty = Difficulty.easy,
+    this.ignoreBlockedCompounds = false,
   });
 
   @override
@@ -27,7 +29,8 @@ class LevelSetup {
         "poolGenerationSeed: $poolGenerationSeed, "
         "maxShownComponentCount: $maxShownComponentCount, "
         "frequencyClass: $frequencyClass, "
-        "displayedDifficulty: $displayedDifficulty)";
+        "displayedDifficulty: $displayedDifficulty)"
+        "ignoreBlockedCompounds: $ignoreBlockedCompounds";
   }
 }
 
@@ -180,6 +183,7 @@ class DailyLevelProvider extends LevelProvider {
       displayedDifficulty: difficulty,
       frequencyClass: LevelProvider._getCompactFrequencyClass(difficulty),
       maxShownComponentCount: LevelProvider._getMaxShownComponentsCount(difficulty),
+      ignoreBlockedCompounds: true,
     );
   }
 }
