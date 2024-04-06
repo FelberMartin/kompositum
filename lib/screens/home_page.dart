@@ -158,6 +158,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                   text: "All in One",
                   onPressed: () => _launchGame(GameMode.AllInOne),
                 ),
+                MyPrimaryTextButton(
+                  text: "Ketten",
+                  onPressed: () => _launchGame(GameMode.Chain),
+                ),
                 Expanded(child: Container()),
               ],
             ),

@@ -34,7 +34,7 @@ class GamePageClassicState extends GamePageState {
 
   @override
   Future<void> startGame() async {
-    if (gameMode == GameMode.AllInOne) {
+    if (gameMode != GameMode.Pool) {
       updateGameToLevel(currentLevel, isLevelAdvance: false);
       return;
     }

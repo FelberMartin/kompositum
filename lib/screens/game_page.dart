@@ -6,8 +6,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kompositum/config/my_icons.dart';
 import 'package:kompositum/config/star_costs_rewards.dart';
 import 'package:kompositum/data/key_value_store.dart';
+import 'package:kompositum/data/models/compact_frequency_class.dart';
 import 'package:kompositum/data/models/unique_component.dart';
 import 'package:kompositum/game/big_compound/big_compound_game_level.dart';
+import 'package:kompositum/game/chain/chain_game_level.dart';
+import 'package:kompositum/game/chain/chain_generator.dart';
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 import 'package:kompositum/util/audio_manager.dart';
@@ -86,9 +89,14 @@ abstract class GamePageState extends State<GamePage> {
   /// where the components should be shown in the UI but are already removed from the pool.
   UniqueComponent? dummyModifier, dummyHead;
 
-  UniqueComponent? get selectedModifier =>
-      poolGameLevel.shownComponents.firstWhereOrNull((element) =>
-          element.id == selectionTypeToComponentId[SelectionType.modifier]) ?? dummyModifier;
+  UniqueComponent? get selectedModifier {
+    if (poolGameLevel is ChainGameLevel) {
+      return (poolGameLevel as ChainGameLevel).currentModifier;
+    }
+    final selectedId = selectionTypeToComponentId[SelectionType.modifier];
+    final selectedComponent = poolGameLevel.shownComponents.firstWhereOrNull((element) => element.id == selectedId);
+    return selectedComponent ?? dummyModifier;
+  }
 
   UniqueComponent? get selectedHead =>
       poolGameLevel.shownComponents.firstWhereOrNull((element) =>
@@ -152,6 +160,18 @@ abstract class GamePageState extends State<GamePage> {
         displayedDifficulty: levelSetup!.displayedDifficulty,
         swappableCompounds: [],
       );
+    } else if (gameMode == GameMode.Chain) {
+      final generator = ChainGenerator(locator<DatabaseInterface>());
+      final compoundChain = await generator.generate(compoundCount: 10, frequencyClass: CompactFrequencyClass.easy);
+      print("Finished new pool for new level");
+      print(compoundChain.toString());
+      poolGameLevel = ChainGameLevel(
+        compoundChain,
+        maxShownComponentCount: levelSetup!.maxShownComponentCount,
+        displayedDifficulty: levelSetup!.displayedDifficulty,
+        swappableCompounds: [],
+      );
+      toggleSelection((poolGameLevel as ChainGameLevel).currentModifier.id);
     }
 
     _emitGameEvent(NewLevelStartGameEvent(levelSetup!, poolGameLevel));
@@ -245,6 +265,7 @@ abstract class GamePageState extends State<GamePage> {
     _increaseStarCount(Rewards.starsCompoundCompleted);
     _emitGameEvent(CompoundFoundGameEvent(compound));
     resetToNoSelection();
+    toggleSelection((poolGameLevel as ChainGameLevel).currentModifier.id);
     onPoolGameLevelUpdate();
     _checkForEasterEgg(compound);
 

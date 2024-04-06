@@ -65,24 +65,51 @@ class CompoundGraph {
 
   /// Returns a random pair of a modifier and a head in the graph.
   (String, String)? getRandomModifierHeadPair(Random random) {
-    final allComponents = getAllComponents();
-    if (allComponents.isEmpty) {
+    final component = getRandomComponent(random);
+    if (component == null) {
       return null;
     }
-    final component = allComponents[random.nextInt(allComponents.length)];
-    final linkedHeads = _graph.linkTos(component).toList();
-    if (linkedHeads.isNotEmpty) {
-      final head = linkedHeads[random.nextInt(linkedHeads.length)];
-      return (component, head);
+    final randomHead = getRandomHeadForModifier(modifier: component, random: random);
+    if (randomHead != null) {
+      return (component, randomHead);
     }
-    final linkedModifiers = _graph.linkFroms(component).toList();
-    if (linkedModifiers.isNotEmpty) {
-      final modifier = linkedModifiers[random.nextInt(linkedModifiers.length)];
-      return (modifier, component);
+    final randomModifier = getRandomModifierForHead(head: component, random: random);
+    if (randomModifier != null) {
+      return (randomModifier, component);
     }
 
     removeComponents([component]);
     return getRandomModifierHeadPair(random);
+  }
+
+  String? getRandomComponent(Random random) {
+    final allComponents = getAllComponents();
+    if (allComponents.isEmpty) {
+      return null;
+    }
+    return allComponents[random.nextInt(allComponents.length)];
+  }
+
+  String? getRandomHeadForModifier({
+    required String modifier,
+    Random? random,
+  }) {
+    final linkedHeads = _graph.linkTos(modifier).toList();
+    if (linkedHeads.isEmpty) {
+      return null;
+    }
+    return linkedHeads[random!.nextInt(linkedHeads.length)];
+  }
+
+  String? getRandomModifierForHead({
+    required String head,
+    Random? random,
+  }) {
+    final linkedModifiers = _graph.linkFroms(head).toList();
+    if (linkedModifiers.isEmpty) {
+      return null;
+    }
+    return linkedModifiers[random!.nextInt(linkedModifiers.length)];
   }
 
 }
