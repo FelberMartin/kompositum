@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
     keyValueStore.isFirstLaunch().then((value) {
       if (value) {
-        _launchGame();
+        _launchGame(GameMode.Pool);
       }
     });
   }
@@ -96,10 +96,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     });
   }
 
-  void _launchGame() {
+  void _launchGame(GameMode gameMode) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => GamePage(state: GamePageClassicState.fromLocator())),
+      MaterialPageRoute(builder: (context) => GamePage(state: GamePageClassicState.fromLocator(gameMode))),
     ).then((value) {
       _updatePage();
     });
@@ -152,7 +152,11 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 isLoading ? PlayButton.loading() : PlayButton(
                   currentLevel: currentLevel,
                   currentLevelDifficulty: currentLevelDifficulty,
-                  onPressed: _launchGame,
+                  onPressed: () => _launchGame(GameMode.Pool),
+                ),
+                MyPrimaryTextButton(
+                  text: "All in One",
+                  onPressed: () => _launchGame(GameMode.AllInOne),
                 ),
                 Expanded(child: Container()),
               ],

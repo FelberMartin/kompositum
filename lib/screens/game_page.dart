@@ -33,6 +33,11 @@ import '../widgets/play/dialogs/no_attempts_left_dialog.dart';
 import '../widgets/play/dialogs/report_dialog.dart';
 import '../widgets/play/top_row.dart';
 
+
+enum GameMode {
+  Pool, AllInOne, Chain
+}
+
 class GamePage extends StatefulWidget {
   const GamePage(
       {super.key,
@@ -51,6 +56,7 @@ abstract class GamePageState extends State<GamePage> {
     required this.keyValueStore,
     required this.swappableDetector,
     required this.tutorialManager,
+    this.gameMode = GameMode.Pool
   });
 
   final LevelProvider levelProvider;
@@ -58,6 +64,7 @@ abstract class GamePageState extends State<GamePage> {
   final KeyValueStore keyValueStore;
   final SwappableDetector swappableDetector;
   final TutorialManager tutorialManager;
+  final GameMode gameMode;
   late AdManager adManager = locator<AdManager>();
 
   late PoolGameLevel poolGameLevel;
@@ -124,16 +131,29 @@ abstract class GamePageState extends State<GamePage> {
     levelSetup = levelProvider.generateLevelSetup(levelIdentifier);
     setState(() {});
 
-    final generator = BigCompoundGenerator(locator<DatabaseInterface>());
-    final tree = await generator.generate();
-    print("Finished new pool for new level");
-    print(tree.toString());
-    poolGameLevel = BigCompoundGameLevel(
-      tree,
-      maxShownComponentCount: levelSetup!.maxShownComponentCount,
-      displayedDifficulty: levelSetup!.displayedDifficulty,
-      swappableCompounds: [],
-    );
+    if (gameMode == GameMode.Pool) {
+      final compounds = await poolGenerator.generateFromLevelSetup(levelSetup!);
+      final swappables = await swappableDetector.getSwappables(compounds);
+      print("Finished new pool for new level");
+      poolGameLevel = PoolGameLevel(
+        compounds,
+        maxShownComponentCount: levelSetup!.maxShownComponentCount,
+        displayedDifficulty: levelSetup!.displayedDifficulty,
+        swappableCompounds: swappables,
+      );
+    } else if (gameMode == GameMode.AllInOne) {
+      final generator = BigCompoundGenerator(locator<DatabaseInterface>());
+      final tree = await generator.generate();
+      print("Finished new pool for new level");
+      print(tree.toString());
+      poolGameLevel = BigCompoundGameLevel(
+        tree,
+        maxShownComponentCount: levelSetup!.maxShownComponentCount,
+        displayedDifficulty: levelSetup!.displayedDifficulty,
+        swappableCompounds: [],
+      );
+    }
+
     _emitGameEvent(NewLevelStartGameEvent(levelSetup!, poolGameLevel));
     onPoolGameLevelUpdate();
 

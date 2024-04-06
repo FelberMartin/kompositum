@@ -11,7 +11,7 @@ import 'models/compound.dart';
 class KeyValueStore {
 
   KeyValueStore() {
-    SharedPreferences.setMockInitialValues({});
+    // SharedPreferences.setMockInitialValues({});
   }
 
   Future<void> storeLevel(int level) async {
