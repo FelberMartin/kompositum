@@ -169,6 +169,10 @@ abstract class GamePageState extends State<GamePage> {
   }
 
   void toggleSelection(int componentId) {
+    final isComponentVisible = poolGameLevel.shownComponents.any((element) => element.id == componentId);
+    if (!isComponentVisible) {
+      return;
+    }
     final selectionType = getSelectionTypeForComponentId(componentId);
     if (selectionType != null) {
       selectionTypeToComponentId[selectionType] = -1;
