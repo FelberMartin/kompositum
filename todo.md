@@ -1,7 +1,8 @@
 # TODOs    
 ## 1.0 Release
 ### Next up
-
+- Fix bugs
+- Add new reported compounds
 
 ### Later
 - LevelFinishedDialog: diamonds for used attempts confusing (remove diamonds for attempts, or
@@ -10,7 +11,11 @@
 
 
 # Bugs
-- B11 
+- B15
+- B11 Cant click on components that a under the "hidden compounds counter" label
+- B12 Level300: when using a hint, both big components in the combination row are marked with hints
+- B13 Noerl B08 revisited: After double clicking an invisible modifier is set.
+- B14 Noerl: when closing the app during the ad, one can continue with 5/5 attempts
 - B09 App going to blackscreen after pressing "back to overview" button after completing daily from homescreen
   -> not reproducable 
 
