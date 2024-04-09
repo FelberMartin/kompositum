@@ -2505,6 +2505,7 @@ Anfangszustand,Anfang,Zustand,22.0
 Anfechtungsgrund,Anfechtung,Grund,22.0
 Anfechtungsklage,Anfechtung,Klage,18.0
 Anfeuerungsruf,Anfeuerung,Ruf,18.0
+Anflug,an,Flug,
 Anforderungsanalyse,Anforderung,Analyse,
 Anforderungsdefinition,Anforderung,Definition,
 Anforderungskatalog,Anforderung,Katalog,20.0
@@ -2845,6 +2846,7 @@ Anpassungsvermögen,Anpassung,Vermögen,22.0
 Anpassungsvorgang,Anpassung,Vorgang,23.0
 Anpassungszeit,Anpassung,Zeit,22.0
 Anpressdruck,anpressen,Druck,21.0
+Anprobe,an,Probe,
 Anrainergemeinde,Anrainer,Gemeinde,18.0
 Anrainerkommune,Anrainer,Kommune,
 Anrainerstaat,Anrainer,Staat,17.0
@@ -4972,6 +4974,7 @@ Aufzeichnungssystem,Aufzeichnung,System,
 Aufzeichnungstechnik,Aufzeichnung,Technik,23.0
 Aufzeichnungsverfahren,Aufzeichnung,Verfahren,
 Aufzuchtstation,Aufzucht,Station,20.0
+Aufzug,auf,Zug,
 Aufzugbau,Aufzug,Bau,
 Aufzugkabine,Aufzug,Kabine,
 Aufzugsanlage,Aufzug,Anlage,20.0
@@ -5913,6 +5916,7 @@ Ausweichstandort,ausweichen,Standort,21.0
 Ausweichstelle,ausweichen,Stelle,20.0
 Ausweichstrecke,ausweichen,Strecke,18.0
 Ausweichtermin,ausweichen,Termin,18.0
+Ausweichtraining,ausweichen,Training,
 Ausweichverkehr,ausweichen,Verkehr,19.0
 Ausweisdokument,Ausweis,Dokument,20.0
 Ausweisinhaber,Ausweis,Inhaber,22.0
@@ -17655,6 +17659,7 @@ Dopingproblem,Doping,Problem,19.0
 Dopingproblematik,Doping,Problematik,20.0
 Dopingskandal,Doping,Skandal,17.0
 Dopingsperre,Doping,Sperre,17.0
+Dopingsperre,Doping,sperren,
 Dopingsubstanz,Doping,Substanz,19.0
 Dopingsystem,Doping,System,20.0
 Dopingtest,Doping,Test,17.0
@@ -25507,6 +25512,7 @@ Fensterbogen,Fenster,Bogen,21.0
 Fensterbrett,Fenster,Brett,17.0
 Fensterbrüstung,Fenster,Brüstung,21.0
 Fensterdekoration,Fenster,Dekoration,21.0
+Fensterfarben,Fenster,Farbe,
 Fensterfliege,Fenster,Fliege,
 Fensterfläche,Fenster,Fläche,18.0
 Fensterflügel,Fenster,Flügel,19.0
@@ -25866,6 +25872,7 @@ Fernuniversität,Ferne,Universität,18.0
 Fernunterricht,Ferne,Unterricht,19.0
 Fernverbindung,Ferne,Verbindung,19.0
 Fernverkehr,Ferne,Verkehr,15.0
+Fernverkehr,fern,Verkehr,
 Fernverkehrsbahnhof,Fernverkehr,Bahnhof,
 Fernverkehrsgleis,Fernverkehr,Gleis,
 Fernverkehrsnetz,Fernverkehr,Netz,21.0
@@ -49659,6 +49666,7 @@ Kochschule,Koch,Schule,18.0
 Kochsendung,Koch,Sendung,19.0
 Kochshow,Koch,Show,19.0
 Kochstelle,kochen,Stelle,19.0
+Kochstelle,Koch,Stelle,
 Kochstil,Koch,Stil,
 Kochtipp,kochen,Tipp,20.0
 Kochtopf,kochen,Topf,16.0
@@ -52551,6 +52559,7 @@ Kuchenangebot,Kuchen,Angebot,21.0
 Kuchenbacken,Kuchen,Backen,
 Kuchenbasar,Kuchen,Basar,
 Kuchenblech,Kuchen,Blech,21.0
+Kuchenboden,Kuchen,Boden,
 Kuchenbäcker,Kuchen,Bäcker,21.0
 Kuchenbüfett,Kuchen,Büfett,16.0
 Kuchenform,Kuchen,Form,21.0
@@ -62749,6 +62758,7 @@ Mittelstandspolitik,Mittelstand,Politik,19.0
 Mittelstandsunternehmen,Mittelstand,Unternehmen,21.0
 Mittelstandsvereinigung,Mittelstand,Vereinigung,17.0
 Mittelstation,mittlere,Station,18.0
+Mittelstation,Mittel,Station,
 Mittelsteinzeit,mittlere,Steinzeit,21.0
 Mittelstellung,mittlere,Stellung,21.0
 Mittelstimme,mittlere,Stimme,20.0
@@ -70495,6 +70505,7 @@ Pfandbecher,Pfand,Becher,22.0
 Pfandbesitz,Pfand,Besitz,
 Pfandbrief,Pfand,Brief,17.0
 Pfandbriefbank,Pfandbrief,Bank,20.0
+Pfanddose,Pfand,Dose,
 Pfandflasche,Pfand,Flasche,18.0
 Pfandgebühr,Pfand,Gebühr,23.0
 Pfandgeld,Pfand,Geld,20.0
@@ -77042,6 +77053,7 @@ Reisemitbringsel,Reise,Mitbringsel,21.0
 Reisemobil,Reise,Mobil,18.0
 Reisemöglichkeit,Reise,Möglichkeit,19.0
 Reisenotiz,Reise,Notiz,18.0
+Reiseort,Reise,Ort,
 Reisepaket,Reise,Paket,21.0
 Reisepapier,Reise,Papier,21.0
 Reisepartner,Reise,Partner,20.0
@@ -88233,7 +88245,7 @@ Spielerberater,Spieler,Berater,18.0
 Spielereihe,Spiel,Reihe,
 Spielerfahrung,Spiel,Erfahrung,19.0
 Spielerfigur,Spieler,Figur,
-Spielerfrau,Spieler,,
+Spielerfrau,Spieler,Frau,
 Spielergebnis,Spiel,Ergebnis,18.0
 Spielergehalt,Spieler,Gehalt,18.0
 Spielergemeinde,Spieler,Gemeinde,23.0
@@ -94730,6 +94742,7 @@ Tanzkultur,Tanz,Kultur,20.0
 Tanzkunst,Tanz,Kunst,18.0
 Tanzkurs,Tanz,Kurs,16.0
 Tanzlehrer,Tanz,Lehrer,17.0
+Tanzlehrer,tanzen,Lehrer,
 Tanzlied,Tanz,Lied,19.0
 Tanzlokal,Tanz,Lokal,17.0
 Tanzlust,tanzen,Lust,20.0
@@ -97686,6 +97699,7 @@ Trainingskonzept,Training,Konzept,20.0
 Trainingskurs,Training,Kurs,18.0
 Trainingslager,Training,Lager,13.0
 Trainingslauf,Training,Lauf,17.0
+Trainingslauf,Training,laufen,
 Trainingslehre,Training,Lehre,19.0
 Trainingslehrgang,Training,Lehrgang,20.0
 Trainingsleistung,Training,Leistung,17.0
@@ -98904,6 +98918,7 @@ Uferanlage,Ufer,Anlage,
 Uferbefestigung,Ufer,Befestigung,19.0
 Uferbereich,Ufer,Bereich,17.0
 Uferböschung,Ufer,Böschung,18.0
+Ufergelände,Ufer,Gelände,
 Uferhahnenfuß,Ufer,Hahnenfuß,
 Uferhang,Ufer,Hang,22.0
 Uferlandschaft,Ufer,Landschaft,20.0
@@ -99015,6 +99030,7 @@ Umfrageergebnis,Umfrage,Ergebnis,16.0
 Umfrageinstitut,Umfrage,Institut,19.0
 Umfrageteilnehmer,Umfrage,Teilnehmer,
 Umfragewert,Umfrage,Wert,16.0
+Umgang,um,Gang,
 Umgangsform,Umgang,Form,16.0
 Umgangsrecht,Umgang,Recht,18.0
 Umgangsregelung,Umgang,Regelung,
@@ -99427,6 +99443,7 @@ Unfallfahrer,Unfall,Fahrer,17.0
 Unfallfahrzeug,Unfall,Fahrzeug,18.0
 Unfallflucht,Unfall,Flucht,16.0
 Unfallfolge,Unfall,Folge,18.0
+Unfallfolgen,Unfall,folgen,
 Unfallforscher,Unfall,Forscher,19.0
 Unfallforschung,Unfall,Forschung,20.0
 Unfallgefahr,Unfall,Gefahr,17.0
@@ -99699,6 +99716,7 @@ Unterbühne,unter,Bühne,20.0
 Unterdeck,untere,Deck,20.0
 Unterdeckung,unter,Deckung,17.0
 Unterdruck,unter,Druck,18.0
+Unterdruck,untere,Druck,
 Unterdrückungsmaßnahme,Unterdrückung,Maßnahme,21.0
 Unterdrückungsmechanismus,Unterdrückung,Mechanismus,21.0
 Unterdrückungspolitik,Unterdrückung,Politik,21.0
@@ -102645,6 +102663,7 @@ Vertriebsexperte,Vertrieb,Experte,21.0
 Vertriebsfirma,Vertrieb,Firma,18.0
 Vertriebsform,Vertrieb,Form,19.0
 Vertriebsgebiet,Vertrieb,Gebiet,21.0
+Vertriebsgelände,Vertreib,Gelände,
 Vertriebsgeschäft,Vertrieb,Geschäft,22.0
 Vertriebsgesellschaft,Vertrieb,Gesellschaft,17.0
 Vertriebsingenieur,Vertrieb,Ingenieur,21.0
@@ -108926,6 +108945,7 @@ Wohnpark,wohnen,Park,17.0
 Wohnpartei,wohnen,Partei,22.0
 Wohnplatz,wohnen,Platz,18.0
 Wohnprojekt,wohnen,Projekt,16.0
+Wohnprämie,wohnen,Prämie,
 Wohnqualität,wohnen,Qualität,16.0
 Wohnquartier,wohnen,Quartier,16.0
 Wohnraum,wohnen,Raum,14.0
@@ -110526,6 +110546,7 @@ Zentralatom,zentral,Atom,
 Zentralausschuss,zentral,Ausschuss,18.0
 Zentralbahnhof,zentral,Bahnhof,19.0
 Zentralbank,zentral,Bank,13.0
+Zentralbank,Zentrale,Bank,
 Zentralbankchef,Zentralbank,Chef,18.0
 Zentralbanker,zentral,Banker,19.0
 Zentralbankgeld,Zentralbank,Geld,20.0
@@ -111556,6 +111577,7 @@ Zugseil,Zug,Seil,20.0
 Zugsicherung,Zug,Sicherung,21.0
 Zugsicherungssystem,Zug,Sicherungssystem,22.0
 Zugspannung,Zug,Spannung,22.0
+Zugspitze,Zug,Spitze,
 Zugspitzmassiv,Zugspitze,Massiv,
 Zugstange,Zug,Stange,22.0
 Zugsteuerung,Zug,Steuerung,
@@ -112361,6 +112383,8 @@ Zündverteiler,zünden,Verteiler,23.0
 Zündvorrichtung,zünden,Vorrichtung,21.0
 Zündzeitpunkt,zünden,Zeitpunkt,22.0
 anhören,an,Hören,
+aufschlagen,auf,schlagen,
+einspringen,ein,springen,
 Ägäisküste,Ägäis,Küste,
 Ähnlichkeitsprinzip,Ähnlichkeit,Prinzip,
 Ähnlichkeitstheorie,Ähnlichkeit,Theorie,
