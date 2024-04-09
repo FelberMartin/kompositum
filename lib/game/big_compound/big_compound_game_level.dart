@@ -80,7 +80,6 @@ class BigCompoundGameLevel implements PoolGameLevel {
     shownComponents.remove(head);
     _unsolvedCompounds.remove(compoundToRemove);
 
-    // TODO: use this game level in a new game_page_state
     final parentComponent = _allComponents.firstWhereOrNull((component) =>
       component.text == compoundToRemove.name
     );

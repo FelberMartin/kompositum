@@ -91,7 +91,7 @@ abstract class GamePageState extends State<GamePage> {
 
   UniqueComponent? get selectedModifier {
     if (poolGameLevel is ChainGameLevel) {
-      return (poolGameLevel as ChainGameLevel).currentModifier;
+      return dummyModifier ?? (poolGameLevel as ChainGameLevel).currentModifier;
     }
     final selectedId = selectionTypeToComponentId[SelectionType.modifier];
     final selectedComponent = poolGameLevel.shownComponents.firstWhereOrNull((element) => element.id == selectedId);
@@ -162,7 +162,7 @@ abstract class GamePageState extends State<GamePage> {
       );
     } else if (gameMode == GameMode.Chain) {
       final generator = ChainGenerator(locator<DatabaseInterface>());
-      final compoundChain = await generator.generate(compoundCount: 10, frequencyClass: CompactFrequencyClass.easy);
+      final compoundChain = await generator.generate(compoundCount: 10, frequencyClass: CompactFrequencyClass.medium);
       print("Finished new pool for new level");
       print(compoundChain.toString());
       poolGameLevel = ChainGameLevel(
@@ -265,7 +265,9 @@ abstract class GamePageState extends State<GamePage> {
     _increaseStarCount(Rewards.starsCompoundCompleted);
     _emitGameEvent(CompoundFoundGameEvent(compound));
     resetToNoSelection();
-    toggleSelection((poolGameLevel as ChainGameLevel).currentModifier.id);
+    if (poolGameLevel is ChainGameLevel) {
+      toggleSelection((poolGameLevel as ChainGameLevel).currentModifier.id);
+    }
     onPoolGameLevelUpdate();
     _checkForEasterEgg(compound);
 

@@ -71,7 +71,7 @@ class KeyValueStore {
   Future<PoolGameLevel?> getClassicPoolGameLevel() async {
     final prefs = await SharedPreferences.getInstance();
     final json = prefs.getString("classicPoolGameLevel");
-    if (json != null) {
+    if (json != null && json != "{}") {
       return PoolGameLevel.fromJson(Map<String, dynamic>.from(jsonDecode(json)));
     }
     return null;
