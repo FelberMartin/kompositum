@@ -13,7 +13,6 @@
 # Bugs
 - B15
 - B11 Cant click on components that a under the "hidden compounds counter" label
-- B14 Noerl: when closing the app during the ad, one can continue with 5/5 attempts
 - B09 App going to blackscreen after pressing "back to overview" button after completing daily from homescreen
   -> not reproducable 
 

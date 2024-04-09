@@ -326,14 +326,16 @@ abstract class GamePageState extends State<GamePage> {
     switch (action) {
       case NoAttemptsLeftDialogAction.hint:
         buyHint();
+        poolGameLevel.attemptsWatcher.resetAttempts();
+        onPoolGameLevelUpdate();
         break;
       case NoAttemptsLeftDialogAction.restart:
-        adManager.showAd(context).then((value) => restartLevel());
+        adManager.showAd(context).then((_) {
+          poolGameLevel.attemptsWatcher.resetAttempts();
+          restartLevel();
+        });
         break;
     }
-
-    poolGameLevel.attemptsWatcher.resetAttempts();
-    onPoolGameLevelUpdate();
   }
 
   void buyHint() {
