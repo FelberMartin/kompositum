@@ -177,24 +177,26 @@ class HiddenComponentsIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedOpacity(
-        opacity: hiddenComponentsCount == 0 ? 0.0 : 1.0,
-        duration: const Duration(milliseconds: 500),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AnimatedFlipCounter(
-              duration: const Duration(milliseconds: 300),
-              value: hiddenComponentsCount,
-              textStyle: Theme.of(context).textTheme.titleSmall,
-              padding: const EdgeInsets.only(top: 0.0),
-            ),
-            Text("verdeckte Wörter",
-                style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                      color: MyColorPalette.of(context).textSecondary,
-                    ))
-          ],
-        ));
+    return IgnorePointer(
+      child: AnimatedOpacity(
+          opacity: hiddenComponentsCount == 0 ? 0.0 : 1.0,
+          duration: const Duration(milliseconds: 500),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AnimatedFlipCounter(
+                duration: const Duration(milliseconds: 300),
+                value: hiddenComponentsCount,
+                textStyle: Theme.of(context).textTheme.titleSmall,
+                padding: const EdgeInsets.only(top: 0.0),
+              ),
+              Text("verdeckte Wörter",
+                  style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                        color: MyColorPalette.of(context).textSecondary,
+                      ))
+            ],
+          )),
+    );
   }
 }
 

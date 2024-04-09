@@ -1,7 +1,6 @@
 # TODOs    
 ## 1.0 Release
 ### Next up
-- Fix bugs
 - Add new reported compounds
 
 ### Later
@@ -12,7 +11,6 @@
 
 # Bugs
 - B15
-- B11 Cant click on components that a under the "hidden compounds counter" label
 - B09 App going to blackscreen after pressing "back to overview" button after completing daily from homescreen
   -> not reproducable 
 
