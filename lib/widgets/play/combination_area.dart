@@ -386,7 +386,7 @@ class _CompoundMergeRowState extends State<CompoundMergeRow> with SingleTickerPr
       text: componentInfo?.component.text ?? _placeholder,
     );
     return ComponentWithHint(
-      hint: widget.selectedModifier?.hint?.type,
+      hint: componentInfo?.hint?.type,
       size: 32.0,
       button: button,
     );
