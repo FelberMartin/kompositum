@@ -264,7 +264,7 @@ class Calendar extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
     return TableCalendar(
       focusedDay: focusedDay,
-      firstDay: DateTime.utc(2023, 12, 1),
+      firstDay: DateTime.utc(2023, 1, 1),
       lastDay: DateTime.now(),
       currentDay: DateTime.now(),
       locale: "de_DE",

@@ -15,6 +15,8 @@
 
 
 ### Misc
+- Notifications for dailies
+- Look for alternative frequency dataset (not from news)
 - Hint idea: reshuffle components in pool / hidden components
 - Feature idea: watch ad to double level finished rewards
 - Spinning wheel after completion / noAttemptsLeft?
