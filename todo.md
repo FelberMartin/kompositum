@@ -2,7 +2,6 @@
 ## 1.0 Release
 ### Next up
 - Add notifications for dailies
-- Block inappropriate words
 
 ### Later
 - LevelFinishedDialog: diamonds for used attempts confusing (remove diamonds for attempts, or
