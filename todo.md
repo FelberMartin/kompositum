@@ -1,11 +1,16 @@
 # TODOs    
 ## 1.0 Release
 ### Next up
+- Add notifications for dailies
+- Block inappropriate words
 
 ### Later
 - LevelFinishedDialog: diamonds for used attempts confusing (remove diamonds for attempts, or
   write "2/3", 
-- Images on google play: remove debug label (just use gimp?)
+- Store adjustments:
+  - Images on google play: remove debug label (just use gimp?)
+  - A/B testing with v0 app icon
+  - Create ad video
 
 
 # Bugs

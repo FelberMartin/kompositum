@@ -280,11 +280,13 @@ class _CompoundMergeRowState extends State<CompoundMergeRow> with SingleTickerPr
     });
   }
 
-  void _onWordCompletion() {
-    _scale = 1.05;
-    Future.delayed(_scaleDuration, () {
-      _scale = 1.0;
+  void _onWordCompletion() async {
+    await Future.delayed(Duration(milliseconds: 100));
+    setState(() {
+      _scale = 1.05;
     });
+    await Future.delayed(_scaleDuration);
+    _scale = 1.0;
   }
 
   @override
