@@ -25,7 +25,7 @@ class AudioManager {
 
   void registerKeyValueStore(KeyValueStore keyValueStore) async {
     _keyValueStore = keyValueStore;
-    _isMuted = await keyValueStore.getIsAudioMuted();
+    _isMuted = await keyValueStore.getBooleanSetting(BooleanSetting.isAudioMuted);
   }
 
   void registerGameEventStream(Stream<GameEvent> gameEventStream) {
@@ -48,7 +48,7 @@ class AudioManager {
 
   void setMute(bool mute) {
     _isMuted = mute;
-    _keyValueStore?.storeIsAudioMuted(mute);
+    _keyValueStore?.storeBooleanSetting(BooleanSetting.dailyNotificationsEnabled, mute);
   }
 
   void toggleMute() {

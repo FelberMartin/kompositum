@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:kompositum/game/pool_generator/graph_based_pool_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 import 'package:kompositum/util/ads/ad_manager.dart';
 import 'package:kompositum/util/app_version_provider.dart';
-import 'package:kompositum/util/notifictaion_manager.dart';
+import 'package:kompositum/util/notifications/daily_notification_scheduler.dart';
+import 'package:kompositum/util/notifications/notifictaion_manager.dart';
 import 'package:kompositum/util/tutorial_manager.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -41,5 +43,8 @@ Future<void> setupLocator() async {
   locator.registerSingleton<AdManager>(AdManager());
   locator.registerSingleton<TutorialManager>(TutorialManager(locator<KeyValueStore>()));
   locator.registerSingleton<NotificationManager>(NotificationManager());
+  locator.registerSingleton<DailyNotificationScheduler>(
+      DailyNotificationScheduler(locator<NotificationManager>(), locator<KeyValueStore>())
+  );
 
 }

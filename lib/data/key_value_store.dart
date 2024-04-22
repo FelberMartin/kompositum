@@ -102,13 +102,24 @@ class KeyValueStore {
     await prefs.setString("previousAppVersion", version);
   }
 
-  Future<bool> getIsAudioMuted() async {
+  Future<bool> getBooleanSetting(BooleanSetting booleanSetting) async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getBool("isAudioMuted") ?? false;
+    return prefs.getBool(booleanSetting.name) ?? booleanSetting.defaultValue;
   }
 
-  Future<void> storeIsAudioMuted(bool isMuted) async {
+  Future<void> storeBooleanSetting(BooleanSetting booleanSetting, bool value) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool("isAudioMuted", isMuted);
+    await prefs.setBool(booleanSetting.name, value);
   }
+}
+
+class BooleanSetting {
+
+  static final isAudioMuted = BooleanSetting("isAudioMuted", false);
+  static final dailyNotificationsEnabled = BooleanSetting("dailyNotificationsEnabled", true);
+
+  final String name;
+  final bool defaultValue;
+
+  BooleanSetting(this.name, this.defaultValue);
 }
