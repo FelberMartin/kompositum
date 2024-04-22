@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:kompositum/config/my_icons.dart';
 import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/screens/game_page_daily.dart';
 import 'package:kompositum/util/date_util.dart';
@@ -127,7 +128,6 @@ class _DailyOverviewPageState extends State<DailyOverviewPage> {
         Scaffold(
             backgroundColor: Colors.transparent,
             appBar: MyDefaultAppBar(
-              navigationIcon: FontAwesomeIcons.chevronLeft,
               onNavigationPressed: () {
                 Navigator.pop(context);
               },

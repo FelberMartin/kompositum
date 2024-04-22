@@ -7,12 +7,14 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/screens/game_page_classic.dart';
+import 'package:kompositum/screens/settings_page.dart';
 import 'package:kompositum/util/audio_manager.dart';
 import 'package:kompositum/util/date_util.dart';
 import 'package:kompositum/util/notifications/notifictaion_manager.dart';
 import 'package:kompositum/widgets/common/my_3d_container.dart';
 import 'package:kompositum/widgets/common/my_bottom_navigation_bar.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
+import 'package:kompositum/widgets/common/my_icon_button.dart';
 
 import '../config/locator.dart';
 import '../config/my_icons.dart';
@@ -117,6 +119,15 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     });
   }
 
+  void _launchSettings() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SettingsPage()),
+    ).then((value) {
+      _updatePage();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -126,17 +137,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
-          appBar: MyDefaultAppBar(
-            navigationIcon: MyIcons.close,
-            onNavigationPressed: () {
-              if (Platform.isAndroid) {
-                SystemNavigator.pop();
-              } else if (Platform.isIOS) {
-                exit(0);
-              }
-            },
-            starCount: starCount,
-          ),
           bottomNavigationBar: MyBottomNavigationBar(
               selectedIndex: 0,
               onReturnToPage: _updatePage,
@@ -145,6 +145,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                SettingsRow(onPressed: _launchSettings),
                 Expanded(flex: 1, child: Container()),
                 isLoading ? DailyLevelContainer.loading() : DailyLevelContainer(
                   isDailyFinished: isDailyFinished,
@@ -162,6 +163,33 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           )
         ),
       ],
+    );
+  }
+}
+
+class SettingsRow extends StatelessWidget {
+
+  const SettingsRow({
+    required this.onPressed
+  });
+
+  final Function onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            MyIconButton(
+                icon: MyIcons.settings,
+                onPressed: onPressed,
+            )
+          ],
+        ),
+      ),
     );
   }
 }

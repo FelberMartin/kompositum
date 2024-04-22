@@ -8,6 +8,8 @@ class MyIcons {
   static const IconData home = FontAwesomeIcons.house;
   static const IconData daily = FontAwesomeIcons.solidCalendarDays;
   static const IconData close = FontAwesomeIcons.xmark;
+  static const IconData navigateBack = FontAwesomeIcons.chevronLeft;
+  static const IconData settings = FontAwesomeIcons.gear;
 
   static const IconData star = FontAwesomeIcons.solidGem;
   static const IconData ad = FontAwesomeIcons.rectangleAd;

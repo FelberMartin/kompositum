@@ -14,7 +14,7 @@ class MyDefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   const MyDefaultAppBar({
     super.key,
-    required this.navigationIcon,
+    this.navigationIcon = MyIcons.navigateBack,
     required this.onNavigationPressed,
     this.middleContent,
     required this.starCount,
