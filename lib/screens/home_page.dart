@@ -9,6 +9,7 @@ import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/screens/game_page_classic.dart';
 import 'package:kompositum/util/audio_manager.dart';
 import 'package:kompositum/util/date_util.dart';
+import 'package:kompositum/util/notifictaion_manager.dart';
 import 'package:kompositum/widgets/common/my_3d_container.dart';
 import 'package:kompositum/widgets/common/my_bottom_navigation_bar.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
@@ -43,6 +44,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   late KeyValueStore keyValueStore = locator<KeyValueStore>();
+  late NotificationManager notificationManager = locator<NotificationManager>();
 
   int starCount = 0;
   int currentLevel = 0;
@@ -64,6 +66,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         _launchGame();
       }
     });
+
+    notificationManager.initializeNotification();
   }
 
   @override
@@ -153,6 +157,12 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                   currentLevel: currentLevel,
                   currentLevelDifficulty: currentLevelDifficulty,
                   onPressed: _launchGame,
+                ),
+                MyPrimaryTextButton(
+                    text: "notification",
+                    onPressed: () {
+                      notificationManager.scheduledNotification(hour: 0, minutes: 0, id: 0,);
+                    },
                 ),
                 Expanded(child: Container()),
               ],
