@@ -212,7 +212,7 @@ abstract class GamePageState extends State<GamePage> {
       _compoundFound(compound);
       setState(() {});
       if (poolGameLevel.isLevelFinished()) {
-        _levelFinished();
+        levelFinished();
       }
     }
     onPoolGameLevelUpdate();
@@ -265,7 +265,7 @@ abstract class GamePageState extends State<GamePage> {
     gameEventStreamController.sink.add(event);
   }
 
-  void _levelFinished() async {
+  void levelFinished() async {
     await Future.delayed(const Duration(milliseconds: 1200));
     _emitGameEvent(const LevelCompletedGameEvent());
     showLevelCompletedDialog();

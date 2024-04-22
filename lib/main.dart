@@ -5,6 +5,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:kompositum/config/my_theme.dart';
 import 'package:kompositum/screens/home_page.dart';
 import 'package:kompositum/util/audio_manager.dart';
+import 'package:kompositum/util/notifications/daily_notification_scheduler.dart';
 
 import 'config/locator.dart';
 import 'data/database_interface.dart';
@@ -17,9 +18,15 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   await setupLocator();
+  _initNotifications();
   _initAudioManager();
   _initAndRemoveSplashScreen();
   runApp(const MyApp());
+}
+
+void _initNotifications() {
+  final dailyScheduler = locator<DailyNotificationScheduler>();
+  dailyScheduler.tryScheduleNextDailyNotification(now: DateTime.now());
 }
 
 void _initAudioManager() {

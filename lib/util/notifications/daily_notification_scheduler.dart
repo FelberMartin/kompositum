@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/util/date_util.dart';
@@ -37,6 +39,15 @@ class DailyNotificationScheduler {
 
   Future<void> _scheduleNextDailyNotification(DateTime now) async {
     final nextNotificationDate = await _getNextNotificationDateTime(now);
+
+    var title = "Tägliches Rätsel";
+    if (Random().nextDouble() < 0.2) {
+      if (Random().nextBool()) {
+        title = "Wer rastet, der rostet";
+      } else {
+        title = "Täglich grüßt das Murmeltier";
+      }
+    }
 
     notificationManager.scheduleNotification(
       id: notificationId,

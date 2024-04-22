@@ -7,6 +7,7 @@ import '../data/key_value_store.dart';
 import '../game/level_provider.dart';
 import '../game/pool_generator/compound_pool_generator.dart';
 import '../game/swappable_detector.dart';
+import '../util/notifications/daily_notification_scheduler.dart';
 import '../util/tutorial_manager.dart';
 import '../widgets/play/dialogs/level_completed_dialog.dart';
 import 'game_page_classic.dart';
@@ -47,6 +48,17 @@ class GamePageDailyState extends GamePageState {
   @override
   void onPoolGameLevelUpdate() {
     // Do nothing
+  }
+
+  @override
+  void levelFinished() {
+    super.levelFinished();
+    _updateDailyNotification();
+  }
+
+  void _updateDailyNotification() {
+    final dailyScheduler = locator<DailyNotificationScheduler>();
+    dailyScheduler.tryScheduleNextDailyNotification(now: DateTime.now());
   }
 
   @override
