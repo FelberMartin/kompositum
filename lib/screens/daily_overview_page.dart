@@ -150,7 +150,7 @@ class _DailyOverviewPageState extends State<DailyOverviewPage> {
                     Expanded(child: Container()),
                     MonthCompletionReward(
                       month: _focusedDay,
-                      isCompleted: _isMonthCompleted(),
+                      isCompleted: true || _isMonthCompleted(),
                     ),
                     Expanded(child: Container()),
                     Calendar(
@@ -217,13 +217,30 @@ class MonthCompletionReward extends StatelessWidget {
         return ScaleTransition(scale: animation, child: child);
       },
       child: isCompleted
-        ? Text(
-            key: ValueKey(month),
-            EmojiProvider.instance.getEmojiForDailyMonthCompletion(month),
-            style: Theme.of(context).textTheme.labelLarge!.copyWith(
-              fontSize: fontSize,
-              fontFamily: "NotoEmoji"
-            )
+        ? Stack(
+          key: ValueKey(month),
+          alignment: Alignment.center,
+          children: [
+            Container(
+              width: fontSize * 1.5,
+              height: fontSize * 1.5,
+              decoration: BoxDecoration(
+                backgroundBlendMode: BlendMode.colorDodge,
+                gradient: RadialGradient(
+                  colors: [
+                    Colors.white, Colors.transparent,
+                  ]
+                )
+              )
+            ),
+            Text(
+                EmojiProvider.instance.getEmojiForDailyMonthCompletion(month),
+                style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                    fontSize: fontSize,
+                    fontFamily: "NotoEmoji"
+                )
+            ),
+          ],
         )
         : Text(
             key: ValueKey("incomplete"),
