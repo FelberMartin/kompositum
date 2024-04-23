@@ -1,7 +1,6 @@
 # TODOs    
 ## 1.0 Release
 ### Next up
-- Add notifications for dailies
 
 ### Later
 - LevelFinishedDialog: diamonds for used attempts confusing (remove diamonds for attempts, or
@@ -19,7 +18,6 @@
 
 
 ### Misc
-- Notifications for dailies
 - Look for alternative frequency dataset (not from news)
 - Hint idea: reshuffle components in pool / hidden components
 - Feature idea: watch ad to double level finished rewards
@@ -30,7 +28,6 @@
   - Maybe spinning wheel for which trophy to get?
   - Or for collecting 100 words one can spin to get a trophy
 - Level completion dialog title depending on performance
-- Gameplay idea: When starting a new level, a first modifier is already selected.
 - English compounds?
 
 

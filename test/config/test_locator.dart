@@ -16,6 +16,7 @@ import 'package:kompositum/util/notifications/notifictaion_manager.dart';
 import 'package:kompositum/util/tutorial_manager.dart';
 
 import '../mocks/mock_apper_version_provider.dart';
+import '../mocks/mock_notification_manager.dart';
 
 final locator = GetIt.instance;
 
@@ -39,7 +40,7 @@ Future<void> setupTestLocator() async {
   locator.registerSingleton<SwappableDetector>(SwappableDetector(locator<DatabaseInterface>()));
   locator.registerSingleton<AdManager>(AdManager());
   locator.registerSingleton<TutorialManager>(TutorialManager(locator<KeyValueStore>()));
-  locator.registerSingleton<NotificationManager>(NotificationManager());
+  locator.registerSingleton<NotificationManager>(MockNotificationManager());
   locator.registerSingleton<DailyNotificationScheduler>(
       DailyNotificationScheduler(locator<NotificationManager>(), locator<KeyValueStore>())
   );
