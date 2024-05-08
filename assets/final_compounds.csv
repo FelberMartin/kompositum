@@ -25673,7 +25673,7 @@ Fernlicht,Ferne,Licht,19.0
 Fernlinie,fern,Linie,
 Fernmeldeanlagenelektroniker,Fernmeldeanlage,Elektroniker,
 Fernmelder,fern,Melder,19.0
-Fernost,fern,Ost,15.0
+Fernost,fern,Osten,15.0
 Fernpartie,fern,Partie,
 Fernpass,Ferne,Pass,18.0
 Fernradweg,fern,Radweg,20.0
@@ -62721,7 +62721,7 @@ Mittelmotor,mittlere,Motor,20.0
 Mittelmotorauto,Mittelmotor,Auto,
 Mittelohr,mittlere,Ohr,19.0
 Mittelohrentzündung,Mittelohr,Entzündung,19.0
-Mittelost,mittlere,Ost,20.0
+Mittelost,mittlere,Osten,20.0
 Mittelpfeiler,mittlere,Pfeiler,21.0
 Mittelplatz,mittlere,Platz,18.0
 Mittelposition,mittlere,Position,19.0
@@ -65292,7 +65292,7 @@ Nahgespräch,nah,Gespräch,22.0
 Nahkampf,nah,Kampf,18.0
 Nahkampfwaffe,Nahkampf,Waffe,
 Nahkämpfer,nah,Kämpfer,22.0
-Nahost,nah,Ost,13.0
+Nahost,nah,Osten,13.0
 Nahostexperte,Nahost,Experte,20.0
 Nahostfriedensprozess,Nahost,Friedensprozess,21.0
 Nahostkonflikt,Nahost,Konflikt,17.0
@@ -67031,7 +67031,6 @@ Nordmeerflotte,Nordmeer,Flotte,20.0
 Nordnordost,Norden,Nordost,23.0
 Nordnordwest,Norden,Nordwest,23.0
 Nordnorwegen,Norden,Norwegen,
-Nordost,Norden,Ost,16.0
 Nordostchina,Nordosten,China,
 Nordostdeutschland,Nordosten,Deutschland,
 Nordosteck,Nordosten,Eck,
@@ -67095,13 +67094,12 @@ Nordvietnam,Norden,Vietnam,19.0
 Nordvietnamese,Norden,Vietnamese,21.0
 Nordwales,Norden,Wales,
 Nordwand,Norden,Wand,18.0
-Nordwest,Norden,West,15.0
+Nordwest,Norden,Westen,15.0
 Nordwestafrika,Nordwesten,Afrika,
 Nordwestbahn,Nordwesten,Bahn,
 Nordwestdeutschland,Nordwesten,Deutschland,
 Nordwesteck,Nordwesten,Eck,
 Nordwestecke,Nordwesten,Ecke,21.0
-Nordwesten,Norden,Westen,15.0
 Nordwesteuropa,Nordwesten,Europa,
 Nordwesthang,Nordwesten,Hang,
 Nordwestküste,Nordwesten,Küste,19.0
@@ -94115,7 +94113,6 @@ Südmarokko,Süden,Marokko,
 Südmeer,Süden,Meer,
 Südmexiko,Süden,Mexiko,
 Südnorwegen,Süden,Norwegen,
-Südost,Süden,Ost,16.0
 Südostasien,Südosten,Asien,
 Südostdeutschland,Südosten,Deutschland,
 Südosteck,Südosten,Eck,
@@ -94179,10 +94176,9 @@ Südumgehung,Süden,Umgehung,17.0
 Südvietnam,Süden,Vietnam,19.0
 Südvorstadt,Süden,Vorstadt,
 Südwand,Süden,Wand,19.0
-Südwest,Süden,West,13.0
+Südwest,Süden,Westen,13.0
 Südwestafrika,Südwesten,Afrika,20.0
 Südwestdeutschland,Südwesten,Deutschland,
-Südwesten,Süden,Westen,14.0
 Südwesteuropa,Südwesten,Europa,22.0
 Südwestfale,Süden,Westfale,
 Südwestfinnland,Südwesten,Finnland,
