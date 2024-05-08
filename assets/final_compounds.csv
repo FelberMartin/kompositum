@@ -687,6 +687,7 @@ Abstammungsrecht,Abstammung,Recht,22.0
 Abstammungstafel,Abstammung,Tafel,
 Abstammungsurkunde,Abstammung,Urkunde,22.0
 Abstammungsverhältnis,Abstammung,Verhältnis,
+Abstand,ab,Stand,
 Abstandhalter,Abstand,Halter,21.0
 Abstandsfläche,Abstand,Fläche,20.0
 Abstandsgebot,Abstand,Gebot,22.0
@@ -2796,6 +2797,7 @@ Anklagebank,Anklage,Bank,15.0
 Anklagebehörde,Anklage,Behörde,16.0
 Anklageerhebung,Anklage,Erhebung,17.0
 Anklagekammer,Anklage,Kammer,19.0
+Anklageliste,Anklage,Liste,
 Anklagepunkt,Anklage,Punkt,16.0
 Anklageschrift,Anklage,Schrift,15.0
 Anklagevertreter,Anklage,Vertreter,17.0
@@ -3090,6 +3092,7 @@ Anstellwinkel,anstellen,Winkel,20.0
 Anstoßpunkt,anstoßen,Punkt,21.0
 Anstoßzeit,Anstoß,Zeit,17.0
 Anstrichmittel,Anstrich,Mittel,22.0
+Ansturm,an,Sturm,
 Antarktisexpedition,Antarktis,Expedition,23.0
 Antarktisforscher,Antarktis,Forscher,
 Antarktisforschung,Antarktis,Forschung,
@@ -4989,6 +4992,7 @@ Aufsatzsammlung,Aufsatz,Sammlung,19.0
 Aufsatzschreiben,Aufsatz,Schreiben,
 Aufsatzthema,Aufsatz,Thema,21.0
 Aufsatzwettbewerb,Aufsatz,Wettbewerb,20.0
+Aufschlag,auf,Schlag,
 Aufschlagfeld,Aufschlag,Feld,23.0
 Aufschlaglinie,Aufschlag,Linie,23.0
 Aufschlagspiel,Aufschlag,Spiel,18.0
@@ -20295,6 +20299,7 @@ Eingabegerät,Eingabe,Gerät,20.0
 Eingabemaske,Eingabe,Maske,21.0
 Eingabemöglichkeit,Eingabe,Möglichkeit,
 Eingabetaste,Eingabe,Taste,
+Eingang,ein,Gang,
 Eingangsbau,Eingang,Bau,
 Eingangsbereich,Eingang,Bereich,14.0
 Eingangsbesoldung,Eingang,Besoldung,22.0
@@ -28672,6 +28677,7 @@ Fledermaus,Fleder,Maus,14.0
 Fledermausart,Fledermaus,Art,18.0
 Fledermausflügel,Fledermaus,Flügel,
 Fledermauskostüm,Fledermaus,Kostüm,
+Fledermausland,Fledermaus,Land,
 Fledermausohr,Fledermaus,Ohr,
 Fledermausquartier,Fledermaus,Quartier,
 Fledermausschwärmer,Fledermaus,Schwärmer,
@@ -37022,7 +37028,7 @@ Gleichrichtung,gleich,Richtung,23.0
 Gleichschritt,gleich,Schritt,16.0
 Gleichspannung,gleich,Spannung,
 Gleichstand,gleich,Stand,16.0
-Gleichstellung,gleich,,
+Gleichstellung,gleich,Stellung,
 Gleichstellungsauftrag,Gleichstellung,Auftrag,23.0
 Gleichstellungsbeauftragte,Gleichstellung,Beauftragte,15.0
 Gleichstellungsbeauftragter,Gleichstellung,Beauftragter,
@@ -41900,6 +41906,7 @@ Heimpleite,Heim,Pleite,16.0
 Heimpremiere,Heim,Premiere,16.0
 Heimquarantäne,Heim,Quarantäne,
 Heimrecht,Heim,Recht,15.0
+Heimreise,Heim,Reise,
 Heimrennen,Heim,Rennen,17.0
 Heimsauna,Heim,Sauna,23.0
 Heimschule,Heim,Schule,21.0
@@ -44963,6 +44970,7 @@ Hülsenfrucht,Hülse,Frucht,18.0
 Hünenbett,Hüne,Bett,
 Hünengrab,Hüne,Grab,20.0
 Hüpfburg,hüpfen,Burg,15.0
+Hüpfseil,Hüpfen,Seil,
 Hürdenlauf,Hürde,Lauf,17.0
 Hürdenlaufen,Hürde,Laufen,
 Hürdenläufer,Hürde,Läufer,19.0
@@ -47596,6 +47604,7 @@ Jugendwettbewerb,Jugend,Wettbewerb,17.0
 Jugendwohngemeinschaft,Jugend,Wohngemeinschaft,21.0
 Jugendwohngruppe,Jugend,Wohngruppe,22.0
 Jugendwohnheim,Jugend,Wohnheim,20.0
+Jugendwort,Jugend,Wort,
 Jugendzeit,Jugend,Zeit,16.0
 Jugendzeitschrift,Jugend,Zeitschrift,18.0
 Jugendzeitung,Jugend,Zeitung,19.0
@@ -48248,6 +48257,7 @@ Kamelritt,Kamel,Ritt,21.0
 Kameltreiber,Kamel,Treiber,20.0
 Kameraarbeit,Kamera,Arbeit,19.0
 Kameraassistent,Kamera,Assistent,21.0
+Kameraauflösung,Kamera,Auflösung,
 Kameraaufnahme,Kamera,Aufnahme,
 Kameraausrüstung,Kamera,Ausrüstung,21.0
 Kamerabewegung,Kamera,Bewegung,20.0
@@ -54133,6 +54143,7 @@ Kreisprozess,Kreis,Prozess,23.0
 Kreisrat,Kreis,Rat,17.0
 Kreisreform,Kreis,Reform,19.0
 Kreisregierung,Kreis,Regierung,21.0
+Kreissaal,Kreis,Saal,
 Kreisscheibe,Kreis,Scheibe,
 Kreissegment,Kreis,Segment,21.0
 Kreissekretär,Kreis,Sekretär,20.0
@@ -59997,6 +60008,7 @@ Linkslenker,links,Lenker,
 Linkslenkung,links,Lenkung,
 Linksnationalist,links,Nationalist,19.0
 Linkspartei,links,Partei,13.0
+Linkspartei,Linke,Partei,
 Linkspolitiker,links,Politiker,20.0
 Linkspopulismus,links,Populismus,22.0
 Linksradikale,links,Radikale,
@@ -61604,6 +61616,7 @@ Malklasse,malen,Klasse,21.0
 Malkreide,malen,Kreide,22.0
 Malkunst,malen,Kunst,20.0
 Malkurs,malen,Kurs,17.0
+Malkurs,Mal,Kurs,
 Malmaterial,malen,Material,22.0
 Malmittel,malen,Mittel,22.0
 Malpapier,malen,Papier,
@@ -65139,6 +65152,7 @@ Miteigentum,mit,Eigentum,17.0
 Miteigentumsanteil,Miteigentum,Anteil,19.0
 Miterbe,mit,Erbe,21.0
 Miterfinder,mit,Erfinder,20.0
+Mitfahrer,mit,Fahrer,
 Mitfahrgelegenheit,mitfahren,Gelegenheit,17.0
 Mitfahrzentrale,mitfahren,Zentrale,19.0
 Mitfavorit,mit,Favorit,15.0
@@ -65229,6 +65243,7 @@ Mitropapokal,Mitropa,Pokal,
 Mitschuld,mit,Schuld,15.0
 Mitschwester,mit,Schwester,19.0
 Mitschüler,mit,Schüler,14.0
+Mitspieler,mit,Spieler,
 Mitsprachemöglichkeit,Mitsprache,Möglichkeit,19.0
 Mitspracherecht,Mitsprache,Recht,15.0
 Mitstreiter,mit,Streiter,13.0
@@ -65359,6 +65374,7 @@ Mittelläufer,mittlere,Läufer,21.0
 Mittelmacht,mittlere,Macht,19.0
 Mittelmanagement,mittlere,Management,22.0
 Mittelmaß,mittlere,Maß,15.0
+Mittelmaß,Mittel,Maß,
 Mittelmeeranrainer,Mittelmeer,Anrainer,20.0
 Mittelmeerflotte,Mittelmeer,Flotte,23.0
 Mittelmeergebiet,Mittelmeer,Gebiet,20.0
@@ -65550,6 +65566,7 @@ Mobilfunksender,Mobilfunk,Sender,20.0
 Mobilfunksparte,Mobilfunk,Sparte,19.0
 Mobilfunkstandard,Mobilfunk,Standard,19.0
 Mobilfunksystem,Mobilfunk,System,20.0
+Mobilfunktarif,Mobilfunk,Tarif,
 Mobilfunktechnik,Mobilfunk,Technik,
 Mobilfunkteilnehmer,Mobilfunk,Teilnehmer,21.0
 Mobilfunktelefon,Mobilfunk,Telefon,20.0
@@ -67759,6 +67776,7 @@ Nachschuss,nach,Schuss,16.0
 Nachschusspflicht,Nachschuss,Pflicht,20.0
 Nachschöpfung,nach,Schöpfung,21.0
 Nachsendeantrag,nachsenden,Antrag,21.0
+Nachsicht,nach,Sicht,
 Nachsilbe,nach,Silbe,22.0
 Nachsorge,nach,Sorge,17.0
 Nachsorgeklinik,Nachsorge,Klinik,23.0
@@ -69633,6 +69651,7 @@ Niedermoorboden,Niedermoor,Boden,
 Niedermoorgebiet,Niedermoor,Gebiet,
 Niederrad,nieder,Rad,
 Niederrhein,nieder,Rhein,16.0
+Niederschlag,nieder,Schlag,
 Niederschlagsdurchschnitt,Niederschlag,Durchschnitt,
 Niederschlagsgebiet,Niederschlag,Gebiet,
 Niederschlagshöhe,Niederschlag,Höhe,
@@ -70972,6 +70991,7 @@ Olympiadelegation,Olympia,Delegation,23.0
 Olympiadorf,Olympia,Dorf,19.0
 Olympiadritte,Olympia,Dritte,
 Olympiadritter,Olympia,Dritter,
+Olympiafeuer,Olympia,Feuer,
 Olympiafinale,Olympia,Finale,21.0
 Olympiagastgeber,Olympia,Gastgeber,
 Olympiagelände,Olympia,Gelände,18.0
@@ -71816,6 +71836,7 @@ Ostbahn,Osten,Bahn,17.0
 Ostbahnhof,Osten,Bahnhof,
 Ostbau,Osten,Bau,22.0
 Ostberliner,Osten,Berliner,15.0
+Ostberliner,Ost,Berliner,
 Ostblindmaus,Osten,Blindmaus,
 Ostblock,Osten,Block,15.0
 Ostblockland,Ostblock,Land,18.0
@@ -71897,6 +71918,7 @@ Osterzgebirge,Osten,Erzgebirge,
 Osterzgebirgisch,Osten,Erzgebirgisch,
 Osterüberraschung,Ostern,Überraschung,20.0
 Osteuropa,Osten,Europa,13.0
+Osteuropa,Ost,Europa,
 Osteuropainstitut,Osteuropa,Institut,
 Ostexpansion,Osten,Expansion,21.0
 Ostfalkland,Osten,Falkland,
@@ -80855,6 +80877,7 @@ Rentenmodell,Rente,Modell,20.0
 Rentennachzahlung,Rente,Nachzahlung,22.0
 Rentenniveau,Rente,Niveau,16.0
 Rentenpapier,Rente,Papier,18.0
+Rentenplus,Rente,Plus,
 Rentenpolitik,Rente,Politik,17.0
 Rentenproblem,Rente,Problem,20.0
 Rentenrecht,Rente,Recht,18.0
@@ -82481,6 +82504,7 @@ Rundenzahl,Runde,Zahl,21.0
 Rundenzeit,Runde,Zeit,18.0
 Runderlass,rund,Erlass,20.0
 Rundfahrt,rund,Fahrt,13.0
+Rundfahrt,Runde,Fahrt,
 Rundfenster,rund,Fenster,21.0
 Rundflug,rund,Flug,16.0
 Rundform,rund,Form,22.0
@@ -84823,6 +84847,7 @@ Schießstand,schießen,Stand,15.0
 Schießtraining,schießen,Training,19.0
 Schießwettbewerb,schießen,Wettbewerb,18.0
 Schießübung,schießen,Übung,17.0
+Schießübung,Schießen,Übung,
 Schiffbarmachung,schiffbar,Machung,22.0
 Schiffbau,Schiff,Bau,16.0
 Schiffbauer,Schiff,Bauer,18.0
@@ -86857,6 +86882,7 @@ Schulprogramm,Schule,Programm,18.0
 Schulprojekt,Schule,Projekt,16.0
 Schulpsychologe,Schule,Psychologe,17.0
 Schulpsychologie,Schule,Psychologie,20.0
+Schulpädagoge,Schule,Pädagoge,
 Schulpädagogik,Schule,Pädagogik,20.0
 Schulqualität,Schule,Qualität,19.0
 Schulranzen,Schule,Ranzen,17.0
@@ -92382,6 +92408,7 @@ Spitzenpersonal,spitzen,Personal,19.0
 Spitzenpferd,spitzen,Pferd,18.0
 Spitzenplatz,Spitze,Platz,14.0
 Spitzenplatzierung,Spitze,Platzierung,18.0
+Spitzenplatzierung,spitz,Platzierung,
 Spitzenpolitiker,spitzen,Politiker,14.0
 Spitzenposition,Spitze,Position,14.0
 Spitzenposten,spitzen,Posten,18.0
@@ -94592,6 +94619,7 @@ Starrsinn,starr,Sinn,18.0
 Starruhm,Star,Ruhm,20.0
 Starrummel,Star,Rummel,20.0
 Starspieler,Star,Spieler,19.0
+Starstürmer,Star,Stürmer,
 Starsystem,Star,System,21.0
 Startabbruch,Start,Abbruch,21.0
 Startauflage,Start,Auflage,18.0
@@ -95863,6 +95891,7 @@ Stockhieb,Stock,Hieb,20.0
 Stockkampf,Stock,Kampf,21.0
 Stockmaß,Stock,Maß,20.0
 Stockrose,Stock,Rose,20.0
+Stockschießen,Stock,Schießen,
 Stockschirm,Stock,Schirm,22.0
 Stockschlag,Stock,Schlag,18.0
 Stockschwämmchen,Stock,Schwämmchen,
@@ -111451,6 +111480,7 @@ Werkanalyse,Werk,Analyse,21.0
 Werkausgabe,Werk,Ausgabe,18.0
 Werkauswahl,Werk,Auswahl,19.0
 Werkbank,Werk,Bank,17.0
+Werkbank,werken,Bank,
 Werkbeamter,Werk,Beamter,
 Werkbegriff,Werk,Begriff,21.0
 Werkbericht,Werk,Bericht,21.0
@@ -111875,6 +111905,7 @@ Wettbewerbssieger,Wettbewerb,Sieger,19.0
 Wettbewerbssituation,Wettbewerb,Situation,18.0
 Wettbewerbsstrategie,Wettbewerb,Strategie,22.0
 Wettbewerbsstärke,Wettbewerb,Stärke,21.0
+Wettbewerbsstätte,Wettbewerb,Stätte,
 Wettbewerbstag,Wettbewerb,Tag,20.0
 Wettbewerbsteilnehmer,Wettbewerb,Teilnehmer,18.0
 Wettbewerbsthema,Wettbewerb,Thema,21.0
@@ -114523,6 +114554,7 @@ Zeichenwettbewerb,zeichnen,Wettbewerb,19.0
 Zeichnungsberechtigung,Zeichnung,Berechtigung,20.0
 Zeichnungsfrist,Zeichnung,Frist,17.0
 Zeigefinger,zeigen,Finger,14.0
+Zeigefinger,Zeig,Finger,
 Zeigerausschlag,Zeiger,Ausschlag,
 Zeigerdiagramm,Zeiger,Diagramm,
 Zeigerpflanze,Zeiger,Pflanze,23.0
@@ -116527,6 +116559,7 @@ Zweiradmechaniker,Zweirad,Mechaniker,20.0
 Zweispitz,zwei,Spitz,
 Zweitaccount,zweite,Account,
 Zweitauflage,zweite,Auflage,19.0
+Zweitausend,zwei,Tausend,
 Zweitauto,zweite,Auto,20.0
 Zweitberuf,zweite,Beruf,20.0
 Zweitbesetzung,zweite,Besetzung,20.0
@@ -116872,8 +116905,11 @@ Zündverteiler,zünden,Verteiler,23.0
 Zündvorrichtung,zünden,Vorrichtung,21.0
 Zündzeitpunkt,zünden,Zeitpunkt,22.0
 anhören,an,Hören,
+anzünden,an,zünden,
 aufschlagen,auf,schlagen,
 einspringen,ein,springen,
+messerscharf,Messer,scharf,
+oberhalb,obere,halb,
 Ägäisküste,Ägäis,Küste,
 Ähnlichkeitsprinzip,Ähnlichkeit,Prinzip,
 Ähnlichkeitstheorie,Ähnlichkeit,Theorie,

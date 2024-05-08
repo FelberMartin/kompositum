@@ -8,6 +8,28 @@ import 'package:kompositum/data/remote/firestore.dart';
 
 import 'firebase_options.dart';
 
+class ReportedCompound implements Comparable<ReportedCompound> {
+  final String compound;
+  final String modifier;
+  final String head;
+  final DateTime time;
+  final String level;
+  final String appVersion;
+
+  ReportedCompound(this.compound, this.modifier, this.head, this.time, this.level, this.appVersion);
+
+  @override
+  String toString() {
+    return '$compound,$modifier,$head';
+  }
+
+  @override
+  int compareTo(ReportedCompound other) {
+    return time.compareTo(other.time);
+  }
+}
+
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -19,6 +41,8 @@ void main() async {
   final header = 'compound,modifier,head,time,level,app_version';
   print(header);
 
+  final reportedCompounds = <ReportedCompound>[];
+
   // Do the printing from above in a for loop
   for (var report in reports.docs) {
     final compound = report['compound'];
@@ -27,7 +51,12 @@ void main() async {
     final time = report['time'].toDate();
     final level = report.data()['level'] ?? 'null';
     final appVersion = report.data()['app_version'] ?? 'null';
-    print('$compound,$modifier,$head,$time,$level,$appVersion');
+    reportedCompounds.add(ReportedCompound(compound, modifier, head, time, level, appVersion));
+  }
+
+  reportedCompounds.sort();
+  for (var reportedCompound in reportedCompounds) {
+    print(reportedCompound);
   }
 
   print('Fetched ${reports.docs.length} reports');
