@@ -150,7 +150,7 @@ class _DailyOverviewPageState extends State<DailyOverviewPage> {
                     Expanded(child: Container()),
                     MonthCompletionReward(
                       month: _focusedDay,
-                      isCompleted: true || _isMonthCompleted(),
+                      isCompleted: _isMonthCompleted(),
                     ),
                     Expanded(child: Container()),
                     Calendar(
@@ -218,7 +218,7 @@ class MonthCompletionReward extends StatelessWidget {
       },
       child: isCompleted
         ? Stack(
-          key: ValueKey(month),
+          key: ValueKey(month.month),
           alignment: Alignment.center,
           children: [
             Container(
