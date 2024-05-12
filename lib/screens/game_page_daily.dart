@@ -64,7 +64,7 @@ class GamePageDailyState extends GamePageState {
   @override
   String getLevelTitle() {
     var dateText = DateFormat("dd. MMM", "de").format(date);
-    return dateText.substring(0, dateText.length - 1);
+    return dateText;
   }
 
   @override

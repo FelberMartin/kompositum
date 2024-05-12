@@ -214,7 +214,6 @@ class DailyLevelContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var dateText = DateFormat("dd. MMM", "de").format(DateTime.now());
-    dateText = dateText.substring(0, dateText.length - 1);    // Remove dot
     return ClipShadowPath(
       clipper: RoundedEdgeClipper(edgeCutDepth: 24),
       shadow: Shadow(
