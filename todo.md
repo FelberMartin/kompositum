@@ -1,6 +1,11 @@
 # TODOs    
 ## 1.0 Release
 ### Next up
+- Daily goals:
+  - Connect to gameEvents
+    - Store progress collected in game and animate at game finished screen
+  - Add animations
+  - All achieved -> play chain level
 
 ### Later
 - LevelFinishedDialog: diamonds for used attempts confusing (remove diamonds for attempts, or
