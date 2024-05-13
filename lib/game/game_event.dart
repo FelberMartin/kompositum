@@ -19,7 +19,10 @@ class NewLevelStartGameEvent extends GameEvent {
 
 /// When a level is completed.
 class LevelCompletedGameEvent extends GameEvent {
-  const LevelCompletedGameEvent();
+  final LevelSetup levelSetup;
+  final PoolGameLevel poolGameLevel;
+
+  const LevelCompletedGameEvent(this.levelSetup, this.poolGameLevel);
 }
 
 /// When a component in the pool is clicked.

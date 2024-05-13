@@ -11,24 +11,9 @@ void main() async {
     id: 1,
     date: DateTime.now(),
     goals: [
-      DailyGoal(
-        id: 1,
-        UiText: 'Beliebige Level',
-        targetValue: 10,
-        currentValue: 5,
-      ),
-      DailyGoal(
-        id: 2,
-        UiText: 'Hinweise',
-        targetValue: 1,
-        currentValue: 0,
-      ),
-      DailyGoal(
-        id: 3,
-        UiText: 'Keine Fehlversuche',
-        targetValue: 1,
-        currentValue: 0,
-      ),
+      FindCompoundsDailyGoal(id: 1, targetValue: 20)..increaseCurrentValue(amount: 12),
+      EarnDiamondsDailyGoal(id: 2, targetValue: 30)..increaseCurrentValue(amount: 15),
+      CompleteAnyLevelsDailyGoal(id: 3, targetValue: 3)..increaseCurrentValue(amount: 2),
     ],
   );
 
@@ -71,66 +56,105 @@ class _DailyGoalsContainerState extends State<DailyGoalsContainer> {
       ),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                'Tagesziele',
-                style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                  color: MyColorPalette.of(context).primary,
-                ),
-              ),
-            ],
-          ),
+          TitleRow(),
           SizedBox(height: 8),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: DailyGoalCard(
-                    dailyGoal: widget.dailyGoalSet.goals[0],
-                  ),
-                ),
-                SizedBox(width: 4),
-                Expanded(
-                  child: DailyGoalCard(
-                    dailyGoal: widget.dailyGoalSet.goals[1],
-                  ),
-                ),
-                SizedBox(width: 4),
-                Expanded(
-                  child: DailyGoalCard(
-                    dailyGoal: widget.dailyGoalSet.goals[2],
-                  ),
-                ),
-              ],
-            ),
-          ),
+          GoalsRow(dailyGoalSet: widget.dailyGoalSet),
           SizedBox(height: 8),
-          Row(
-            children: [
-              Text(
-                (widget.dailyGoalSet.progress * 100).toStringAsFixed(0) + '%',
-                style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                  color: MyColorPalette.of(context).primary,
-                ),
-              ),
-              SizedBox(width: 8),
-              Expanded(
-                child: LinearProgressIndicator(
-                  value: widget.dailyGoalSet.progress,
-                  backgroundColor: MyColorPalette.of(context).onPrimary,
-                  valueColor: AlwaysStoppedAnimation(MyColorPalette.of(context).primary),
-                  borderRadius: BorderRadius.circular(12),
-                  minHeight: 8,
-                ),
-              ),
-            ],
-          )
+          ProgressRow(progress: widget.dailyGoalSet.progress),
         ],
       ),
+    );
+  }
+}
+
+class ProgressRow extends StatelessWidget {
+  const ProgressRow({
+    super.key,
+    required this.progress,
+  });
+
+  final double progress;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Text(
+          '${(progress * 100).toStringAsFixed(0)}%',
+          style: Theme.of(context).textTheme.labelSmall!.copyWith(
+            color: MyColorPalette.of(context).primary,
+          ),
+        ),
+        SizedBox(width: 8),
+        Expanded(
+          child: LinearProgressIndicator(
+            value: progress,
+            backgroundColor: MyColorPalette.of(context).onPrimary,
+            valueColor: AlwaysStoppedAnimation(MyColorPalette.of(context).primary),
+            borderRadius: BorderRadius.circular(12),
+            minHeight: 8,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class GoalsRow extends StatelessWidget {
+  const GoalsRow({
+    super.key,
+    required this.dailyGoalSet,
+  });
+
+  final DailyGoalSet dailyGoalSet;
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(12),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: DailyGoalCard(
+              dailyGoal: dailyGoalSet.goals[0],
+            ),
+          ),
+          SizedBox(width: 4),
+          Expanded(
+            child: DailyGoalCard(
+              dailyGoal: dailyGoalSet.goals[1],
+            ),
+          ),
+          SizedBox(width: 4),
+          Expanded(
+            child: DailyGoalCard(
+              dailyGoal: dailyGoalSet.goals[2],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TitleRow extends StatelessWidget {
+  const TitleRow({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text(
+          'Tagesziele',
+          style: Theme.of(context).textTheme.labelSmall!.copyWith(
+            color: MyColorPalette.of(context).primary,
+          ),
+        ),
+      ],
     );
   }
 }
@@ -160,7 +184,7 @@ class DailyGoalCard extends StatelessWidget {
           ),
           SizedBox(height: 8),
           Text(
-            dailyGoal.UiText,
+            dailyGoal.uiText,
             style: Theme.of(context).textTheme.labelSmall!.copyWith(
               color: MyColorPalette.of(context).secondary,
             ),

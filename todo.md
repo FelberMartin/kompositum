@@ -6,6 +6,9 @@
     - Store progress collected in game and animate at game finished screen
   - Add animations
   - All achieved -> play chain level
+- Level generation:
+  - Make levels easier?
+  - Add zigzag level generation? (a few easy ones, the getting harder, and then again dropping to easy and few compounds)
 
 ### Later
 - LevelFinishedDialog: diamonds for used attempts confusing (remove diamonds for attempts, or

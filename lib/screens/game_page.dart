@@ -267,7 +267,7 @@ abstract class GamePageState extends State<GamePage> {
 
   void levelCompleted() async {
     await Future.delayed(const Duration(milliseconds: 1200));
-    _emitGameEvent(const LevelCompletedGameEvent());
+    _emitGameEvent(LevelCompletedGameEvent(levelSetup!, poolGameLevel));
     showLevelCompletedDialog();
   }
 

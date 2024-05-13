@@ -2,8 +2,14 @@ import 'dart:math';
 
 import '../data/models/compact_frequency_class.dart';
 
+enum LevelType {
+  classic,
+  daily,
+}
+
 class LevelSetup {
   final Object levelIdentifier;
+  final LevelType levelType;
   final int compoundCount;
   final int poolGenerationSeed;
   final int maxShownComponentCount;
@@ -15,6 +21,7 @@ class LevelSetup {
     required this.levelIdentifier,
     required this.compoundCount,
     required this.poolGenerationSeed,
+    this.levelType = LevelType.classic,
     this.frequencyClass = CompactFrequencyClass.easy,
     this.maxShownComponentCount = 11,
     this.displayedDifficulty = Difficulty.easy,
@@ -25,6 +32,7 @@ class LevelSetup {
   String toString() {
     return "LevelSetup("
         "levelIdentifier: $levelIdentifier, "
+        "levelType: $levelType,"
         "compoundCount: $compoundCount, "
         "poolGenerationSeed: $poolGenerationSeed, "
         "maxShownComponentCount: $maxShownComponentCount, "
@@ -178,6 +186,7 @@ class DailyLevelProvider extends LevelProvider {
 
     return LevelSetup(
       levelIdentifier: date,
+      levelType: LevelType.daily,
       compoundCount: compoundCount,
       poolGenerationSeed: seed,
       displayedDifficulty: difficulty,
