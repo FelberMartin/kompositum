@@ -53,6 +53,8 @@ void main() {
   });
 
   group("DailyNotifications", () {
+    // TODO: these tests currently only work when run before 18:00. Fix this by mocking the DateTime
+
     testWidgets("when opening the app an todays daily is not finished, create a notification", (WidgetTester tester) async {
       initNotifications();
       await tester.pumpWidget(MaterialApp(theme: myTheme, home: HomePage()));
