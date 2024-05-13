@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/data/models/unique_component.dart';
-import 'package:kompositum/game/level_loader.dart';
+import 'package:kompositum/game/stored_level_loader.dart';
 import 'package:kompositum/game/pool_game_level.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
@@ -11,12 +11,12 @@ import '../test_data/compounds.dart';
 
 void main() {
 
-  LevelLoader createSut(PoolGameLevel poolGameLevel) {
+  StoredLevelLoader createSut(PoolGameLevel poolGameLevel) {
     SharedPreferences.setMockInitialValues({
       "level": 10,
       "classicPoolGameLevel": jsonEncode(poolGameLevel.toJson()),
     });
-    return LevelLoader(KeyValueStore());
+    return StoredLevelLoader(KeyValueStore());
   }
 
   test("should return the loaded level", () async {
@@ -30,7 +30,7 @@ void main() {
     SharedPreferences.setMockInitialValues({
       "level": 10,
     });
-    final sut = LevelLoader(KeyValueStore());
+    final sut = StoredLevelLoader(KeyValueStore());
     final result = await sut.loadLevel();
     expect(result, null);
   });

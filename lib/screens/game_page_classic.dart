@@ -1,8 +1,8 @@
 import '../config/locator.dart';
 import '../data/key_value_store.dart';
-import '../game/level_loader.dart';
 import '../game/level_provider.dart';
 import '../game/pool_generator/compound_pool_generator.dart';
+import '../game/stored_level_loader.dart';
 import '../game/swappable_detector.dart';
 import '../util/tutorial_manager.dart';
 import '../widgets/play/dialogs/level_completed_dialog.dart';
@@ -36,7 +36,7 @@ class GamePageClassicState extends GamePageState {
     await poolGenerator.setBlockedCompounds(blocked);
 
     currentLevel = await keyValueStore.getLevel();
-    final levelLoader = LevelLoader(keyValueStore);
+    final levelLoader = StoredLevelLoader(keyValueStore);
     levelLoader.loadLevel().then(_onPoolGameLevelLoaded).catchError((error) {
       // Skip the corrupted level and advance to the next level.
       print("Error loading level: $error");

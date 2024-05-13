@@ -2,11 +2,11 @@ import 'package:kompositum/game/pool_game_level.dart';
 
 import '../data/key_value_store.dart';
 
-class LevelLoader {
+class StoredLevelLoader {
 
   final KeyValueStore _keyValueStore;
 
-  LevelLoader(this._keyValueStore);
+  StoredLevelLoader(this._keyValueStore);
 
   Future<PoolGameLevel?> loadLevel() async {
     final storedProgress = await _keyValueStore.getClassicPoolGameLevel();
