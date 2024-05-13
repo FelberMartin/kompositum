@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kompositum/config/my_theme.dart';
+import 'package:kompositum/game/pool_game_level.dart';
+import 'package:kompositum/main.dart';
 import 'package:kompositum/screens/daily_overview_page.dart';
 import 'package:kompositum/screens/game_page.dart';
+import 'package:kompositum/screens/game_page_daily.dart';
 import 'package:kompositum/screens/home_page.dart';
+import 'package:kompositum/util/notifications/daily_notification_scheduler.dart';
+import 'package:kompositum/util/notifications/notifictaion_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../config/test_locator.dart';
+import '../mocks/mock_notification_manager.dart';
 import '../test_util.dart';
 
 void main() {
@@ -43,6 +49,35 @@ void main() {
     testWidgets("Stays on HomePage for non-first launches", (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(theme: myTheme, home: HomePage()));
       expect(find.byType(HomePage), findsOneWidget);
+    });
+  });
+
+  group("DailyNotifications", () {
+    testWidgets("when opening the app an todays daily is not finished, create a notification", (WidgetTester tester) async {
+      initNotifications();
+      await tester.pumpWidget(MaterialApp(theme: myTheme, home: HomePage()));
+      await nonBlockingPump(tester);
+      final MockNotificationManager notificationManager = locator<NotificationManager>() as MockNotificationManager;
+      expect(notificationManager.notifications, isNotEmpty);
+      expect(notificationManager.notifications[0].id, DailyNotificationScheduler.notificationId);
+      final delta = notificationManager.notifications[0].dateTime.difference(DateTime.now());
+      expect(delta.inHours, lessThanOrEqualTo(24));
+    });
+
+    testWidgets("after finishing the daily level, the notification is created for the next day", (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(theme: myTheme, home: HomePage()));
+      await nonBlockingPump(tester);
+      await tester.tap(find.byKey(Key("daily_play_button")).hitTestable());
+      await nonBlockingPump(tester);
+      final GamePageDailyState state = tester.state(find.byType(GamePage)) as GamePageDailyState;
+      state.poolGameLevel = PoolGameLevel([]);
+      state.levelCompleted();
+      await nonBlockingPump(tester);
+
+      final MockNotificationManager notificationManager = locator<NotificationManager>() as MockNotificationManager;
+      expect(notificationManager.notifications, isNotEmpty);
+      expect(notificationManager.notifications[0].id, DailyNotificationScheduler.notificationId);
+      expect(notificationManager.notifications[0].dateTime.day, isNot(DateTime.now().day));
     });
   });
 }

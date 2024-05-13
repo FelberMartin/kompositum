@@ -18,13 +18,13 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   await setupLocator();
-  _initNotifications();
+  initNotifications();
   _initAudioManager();
   _initAndRemoveSplashScreen();
   runApp(const MyApp());
 }
 
-void _initNotifications() {
+void initNotifications() {
   final dailyScheduler = locator<DailyNotificationScheduler>();
   dailyScheduler.tryScheduleNextDailyNotification(now: DateTime.now());
 }

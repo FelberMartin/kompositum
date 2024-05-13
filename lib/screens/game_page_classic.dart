@@ -94,7 +94,7 @@ class GamePageClassicState extends GamePageState {
   }
 
   @override
-  void onLevelCompletion(LevelCompletedDialogResultType resultType) {
+  void onLevelCompletedDialogClosed(LevelCompletedDialogResultType resultType) {
     assert(resultType == LevelCompletedDialogResultType.classic_continue);
     updateGameToLevel(currentLevel + 1, isLevelAdvance: true);
   }

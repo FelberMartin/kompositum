@@ -51,9 +51,16 @@ class GamePageDailyState extends GamePageState {
   }
 
   @override
-  void levelFinished() {
-    super.levelFinished();
+  void levelCompleted() async {
+    await _storeDailyLevelCompletion();
     _updateDailyNotification();
+    super.levelCompleted();
+  }
+
+  Future<void> _storeDailyLevelCompletion() async {
+    final completedDailies = await keyValueStore.getDailiesCompleted();
+    completedDailies.add(date);
+    await keyValueStore.storeDailiesCompleted(completedDailies);
   }
 
   void _updateDailyNotification() {
@@ -73,12 +80,7 @@ class GamePageDailyState extends GamePageState {
   }
 
   @override
-  void onLevelCompletion(LevelCompletedDialogResultType resultType) {
-    keyValueStore.getDailiesCompleted().then((value) {
-      value.add(date);
-      keyValueStore.storeDailiesCompleted(value);
-    });
-
+  void onLevelCompletedDialogClosed(LevelCompletedDialogResultType resultType) {
     if (resultType == LevelCompletedDialogResultType.daily_backToOverview) {
       Navigator.pop(context);
       return;

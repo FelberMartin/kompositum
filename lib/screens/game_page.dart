@@ -212,7 +212,7 @@ abstract class GamePageState extends State<GamePage> {
       _compoundFound(compound);
       setState(() {});
       if (poolGameLevel.isLevelFinished()) {
-        levelFinished();
+        levelCompleted();
       }
     }
     onPoolGameLevelUpdate();
@@ -265,7 +265,7 @@ abstract class GamePageState extends State<GamePage> {
     gameEventStreamController.sink.add(event);
   }
 
-  void levelFinished() async {
+  void levelCompleted() async {
     await Future.delayed(const Duration(milliseconds: 1200));
     _emitGameEvent(const LevelCompletedGameEvent());
     showLevelCompletedDialog();
@@ -389,7 +389,7 @@ abstract class GamePageState extends State<GamePage> {
           Navigator.pop(context);
           _increaseStarCount(result.starCountIncrease, origin: StarIncreaseRequestOrigin.levelCompletion);
           resetToNoSelection();
-          onLevelCompletion(result.type);
+          onLevelCompletedDialogClosed(result.type);
         },
       ),
     );
@@ -397,7 +397,7 @@ abstract class GamePageState extends State<GamePage> {
 
   LevelCompletedDialogType getLevelCompletedDialogType();
 
-  void onLevelCompletion(LevelCompletedDialogResultType resultType);
+  void onLevelCompletedDialogClosed(LevelCompletedDialogResultType resultType);
 
   bool shouldShowReportButton() {
     if (selectedModifier == null || selectedHead == null) {

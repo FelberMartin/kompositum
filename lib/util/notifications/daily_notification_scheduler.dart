@@ -51,7 +51,7 @@ class DailyNotificationScheduler {
 
     notificationManager.scheduleNotification(
       id: notificationId,
-      title: "Tägliches Rätsel",
+      title: title,
       description: "Dein tägliches Rätsel wartet noch darauf gelöst zu werden!",
       dateTime: nextNotificationDate,
       notificationDetails: notificationDetails,

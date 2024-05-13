@@ -276,6 +276,7 @@ class DailyLevelContainer extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           MySecondaryTextButton(
+                            key: Key("daily_play_button"),
                             text: "Start",
                             onPressed: onPlayPressed,
                           ),
