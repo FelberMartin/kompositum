@@ -8,12 +8,11 @@ import '../../data/models/daily_goal.dart';
 
 void main() async {
   final goalSet = DailyGoalSet(
-    id: 1,
     date: DateTime.now(),
     goals: [
-      FindCompoundsDailyGoal(id: 1, targetValue: 20)..increaseCurrentValue(amount: 12),
-      EarnDiamondsDailyGoal(id: 2, targetValue: 30)..increaseCurrentValue(amount: 15),
-      CompleteAnyLevelsDailyGoal(id: 3, targetValue: 3)..increaseCurrentValue(amount: 2),
+      FindCompoundsDailyGoal(targetValue: 20)..increaseCurrentValue(amount: 12),
+      EarnDiamondsDailyGoal(targetValue: 30)..increaseCurrentValue(amount: 15),
+      CompleteAnyLevelsDailyGoal(targetValue: 3)..increaseCurrentValue(amount: 2),
     ],
   );
 

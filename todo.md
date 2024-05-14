@@ -3,11 +3,13 @@
 ### Next up
 - Daily goals:
   - Connect to gameEvents
-    - Store progress collected in game and animate at game finished screen
+  - Store progress collected in game
+  - Add tests for dailyGoals
   - Add animations
   - All achieved -> play chain level
 - Level generation:
   - Make levels easier?
+    - Variables: PoolSize, FrequencyClass, WordCount, GuaranteedCompoundCount
   - Add zigzag level generation? (a few easy ones, the getting harder, and then again dropping to easy and few compounds)
 
 ### Later

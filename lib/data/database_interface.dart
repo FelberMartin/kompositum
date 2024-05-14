@@ -5,6 +5,7 @@ import 'package:kompositum/data/database_initializer.dart';
 import '../objectbox.g.dart';
 import 'models/compact_frequency_class.dart';
 import 'models/compound.dart';
+import 'models/daily_goal.dart';
 
 class DatabaseInterface {
   final DatabaseInitializer databaseInitializer;
