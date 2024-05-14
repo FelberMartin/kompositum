@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import 'package:kompositum/game/goals/daily_goal_set_provider.dart';
 import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/screens/game_page_classic.dart';
 import 'package:kompositum/screens/settings_page.dart';
@@ -15,11 +16,13 @@ import 'package:kompositum/widgets/common/my_3d_container.dart';
 import 'package:kompositum/widgets/common/my_bottom_navigation_bar.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 import 'package:kompositum/widgets/common/my_icon_button.dart';
+import 'package:kompositum/widgets/home/daily_goals_container.dart';
 
 import '../config/locator.dart';
 import '../config/my_icons.dart';
 import '../config/my_theme.dart';
 import '../data/key_value_store.dart';
+import '../data/models/daily_goal_set.dart';
 import '../game/pool_generator/compound_pool_generator.dart';
 import '../game/swappable_detector.dart';
 import '../widgets/common/my_app_bar.dart';
@@ -47,11 +50,13 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   late KeyValueStore keyValueStore = locator<KeyValueStore>();
   late NotificationManager notificationManager = locator<NotificationManager>();
+  late DailyGoalSetProvider dailyGoalSetProvider = locator<DailyGoalSetProvider>();
 
   int starCount = 0;
   int currentLevel = 0;
   Difficulty currentLevelDifficulty = Difficulty.easy;
   bool isDailyFinished = true;
+  late DailyGoalSet dailyGoalSet;
 
   bool isLoading = true;
 
@@ -94,6 +99,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         .generateLevelSetup(currentLevel).displayedDifficulty;
     isDailyFinished = await keyValueStore.getDailiesCompleted()
         .then((value) => value.any((day) => day.isSameDate(DateTime.now())));
+    dailyGoalSet = await dailyGoalSetProvider.getTodaysDailyGoalSet(DateTime.now());
 
     setState(() {
       isLoading = false;
@@ -146,10 +152,17 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SettingsRow(onPressed: _launchSettings),
-                Expanded(flex: 1, child: Container()),
+                Expanded(flex: 0, child: Container()),
                 isLoading ? DailyLevelContainer.loading() : DailyLevelContainer(
                   isDailyFinished: isDailyFinished,
                   onPlayPressed: _launchDailyLevel,
+                ),
+                Expanded(flex: 1, child: Container()),
+                isLoading ? Container() : Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                  child: DailyGoalsContainer(
+                      dailyGoalSet: dailyGoalSet
+                  ),
                 ),
                 Expanded(flex: 2, child: Container()),
                 isLoading ? PlayButton.loading() : PlayButton(

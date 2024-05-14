@@ -48,9 +48,12 @@ class _DailyGoalsContainerState extends State<DailyGoalsContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      constraints: BoxConstraints(
+        maxWidth: 320,
+      ),
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: MyColorPalette.of(context).background.darken(0.1),
+        color: MyColorPalette.of(context).background.darken(0.015),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(

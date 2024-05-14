@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../game/pool_game_level.dart';
 import '../util/tutorial_manager.dart';
 import 'models/compound.dart';
+import 'models/daily_goal_set.dart';
 
 class KeyValueStore {
 
@@ -110,6 +111,20 @@ class KeyValueStore {
   Future<void> storeBooleanSetting(BooleanSetting booleanSetting, bool value) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(booleanSetting.name, value);
+  }
+
+  Future<void> storeDailyGoalSet(DailyGoalSet goalSet) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString("dailyGoalSet", jsonEncode(goalSet.toJson()));
+  }
+
+  Future<Map<String, dynamic>?> getDailyGoalSetJson() async {
+    final prefs = await SharedPreferences.getInstance();
+    final json = prefs.getString("dailyGoalSet");
+    if (json != null) {
+      return Map<String, dynamic>.from(jsonDecode(json));
+    }
+    return null;
   }
 }
 

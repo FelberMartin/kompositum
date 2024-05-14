@@ -37,7 +37,6 @@ class DailyGoalSet {
     };
   }
 
-
   factory DailyGoalSet.generate({required int creationSeed, required DateTime date}) {
     final goals = <DailyGoal>[];
     final seed = creationSeed + date.day + date.month + date.year;

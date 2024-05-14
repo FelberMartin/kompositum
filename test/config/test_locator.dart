@@ -5,17 +5,20 @@ import 'package:kompositum/data/compound_origin.dart';
 import 'package:kompositum/data/database_initializer.dart';
 import 'package:kompositum/data/database_interface.dart';
 import 'package:kompositum/data/key_value_store.dart';
+import 'package:kompositum/game/goals/daily_goal_set_provider.dart';
 import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 import 'package:kompositum/game/pool_generator/graph_based_pool_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 import 'package:kompositum/util/ads/ad_manager.dart';
 import 'package:kompositum/util/app_version_provider.dart';
+import 'package:kompositum/util/device_info.dart';
 import 'package:kompositum/util/notifications/daily_notification_scheduler.dart';
 import 'package:kompositum/util/notifications/notifictaion_manager.dart';
 import 'package:kompositum/util/tutorial_manager.dart';
 
 import '../mocks/mock_apper_version_provider.dart';
+import '../mocks/mock_device_info.dart';
 import '../mocks/mock_notification_manager.dart';
 
 final locator = GetIt.instance;
@@ -44,4 +47,7 @@ Future<void> setupTestLocator() async {
   locator.registerSingleton<DailyNotificationScheduler>(
       DailyNotificationScheduler(locator<NotificationManager>(), locator<KeyValueStore>())
   );
+
+  locator.registerSingleton<DeviceInfo>(MockDeviceInfo());
+  locator.registerSingleton<DailyGoalSetProvider>(DailyGoalSetProvider(locator<KeyValueStore>(), locator<DeviceInfo>()));
 }
