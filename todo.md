@@ -4,7 +4,6 @@
 - Daily goals:
   - Connect to gameEvents
   - Store progress collected in game
-  - Add tests for dailyGoals
   - Add animations
   - All achieved -> play chain level
 - Level generation:
