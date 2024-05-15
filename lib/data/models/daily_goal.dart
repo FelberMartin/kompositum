@@ -34,6 +34,11 @@ abstract class DailyGoal {
   void processGameEvent(GameEvent event);
 
   @override
+  String toString() {
+    return 'DailyGoal{uiText: $uiText, targetValue: $targetValue, currentValue: $_currentValue}';
+  }
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is DailyGoal &&

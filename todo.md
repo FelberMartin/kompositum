@@ -2,7 +2,6 @@
 ## 1.0 Release
 ### Next up
 - Daily goals:
-  - Generate some random dailyGoals
   - Achieved mark
   - Add animations
   - All achieved -> play chain level

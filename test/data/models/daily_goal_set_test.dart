@@ -31,4 +31,13 @@ void main() {
       expect(goalSet.goals[2], goalSet2.goals[2]);
     });
   });
+
+  group("Generation test", skip: false, () {
+    test("generate some dailyGoalSets", () {
+      for (var i = 0; i < 15; i++) {
+        final goalSet = DailyGoalSet.generate(creationSeed: i, date: DateTime.now());
+        print("$i: ${goalSet.goals.map((e) => e.uiText + " -> " + e.targetValue.toString()).toList()}");
+      }
+    });
+  });
 }

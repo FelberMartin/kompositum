@@ -2,6 +2,7 @@ import 'dart:math';
 
 import '../../game/game_event/game_event.dart';
 import '../../objectbox.g.dart';
+import '../../util/random_util.dart';
 import 'daily_goal.dart';
 
 class DailyGoalSet {
@@ -39,35 +40,62 @@ class DailyGoalSet {
   }
 
   factory DailyGoalSet.generate({required int creationSeed, required DateTime date}) {
-    final goals = <DailyGoal>[];
     final seed = creationSeed + date.day + date.month + date.year;
     final random = Random(seed);
 
-    final allGoals = [
-      FindCompoundsDailyGoal.generate(random: random),
-      EarnDiamondsDailyGoal.generate(random: random),
-      UseHintsDailyGoal.generate(random: random),
-      CompleteDailyLevelDailyGoal.generate(random: random),
-      CompleteClassicLevelsDailyGoal.generate(random: random),
-      CompleteAnyLevelsDailyGoal.generate(random: random),
-      CompleteEasyLevelsDailyGoal.generate(random: random),
-      CompleteMediumLevelsDailyGoal.generate(random: random),
-      CompleteHardLevelsDailyGoal.generate(random: random),
-      FailedAttemptsDailyGoal.generate(random: random),
-    ];
+    final Map<DailyGoal, double> allGoalsWeighted = {
+      FindCompoundsDailyGoal.generate(random: random): 2,
+      EarnDiamondsDailyGoal.generate(random: random): 2,
+      UseHintsDailyGoal.generate(random: random): 1,
+      CompleteDailyLevelDailyGoal.generate(random: random): 0.5,
+      CompleteClassicLevelsDailyGoal.generate(random: random): 0.5,
+      CompleteAnyLevelsDailyGoal.generate(random: random): 0.5,
+      CompleteEasyLevelsDailyGoal.generate(random: random): 0.5,
+      CompleteMediumLevelsDailyGoal.generate(random: random): 0.5,
+      CompleteHardLevelsDailyGoal.generate(random: random): 0.5,
+      FailedAttemptsDailyGoal.generate(random: random): 1,
+    };
 
-    for (var i = 0; i < 3; i++) {
-      final goal = allGoals.removeAt(random.nextInt(allGoals.length));
-      goals.add(goal);
-    }
-
+    final goals = randomWeightedElementsWithoutReplacement(allGoalsWeighted, 3, random: random);
     return DailyGoalSet(date: date, goals: goals);
+
+    // final goals = <DailyGoal>[];
+    // // Find compounds or earn diamonds
+    // final compoundsOrDiamonds = [
+    //   FindCompoundsDailyGoal.generate(random: random),
+    //   EarnDiamondsDailyGoal.generate(random: random),
+    // ];
+    // goals.add(randomElement(compoundsOrDiamonds, random: random));
+    //
+    // // Easy medium or hard
+    // final easyMediumHard = [
+    //   CompleteEasyLevelsDailyGoal.generate(random: random),
+    //   CompleteMediumLevelsDailyGoal.generate(random: random),
+    //   CompleteHardLevelsDailyGoal.generate(random: random),
+    // ];
+    // goals.add(randomElement(easyMediumHard, random: random));
+    //
+    // // remaining goals
+    // final remainingGoals = [
+    //   UseHintsDailyGoal.generate(random: random),
+    //   CompleteDailyLevelDailyGoal.generate(random: random),
+    //   CompleteClassicLevelsDailyGoal.generate(random: random),
+    //   CompleteAnyLevelsDailyGoal.generate(random: random),
+    //   FailedAttemptsDailyGoal.generate(random: random),
+    // ];
+    // goals.add(randomElement(remainingGoals, random: random));
+    // return DailyGoalSet(date: date, goals: goals);
   }
 
   void processGameEvent(GameEvent event) {
     for (final goal in goals) {
       goal.processGameEvent(event);
     }
+  }
+
+  @override
+  String toString() {
+    return 'DailyGoalSet{date: $date, goals: $goals}';
   }
 
 }
