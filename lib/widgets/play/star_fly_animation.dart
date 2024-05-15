@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:kompositum/game/game_event.dart';
+import 'package:kompositum/game/game_event/game_event.dart';
 
 import '../../config/my_icons.dart';
 import '../../config/my_theme.dart';

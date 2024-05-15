@@ -2,8 +2,7 @@
 ## 1.0 Release
 ### Next up
 - Daily goals:
-  - Connect to gameEvents
-  - Store progress collected in game
+  - REBASE !!!
   - Add animations
   - All achieved -> play chain level
 - Level generation:

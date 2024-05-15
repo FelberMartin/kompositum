@@ -1,8 +1,4 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
-import 'package:kompositum/game/goals/daily_goal_set_provider.dart';
 import 'package:kompositum/game/pool_generator/graph_based_pool_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 import 'package:kompositum/util/ads/ad_manager.dart';
@@ -17,6 +13,7 @@ import '../data/compound_origin.dart';
 import '../data/database_initializer.dart';
 import '../data/database_interface.dart';
 import '../data/key_value_store.dart';
+import '../game/goals/daily_goal_set_manager.dart';
 import '../game/level_provider.dart';
 import '../game/pool_generator/compound_pool_generator.dart';
 
@@ -50,6 +47,6 @@ Future<void> setupLocator() async {
   );
 
   locator.registerSingleton<DeviceInfo>(DeviceInfo());
-  locator.registerSingleton<DailyGoalSetProvider>(DailyGoalSetProvider(locator<KeyValueStore>(), locator<DeviceInfo>()));
+  locator.registerSingleton<DailyGoalSetManager>(DailyGoalSetManager(locator<KeyValueStore>(), locator<DeviceInfo>()));
 
 }

@@ -17,7 +17,8 @@ import 'package:kompositum/widgets/play/star_fly_animation.dart';
 
 import '../config/locator.dart';
 import '../data/models/compound.dart';
-import '../game/game_event.dart';
+import '../game/game_event/game_event.dart';
+import '../game/game_event/game_event_stream.dart';
 import '../game/hints/hint.dart';
 import '../game/level_provider.dart';
 import '../game/pool_game_level.dart';
@@ -63,10 +64,6 @@ abstract class GamePageState extends State<GamePage> {
   int starCount = 0;
   bool isLoading = true;
 
-  /// For emitting relevant game events to the UI and external listeners (e.g. AudioManager or TutorialManager).
-  final StreamController<GameEvent> gameEventStreamController =
-      StreamController<GameEvent>.broadcast();
-
   Map<SelectionType, int> selectionTypeToComponentId = {
     SelectionType.modifier: -1,
     SelectionType.head: -1,
@@ -92,8 +89,7 @@ abstract class GamePageState extends State<GamePage> {
     });
 
     tutorialManager.animateDialog = _launchTutorialDialog;
-    tutorialManager.registerGameEventStream(gameEventStreamController.stream);
-    AudioManager.instance.registerGameEventStream(gameEventStreamController.stream);
+    tutorialManager.registerGameEventStream(GameEventStream.instance.stream);
 
     startGame();
   }
@@ -262,7 +258,7 @@ abstract class GamePageState extends State<GamePage> {
   }
 
   void _emitGameEvent(GameEvent event) {
-    gameEventStreamController.sink.add(event);
+    GameEventStream.instance.addEvent(event);
   }
 
   void levelCompleted() async {
@@ -274,8 +270,6 @@ abstract class GamePageState extends State<GamePage> {
   @override
   void dispose() {
     tutorialManager.deregisterGameEventStream();
-    AudioManager.instance.deregisterGameEventStream();
-    gameEventStreamController.close();
     super.dispose();
   }
 
@@ -435,14 +429,13 @@ abstract class GamePageState extends State<GamePage> {
                     children: <Widget>[
                       Expanded(
                         flex: 2,
-                        child: isLoading ? CombinationArea.loading(gameEventStreamController.stream) : CombinationArea(
+                        child: isLoading ? CombinationArea.loading(GameEventStream.instance.stream) : CombinationArea(
                           selectedModifier: getSelectedModifierInfo(),
                           selectedHead: getSelectedHeadInfo(),
                           onResetSelection: resetSelection,
                           maxAttempts: poolGameLevel.attemptsWatcher.maxAttempts,
                           attemptsLeft: poolGameLevel.attemptsWatcher.attemptsLeft,
-                          gameEventStream:
-                              gameEventStreamController.stream,
+                          gameEventStream: GameEventStream.instance.stream,
                           isReportVisible: shouldShowReportButton(),
                           onReportPressed: showReportDialog,
                           progress: poolGameLevel.getLevelProgress(),
@@ -476,7 +469,7 @@ abstract class GamePageState extends State<GamePage> {
             starCount += amount;
             setState(() {});
           },
-          gameEventStream: gameEventStreamController.stream,
+          gameEventStream: GameEventStream.instance.stream,
         ),
       ],
     );

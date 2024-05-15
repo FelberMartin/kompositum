@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-import 'package:kompositum/game/goals/daily_goal_set_provider.dart';
+import 'package:kompositum/game/game_event/game_event_stream.dart';
 import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/screens/game_page_classic.dart';
 import 'package:kompositum/screens/settings_page.dart';
@@ -23,6 +23,7 @@ import '../config/my_icons.dart';
 import '../config/my_theme.dart';
 import '../data/key_value_store.dart';
 import '../data/models/daily_goal_set.dart';
+import '../game/goals/daily_goal_set_manager.dart';
 import '../game/pool_generator/compound_pool_generator.dart';
 import '../game/swappable_detector.dart';
 import '../widgets/common/my_app_bar.dart';
@@ -50,7 +51,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   late KeyValueStore keyValueStore = locator<KeyValueStore>();
   late NotificationManager notificationManager = locator<NotificationManager>();
-  late DailyGoalSetProvider dailyGoalSetProvider = locator<DailyGoalSetProvider>();
+  late DailyGoalSetManager dailyGoalSetManager = locator<DailyGoalSetManager>();
 
   int starCount = 0;
   int currentLevel = 0;
@@ -85,6 +86,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.inactive) {
       AudioManager.instance.dispose();
+    } else if (state == AppLifecycleState.detached) {
+      GameEventStream.instance.close();
     }
   }
 
@@ -99,7 +102,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         .generateLevelSetup(currentLevel).displayedDifficulty;
     isDailyFinished = await keyValueStore.getDailiesCompleted()
         .then((value) => value.any((day) => day.isSameDate(DateTime.now())));
-    dailyGoalSet = await dailyGoalSetProvider.getTodaysDailyGoalSet(DateTime.now());
+    await dailyGoalSetManager.ensureInitialized;
+    dailyGoalSet = dailyGoalSetManager.dailyGoalSet;
 
     setState(() {
       isLoading = false;

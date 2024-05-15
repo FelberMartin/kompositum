@@ -5,7 +5,7 @@ import 'package:kompositum/data/compound_origin.dart';
 import 'package:kompositum/data/database_initializer.dart';
 import 'package:kompositum/data/database_interface.dart';
 import 'package:kompositum/data/key_value_store.dart';
-import 'package:kompositum/game/goals/daily_goal_set_provider.dart';
+import 'package:kompositum/game/goals/daily_goal_set_manager.dart';
 import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 import 'package:kompositum/game/pool_generator/graph_based_pool_generator.dart';
@@ -49,5 +49,5 @@ Future<void> setupTestLocator() async {
   );
 
   locator.registerSingleton<DeviceInfo>(MockDeviceInfo());
-  locator.registerSingleton<DailyGoalSetProvider>(DailyGoalSetProvider(locator<KeyValueStore>(), locator<DeviceInfo>()));
+  locator.registerSingleton<DailyGoalSetManager>(DailyGoalSetManager(locator<KeyValueStore>(), locator<DeviceInfo>()));
 }

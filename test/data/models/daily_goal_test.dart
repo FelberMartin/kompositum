@@ -1,7 +1,7 @@
 import 'package:kompositum/data/models/daily_goal.dart';
 import 'package:kompositum/data/models/unique_component.dart';
 import 'package:kompositum/game/attempts_watcher.dart';
-import 'package:kompositum/game/game_event.dart';
+import 'package:kompositum/game/game_event/game_event.dart';
 import 'package:kompositum/game/hints/hint.dart';
 import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/game/pool_game_level.dart';

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../config/my_theme.dart';
 import '../data/key_value_store.dart';
-import '../game/game_event.dart';
+import '../game/game_event/game_event.dart';
 
 class AudioManager {
 

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import '../../game/game_event/game_event.dart';
 import '../../objectbox.g.dart';
 import 'daily_goal.dart';
 
@@ -61,6 +62,12 @@ class DailyGoalSet {
     }
 
     return DailyGoalSet(date: date, goals: goals);
+  }
+
+  void processGameEvent(GameEvent event) {
+    for (final goal in goals) {
+      goal.processGameEvent(event);
+    }
   }
 
 }

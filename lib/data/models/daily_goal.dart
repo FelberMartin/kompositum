@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:kompositum/objectbox.g.dart';
 
-import '../../game/game_event.dart';
+import '../../game/game_event/game_event.dart';
 import '../../game/level_provider.dart';
 
 
