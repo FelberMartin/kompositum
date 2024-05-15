@@ -102,8 +102,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         .generateLevelSetup(currentLevel).displayedDifficulty;
     isDailyFinished = await keyValueStore.getDailiesCompleted()
         .then((value) => value.any((day) => day.isSameDate(DateTime.now())));
-    await dailyGoalSetManager.ensureInitialized;
-    dailyGoalSet = dailyGoalSetManager.dailyGoalSet;
+    dailyGoalSet = await dailyGoalSetManager.getDailyGoalSet();
 
     setState(() {
       isLoading = false;
@@ -140,6 +139,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final shouldShowDailyGoals = height > 680;
     return Stack(
       children: [
         const Positioned.fill(
@@ -156,19 +157,18 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SettingsRow(onPressed: _launchSettings),
-                Expanded(flex: 0, child: Container()),
                 isLoading ? DailyLevelContainer.loading() : DailyLevelContainer(
                   isDailyFinished: isDailyFinished,
                   onPlayPressed: _launchDailyLevel,
                 ),
                 Expanded(flex: 1, child: Container()),
-                isLoading ? Container() : Padding(
+                isLoading || !shouldShowDailyGoals ? Container() : Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 32.0),
                   child: DailyGoalsContainer(
                       dailyGoalSet: dailyGoalSet
                   ),
                 ),
-                Expanded(flex: 2, child: Container()),
+                Expanded(flex: 1, child: Container()),
                 isLoading ? PlayButton.loading() : PlayButton(
                   currentLevel: currentLevel,
                   currentLevelDifficulty: currentLevelDifficulty,
@@ -257,25 +257,25 @@ class DailyLevelContainer extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(height: 16),
+              SizedBox(height: 12),
               Text(
                 "Tägliches Rätsel",
                 style: Theme.of(context).textTheme.labelMedium,
               ),
-              SizedBox(height: 16),
+              SizedBox(height: 12),
               Icon(
                 MyIcons.daily,
                 color: Theme.of(context).colorScheme.onSecondary,
                 size: 32,
               ),
-              SizedBox(height: 32),
+              SizedBox(height: 28),
               Text(
                 dateText,
                 style: Theme.of(context).textTheme.labelSmall!.copyWith(
                   color: MyColorPalette.of(context).textSecondary,
                 ),
               ),
-              SizedBox(height: 16),
+              SizedBox(height: 12),
               SizedBox(
                 height: 52,
                 width: 120,

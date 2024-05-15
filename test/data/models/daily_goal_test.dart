@@ -4,8 +4,8 @@ import 'package:kompositum/game/attempts_watcher.dart';
 import 'package:kompositum/game/game_event/game_event.dart';
 import 'package:kompositum/game/hints/hint.dart';
 import 'package:kompositum/game/level_provider.dart';
-import 'package:kompositum/game/pool_game_level.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
 
 import '../../config/test_locator.dart';
@@ -24,6 +24,7 @@ class TestDailyGoal extends DailyGoal {
 
 void main() {
   setUpAll(() {
+    SharedPreferences.setMockInitialValues({});
     setupTestLocator();
   });
 

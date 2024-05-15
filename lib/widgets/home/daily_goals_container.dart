@@ -47,24 +47,30 @@ class _DailyGoalsContainerState extends State<DailyGoalsContainer> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      constraints: BoxConstraints(
-        maxWidth: 320,
-      ),
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: MyColorPalette.of(context).background.darken(0.015),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        children: [
-          TitleRow(),
-          SizedBox(height: 8),
-          GoalsRow(dailyGoalSet: widget.dailyGoalSet),
-          SizedBox(height: 8),
-          ProgressRow(progress: widget.dailyGoalSet.progress),
-        ],
-      ),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TitleRow(),
+        ),
+        Container(
+          constraints: BoxConstraints(
+            maxWidth: 320,
+          ),
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: MyColorPalette.of(context).background.darken(0.015),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            children: [
+              GoalsRow(dailyGoalSet: widget.dailyGoalSet),
+              SizedBox(height: 8),
+              ProgressRow(progress: widget.dailyGoalSet.progress),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
@@ -114,27 +120,29 @@ class GoalsRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(12),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: DailyGoalCard(
-              dailyGoal: dailyGoalSet.goals[0],
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              child: DailyGoalCard(
+                dailyGoal: dailyGoalSet.goals[0],
+              ),
             ),
-          ),
-          SizedBox(width: 4),
-          Expanded(
-            child: DailyGoalCard(
-              dailyGoal: dailyGoalSet.goals[1],
+            SizedBox(width: 4),
+            Expanded(
+              child: DailyGoalCard(
+                dailyGoal: dailyGoalSet.goals[1],
+              ),
             ),
-          ),
-          SizedBox(width: 4),
-          Expanded(
-            child: DailyGoalCard(
-              dailyGoal: dailyGoalSet.goals[2],
+            SizedBox(width: 4),
+            Expanded(
+              child: DailyGoalCard(
+                dailyGoal: dailyGoalSet.goals[2],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -152,7 +160,7 @@ class TitleRow extends StatelessWidget {
       children: [
         Text(
           'Tagesziele',
-          style: Theme.of(context).textTheme.labelSmall!.copyWith(
+          style: Theme.of(context).textTheme.labelMedium!.copyWith(
             color: MyColorPalette.of(context).primary,
           ),
         ),
@@ -171,11 +179,10 @@ class DailyGoalCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
         color: MyColorPalette.of(context).onPrimary,
       ),
-      height: 82,
       child: Column(
         children: [
           Text(
@@ -184,12 +191,14 @@ class DailyGoalCard extends StatelessWidget {
               color: MyColorPalette.of(context).secondaryShade,
             ),
           ),
-          SizedBox(height: 8),
+          SizedBox(height: 0),
           Text(
             dailyGoal.uiText,
             style: Theme.of(context).textTheme.labelSmall!.copyWith(
               color: MyColorPalette.of(context).secondary,
             ),
+            maxLines: 2,
+            overflow: TextOverflow.fade,
             textAlign: TextAlign.center,
           ),
         ],

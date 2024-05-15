@@ -2,7 +2,8 @@
 ## 1.0 Release
 ### Next up
 - Daily goals:
-  - REBASE !!!
+  - Generate some random dailyGoals
+  - Achieved mark
   - Add animations
   - All achieved -> play chain level
 - Level generation:
