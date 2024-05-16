@@ -9,6 +9,7 @@ import 'package:kompositum/game/game_event/game_event_stream.dart';
 import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/screens/game_page_classic.dart';
 import 'package:kompositum/screens/settings_page.dart';
+import 'package:kompositum/util/app_lifecycle_reactor.dart';
 import 'package:kompositum/util/audio_manager.dart';
 import 'package:kompositum/util/date_util.dart';
 import 'package:kompositum/util/notifications/notifictaion_manager.dart';
@@ -61,10 +62,15 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   bool isLoading = true;
 
+  // Note: Only one instance of AppLifecycleReactor is needed. No need to
+  // add one in another app screen.
+  final AppLifecycleReactor _appLifecycleReactor = AppLifecycleReactor();
+
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+
+    WidgetsBinding.instance.addObserver(_appLifecycleReactor);
 
     _updatePage();
     initializeDateFormatting("de", null);
@@ -78,17 +84,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(_appLifecycleReactor);
     super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.inactive) {
-      AudioManager.instance.dispose();
-    } else if (state == AppLifecycleState.detached) {
-      GameEventStream.instance.close();
-    }
   }
 
   void _updatePage() async {

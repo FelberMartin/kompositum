@@ -406,6 +406,7 @@ class DayContainer extends StatelessWidget {
           border: Border.all(
             color: isSelected ? Colors.white : Colors.transparent,
             width: 2.0,
+            strokeAlign: BorderSide.strokeAlignOutside,
           ),
         ),
         margin: const EdgeInsets.all(4.0),
