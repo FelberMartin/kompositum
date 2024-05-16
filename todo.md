@@ -5,10 +5,13 @@
   - Achieved mark
   - Add animations
   - All achieved -> play chain level
+- Locking?
+  - Dailies at lvl 30
+  - Daily Goals at lvl 50
 - Level generation:
   - Make levels easier?
     - Variables: PoolSize, FrequencyClass, WordCount, GuaranteedCompoundCount
-  - Add zigzag level generation? (a few easy ones, the getting harder, and then again dropping to easy and few compounds)
+  - Add zigzag level generation? (a few easy ones, then getting harder, and then again dropping to easy and few compounds)
 
 ### Later
 - LevelFinishedDialog: diamonds for used attempts confusing (remove diamonds for attempts, or

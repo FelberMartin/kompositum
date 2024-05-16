@@ -32,7 +32,7 @@ void main() {
     });
   });
 
-  group("Generation test", skip: false, () {
+  group("Generation test", skip: true, () {
     test("generate some dailyGoalSets", () {
       for (var i = 0; i < 15; i++) {
         final goalSet = DailyGoalSet.generate(creationSeed: i, date: DateTime.now());

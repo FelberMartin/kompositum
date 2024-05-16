@@ -58,33 +58,6 @@ class DailyGoalSet {
 
     final goals = randomWeightedElementsWithoutReplacement(allGoalsWeighted, 3, random: random);
     return DailyGoalSet(date: date, goals: goals);
-
-    // final goals = <DailyGoal>[];
-    // // Find compounds or earn diamonds
-    // final compoundsOrDiamonds = [
-    //   FindCompoundsDailyGoal.generate(random: random),
-    //   EarnDiamondsDailyGoal.generate(random: random),
-    // ];
-    // goals.add(randomElement(compoundsOrDiamonds, random: random));
-    //
-    // // Easy medium or hard
-    // final easyMediumHard = [
-    //   CompleteEasyLevelsDailyGoal.generate(random: random),
-    //   CompleteMediumLevelsDailyGoal.generate(random: random),
-    //   CompleteHardLevelsDailyGoal.generate(random: random),
-    // ];
-    // goals.add(randomElement(easyMediumHard, random: random));
-    //
-    // // remaining goals
-    // final remainingGoals = [
-    //   UseHintsDailyGoal.generate(random: random),
-    //   CompleteDailyLevelDailyGoal.generate(random: random),
-    //   CompleteClassicLevelsDailyGoal.generate(random: random),
-    //   CompleteAnyLevelsDailyGoal.generate(random: random),
-    //   FailedAttemptsDailyGoal.generate(random: random),
-    // ];
-    // goals.add(randomElement(remainingGoals, random: random));
-    // return DailyGoalSet(date: date, goals: goals);
   }
 
   void processGameEvent(GameEvent event) {
