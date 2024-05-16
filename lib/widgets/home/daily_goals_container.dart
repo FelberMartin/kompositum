@@ -59,8 +59,8 @@ class _DailyGoalsContainerState extends State<DailyGoalsContainer> {
           ),
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: MyColorPalette.of(context).background.darken(0.015),
-            borderRadius: BorderRadius.circular(12),
+            color: MyColorPalette.of(context).background.darken(0.00),
+            borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
             children: [
@@ -90,7 +90,7 @@ class ProgressRow extends StatelessWidget {
         Text(
           '${(progress * 100).toStringAsFixed(0)}%',
           style: Theme.of(context).textTheme.labelSmall!.copyWith(
-            color: MyColorPalette.of(context).primary,
+            color: MyColorPalette.of(context).primaryShade,
           ),
         ),
         SizedBox(width: 8),
@@ -161,7 +161,7 @@ class TitleRow extends StatelessWidget {
         Text(
           'Tagesziele',
           style: Theme.of(context).textTheme.labelMedium!.copyWith(
-            color: MyColorPalette.of(context).primary,
+            // color: MyColorPalette.of(context).primary,
           ),
         ),
       ],
@@ -171,7 +171,8 @@ class TitleRow extends StatelessWidget {
 
 class DailyGoalCard extends StatelessWidget {
   const DailyGoalCard({
-    super.key, required this.dailyGoal
+    super.key,
+    required this.dailyGoal,
   });
 
   final DailyGoal dailyGoal;
@@ -181,12 +182,12 @@ class DailyGoalCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: MyColorPalette.of(context).onPrimary,
+        color: dailyGoal.isAchieved ? MyColorPalette.of(context).background.lighten(0.15) : MyColorPalette.of(context).onPrimary,
       ),
       child: Column(
         children: [
           Text(
-            '${dailyGoal.currentValue} / ${dailyGoal.targetValue}',
+            dailyGoal.isAchieved ? "✔️" : '${dailyGoal.currentValue} / ${dailyGoal.targetValue}',
             style: Theme.of(context).textTheme.labelLarge!.copyWith(
               color: MyColorPalette.of(context).secondaryShade,
             ),
@@ -196,10 +197,12 @@ class DailyGoalCard extends StatelessWidget {
             dailyGoal.uiText,
             style: Theme.of(context).textTheme.labelSmall!.copyWith(
               color: MyColorPalette.of(context).secondary,
+              decoration: dailyGoal.isAchieved ? TextDecoration.lineThrough : null,
             ),
             maxLines: 2,
             overflow: TextOverflow.fade,
             textAlign: TextAlign.center,
+
           ),
         ],
       ),

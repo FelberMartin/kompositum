@@ -2,23 +2,31 @@ import 'dart:math';
 
 import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
+import 'package:kompositum/config/locator.dart';
 import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
+import 'package:kompositum/widgets/home/daily_goals_container.dart';
 
 import '../../../config/my_icons.dart';
 import '../../../config/my_theme.dart';
 import '../../../config/star_costs_rewards.dart';
+import '../../../data/models/daily_goal_set.dart';
+import '../../../game/goals/daily_goal_set_manager.dart';
 import '../../common/my_dialog.dart';
 
-void main() => runApp(MaterialApp(
-    theme: myTheme,
-    home: LevelCompletedDialog(
-      type: LevelCompletedDialogType.classic,
-      failedAttempts: 0,
-      difficulty: Difficulty.easy,
-      nextLevelNumber: 2,
-      onContinue: (result) {},
-    )));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await setupLocator();
+  runApp(MaterialApp(
+      theme: myTheme,
+      home: LevelCompletedDialog(
+        type: LevelCompletedDialogType.classic,
+        failedAttempts: 0,
+        difficulty: Difficulty.easy,
+        nextLevelNumber: 2,
+        onContinue: (result) {},
+      )));
+}
 
 
 enum LevelCompletedDialogType {
@@ -42,7 +50,7 @@ class LevelCompletedDialogResult {
   });
 }
 
-class LevelCompletedDialog extends StatelessWidget {
+class LevelCompletedDialog extends StatefulWidget {
 
   static const List<String> titles = [
     "Glückwunsch!",
@@ -76,108 +84,131 @@ class LevelCompletedDialog extends StatelessWidget {
   final Difficulty difficulty;
   final int nextLevelNumber;
   final Function(LevelCompletedDialogResult) onContinue;
-
   late final String title;
 
+  DailyGoalSet? dailyGoalSet;
+
+  @override
+  State<LevelCompletedDialog> createState() => _LevelCompletedDialogState();
+}
+
+class _LevelCompletedDialogState extends State<LevelCompletedDialog> {
+  final DailyGoalSetManager dailyGoalSetManager = locator<DailyGoalSetManager>();
+
+  @override
+  void initState() {
+    super.initState();
+    dailyGoalSetManager.getDailyGoalSet().then((value) {
+      setState(() {
+        widget.dailyGoalSet = value;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final starsForFailedAttempts = Rewards.getStarCountForFailedAttempts(
-      failedAttempts,
+      widget.failedAttempts,
     );
     final starsForDifficulty = Rewards.byDifficulty(
-      difficulty,
+      widget.difficulty,
     );
     final totalStars = starsForFailedAttempts + starsForDifficulty;
 
-    var bottomContent;
-    if (type == LevelCompletedDialogType.classic) {
-      bottomContent = MyPrimaryTextButtonLarge(
-        text: "Weiter",
-        onPressed: () {
-          onContinue(LevelCompletedDialogResult(
-            type: LevelCompletedDialogResultType.classic_continue,
-            starCountIncrease: totalStars,
-          ));
-        },
-      );
-    } else if (type == LevelCompletedDialogType.daily) {
-      bottomContent = Column(
-        children: [
-          MySecondaryTextButton(
-            text: "Zurück zur Übersicht",
-            onPressed: () {
-              onContinue(LevelCompletedDialogResult(
-                type: LevelCompletedDialogResultType.daily_backToOverview,
-                starCountIncrease: totalStars,
-              ));
-            },
-          ),
-          SizedBox(height: 8),
-          MyPrimaryTextButton(
-            text: "Level $nextLevelNumber",
-            onPressed: () {
-              onContinue(LevelCompletedDialogResult(
-                type: LevelCompletedDialogResultType.daily_continueWithClassic,
-                starCountIncrease: totalStars,
-              ));
-            },
-          ),
-        ],
-      );
-    }
-
-    return MyDialog(
-      title: title,
-      titleStyle: Theme.of(context).textTheme.titleMedium,
-      subtitle: "Level geschaft!",
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 32.0),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                    child: Column(
-                      children: [
-                        StarItem(
-                          title: "Fehlversuche",
-                          value: failedAttempts.toString(),
-                          starCount: starsForFailedAttempts,
-                        ),
-                        SizedBox(height: 16),
-                        StarItem(
-                          title: "Schwierigkeit",
-                          value: difficulty.toUiString().toLowerCase(),
-                          starCount: starsForDifficulty,
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Container(
-                    height: 4,
-                    decoration: BoxDecoration(
-                      color: MyColorPalette.of(context).textSecondary,
-                      borderRadius: BorderRadius.circular(2),
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                    child: TotalRow(totalStars: totalStars),
-                  )
-                ],
+    return Scaffold(
+      backgroundColor: MyColorPalette.of(context).secondary,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 48.0),
+          child: Column(
+            children: [
+              Expanded(child: Container()),
+              Text(
+                widget.title,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
-            ),
-            SizedBox(height: 16),
-            bottomContent,
-          ],
+              SizedBox(height: 12),
+              Text(
+                "Level geschaft!",
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
+              Expanded(child: Container()),
+              LevelRewardCalculation(
+                failedAttempts: widget.failedAttempts,
+                starsForFailedAttempts: starsForFailedAttempts,
+                difficulty: widget.difficulty,
+                starsForDifficulty: starsForDifficulty,
+                totalStars: totalStars,
+              ),
+              Expanded(child: Container()),
+              widget.dailyGoalSet != null ? DailyGoalsContainer(dailyGoalSet: widget.dailyGoalSet!) : Container(),
+              Expanded(child: Container()),
+              _BottomContent(
+                onContinue: widget.onContinue,
+                type: widget.type,
+                nextLevelNumber: widget.nextLevelNumber,
+              ),
+              Expanded(child: Container()),
+            ],
+          ),
         ),
       ),
+    );
+  }
+}
+
+class LevelRewardCalculation extends StatelessWidget {
+  const LevelRewardCalculation({
+    super.key,
+    required this.failedAttempts,
+    required this.starsForFailedAttempts,
+    required this.difficulty,
+    required this.starsForDifficulty,
+    required this.totalStars,
+  });
+
+  final int failedAttempts;
+  final int starsForFailedAttempts;
+  final Difficulty difficulty;
+  final int starsForDifficulty;
+  final int totalStars;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+          child: Column(
+            children: [
+              StarItem(
+                title: "Fehlversuche",
+                value: failedAttempts.toString(),
+                starCount: starsForFailedAttempts,
+              ),
+              SizedBox(height: 16),
+              StarItem(
+                title: "Schwierigkeit",
+                value: difficulty.toUiString().toLowerCase(),
+                starCount: starsForDifficulty,
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 10),
+        Container(
+          height: 4,
+          decoration: BoxDecoration(
+            color: MyColorPalette.of(context).textSecondary,
+            borderRadius: BorderRadius.circular(2),
+          ),
+        ),
+        SizedBox(height: 10),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+          child: TotalRow(totalStars: totalStars),
+        )
+      ],
     );
   }
 }
@@ -279,5 +310,58 @@ class StarItem extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class _BottomContent extends StatelessWidget {
+  const _BottomContent({
+    super.key,
+    required this.onContinue,
+    required this.type,
+    required this.nextLevelNumber,
+  });
+
+  final Function(LevelCompletedDialogResult) onContinue;
+  final LevelCompletedDialogType type;
+  final int nextLevelNumber;
+
+  @override
+  Widget build(BuildContext context) {
+    if (type == LevelCompletedDialogType.classic) {
+      return MyPrimaryTextButtonLarge(
+        text: "Weiter",
+        onPressed: () {
+          onContinue(LevelCompletedDialogResult(
+            type: LevelCompletedDialogResultType.classic_continue,
+            starCountIncrease: 3,
+          ));
+        },
+      );
+    } else if (type == LevelCompletedDialogType.daily) {
+      return Column(
+        children: [
+          MySecondaryTextButton(
+            text: "Zurück zur Übersicht",
+            onPressed: () {
+              onContinue(LevelCompletedDialogResult(
+                type: LevelCompletedDialogResultType.daily_backToOverview,
+                starCountIncrease: 3,
+              ));
+            },
+          ),
+          SizedBox(height: 8),
+          MyPrimaryTextButton(
+            text: "Level $nextLevelNumber",
+            onPressed: () {
+              onContinue(LevelCompletedDialogResult(
+                type: LevelCompletedDialogResultType.daily_continueWithClassic,
+                starCountIncrease: 3,
+              ));
+            },
+          ),
+        ],
+      );
+    }
+    return Container();
   }
 }

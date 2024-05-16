@@ -2,7 +2,7 @@
 ## 1.0 Release
 ### Next up
 - Daily goals:
-  - Achieved mark
+  - Dont show on homeScreen?
   - Add animations
   - All achieved -> play chain level
 - Locking?
