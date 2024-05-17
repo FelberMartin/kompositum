@@ -98,7 +98,7 @@ class PoolGameLevel {
     if (compound == null) {
       attemptsWatcher.attemptUsed(modifier, head);
     } else {
-      attemptsWatcher.resetAttempts();
+      attemptsWatcher.resetLocalAttempts();
     }
     return compound;
   }

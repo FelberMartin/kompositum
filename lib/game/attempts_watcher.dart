@@ -24,8 +24,16 @@ class AttemptsWatcher {
     _overAllAttemptsFailed++;
   }
 
-  void resetAttempts() {
+  /// Resets the local attempts, but keeps the overall attempts failed.
+  void resetLocalAttempts() {
     _attemptsLeft = maxAttempts;
+  }
+
+  /// Resets all attempts, including the overall attempts failed. For when the level is reset.
+  void resetAllAttempts() {
+    resetLocalAttempts();
+    _overAllAttemptsFailed = 0;
+    _usedAttempts.clear();
   }
 
   bool anyAttemptsLeft() {
