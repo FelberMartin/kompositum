@@ -8,19 +8,28 @@ import '../../util/device_info.dart';
 import '../game_event/game_event.dart';
 import '../game_event/game_event_stream.dart';
 
+
+class DailyGoalSetProgression {
+  final DailyGoalSet previous;
+  final DailyGoalSet current;
+
+  DailyGoalSetProgression(this.previous, this.current);
+}
+
+/// Manages the daily goal set for the player. Stores the progress, connects
+/// to the game event stream and updates the daily goal set.
+/// Monitors the progression of the goalSet during a game, that can then be used
+/// to animate the progression.
 class DailyGoalSetManager {
   final KeyValueStore keyValueStore;
   final DeviceInfo deviceInfo;
 
   DailyGoalSet? _dailyGoalSet;
+  DailyGoalSetProgression? _progression;
 
   DailyGoalSetManager(this.keyValueStore, this.deviceInfo) {
     update();
     registerGameEventStream(GameEventStream.instance.stream);
-  }
-
-  Future<void> update() async {
-    _dailyGoalSet = await _loadFromDiskOrCreate(DateTime.now());
   }
 
   Future<DailyGoalSet> getDailyGoalSet() async {
@@ -28,6 +37,22 @@ class DailyGoalSetManager {
       await update();
     }
     return _dailyGoalSet!;
+  }
+
+  Future<DailyGoalSetProgression> getProgression() async {
+    if (_progression == null) {
+      await update();
+    }
+    return _progression!;
+  }
+
+  Future<void> update() async {
+    _dailyGoalSet = await _loadFromDiskOrCreate(DateTime.now());
+    resetProgression();
+  }
+
+  void resetProgression() {
+    _progression = DailyGoalSetProgression(_dailyGoalSet!.copy(), _dailyGoalSet!);
   }
 
   /// Returns the daily goal set for the current day.
@@ -57,5 +82,4 @@ class DailyGoalSetManager {
       }
     });
   }
-
 }

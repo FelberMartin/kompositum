@@ -113,9 +113,13 @@ class KeyValueStore {
     await prefs.setBool(booleanSetting.name, value);
   }
 
-  Future<void> storeDailyGoalSet(DailyGoalSet goalSet) async {
+  Future<void> storeDailyGoalSet(DailyGoalSet? goalSet) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString("dailyGoalSet", jsonEncode(goalSet.toJson()));
+    if (goalSet == null) {
+      await prefs.remove("dailyGoalSet");
+    } else {
+      await prefs.setString("dailyGoalSet", jsonEncode(goalSet.toJson()));
+    }
   }
 
   Future<Map<String, dynamic>?> getDailyGoalSetJson() async {

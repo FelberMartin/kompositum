@@ -369,7 +369,9 @@ abstract class GamePageState extends State<GamePage> {
 
   void showLevelCompletedDialog() async {
     final nextLevelNumber = await keyValueStore.getLevel();   // This is only used in the daily mode.
-    final dailyGoalSet = await dailyGoalSetManager.getDailyGoalSet();
+    final dailyGoalSetProgression = await dailyGoalSetManager.getProgression();
+    dailyGoalSetManager.resetProgression();
+
     if (!context.mounted) {
       return;
     }
@@ -382,7 +384,7 @@ abstract class GamePageState extends State<GamePage> {
         difficulty: poolGameLevel.displayedDifficulty,
         failedAttempts: poolGameLevel.attemptsWatcher.overAllAttemptsFailed,
         nextLevelNumber: nextLevelNumber,
-        dailyGoalSet: dailyGoalSet,
+        dailyGoalSetProgression: dailyGoalSetProgression,
         onContinue: (result) {
           Navigator.pop(context);
           _increaseStarCount(result.starCountIncrease, origin: StarIncreaseRequestOrigin.levelCompletion);

@@ -5,6 +5,8 @@ import '../../objectbox.g.dart';
 import '../../util/random_util.dart';
 import 'daily_goal.dart';
 
+
+/// A set of 3 daily goals that the player can achieve. Is valid for a single day.
 class DailyGoalSet {
 
   final DateTime date;
@@ -69,6 +71,13 @@ class DailyGoalSet {
   @override
   String toString() {
     return 'DailyGoalSet{date: $date, goals: $goals}';
+  }
+
+  DailyGoalSet copy() {
+    return DailyGoalSet(
+      date: date,
+      goals: goals.map((goal) => goal.copy()).toList(),
+    );
   }
 
 }

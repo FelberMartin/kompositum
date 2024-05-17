@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kompositum/config/my_icons.dart';
 import 'package:kompositum/data/key_value_store.dart';
+import 'package:kompositum/game/goals/daily_goal_set_manager.dart';
 import 'package:kompositum/util/notifications/daily_notification_scheduler.dart';
+import 'package:kompositum/widgets/common/my_buttons.dart';
 
 import '../config/locator.dart';
 import '../config/my_theme.dart';
@@ -89,7 +91,15 @@ class _SettingsPageState extends State<SettingsPage> {
                           onChange: setIsDailyNotificationActive,
                         )
                       ],
-                    )
+                    ),
+                    MyPrimaryTextButton(
+                      onPressed: () {
+                        keyValueStore.storeDailyGoalSet(null);
+                        locator<DailyGoalSetManager>().update();
+                      },
+                      text: "reset dailyGoals",
+                    ),
+
                   ],
                 ),
               ),

@@ -3,8 +3,8 @@
 ### Next up
 - Daily goals:
   - Dont show on homeScreen?
-  - Add animations -> use GoalSetProgress class (before state + after)
   - All achieved -> play chain level
+  - Remove reset button in settings
 - Locking?
   - Dailies at lvl 30
   - Daily Goals at lvl 50
@@ -12,6 +12,11 @@
   - Make levels easier?
     - Variables: PoolSize, FrequencyClass, WordCount, GuaranteedCompoundCount
   - Add zigzag level generation? (a few easy ones, then getting harder, and then again dropping to easy and few compounds)
+- Redesign?
+  - Remove oval borders -> rounded corner rectangle
+  - Light / Dark mode
+- Add to blocked words:
+  - Geisel
 
 ### Later
 - LevelFinishedDialog: diamonds for used attempts confusing (remove diamonds for attempts, or

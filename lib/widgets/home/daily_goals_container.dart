@@ -1,6 +1,8 @@
+import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
 import 'package:kompositum/config/my_theme.dart';
 import 'package:kompositum/data/models/daily_goal_set.dart';
+import 'package:kompositum/game/goals/daily_goal_set_manager.dart';
 import 'package:kompositum/util/color_util.dart';
 
 import '../../data/models/daily_goal.dart';
@@ -12,9 +14,14 @@ void main() async {
     goals: [
       FindCompoundsDailyGoal(targetValue: 20)..increaseCurrentValue(amount: 12),
       EarnDiamondsDailyGoal(targetValue: 30)..increaseCurrentValue(amount: 15),
-      CompleteAnyLevelsDailyGoal(targetValue: 3)..increaseCurrentValue(amount: 2),
+      CompleteAnyLevelsDailyGoal(targetValue: 3)..increaseCurrentValue(amount: 1),
     ],
   );
+
+  final goalSet2 = goalSet.copy();
+  goalSet2.goals[0].increaseCurrentValue(amount: 8);
+  goalSet2.goals[1].increaseCurrentValue(amount: 10);
+  goalSet2.goals[2].increaseCurrentValue(amount: 2);
 
   runApp(MaterialApp(
     theme: myTheme,
@@ -24,7 +31,7 @@ void main() async {
         Padding(
           padding: const EdgeInsets.all(20),
           child: DailyGoalsContainer(
-            dailyGoalSet: goalSet,
+            progression: DailyGoalSetProgression(goalSet, goalSet2),
           ),
         )
       ],
@@ -34,16 +41,85 @@ void main() async {
 
 class DailyGoalsContainer extends StatefulWidget {
   DailyGoalsContainer({
-    super.key, required this.dailyGoalSet
+    super.key,
+    required this.progression,
+    this.animationStartDelay = const Duration(milliseconds: 2000),
   });
 
-  final DailyGoalSet dailyGoalSet;
+  final DailyGoalSetProgression progression;
+  final Duration animationStartDelay;
 
   @override
   State<DailyGoalsContainer> createState() => _DailyGoalsContainerState();
 }
 
-class _DailyGoalsContainerState extends State<DailyGoalsContainer> {
+class _DailyGoalsContainerState extends State<DailyGoalsContainer> with SingleTickerProviderStateMixin {
+
+  late DailyGoalSet dailyGoalSet = widget.progression.previous;
+
+  late AnimationController _controller;
+  late Animation<double> _animation;
+  late double _currentProgress;
+
+  int _goalIndex = 0;
+
+  static Duration goalAnimationDuration = Duration(milliseconds: 1000);
+
+  @override
+  void initState() {
+    super.initState();
+
+    _currentProgress = dailyGoalSet.progress;
+    _controller = AnimationController(vsync: this);
+
+    Future.delayed(widget.animationStartDelay, () {
+      _transitionToNextGoalProgression();
+    });
+  }
+
+  void _transitionToNextGoalProgression() async {
+    final goalBefore = dailyGoalSet.goals[_goalIndex];
+    final goalAfter = widget.progression.current.goals[_goalIndex];
+    final delta = goalAfter.currentValue - goalBefore.currentValue;
+    if (delta > 0) {
+      final nextGoalSet = dailyGoalSet.copy();
+      nextGoalSet.goals[_goalIndex].increaseCurrentValue(amount: delta);
+      setState(() {
+        dailyGoalSet = nextGoalSet;
+        _updateProgressAnimation();
+      });
+      var delay = goalAnimationDuration;
+      if (goalAfter.isAchieved) {
+        delay += _DailyGoalCardState.checkmarkAnimationDuration + _DailyGoalCardState.checkmarkDelay;
+      }
+      await Future.delayed(delay);
+    }
+
+    _goalIndex++;
+    if (_goalIndex < dailyGoalSet.goals.length) {
+      _transitionToNextGoalProgression();
+    }
+  }
+
+  void _updateProgressAnimation() {
+    _animation = Tween<double>(begin: _currentProgress, end: dailyGoalSet.progress).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInOutCubic,
+    ));
+    _animation.addListener(() {
+      setState(() {
+        _currentProgress = _animation.value;
+      });
+    });
+    _controller.duration = goalAnimationDuration;
+    _controller.forward(from: 0.0);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,14 +138,14 @@ class _DailyGoalsContainerState extends State<DailyGoalsContainer> {
             ),
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              gradient: getContainerGradient(widget.dailyGoalSet.progress, context),
+              gradient: getContainerGradient(_currentProgress, context),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Column(
               children: [
-                GoalsRow(dailyGoalSet: widget.dailyGoalSet),
+                GoalsRow(dailyGoalSet: dailyGoalSet),
                 SizedBox(height: 8),
-                ProgressRow(progress: widget.dailyGoalSet.progress),
+                ProgressRow(progress: _currentProgress),
               ],
             ),
           ),
@@ -192,7 +268,7 @@ class TitleRow extends StatelessWidget {
   }
 }
 
-class DailyGoalCard extends StatelessWidget {
+class DailyGoalCard extends StatefulWidget {
   const DailyGoalCard({
     super.key,
     required this.dailyGoal,
@@ -201,31 +277,90 @@ class DailyGoalCard extends StatelessWidget {
   final DailyGoal dailyGoal;
 
   @override
+  State<DailyGoalCard> createState() => _DailyGoalCardState();
+}
+
+class _DailyGoalCardState extends State<DailyGoalCard> {
+
+  late bool _showCheckmark = widget.dailyGoal.isAchieved;
+
+  static Duration counterAnimationDuration = Duration(milliseconds: 500);
+  static Duration checkmarkAnimationDuration = Duration(milliseconds: 300);
+  static Duration checkmarkDelay = Duration(milliseconds: 500);
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant DailyGoalCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!oldWidget.dailyGoal.isAchieved && widget.dailyGoal.isAchieved) {
+      Future.delayed(counterAnimationDuration + checkmarkDelay, () {
+        if (mounted) {
+          setState(() {
+            _showCheckmark = true;
+          });
+        }
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
+    return AnimatedContainer(
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: dailyGoal.isAchieved ? MyColorPalette.of(context).background.lighten(0.15) : MyColorPalette.of(context).onPrimary,
+        color: widget.dailyGoal.isAchieved ? MyColorPalette.of(context).background.lighten(0.1) : MyColorPalette.of(context).onPrimary,
       ),
+      duration: checkmarkAnimationDuration,
       child: Column(
         children: [
-          Text(
-            dailyGoal.isAchieved ? "✔️" : '${dailyGoal.currentValue} / ${dailyGoal.targetValue}',
-            style: Theme.of(context).textTheme.labelLarge!.copyWith(
-              color: MyColorPalette.of(context).secondaryShade,
-            ),
+          AnimatedSwitcher(
+            duration: checkmarkAnimationDuration,
+            transitionBuilder: (child, animation) {
+              if (child.runtimeType == AnimatedFlipCounter) {
+                return ScaleTransition(
+                  scale: Tween<double>(
+                    begin: 0,
+                    end: 1,
+                  ).animate(animation),
+                  child: child,
+                );
+              }
+              return SlideTransition(
+                position: Tween<Offset>(
+                  begin: Offset(0, 1),
+                  end: Offset(0, 0),
+                ).animate(animation),
+                child: child,
+              );
+            },
+            child: _showCheckmark ? Text(
+                '✓',
+                style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                  color: MyColorPalette.of(context).secondary,
+                ),
+              ) : AnimatedFlipCounter(
+                value: widget.dailyGoal.currentValue,
+                suffix: "/${widget.dailyGoal.targetValue}",
+                duration: counterAnimationDuration,
+                textStyle: Theme.of(context).textTheme.labelMedium!.copyWith(
+                  color: MyColorPalette.of(context).secondary,
+                ),
+              ),
           ),
           SizedBox(height: 0),
           Text(
-            dailyGoal.uiText,
+            widget.dailyGoal.uiText,
             style: Theme.of(context).textTheme.labelSmall!.copyWith(
               color: MyColorPalette.of(context).secondary,
-              decoration: dailyGoal.isAchieved ? TextDecoration.lineThrough : null,
+              decoration: widget.dailyGoal.isAchieved ? TextDecoration.lineThrough : null,
             ),
             maxLines: 2,
             overflow: TextOverflow.fade,
             textAlign: TextAlign.center,
-
           ),
         ],
       ),

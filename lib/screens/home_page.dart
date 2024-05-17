@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   int currentLevel = 0;
   Difficulty currentLevelDifficulty = Difficulty.easy;
   bool isDailyFinished = true;
-  late DailyGoalSet dailyGoalSet;
+  late DailyGoalSetProgression dailyGoalSetProgression;
 
   bool isLoading = true;
 
@@ -99,7 +99,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         .generateLevelSetup(currentLevel).displayedDifficulty;
     isDailyFinished = await keyValueStore.getDailiesCompleted()
         .then((value) => value.any((day) => day.isSameDate(DateTime.now())));
-    dailyGoalSet = await dailyGoalSetManager.getDailyGoalSet();
+    dailyGoalSetProgression = await dailyGoalSetManager.getProgression();
+    dailyGoalSetManager.resetProgression();
+    print(dailyGoalSetProgression.current.progress);
 
     setState(() {
       isLoading = false;
@@ -162,7 +164,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 isLoading || !shouldShowDailyGoals ? Container() : Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 32.0),
                   child: DailyGoalsContainer(
-                      dailyGoalSet: dailyGoalSet
+                    key: ValueKey(dailyGoalSetProgression.current.progress),
+                    progression: dailyGoalSetProgression,
+                    animationStartDelay: Duration.zero,
                   ),
                 ),
                 Expanded(flex: 1, child: Container()),

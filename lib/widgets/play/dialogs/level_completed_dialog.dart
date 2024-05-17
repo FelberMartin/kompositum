@@ -18,6 +18,16 @@ import '../../common/my_dialog.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupLocator();
+
+  final goalSet = DailyGoalSet(
+    date: DateTime.now(),
+    goals: [
+      FindCompoundsDailyGoal(targetValue: 20)..increaseCurrentValue(amount: 12),
+      EarnDiamondsDailyGoal(targetValue: 30)..increaseCurrentValue(amount: 15),
+      CompleteAnyLevelsDailyGoal(targetValue: 3)..increaseCurrentValue(amount: 2),
+    ],
+  );
+
   runApp(MaterialApp(
       theme: myTheme,
       home: LevelCompletedDialog(
@@ -26,14 +36,7 @@ void main() async {
         difficulty: Difficulty.easy,
         nextLevelNumber: 2,
         onContinue: (result) {},
-        dailyGoalSet: DailyGoalSet(
-          date: DateTime.now(),
-          goals: [
-            FindCompoundsDailyGoal(targetValue: 20)..increaseCurrentValue(amount: 12),
-            EarnDiamondsDailyGoal(targetValue: 30)..increaseCurrentValue(amount: 15),
-            CompleteAnyLevelsDailyGoal(targetValue: 3)..increaseCurrentValue(amount: 2),
-          ],
-        ),
+        dailyGoalSetProgression: DailyGoalSetProgression(goalSet, goalSet),
       )));
 }
 
@@ -84,7 +87,7 @@ class LevelCompletedDialog extends StatefulWidget {
     required this.difficulty,
     required this.nextLevelNumber,
     required this.onContinue,
-    required this.dailyGoalSet,
+    required this.dailyGoalSetProgression,
   }) {
     title = titles[Random().nextInt(titles.length)];
   }
@@ -96,7 +99,7 @@ class LevelCompletedDialog extends StatefulWidget {
   final Function(LevelCompletedDialogResult) onContinue;
   late final String title;
 
-  final DailyGoalSet? dailyGoalSet;
+  final DailyGoalSetProgression? dailyGoalSetProgression;
 
   @override
   State<LevelCompletedDialog> createState() => _LevelCompletedDialogState();
@@ -143,7 +146,7 @@ class _LevelCompletedDialogState extends State<LevelCompletedDialog> {
                 starsForDifficulty: starsForDifficulty,
               ),
               Expanded(child: Container()),
-              widget.dailyGoalSet != null ? DailyGoalsContainer(dailyGoalSet: widget.dailyGoalSet!) : Container(),
+              widget.dailyGoalSetProgression != null ? DailyGoalsContainer(progression: widget.dailyGoalSetProgression!) : Container(),
               Expanded(child: Container()),
               _BottomContent(
                 onContinue: widget.onContinue,

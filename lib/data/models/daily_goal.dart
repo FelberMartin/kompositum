@@ -5,9 +5,9 @@ import 'package:kompositum/objectbox.g.dart';
 import '../../game/game_event/game_event.dart';
 import '../../game/level_provider.dart';
 
-
-// This can not be an entity for objectbox, because it does currently not support
-// abstract classes.
+/// A daily goal that the player can achieve. It only focuses on a single aspect of the game.
+/// This can not be an entity for objectbox, because it does currently not support
+/// abstract classes.
 abstract class DailyGoal {
 
   final String uiText;
@@ -53,6 +53,7 @@ abstract class DailyGoal {
       targetValue.hashCode ^
       _currentValue.hashCode;
 
+  DailyGoal copy();
 }
 
 class FindCompoundsDailyGoal extends DailyGoal {
@@ -69,6 +70,12 @@ class FindCompoundsDailyGoal extends DailyGoal {
     if (event is CompoundFoundGameEvent) {
       increaseCurrentValue();
     }
+  }
+
+  @override
+  copy() {
+    return FindCompoundsDailyGoal(targetValue: targetValue)
+      ..increaseCurrentValue(amount: currentValue);
   }
 }
 
@@ -87,6 +94,12 @@ class EarnDiamondsDailyGoal extends DailyGoal {
       increaseCurrentValue(amount: event.amount);
     }
   }
+
+  @override
+  copy() {
+    return EarnDiamondsDailyGoal(targetValue: targetValue)
+      ..increaseCurrentValue(amount: currentValue);
+  }
 }
 
 class UseHintsDailyGoal extends DailyGoal {
@@ -103,6 +116,12 @@ class UseHintsDailyGoal extends DailyGoal {
     if (event is HintBoughtGameEvent) {
       increaseCurrentValue();
     }
+  }
+
+  @override
+  copy() {
+    return UseHintsDailyGoal(targetValue: targetValue)
+      ..increaseCurrentValue(amount: currentValue);
   }
 }
 
@@ -130,6 +149,12 @@ class CompleteDailyLevelDailyGoal extends LevelCompletionDailyGoal {
   factory CompleteDailyLevelDailyGoal.generate({required Random random}) {
     return CompleteDailyLevelDailyGoal();
   }
+
+  @override
+  copy() {
+    return CompleteDailyLevelDailyGoal()
+      ..increaseCurrentValue(amount: currentValue);
+  }
 }
 
 class CompleteClassicLevelsDailyGoal extends LevelCompletionDailyGoal {
@@ -141,6 +166,12 @@ class CompleteClassicLevelsDailyGoal extends LevelCompletionDailyGoal {
     final value = random.nextInt(8) + 3;
     return CompleteClassicLevelsDailyGoal(targetValue: value);
   }
+
+  @override
+  copy() {
+    return CompleteClassicLevelsDailyGoal(targetValue: targetValue)
+      ..increaseCurrentValue(amount: currentValue);
+  }
 }
 
 class CompleteAnyLevelsDailyGoal extends LevelCompletionDailyGoal {
@@ -150,6 +181,12 @@ class CompleteAnyLevelsDailyGoal extends LevelCompletionDailyGoal {
   factory CompleteAnyLevelsDailyGoal.generate({required Random random}) {
     final value = random.nextInt(10) + 3;
     return CompleteAnyLevelsDailyGoal(targetValue: value);
+  }
+
+  @override
+  copy() {
+    return CompleteAnyLevelsDailyGoal(targetValue: targetValue)
+      ..increaseCurrentValue(amount: currentValue);
   }
 }
 
@@ -178,6 +215,12 @@ class CompleteEasyLevelsDailyGoal extends CompleteDifficultyDailyGoal {
     final value = random.nextInt(3) + 1;
     return CompleteEasyLevelsDailyGoal(targetValue: value);
   }
+
+  @override
+  copy() {
+    return CompleteEasyLevelsDailyGoal(targetValue: targetValue)
+      ..increaseCurrentValue(amount: currentValue);
+  }
 }
 
 class CompleteMediumLevelsDailyGoal extends CompleteDifficultyDailyGoal {
@@ -188,6 +231,12 @@ class CompleteMediumLevelsDailyGoal extends CompleteDifficultyDailyGoal {
     final value = random.nextInt(3) + 1;
     return CompleteMediumLevelsDailyGoal(targetValue: value);
   }
+
+  @override
+  copy() {
+    return CompleteMediumLevelsDailyGoal(targetValue: targetValue)
+      ..increaseCurrentValue(amount: currentValue);
+  }
 }
 
 class CompleteHardLevelsDailyGoal extends CompleteDifficultyDailyGoal {
@@ -197,6 +246,12 @@ class CompleteHardLevelsDailyGoal extends CompleteDifficultyDailyGoal {
   factory CompleteHardLevelsDailyGoal.generate({required Random random}) {
     final value = random.nextInt(3) + 1;
     return CompleteHardLevelsDailyGoal(targetValue: value);
+  }
+
+  @override
+  copy() {
+    return CompleteHardLevelsDailyGoal(targetValue: targetValue)
+      ..increaseCurrentValue(amount: currentValue);
   }
 }
 
@@ -216,5 +271,11 @@ class FailedAttemptsDailyGoal extends DailyGoal {
         event.poolGameLevel.attemptsWatcher.overAllAttemptsFailed <= maxFailedAttempts) {
       increaseCurrentValue();
     }
+  }
+
+  @override
+  copy() {
+    return FailedAttemptsDailyGoal(maxFailedAttempts: maxFailedAttempts)
+      ..increaseCurrentValue(amount: currentValue);
   }
 }
