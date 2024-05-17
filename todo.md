@@ -3,7 +3,7 @@
 ### Next up
 - Daily goals:
   - Dont show on homeScreen?
-  - Add animations
+  - Add animations -> use GoalSetProgress class (before state + after)
   - All achieved -> play chain level
 - Locking?
   - Dailies at lvl 30

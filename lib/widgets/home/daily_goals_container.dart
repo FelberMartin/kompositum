@@ -53,24 +53,44 @@ class _DailyGoalsContainerState extends State<DailyGoalsContainer> {
           padding: const EdgeInsets.all(8.0),
           child: TitleRow(),
         ),
-        Container(
-          constraints: BoxConstraints(
-            maxWidth: 320,
-          ),
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: MyColorPalette.of(context).background.darken(0.00),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            children: [
-              GoalsRow(dailyGoalSet: widget.dailyGoalSet),
-              SizedBox(height: 8),
-              ProgressRow(progress: widget.dailyGoalSet.progress),
-            ],
+        Material(
+          borderRadius: BorderRadius.circular(12),
+          elevation: 4,
+          child: Container(
+            constraints: BoxConstraints(
+              maxWidth: 320,
+            ),
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              gradient: getContainerGradient(widget.dailyGoalSet.progress, context),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Column(
+              children: [
+                GoalsRow(dailyGoalSet: widget.dailyGoalSet),
+                SizedBox(height: 8),
+                ProgressRow(progress: widget.dailyGoalSet.progress),
+              ],
+            ),
           ),
         ),
       ],
+    );
+  }
+
+  Gradient getContainerGradient(double progress, BuildContext context) {
+    var stop1 = 0.0 + progress;
+    var stop2 = 0.3 + progress * 0.8;
+
+    return LinearGradient(
+      colors: [
+        MyColorPalette.of(context).primary,
+        MyColorPalette.of(context).secondary,
+        // Color.lerp(MyColorPalette.of(context).secondary, MyColorPalette.of(context).primary, progress)!,
+      ],
+      stops: [stop1, stop2],
+      begin: Alignment.centerLeft,
+      end: Alignment.centerRight,
     );
   }
 }
@@ -83,22 +103,25 @@ class ProgressRow extends StatelessWidget {
 
   final double progress;
 
+  static const double minProgress = 0.03;
+
   @override
   Widget build(BuildContext context) {
+    final shownProgress = progress.clamp(minProgress, 1.0);
     return Row(
       children: [
         Text(
           '${(progress * 100).toStringAsFixed(0)}%',
           style: Theme.of(context).textTheme.labelSmall!.copyWith(
-            color: MyColorPalette.of(context).primaryShade,
+            color: MyColorPalette.of(context).onPrimary,
           ),
         ),
         SizedBox(width: 8),
         Expanded(
           child: LinearProgressIndicator(
-            value: progress,
-            backgroundColor: MyColorPalette.of(context).onPrimary,
-            valueColor: AlwaysStoppedAnimation(MyColorPalette.of(context).primary),
+            value: shownProgress,
+            valueColor: AlwaysStoppedAnimation(MyColorPalette.of(context).onPrimary),
+            backgroundColor: MyColorPalette.of(context).primaryShade,
             borderRadius: BorderRadius.circular(12),
             minHeight: 8,
           ),
@@ -119,7 +142,7 @@ class GoalsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(16),
       child: IntrinsicHeight(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,

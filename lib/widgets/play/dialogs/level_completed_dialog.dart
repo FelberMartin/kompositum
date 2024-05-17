@@ -10,6 +10,7 @@ import 'package:kompositum/widgets/home/daily_goals_container.dart';
 import '../../../config/my_icons.dart';
 import '../../../config/my_theme.dart';
 import '../../../config/star_costs_rewards.dart';
+import '../../../data/models/daily_goal.dart';
 import '../../../data/models/daily_goal_set.dart';
 import '../../../game/goals/daily_goal_set_manager.dart';
 import '../../common/my_dialog.dart';
@@ -25,6 +26,14 @@ void main() async {
         difficulty: Difficulty.easy,
         nextLevelNumber: 2,
         onContinue: (result) {},
+        dailyGoalSet: DailyGoalSet(
+          date: DateTime.now(),
+          goals: [
+            FindCompoundsDailyGoal(targetValue: 20)..increaseCurrentValue(amount: 12),
+            EarnDiamondsDailyGoal(targetValue: 30)..increaseCurrentValue(amount: 15),
+            CompleteAnyLevelsDailyGoal(targetValue: 3)..increaseCurrentValue(amount: 2),
+          ],
+        ),
       )));
 }
 
@@ -75,6 +84,7 @@ class LevelCompletedDialog extends StatefulWidget {
     required this.difficulty,
     required this.nextLevelNumber,
     required this.onContinue,
+    required this.dailyGoalSet,
   }) {
     title = titles[Random().nextInt(titles.length)];
   }
@@ -86,23 +96,17 @@ class LevelCompletedDialog extends StatefulWidget {
   final Function(LevelCompletedDialogResult) onContinue;
   late final String title;
 
-  DailyGoalSet? dailyGoalSet;
+  final DailyGoalSet? dailyGoalSet;
 
   @override
   State<LevelCompletedDialog> createState() => _LevelCompletedDialogState();
 }
 
 class _LevelCompletedDialogState extends State<LevelCompletedDialog> {
-  final DailyGoalSetManager dailyGoalSetManager = locator<DailyGoalSetManager>();
 
   @override
   void initState() {
     super.initState();
-    dailyGoalSetManager.getDailyGoalSet().then((value) {
-      setState(() {
-        widget.dailyGoalSet = value;
-      });
-    });
   }
 
   @override
@@ -113,7 +117,6 @@ class _LevelCompletedDialogState extends State<LevelCompletedDialog> {
     final starsForDifficulty = Rewards.byDifficulty(
       widget.difficulty,
     );
-    final totalStars = starsForFailedAttempts + starsForDifficulty;
 
     return Scaffold(
       backgroundColor: MyColorPalette.of(context).secondary,
@@ -138,7 +141,6 @@ class _LevelCompletedDialogState extends State<LevelCompletedDialog> {
                 starsForFailedAttempts: starsForFailedAttempts,
                 difficulty: widget.difficulty,
                 starsForDifficulty: starsForDifficulty,
-                totalStars: totalStars,
               ),
               Expanded(child: Container()),
               widget.dailyGoalSet != null ? DailyGoalsContainer(dailyGoalSet: widget.dailyGoalSet!) : Container(),
@@ -157,158 +159,136 @@ class _LevelCompletedDialogState extends State<LevelCompletedDialog> {
   }
 }
 
-class LevelRewardCalculation extends StatelessWidget {
+class LevelRewardCalculation extends StatefulWidget {
   const LevelRewardCalculation({
     super.key,
     required this.failedAttempts,
     required this.starsForFailedAttempts,
     required this.difficulty,
     required this.starsForDifficulty,
-    required this.totalStars,
   });
 
   final int failedAttempts;
   final int starsForFailedAttempts;
   final Difficulty difficulty;
   final int starsForDifficulty;
-  final int totalStars;
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-          child: Column(
-            children: [
-              StarItem(
-                title: "Fehlversuche",
-                value: failedAttempts.toString(),
-                starCount: starsForFailedAttempts,
-              ),
-              SizedBox(height: 16),
-              StarItem(
-                title: "Schwierigkeit",
-                value: difficulty.toUiString().toLowerCase(),
-                starCount: starsForDifficulty,
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 10),
-        Container(
-          height: 4,
-          decoration: BoxDecoration(
-            color: MyColorPalette.of(context).textSecondary,
-            borderRadius: BorderRadius.circular(2),
-          ),
-        ),
-        SizedBox(height: 10),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-          child: TotalRow(totalStars: totalStars),
-        )
-      ],
-    );
-  }
+  State<LevelRewardCalculation> createState() => _LevelRewardCalculationState();
 }
 
-class TotalRow extends StatefulWidget {
-  const TotalRow({
-    super.key,
-    required this.totalStars,
-  });
+class _LevelRewardCalculationState extends State<LevelRewardCalculation> {
 
-  final int totalStars;
-
-  @override
-  State<TotalRow> createState() => _TotalRowState();
-}
-
-class _TotalRowState extends State<TotalRow> {
   int _totalStars = 0;
+  bool _hideDifficulty = true;
+  bool _hideFailedAttempts = true;
+
+  static Duration startDelay = Duration(milliseconds: 0);
+  static Duration showDelay = Duration(milliseconds: 400);
+  static Duration increaseCounterDelay = Duration(milliseconds: 200);
 
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(milliseconds: 400), () {
-      setState(() {
-        _totalStars = widget.totalStars;
+    Future.delayed(startDelay + showDelay, () {
+      _showDifficulty();
+      Future.delayed(showDelay + increaseCounterDelay, () {
+        _showFailedAttempts();
+      });
+    });
+  }
+
+  void _showDifficulty() {
+    setState(() {
+      _hideDifficulty = false;
+      Future.delayed(increaseCounterDelay, () {
+        setState(() {
+          _totalStars += widget.starsForDifficulty;
+        });
+      });
+    });
+  }
+
+  void _showFailedAttempts() {
+    setState(() {
+      _hideFailedAttempts = false;
+      Future.delayed(increaseCounterDelay, () {
+        setState(() {
+          _totalStars += widget.starsForFailedAttempts;
+        });
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.max,
+    return Column(
       children: [
-        Text(
-          "TOTAL",
-          style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                color: MyColorPalette.of(context).textSecondary,
-              ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AnimatedFlipCounter(
+              value: _totalStars,
+              prefix: "+",
+              textStyle: Theme.of(context).textTheme.titleLarge,
+            ),
+            SizedBox(width: 8.0),
+            Icon(
+              MyIcons.star,
+              size: 32,
+              color: MyColorPalette.of(context).star,
+            ),
+          ],
         ),
-        Expanded(child: Container()),
-        AnimatedFlipCounter(
-          value: _totalStars,
-          prefix: "+",
-          textStyle: Theme.of(context).textTheme.titleMedium,
-          duration: Duration(milliseconds: _totalStars * 60),
+        SizedBox(height: 16.0),
+        LevelInfo(
+          infoName: "Schwierigkeit",
+          infoValue: widget.difficulty.toUiString(),
+          hidden: _hideDifficulty,
         ),
-        SizedBox(width: 5.0),
-        Icon(
-          MyIcons.star,
-          size: 24,
-          color: MyColorPalette.of(context).star,
+        SizedBox(height: 4.0),
+        LevelInfo(
+          infoName: "Fehler",
+          infoValue: widget.failedAttempts.toString(),
+          hidden: _hideFailedAttempts,
         ),
       ],
     );
   }
 }
 
-class StarItem extends StatelessWidget {
-  const StarItem({
+class LevelInfo extends StatelessWidget {
+  const LevelInfo({
     super.key,
-    required this.title,
-    required this.value,
-    required this.starCount,
+    required this.infoName,
+    required this.infoValue,
+    required this.hidden,
   });
 
-  final String title;
-  final String value;
-  final int starCount;
+  final String infoName;
+  final String infoValue;
+  final bool hidden;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(title.toUpperCase(),
+    return AnimatedOpacity(
+      opacity: hidden ? 0 : 1,
+      duration: Duration(milliseconds: 500),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "$infoName: ",
             style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                  color: MyColorPalette.of(context).textSecondary,
-                )),
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Text(
-              value,
-              style: Theme.of(context).textTheme.labelLarge,
+              color: MyColorPalette.of(context).textSecondary,
             ),
-            Expanded(child: Container()),
-            Text(
-              "+$starCount",
-              style: Theme.of(context).textTheme.labelLarge,
-            ),
-            SizedBox(width: 3.0),
-            Icon(
-              MyIcons.star,
-              color: MyColorPalette.of(context).star,
-              size: 16,
-            )
-          ],
-        ),
-      ],
+          ),
+          Text(
+            infoValue,
+            style: Theme.of(context).textTheme.labelSmall,
+          ),
+        ],
+      ),
     );
   }
 }

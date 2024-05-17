@@ -19,6 +19,7 @@ import '../config/locator.dart';
 import '../data/models/compound.dart';
 import '../game/game_event/game_event.dart';
 import '../game/game_event/game_event_stream.dart';
+import '../game/goals/daily_goal_set_manager.dart';
 import '../game/hints/hint.dart';
 import '../game/level_provider.dart';
 import '../game/pool_game_level.dart';
@@ -57,6 +58,7 @@ abstract class GamePageState extends State<GamePage> {
   final SwappableDetector swappableDetector;
   final TutorialManager tutorialManager;
   late AdManager adManager = locator<AdManager>();
+  late DailyGoalSetManager dailyGoalSetManager = locator<DailyGoalSetManager>();
 
   late PoolGameLevel poolGameLevel;
 
@@ -367,6 +369,7 @@ abstract class GamePageState extends State<GamePage> {
 
   void showLevelCompletedDialog() async {
     final nextLevelNumber = await keyValueStore.getLevel();   // This is only used in the daily mode.
+    final dailyGoalSet = await dailyGoalSetManager.getDailyGoalSet();
     if (!context.mounted) {
       return;
     }
@@ -379,6 +382,7 @@ abstract class GamePageState extends State<GamePage> {
         difficulty: poolGameLevel.displayedDifficulty,
         failedAttempts: poolGameLevel.attemptsWatcher.overAllAttemptsFailed,
         nextLevelNumber: nextLevelNumber,
+        dailyGoalSet: dailyGoalSet,
         onContinue: (result) {
           Navigator.pop(context);
           _increaseStarCount(result.starCountIncrease, origin: StarIncreaseRequestOrigin.levelCompletion);
