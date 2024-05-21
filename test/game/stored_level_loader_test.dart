@@ -43,15 +43,15 @@ void main() {
 
   test('should skip the level if the stored game has odd component count', () async {
     final poolGameLevel = PoolGameLevel([Compounds.Krankenhaus]);
-    poolGameLevel.shownComponents.add(UniqueComponent("a", 123));
+    poolGameLevel.shownComponents.add(UniqueComponent("a"));
     final sut = createSut(poolGameLevel);
     expect(sut.loadLevel(), throwsException);
   });
 
   test("should not skip the level if the stored game has even component count", () async {
     final poolGameLevel = PoolGameLevel([Compounds.Krankenhaus]);
-    poolGameLevel.shownComponents.add(UniqueComponent("a", 123));
-    poolGameLevel.hiddenComponents.add(UniqueComponent("b", 123));
+    poolGameLevel.shownComponents.add(UniqueComponent("a"));
+    poolGameLevel.hiddenComponents.add(UniqueComponent("b"));
     final sut = createSut(poolGameLevel);
     final result = await sut.loadLevel();
     expect(result!.shownComponents, poolGameLevel.shownComponents);

@@ -6,7 +6,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kompositum/config/my_icons.dart';
 import 'package:kompositum/config/star_costs_rewards.dart';
 import 'package:kompositum/data/key_value_store.dart';
+import 'package:kompositum/data/models/compact_frequency_class.dart';
 import 'package:kompositum/data/models/unique_component.dart';
+import 'package:kompositum/game/big_compound/big_compound_game_level.dart';
+import 'package:kompositum/game/chain/chain_game_level.dart';
+import 'package:kompositum/game/chain/chain_generator.dart';
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 import 'package:kompositum/util/audio_manager.dart';
@@ -16,6 +20,7 @@ import 'package:kompositum/widgets/common/my_dialog.dart';
 import 'package:kompositum/widgets/play/star_fly_animation.dart';
 
 import '../config/locator.dart';
+import '../data/database_interface.dart';
 import '../data/models/compound.dart';
 import '../game/game_event/game_event.dart';
 import '../game/game_event/game_event_stream.dart';
@@ -31,6 +36,11 @@ import '../widgets/play/dialogs/level_completed_dialog.dart';
 import '../widgets/play/dialogs/no_attempts_left_dialog.dart';
 import '../widgets/play/dialogs/report_dialog.dart';
 import '../widgets/play/top_row.dart';
+
+
+enum GameMode {
+  Pool, AllInOne, Chain
+}
 
 class GamePage extends StatefulWidget {
   const GamePage(
@@ -50,6 +60,7 @@ abstract class GamePageState extends State<GamePage> {
     required this.keyValueStore,
     required this.swappableDetector,
     required this.tutorialManager,
+    this.gameMode = GameMode.Pool
   });
 
   final LevelProvider levelProvider;
@@ -57,6 +68,7 @@ abstract class GamePageState extends State<GamePage> {
   final KeyValueStore keyValueStore;
   final SwappableDetector swappableDetector;
   final TutorialManager tutorialManager;
+  final GameMode gameMode;
   late AdManager adManager = locator<AdManager>();
   late DailyGoalSetManager dailyGoalSetManager = locator<DailyGoalSetManager>();
 
@@ -75,9 +87,14 @@ abstract class GamePageState extends State<GamePage> {
   /// where the components should be shown in the UI but are already removed from the pool.
   UniqueComponent? dummyModifier, dummyHead;
 
-  UniqueComponent? get selectedModifier =>
-      poolGameLevel.shownComponents.firstWhereOrNull((element) =>
-          element.id == selectionTypeToComponentId[SelectionType.modifier]) ?? dummyModifier;
+  UniqueComponent? get selectedModifier {
+    if (poolGameLevel is ChainGameLevel) {
+      return dummyModifier ?? (poolGameLevel as ChainGameLevel).currentModifier;
+    }
+    final selectedId = selectionTypeToComponentId[SelectionType.modifier];
+    final selectedComponent = poolGameLevel.shownComponents.firstWhereOrNull((element) => element.id == selectedId);
+    return selectedComponent ?? dummyModifier;
+  }
 
   UniqueComponent? get selectedHead =>
       poolGameLevel.shownComponents.firstWhereOrNull((element) =>
@@ -116,15 +133,41 @@ abstract class GamePageState extends State<GamePage> {
     levelSetup = levelProvider.generateLevelSetup(levelIdentifier);
     setState(() {});
 
-    final compounds = await poolGenerator.generateFromLevelSetup(levelSetup!);
-    final swappables = await swappableDetector.getSwappables(compounds);
-    print("Finished new pool for new level");
-    poolGameLevel = PoolGameLevel(
-      compounds,
-      maxShownComponentCount: levelSetup!.maxShownComponentCount,
-      displayedDifficulty: levelSetup!.displayedDifficulty,
-      swappableCompounds: swappables,
-    );
+    if (gameMode == GameMode.Pool) {
+      final compounds = await poolGenerator.generateFromLevelSetup(levelSetup!);
+      final swappables = await swappableDetector.getSwappables(compounds);
+      print("Finished new pool for new level");
+      poolGameLevel = PoolGameLevel(
+        compounds,
+        maxShownComponentCount: levelSetup!.maxShownComponentCount,
+        displayedDifficulty: levelSetup!.displayedDifficulty,
+        swappableCompounds: swappables,
+      );
+    } else if (gameMode == GameMode.AllInOne) {
+      final generator = BigCompoundGenerator(locator<DatabaseInterface>());
+      final tree = await generator.generate();
+      print("Finished new pool for new level");
+      print(tree.toString());
+      poolGameLevel = BigCompoundGameLevel(
+        tree,
+        maxShownComponentCount: levelSetup!.maxShownComponentCount,
+        displayedDifficulty: levelSetup!.displayedDifficulty,
+        swappableCompounds: [],
+      );
+    } else if (gameMode == GameMode.Chain) {
+      final generator = ChainGenerator(locator<DatabaseInterface>());
+      final compoundChain = await generator.generate(compoundCount: 10, frequencyClass: CompactFrequencyClass.medium);
+      print("Finished new pool for new level");
+      print(compoundChain.toString());
+      poolGameLevel = ChainGameLevel(
+        compoundChain,
+        maxShownComponentCount: levelSetup!.maxShownComponentCount,
+        displayedDifficulty: levelSetup!.displayedDifficulty,
+        swappableCompounds: [],
+      );
+      toggleSelection((poolGameLevel as ChainGameLevel).currentModifier.id);
+    }
+
     _emitGameEvent(NewLevelStartGameEvent(levelSetup!, poolGameLevel));
     onPoolGameLevelUpdate();
 
@@ -220,12 +263,15 @@ abstract class GamePageState extends State<GamePage> {
     _increaseStarCount(Rewards.starsCompoundCompleted);
     _emitGameEvent(CompoundFoundGameEvent(compound));
     resetToNoSelection();
+    if (poolGameLevel is ChainGameLevel) {
+      toggleSelection((poolGameLevel as ChainGameLevel).currentModifier.id);
+    }
     onPoolGameLevelUpdate();
     _checkForEasterEgg(compound);
 
     setState(() {
-      dummyModifier = UniqueComponent(compound.modifier, 0);
-      dummyHead = UniqueComponent(compound.head, 0);
+      dummyModifier = UniqueComponent(compound.modifier);
+      dummyHead = UniqueComponent(compound.head);
     });
     Future.delayed(Duration(milliseconds: 500), () {
       setState(() {

@@ -7,12 +7,7 @@ import '../../test_data/compounds.dart';
 
 
 List<UniqueComponent> getUniqueComponents(List<String> strings) {
-  final uniqueComponents = <UniqueComponent>[];
-  var id = 0;
-  for (final string in strings) {
-    uniqueComponents.add(UniqueComponent(string, id++));
-  }
-  return uniqueComponents;
+  return strings.map((string) => UniqueComponent(string)).toList();
 }
 
 void main() {

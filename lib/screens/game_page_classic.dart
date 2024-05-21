@@ -16,15 +16,17 @@ class GamePageClassicState extends GamePageState {
     required super.keyValueStore,
     required super.swappableDetector,
     required super.tutorialManager,
+    super.gameMode
   });
 
-  factory GamePageClassicState.fromLocator() {
+  factory GamePageClassicState.fromLocator([GameMode gameMode = GameMode.Pool]) {
     return GamePageClassicState(
       levelProvider: locator<LevelProvider>(),
       poolGenerator: locator<CompoundPoolGenerator>(),
       keyValueStore: locator<KeyValueStore>(),
       swappableDetector: locator<SwappableDetector>(),
       tutorialManager: locator<TutorialManager>(),
+      gameMode: gameMode
     );
   }
 
@@ -32,6 +34,10 @@ class GamePageClassicState extends GamePageState {
 
   @override
   void startGame() async {
+    if (gameMode != GameMode.Pool) {
+      updateGameToLevel(currentLevel, isLevelAdvance: false);
+      return;
+    }
     final blocked = await keyValueStore.getBlockedCompoundNames();
     await poolGenerator.setBlockedCompounds(blocked);
 
