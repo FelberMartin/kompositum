@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:kompositum/config/my_theme.dart';
 import 'package:kompositum/config/star_costs_rewards.dart';
 import 'package:kompositum/data/key_value_store.dart';
+import 'package:kompositum/data/models/unique_component.dart';
 import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/game/pool_game_level.dart';
 import 'package:kompositum/screens/game_page.dart';
@@ -18,6 +19,12 @@ import '../mocks/mock_tutorial_manager.dart';
 import '../test_data/compounds.dart';
 import '../test_util.dart';
 
+
+
+void selectComponentByText(String text, GamePageState sut) {
+  final component = sut.poolGameLevel.shownComponents.firstWhere((element) => element.text == text);
+  sut.toggleSelection(component.id);
+}
 
 void main() {
   late MockCompoundPoolGenerator poolGenerator;
@@ -42,7 +49,6 @@ void main() {
     await nonBlockingPump(tester);
     sut = tester.state(find.byType(GamePage));
   }
-
 
   setUp(() {
     SharedPreferences.setMockInitialValues({});
@@ -97,8 +103,8 @@ void main() {
       await _pumpGamePage(tester);
       sut.poolGameLevel =
           PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
-      sut.toggleSelection(0); // Apfel
-      sut.toggleSelection(1); // Baum
+      selectComponentByText("Apfel", sut);
+      selectComponentByText("Baum", sut);
 
       await nonBlockingPump(tester);
 
@@ -114,8 +120,8 @@ void main() {
         sut.starCount = 1000;
         sut.poolGameLevel =
             PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
-        sut.toggleSelection(1); // Baum
-        sut.toggleSelection(2); // Schnee
+        selectComponentByText("Baum", sut);
+        selectComponentByText("Schnee", sut);
         sut.buyHint();
 
         expect(
@@ -129,8 +135,8 @@ void main() {
         sut.starCount = 1000;
         sut.poolGameLevel =
             PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
-        sut.toggleSelection(1); // Baum
-        sut.toggleSelection(2); // Schnee
+        selectComponentByText("Baum", sut);
+        selectComponentByText("Schnee", sut);
         sut.buyHint();
         sut.buyHint();
 
@@ -143,11 +149,12 @@ void main() {
         await _pumpGamePage(tester);
         sut.starCount = 1000;
         sut.poolGameLevel = PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
-        sut.toggleSelection(1); // Baum
-        sut.toggleSelection(2); // Schnee
+        selectComponentByText("Baum", sut);
+        selectComponentByText("Schnee", sut);
         expect(sut.poolGameLevel.attemptsWatcher.attemptsLeft, 4);
         sut.buyHint();
 
+        expect(sut.poolGameLevel.hints.length, 1);
         expect(sut.poolGameLevel.attemptsWatcher.attemptsLeft, 5);
       });
 
@@ -171,8 +178,8 @@ void main() {
           PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
       final starCountBefore = sut.starCount;
 
-      sut.toggleSelection(0); // Apfel
-      sut.toggleSelection(1); // Baum
+      selectComponentByText("Apfel", sut);
+      selectComponentByText("Baum", sut);
 
       await nonBlockingPump(tester);
       expect(sut.starCount, starCountBefore + Rewards.starsCompoundCompleted);
@@ -183,12 +190,12 @@ void main() {
           await _pumpGamePage(tester);
           sut.poolGameLevel =
               PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
-          sut.toggleSelection(0); // Apfel
-          sut.toggleSelection(1); // Baum
+          selectComponentByText("Apfel", sut);
+          selectComponentByText("Baum", sut);
           expect(sut.poolGameLevel.shownComponents.length, 2);
           expect(sut.poolGameLevel.attemptsWatcher.attemptsLeft, 5);
 
-          sut.toggleSelection(2); // Schnee
+          selectComponentByText("Schnee", sut);
           expect(sut.selectedModifier?.text, "Schnee");
           await nonBlockingPump(tester);
           expect(sut.poolGameLevel.attemptsWatcher.attemptsLeft, 5);

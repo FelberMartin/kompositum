@@ -33,7 +33,7 @@ void main() {
     sut.attemptUsed("Blau", "Apfel");
     expect(sut.attemptsLeft, 2);
     expect(sut.overAllAttemptsFailed, 1);
-    sut.resetAllAttempts();
+    sut.resetOverallAttempts();
     expect(sut.attemptsLeft, 3);
     expect(sut.overAllAttemptsFailed, 0);
   });

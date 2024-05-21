@@ -3,11 +3,11 @@ class AttemptsWatcher {
 
   final int maxAttempts;
   int _attemptsLeft;
-  int _overAllAttemptsFailed = 0;
+  int _overallAttemptsFailed = 0;
 
   int get attemptsLeft => _attemptsLeft;
   int get attemptsFailed => maxAttempts - _attemptsLeft;
-  int get overAllAttemptsFailed => _overAllAttemptsFailed;
+  int get overAllAttemptsFailed => _overallAttemptsFailed;
 
   final List<String> _usedAttempts = [];
 
@@ -21,7 +21,7 @@ class AttemptsWatcher {
     }
     _usedAttempts.add(modifier + head);
     _attemptsLeft--;
-    _overAllAttemptsFailed++;
+    _overallAttemptsFailed++;
   }
 
   /// Resets the local attempts, but keeps the overall attempts failed.
@@ -30,9 +30,9 @@ class AttemptsWatcher {
   }
 
   /// Resets all attempts, including the overall attempts failed. For when the level is reset.
-  void resetAllAttempts() {
+  void resetOverallAttempts() {
     resetLocalAttempts();
-    _overAllAttemptsFailed = 0;
+    _overallAttemptsFailed = 0;
     _usedAttempts.clear();
   }
 
@@ -47,7 +47,7 @@ class AttemptsWatcher {
   static AttemptsWatcher fromJson(Map<String, dynamic> json) {
     final result = AttemptsWatcher(maxAttempts: json['maxAttempts']);
     result._attemptsLeft = json['attemptsLeft'];
-    result._overAllAttemptsFailed = json['overAllAttemptsFailed'];
+    result._overallAttemptsFailed = json['overAllAttemptsFailed'];
     if (json.containsKey('usedAttempts')) {
       result._usedAttempts.addAll(
           (json['usedAttempts'] as List).cast<String>());
@@ -59,7 +59,7 @@ class AttemptsWatcher {
     return {
       'maxAttempts': maxAttempts,
       'attemptsLeft': _attemptsLeft,
-      'overAllAttemptsFailed': _overAllAttemptsFailed,
+      'overAllAttemptsFailed': _overallAttemptsFailed,
       'usedAttempts': _usedAttempts,
     };
   }
