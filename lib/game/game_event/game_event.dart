@@ -1,3 +1,4 @@
+import 'package:kompositum/game/game_level.dart';
 import 'package:kompositum/game/hints/hint.dart';
 
 import '../../data/models/compound.dart';
@@ -12,17 +13,17 @@ abstract class GameEvent {
 /// When a new level is started.
 class NewLevelStartGameEvent extends GameEvent {
   final LevelSetup levelSetup;
-  final PoolGameLevel poolGameLevel;
+  final GameLevel gameLevel;
 
-  const NewLevelStartGameEvent(this.levelSetup, this.poolGameLevel);
+  const NewLevelStartGameEvent(this.levelSetup, this.gameLevel);
 }
 
 /// When a level is completed.
 class LevelCompletedGameEvent extends GameEvent {
   final LevelSetup levelSetup;
-  final PoolGameLevel poolGameLevel;
+  final GameLevel gameLevel;
 
-  const LevelCompletedGameEvent(this.levelSetup, this.poolGameLevel);
+  const LevelCompletedGameEvent(this.levelSetup, this.gameLevel);
 }
 
 /// When a component in the pool is clicked.
@@ -39,9 +40,9 @@ class CompoundFoundGameEvent extends GameEvent {
 
 /// When the combined compound is invalid.
 class CompoundInvalidGameEvent extends GameEvent {
-  final PoolGameLevel poolGameLevel;
+  final GameLevel gameLevel;
 
-  const CompoundInvalidGameEvent(this.poolGameLevel);
+  const CompoundInvalidGameEvent(this.gameLevel);
 }
 
 /// When the star count should be increased.

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:kompositum/game/game_event/game_event.dart';
+import 'package:kompositum/game/game_level.dart';
 import 'package:kompositum/widgets/play/dialogs/tutorials/hidden_components_tutorial_dialog.dart';
 import 'package:kompositum/widgets/play/dialogs/tutorials/hints_tutorial_dialog.dart';
 
@@ -34,11 +35,11 @@ class TutorialManager {
   void registerGameEventStream(Stream<GameEvent> gameEventStream) {
     _gameEventStreamSubscription = gameEventStream.listen((event) {
       if (event is NewLevelStartGameEvent) {
-        _onNewLevelStart(event.levelSetup, event.poolGameLevel);
+        _onNewLevelStart(event.levelSetup, event.gameLevel);
       } else if (event is ComponentClickedGameEvent) {
         _onComponentClicked();
       } else if (event is CompoundInvalidGameEvent) {
-        _onCombinedInvalidCompound(event.poolGameLevel);
+        _onCombinedInvalidCompound(event.gameLevel);
       }
     });
   }
@@ -48,9 +49,9 @@ class TutorialManager {
     animateDialog = null;
   }
 
-  void _onNewLevelStart(LevelSetup levelSetup, PoolGameLevel poolGameLevel) {
-    _checkClickIndicator(levelSetup.levelIdentifier, poolGameLevel.shownComponents);
-    _checkHiddenComponents(poolGameLevel.hiddenComponents.length);
+  void _onNewLevelStart(LevelSetup levelSetup, GameLevel gameLevel) {
+    _checkClickIndicator(levelSetup.levelIdentifier, gameLevel.shownComponents);
+    _checkHiddenComponents(gameLevel.hiddenComponents.length);
   }
 
   void _checkClickIndicator(Object levelIdentifier, List<UniqueComponent> shownComponents) async {
@@ -73,9 +74,9 @@ class TutorialManager {
     showClickIndicatorIndex = -1;
   }
 
-  void _onCombinedInvalidCompound(PoolGameLevel poolGameLevel) {
+  void _onCombinedInvalidCompound(GameLevel gameLevel) {
     _checkMissingCompound();
-    _checkHints(poolGameLevel.attemptsWatcher.overAllAttemptsFailed);
+    _checkHints(gameLevel.attemptsWatcher.overAllAttemptsFailed);
   }
 
   void _checkMissingCompound() async {

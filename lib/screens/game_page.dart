@@ -7,6 +7,7 @@ import 'package:kompositum/config/star_costs_rewards.dart';
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/data/models/compact_frequency_class.dart';
 import 'package:kompositum/data/models/unique_component.dart';
+import 'package:kompositum/game/game_level.dart';
 import 'package:kompositum/game/modi/chain/chain_game_level.dart';
 import 'package:kompositum/game/modi/chain/generator/chain_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
@@ -70,7 +71,7 @@ abstract class GamePageState extends State<GamePage> {
   late AdManager adManager = locator<AdManager>();
   late DailyGoalSetManager dailyGoalSetManager = locator<DailyGoalSetManager>();
 
-  late PoolGameLevel poolGameLevel;
+  late GameLevel gameLevel;
 
   LevelSetup? levelSetup;
   int starCount = 0;
@@ -86,16 +87,16 @@ abstract class GamePageState extends State<GamePage> {
   UniqueComponent? dummyModifier, dummyHead;
 
   UniqueComponent? get selectedModifier {
-    if (poolGameLevel is ChainGameLevel) {
-      return dummyModifier ?? (poolGameLevel as ChainGameLevel).currentModifier;
+    if (gameLevel is ChainGameLevel) {
+      return dummyModifier ?? (gameLevel as ChainGameLevel).currentModifier;
     }
     final selectedId = selectionTypeToComponentId[SelectionType.modifier];
-    final selectedComponent = poolGameLevel.shownComponents.firstWhereOrNull((element) => element.id == selectedId);
+    final selectedComponent = gameLevel.shownComponents.firstWhereOrNull((element) => element.id == selectedId);
     return selectedComponent ?? dummyModifier;
   }
 
   UniqueComponent? get selectedHead =>
-      poolGameLevel.shownComponents.firstWhereOrNull((element) =>
+      gameLevel.shownComponents.firstWhereOrNull((element) =>
           element.id == selectionTypeToComponentId[SelectionType.head]) ?? dummyHead;
 
   @override
@@ -135,7 +136,7 @@ abstract class GamePageState extends State<GamePage> {
       final compounds = await poolGenerator.generateFromLevelSetup(levelSetup!);
       final swappables = await swappableDetector.getSwappables(compounds);
       print("Finished new pool for new level");
-      poolGameLevel = PoolGameLevel(
+      gameLevel = PoolGameLevel(
         compounds,
         maxShownComponentCount: levelSetup!.maxShownComponentCount,
         displayedDifficulty: levelSetup!.displayedDifficulty,
@@ -146,19 +147,19 @@ abstract class GamePageState extends State<GamePage> {
       final compoundChain = await generator.generate(compoundCount: 10, frequencyClass: CompactFrequencyClass.medium);
       print("Finished new pool for new level");
       print(compoundChain.toString());
-      poolGameLevel = ChainGameLevel(
+      gameLevel = ChainGameLevel(
         compoundChain,
         maxShownComponentCount: levelSetup!.maxShownComponentCount,
         displayedDifficulty: levelSetup!.displayedDifficulty,
         swappableCompounds: [],   // TODO: swappables for chain mode
       );
-      toggleSelection((poolGameLevel as ChainGameLevel).currentModifier.id);
+      toggleSelection((gameLevel as ChainGameLevel).currentModifier.id);
     } else {
       throw Exception("Unknown game mode");
     }
 
-    _emitGameEvent(NewLevelStartGameEvent(levelSetup!, poolGameLevel));
-    onPoolGameLevelUpdate();
+    _emitGameEvent(NewLevelStartGameEvent(levelSetup!, gameLevel));
+    onGameLevelUpdate();
 
     setState(() {
       isLoading = false;
@@ -169,7 +170,7 @@ abstract class GamePageState extends State<GamePage> {
 
   /// Abstract method to override in subclasses. Called whenever
   /// the poolGameLevel is updated.
-  void onPoolGameLevelUpdate();
+  void onGameLevelUpdate();
 
   void restartLevel() {
     updateGameToLevel(levelSetup!.levelIdentifier, isLevelAdvance: false);
@@ -199,7 +200,7 @@ abstract class GamePageState extends State<GamePage> {
   }
 
   void toggleSelection(int componentId) {
-    final isComponentVisible = poolGameLevel.shownComponents.any((element) => element.id == componentId);
+    final isComponentVisible = gameLevel.shownComponents.any((element) => element.id == componentId);
     if (!isComponentVisible) {
       return;
     }
@@ -227,35 +228,35 @@ abstract class GamePageState extends State<GamePage> {
       return;
     }
 
-    final compound = poolGameLevel.checkForCompound(
+    final compound = gameLevel.checkForCompound(
         selectedModifier!.text, selectedHead!.text);
 
     // Invalid compound
     if (compound == null) {
-      if (poolGameLevel.attemptsWatcher.allAttemptsUsed()) {
+      if (gameLevel.attemptsWatcher.allAttemptsUsed()) {
         showNoAttemptsLeftDialog();
       }
-      _emitGameEvent(CompoundInvalidGameEvent(poolGameLevel));
+      _emitGameEvent(CompoundInvalidGameEvent(gameLevel));
     } else {    // Valid compound
-      poolGameLevel.removeCompoundFromShown(compound, selectedModifier!,
+      gameLevel.removeCompoundFromShown(compound, selectedModifier!,
           selectedHead!);
       _compoundFound(compound);
       setState(() {});
-      if (poolGameLevel.isLevelFinished()) {
+      if (gameLevel.isLevelFinished()) {
         levelCompleted();
       }
     }
-    onPoolGameLevelUpdate();
+    onGameLevelUpdate();
   }
 
   void _compoundFound(Compound compound) {
     _increaseStarCount(Rewards.starsCompoundCompleted);
     _emitGameEvent(CompoundFoundGameEvent(compound));
     resetToNoSelection();
-    if (poolGameLevel is ChainGameLevel) {
-      toggleSelection((poolGameLevel as ChainGameLevel).currentModifier.id);
+    if (gameLevel is ChainGameLevel) {
+      toggleSelection((gameLevel as ChainGameLevel).currentModifier.id);
     }
-    onPoolGameLevelUpdate();
+    onGameLevelUpdate();
     _checkForEasterEgg(compound);
 
     setState(() {
@@ -300,7 +301,7 @@ abstract class GamePageState extends State<GamePage> {
 
   void levelCompleted() async {
     await Future.delayed(const Duration(milliseconds: 1200));
-    _emitGameEvent(LevelCompletedGameEvent(levelSetup!, poolGameLevel));
+    _emitGameEvent(LevelCompletedGameEvent(levelSetup!, gameLevel));
     showLevelCompletedDialog();
   }
 
@@ -311,9 +312,9 @@ abstract class GamePageState extends State<GamePage> {
   }
 
   List<ComponentInfo> getComponentInfos() {
-    return poolGameLevel.shownComponents.map((component) {
+    return gameLevel.shownComponents.map((component) {
       final selectionType = getSelectionTypeForComponentId(component.id);
-      final hint = poolGameLevel.hints
+      final hint = gameLevel.hints
           .firstWhereOrNull((hint) => hint.hintedComponent == component);
       return ComponentInfo(component, selectionType, hint);
     }).toList();
@@ -323,7 +324,7 @@ abstract class GamePageState extends State<GamePage> {
     if (selectedModifier == null) {
       return null;
     }
-    final hint = poolGameLevel.hints
+    final hint = gameLevel.hints
         .firstWhereOrNull((hint) => hint.hintedComponent == selectedModifier);
     return ComponentInfo(selectedModifier!, SelectionType.modifier, hint);
   }
@@ -332,7 +333,7 @@ abstract class GamePageState extends State<GamePage> {
     if (selectedHead == null) {
       return null;
     }
-    final hint = poolGameLevel.hints
+    final hint = gameLevel.hints
         .firstWhereOrNull((hint) => hint.hintedComponent == selectedHead);
     return ComponentInfo(selectedHead!, SelectionType.head, hint);
   }
@@ -344,8 +345,8 @@ abstract class GamePageState extends State<GamePage> {
       canPop: false,
       dialog: NoAttemptsLeftDialog(
         onActionPressed: onNoAttemptsLeftDialogClose,
-        isHintAvailable: poolGameLevel.canRequestHint(starCount),
-        hintCost: poolGameLevel.getHintCost(),
+        isHintAvailable: gameLevel.canRequestHint(starCount),
+        hintCost: gameLevel.getHintCost(),
       ),
     );
   }
@@ -357,12 +358,12 @@ abstract class GamePageState extends State<GamePage> {
     switch (action) {
       case NoAttemptsLeftDialogAction.hint:
         buyHint();
-        poolGameLevel.attemptsWatcher.resetLocalAttempts();
-        onPoolGameLevelUpdate();
+        gameLevel.attemptsWatcher.resetLocalAttempts();
+        onGameLevelUpdate();
         break;
       case NoAttemptsLeftDialogAction.restart:
         adManager.showAd(context).then((_) {
-          poolGameLevel.attemptsWatcher.resetOverallAttempts();
+          gameLevel.attemptsWatcher.resetOverallAttempts();
           restartLevel();
         });
         break;
@@ -370,11 +371,11 @@ abstract class GamePageState extends State<GamePage> {
   }
 
   void buyHint() {
-    if (!poolGameLevel.canRequestHint(starCount)) {
+    if (!gameLevel.canRequestHint(starCount)) {
       return;
     }
-    final cost = poolGameLevel.getHintCost();
-    final hint = poolGameLevel.requestHint(starCount)!;
+    final cost = gameLevel.getHintCost();
+    final hint = gameLevel.requestHint(starCount)!;
     resetToNoSelection();
     if (hint.type == HintComponentType.modifier) {
       selectionTypeToComponentId[SelectionType.modifier] = hint.hintedComponent.id;
@@ -382,8 +383,8 @@ abstract class GamePageState extends State<GamePage> {
 
     _emitGameEvent(HintBoughtGameEvent(hint));
     _decreaseStarCount(cost);
-    onPoolGameLevelUpdate();
-    poolGameLevel.attemptsWatcher.resetLocalAttempts();
+    onGameLevelUpdate();
+    gameLevel.attemptsWatcher.resetLocalAttempts();
     setState(() {});
   }
 
@@ -416,8 +417,8 @@ abstract class GamePageState extends State<GamePage> {
       canPop: false,
       dialog: LevelCompletedDialog(
         type: getLevelCompletedDialogType(),
-        difficulty: poolGameLevel.displayedDifficulty,
-        failedAttempts: poolGameLevel.attemptsWatcher.overAllAttemptsFailed,
+        difficulty: gameLevel.displayedDifficulty,
+        failedAttempts: gameLevel.attemptsWatcher.overAllAttemptsFailed,
         nextLevelNumber: nextLevelNumber,
         dailyGoalSetProgression: dailyGoalSetProgression,
         onContinue: (result) {
@@ -438,7 +439,7 @@ abstract class GamePageState extends State<GamePage> {
     if (selectedModifier == null || selectedHead == null) {
       return false;
     }
-    final compound = poolGameLevel.getCompoundIfExisting(
+    final compound = gameLevel.getCompoundIfExisting(
         selectedModifier!.text, selectedHead!.text);
     return compound == null;
   }
@@ -474,12 +475,12 @@ abstract class GamePageState extends State<GamePage> {
                           selectedModifier: getSelectedModifierInfo(),
                           selectedHead: getSelectedHeadInfo(),
                           onResetSelection: resetSelection,
-                          maxAttempts: poolGameLevel.attemptsWatcher.maxAttempts,
-                          attemptsLeft: poolGameLevel.attemptsWatcher.attemptsLeft,
+                          maxAttempts: gameLevel.attemptsWatcher.maxAttempts,
+                          attemptsLeft: gameLevel.attemptsWatcher.attemptsLeft,
                           gameEventStream: GameEventStream.instance.stream,
                           isReportVisible: shouldShowReportButton(),
                           onReportPressed: showReportDialog,
-                          progress: poolGameLevel.getLevelProgress(),
+                          progress: gameLevel.getLevelProgress(),
                         ),
                       ),
                       Expanded(
@@ -489,14 +490,14 @@ abstract class GamePageState extends State<GamePage> {
                             onToggleSelection: toggleSelection,
                             componentInfos: getComponentInfos(),
                             hiddenComponentsCount:
-                                poolGameLevel.hiddenComponents.length,
-                            hintCost: poolGameLevel.getHintCost(),
+                                gameLevel.hiddenComponents.length,
+                            hintCost: gameLevel.getHintCost(),
                             hintButtonInfo: MyIconButtonInfo(
                               icon: MyIcons.hint,
                               onPressed: () {
                                 buyHint();
                               },
-                              enabled: poolGameLevel.canRequestHint(starCount),
+                              enabled: gameLevel.canRequestHint(starCount),
                             ),
                             showClickIndicatorIndex: tutorialManager.showClickIndicatorIndex,
                           ),

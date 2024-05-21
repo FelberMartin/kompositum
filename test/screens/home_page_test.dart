@@ -50,7 +50,7 @@ void main() {
       await tester.tap(find.byKey(Key("daily_play_button")).hitTestable());
       await nonBlockingPump(tester);
       final GamePageDailyState state = tester.state(find.byType(GamePage)) as GamePageDailyState;
-      state.poolGameLevel = PoolGameLevel([]);
+      state.gameLevel = PoolGameLevel([]);
       state.levelCompleted();
       await nonBlockingPump(tester);
 

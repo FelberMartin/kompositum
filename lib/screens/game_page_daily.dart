@@ -46,7 +46,7 @@ class GamePageDailyState extends GamePageState {
   }
 
   @override
-  void onPoolGameLevelUpdate() {
+  void onGameLevelUpdate() {
     // Do nothing
   }
 

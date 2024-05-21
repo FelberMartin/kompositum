@@ -58,8 +58,8 @@ class GamePageClassicState extends GamePageState {
     } else {
       // Default case: Load the stored level.
       levelSetup = levelProvider.generateLevelSetup(currentLevel);
-      poolGameLevel = loadedLevel;
-      if (poolGameLevel.attemptsWatcher.allAttemptsUsed()) {
+      gameLevel = loadedLevel;
+      if (gameLevel.attemptsWatcher.allAttemptsUsed()) {
         showNoAttemptsLeftDialog();
       }
       setState(() {
@@ -86,8 +86,8 @@ class GamePageClassicState extends GamePageState {
   }
 
   @override
-  void onPoolGameLevelUpdate() {
-    keyValueStore.storeClassicPoolGameLevel(poolGameLevel);
+  void onGameLevelUpdate() {
+    keyValueStore.storeClassicPoolGameLevel(gameLevel as PoolGameLevel);
   }
 
   @override

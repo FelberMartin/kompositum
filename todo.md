@@ -4,6 +4,7 @@
 - Daily goals:
   - Dont show on homeScreen? -> if still, then adapt title color
   - All achieved -> play chain level
+    - Level Provider abstraction
   - Tutorial Dialogs:
     - DailyGoals
     - New gameMode

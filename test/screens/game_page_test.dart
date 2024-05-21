@@ -20,7 +20,7 @@ import '../test_util.dart';
 
 
 void selectComponentByText(String text, GamePageState sut) {
-  final component = sut.poolGameLevel.shownComponents.firstWhere((element) => element.text == text);
+  final component = sut.gameLevel.shownComponents.firstWhere((element) => element.text == text);
   sut.toggleSelection(component.id);
 }
 
@@ -63,8 +63,8 @@ void main() {
           "should select the toggled component as modifier, if nothing else is selected",
           (tester) async {
         await _pumpGamePage(tester);
-        sut.poolGameLevel = PoolGameLevel([Compounds.Apfelbaum]);
-        final component = sut.poolGameLevel.shownComponents[0];
+        sut.gameLevel = PoolGameLevel([Compounds.Apfelbaum]);
+        final component = sut.gameLevel.shownComponents[0];
         sut.toggleSelection(component.id);
 
         expect(sut.selectedModifier, component);
@@ -74,10 +74,10 @@ void main() {
           "should selected the toggled component as head, if a modifier is already selected",
           (tester) async {
         await _pumpGamePage(tester);
-        sut.poolGameLevel = PoolGameLevel([Compounds.Apfelbaum]);
-        final modifier = sut.poolGameLevel.shownComponents[0];
+        sut.gameLevel = PoolGameLevel([Compounds.Apfelbaum]);
+        final modifier = sut.gameLevel.shownComponents[0];
         sut.toggleSelection(modifier.id);
-        final head = sut.poolGameLevel.shownComponents[1];
+        final head = sut.gameLevel.shownComponents[1];
         sut.toggleSelection(head.id);
 
         expect(sut.selectedHead, head);
@@ -87,8 +87,8 @@ void main() {
           "should unselect the toggled component, if it is already selected",
           (tester) async {
         await _pumpGamePage(tester);
-        sut.poolGameLevel = PoolGameLevel([Compounds.Apfelbaum]);
-        final modifier = sut.poolGameLevel.shownComponents[0];
+        sut.gameLevel = PoolGameLevel([Compounds.Apfelbaum]);
+        final modifier = sut.gameLevel.shownComponents[0];
         sut.toggleSelection(modifier.id);
         sut.toggleSelection(modifier.id);
 
@@ -99,7 +99,7 @@ void main() {
     testWidgets("should reset the selection after completing a compound",
         (tester) async {
       await _pumpGamePage(tester);
-      sut.poolGameLevel =
+      sut.gameLevel =
           PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
       selectComponentByText("Apfel", sut);
       selectComponentByText("Baum", sut);
@@ -116,14 +116,14 @@ void main() {
           (tester) async {
         await _pumpGamePage(tester);
         sut.starCount = 1000;
-        sut.poolGameLevel =
+        sut.gameLevel =
             PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
         selectComponentByText("Baum", sut);
         selectComponentByText("Schnee", sut);
         sut.buyHint();
 
         expect(
-            sut.selectedModifier, sut.poolGameLevel.hints[0].hintedComponent);
+            sut.selectedModifier, sut.gameLevel.hints[0].hintedComponent);
         expect(sut.selectedHead, isNull);
       });
 
@@ -131,7 +131,7 @@ void main() {
           (tester) async {
         await _pumpGamePage(tester);
         sut.starCount = 1000;
-        sut.poolGameLevel =
+        sut.gameLevel =
             PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
         selectComponentByText("Baum", sut);
         selectComponentByText("Schnee", sut);
@@ -146,14 +146,14 @@ void main() {
           (tester) async {
         await _pumpGamePage(tester);
         sut.starCount = 1000;
-        sut.poolGameLevel = PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
+        sut.gameLevel = PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
         selectComponentByText("Baum", sut);
         selectComponentByText("Schnee", sut);
-        expect(sut.poolGameLevel.attemptsWatcher.attemptsLeft, 4);
+        expect(sut.gameLevel.attemptsWatcher.attemptsLeft, 4);
         sut.buyHint();
 
-        expect(sut.poolGameLevel.hints.length, 1);
-        expect(sut.poolGameLevel.attemptsWatcher.attemptsLeft, 5);
+        expect(sut.gameLevel.hints.length, 1);
+        expect(sut.gameLevel.attemptsWatcher.attemptsLeft, 5);
       });
 
       // This test fails when running all tests, but succeeds when running only this test
@@ -161,7 +161,7 @@ void main() {
           (tester) async {
         await _pumpGamePage(tester);
         sut.starCount = 100;
-        final hintCost = sut.poolGameLevel.getHintCost();
+        final hintCost = sut.gameLevel.getHintCost();
         sut.buyHint();
         await nonBlockingPump(tester);
 
@@ -172,7 +172,7 @@ void main() {
     testWidgets("solving a compound should increase the star counter",
         (tester) async {
       await _pumpGamePage(tester);
-      sut.poolGameLevel =
+      sut.gameLevel =
           PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
       final starCountBefore = sut.starCount;
 
@@ -186,17 +186,17 @@ void main() {
     testWidgets("B08: When quickly clicking a component after solving a compound, the attempts should not be reduced",
             (tester) async {
           await _pumpGamePage(tester);
-          sut.poolGameLevel =
+          sut.gameLevel =
               PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
           selectComponentByText("Apfel", sut);
           selectComponentByText("Baum", sut);
-          expect(sut.poolGameLevel.shownComponents.length, 2);
-          expect(sut.poolGameLevel.attemptsWatcher.attemptsLeft, 5);
+          expect(sut.gameLevel.shownComponents.length, 2);
+          expect(sut.gameLevel.attemptsWatcher.attemptsLeft, 5);
 
           selectComponentByText("Schnee", sut);
           expect(sut.selectedModifier?.text, "Schnee");
           await nonBlockingPump(tester);
-          expect(sut.poolGameLevel.attemptsWatcher.attemptsLeft, 5);
+          expect(sut.gameLevel.attemptsWatcher.attemptsLeft, 5);
         });
   });
 

@@ -266,7 +266,7 @@ class FailedAttemptsDailyGoal extends DailyGoal {
   @override
   void processGameEvent(GameEvent event) {
     if (event is LevelCompletedGameEvent &&
-        event.poolGameLevel.attemptsWatcher.overAllAttemptsFailed <= maxFailedAttempts) {
+        event.gameLevel.attemptsWatcher.overAllAttemptsFailed <= maxFailedAttempts) {
       increaseCurrentValue();
     }
   }
