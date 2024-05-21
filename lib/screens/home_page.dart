@@ -101,7 +101,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         .then((value) => value.any((day) => day.isSameDate(DateTime.now())));
     dailyGoalSetProgression = await dailyGoalSetManager.getProgression();
     dailyGoalSetManager.resetProgression();
-    print(dailyGoalSetProgression.current.progress);
 
     setState(() {
       isLoading = false;

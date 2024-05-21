@@ -4,6 +4,9 @@
 - Daily goals:
   - Dont show on homeScreen?
   - All achieved -> play chain level
+  - Dialogs:
+    - DailyGoals
+    - New gameMode
   - Remove reset button in settings
 - Locking?
   - Dailies at lvl 30

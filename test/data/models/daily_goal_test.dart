@@ -20,6 +20,12 @@ class TestDailyGoal extends DailyGoal {
   void processGameEvent(GameEvent event) {
     // do nothing
   }
+
+  @override
+  DailyGoal copy() {
+    // TODO: implement copy
+    throw UnimplementedError();
+  }
 }
 
 void main() {

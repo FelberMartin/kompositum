@@ -1,11 +1,13 @@
 import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kompositum/config/my_theme.dart';
 import 'package:kompositum/data/models/daily_goal_set.dart';
 import 'package:kompositum/game/goals/daily_goal_set_manager.dart';
 import 'package:kompositum/util/color_util.dart';
 
 import '../../data/models/daily_goal.dart';
+import '../../util/audio_manager.dart';
 
 
 void main() async {
@@ -20,7 +22,7 @@ void main() async {
 
   final goalSet2 = goalSet.copy();
   goalSet2.goals[0].increaseCurrentValue(amount: 8);
-  goalSet2.goals[1].increaseCurrentValue(amount: 10);
+  goalSet2.goals[1].increaseCurrentValue(amount: 20);
   goalSet2.goals[2].increaseCurrentValue(amount: 2);
 
   runApp(MaterialApp(
@@ -300,6 +302,7 @@ class _DailyGoalCardState extends State<DailyGoalCard> {
       Future.delayed(counterAnimationDuration + checkmarkDelay, () {
         if (mounted) {
           setState(() {
+            AudioManager.instance.playDailyGoalCompleted();
             _showCheckmark = true;
           });
         }
@@ -337,17 +340,17 @@ class _DailyGoalCardState extends State<DailyGoalCard> {
                 child: child,
               );
             },
-            child: _showCheckmark ? Text(
-                '✓',
-                style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                  color: MyColorPalette.of(context).secondary,
-                ),
+            child: _showCheckmark ?
+                Icon(
+                FontAwesomeIcons.solidCircleCheck,
+                color: MyColorPalette.of(context).secondaryShade,
+                size: 19,
               ) : AnimatedFlipCounter(
                 value: widget.dailyGoal.currentValue,
                 suffix: "/${widget.dailyGoal.targetValue}",
                 duration: counterAnimationDuration,
                 textStyle: Theme.of(context).textTheme.labelMedium!.copyWith(
-                  color: MyColorPalette.of(context).secondary,
+                  color: MyColorPalette.of(context).secondaryShade,
                 ),
               ),
           ),

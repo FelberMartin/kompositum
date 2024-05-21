@@ -79,6 +79,10 @@ class AudioManager {
     _playAsset("incorrect.wav");
   }
 
+  void playDailyGoalCompleted() {
+    _playAsset("win_02.wav", volume: 0.2);
+  }
+
   void _playAsset(String asset, {double volume = 0.3}) async {
     if (_isMuted) return;
 
@@ -161,6 +165,12 @@ void main() {
               AudioManager.instance.playHint();
             },
             child: Text("Hint"),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              AudioManager.instance.playDailyGoalCompleted();
+            },
+            child: Text("Daily goal completed"),
           ),
           ElevatedButton(
             onPressed: () {
