@@ -166,6 +166,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                     key: ValueKey(dailyGoalSetProgression.current.progress),
                     progression: dailyGoalSetProgression,
                     animationStartDelay: Duration.zero,
+                    onPlaySecretLevel: () {}, // TODO
                   ),
                 ),
                 Expanded(flex: 1, child: Container()),
@@ -285,7 +286,7 @@ class DailyLevelContainer extends StatelessWidget {
                           color: MyColorPalette.of(context).textSecondary))
                       : isDailyFinished!
                       ? Icon(
-                        FontAwesomeIcons.check,
+                        MyIcons.check,
                         color: Theme.of(context).colorScheme.onSecondary,
                         size: 32,
                       )

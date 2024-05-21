@@ -120,7 +120,7 @@ final myTheme = ThemeData(
       onSecondary: _palette.onSecondary,
       error: undefined,
       onError: undefined,
-      background: undefined,
+      background: _palette.primary,
       onBackground: _palette.primary,
       surface: _palette.onSecondary,
       onSurface: _palette.secondaryShade,

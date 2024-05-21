@@ -8,6 +8,7 @@
     - DailyGoals
     - New gameMode
   - Remove reset button in settings
+  - Look for todos in code
 - Locking?
   - Dailies at lvl 30
   - Daily Goals at lvl 50

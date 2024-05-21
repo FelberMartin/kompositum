@@ -146,7 +146,10 @@ class _LevelCompletedDialogState extends State<LevelCompletedDialog> {
                 starsForDifficulty: starsForDifficulty,
               ),
               Expanded(child: Container()),
-              widget.dailyGoalSetProgression != null ? DailyGoalsContainer(progression: widget.dailyGoalSetProgression!) : Container(),
+              widget.dailyGoalSetProgression != null ? DailyGoalsContainer(
+                progression: widget.dailyGoalSetProgression!,
+                onPlaySecretLevel: () {},   // TODO
+              ) : Container(),
               Expanded(child: Container()),
               _BottomContent(
                 onContinue: widget.onContinue,

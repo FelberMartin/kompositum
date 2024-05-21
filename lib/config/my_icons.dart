@@ -22,4 +22,7 @@ class MyIcons {
   static const IconData info = FontAwesomeIcons.circleInfo;
   static const IconData clickIndicator = FontAwesomeIcons.solidHandPointer;
   static const IconData share = FontAwesomeIcons.share;
+
+  static const IconData lock = FontAwesomeIcons.lockOpen;
+  static const IconData check = FontAwesomeIcons.check;
 }

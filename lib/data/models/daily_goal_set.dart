@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import '../../game/game_event/game_event.dart';
-import '../../objectbox.g.dart';
 import '../../util/random_util.dart';
 import 'daily_goal.dart';
 
@@ -11,10 +10,12 @@ class DailyGoalSet {
 
   final DateTime date;
   final List<DailyGoal> goals;
+  bool isSecretLevelCompleted;
 
   DailyGoalSet({
     required this.date,
     required this.goals,
+    this.isSecretLevelCompleted = false,
   });
 
   bool get isAchieved => goals.every((goal) => goal.isAchieved);
@@ -26,6 +27,7 @@ class DailyGoalSet {
   }) {
     final date = DateTime.parse(map['date'] as String);
     final created = DailyGoalSet.generate(creationSeed: creationSeed, date: date);
+    created.isSecretLevelCompleted = map['isSecretLevelCompleted'] as bool;
     created.goals[0].increaseCurrentValue(amount: map['goal1CurrentValue'] as int);
     created.goals[1].increaseCurrentValue(amount: map['goal2CurrentValue'] as int);
     created.goals[2].increaseCurrentValue(amount: map['goal3CurrentValue'] as int);
@@ -35,6 +37,7 @@ class DailyGoalSet {
   Map<String, dynamic> toJson() {
     return {
       'date': date.toIso8601String(),
+      'isSecretLevelCompleted': isSecretLevelCompleted,
       'goal1CurrentValue': goals[0].currentValue,
       'goal2CurrentValue': goals[1].currentValue,
       'goal3CurrentValue': goals[2].currentValue,
@@ -70,13 +73,14 @@ class DailyGoalSet {
 
   @override
   String toString() {
-    return 'DailyGoalSet{date: $date, goals: $goals}';
+    return 'DailyGoalSet{date: $date, secretLevel: $isSecretLevelCompleted, goals: $goals}';
   }
 
   DailyGoalSet copy() {
     return DailyGoalSet(
       date: date,
       goals: goals.map((goal) => goal.copy()).toList(),
+      isSecretLevelCompleted: isSecretLevelCompleted,
     );
   }
 

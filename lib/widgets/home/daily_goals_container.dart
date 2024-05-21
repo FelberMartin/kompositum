@@ -1,6 +1,7 @@
 import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kompositum/config/my_icons.dart';
 import 'package:kompositum/config/my_theme.dart';
 import 'package:kompositum/data/models/daily_goal_set.dart';
 import 'package:kompositum/game/goals/daily_goal_set_manager.dart';
@@ -8,6 +9,7 @@ import 'package:kompositum/util/color_util.dart';
 
 import '../../data/models/daily_goal.dart';
 import '../../util/audio_manager.dart';
+import '../common/my_buttons.dart';
 
 
 void main() async {
@@ -34,6 +36,7 @@ void main() async {
           padding: const EdgeInsets.all(20),
           child: DailyGoalsContainer(
             progression: DailyGoalSetProgression(goalSet, goalSet2),
+            onPlaySecretLevel: () {},
           ),
         )
       ],
@@ -45,10 +48,12 @@ class DailyGoalsContainer extends StatefulWidget {
   DailyGoalsContainer({
     super.key,
     required this.progression,
+    required this.onPlaySecretLevel,
     this.animationStartDelay = const Duration(milliseconds: 2000),
   });
 
   final DailyGoalSetProgression progression;
+  final Function onPlaySecretLevel;
   final Duration animationStartDelay;
 
   @override
@@ -64,6 +69,7 @@ class _DailyGoalsContainerState extends State<DailyGoalsContainer> with SingleTi
   late double _currentProgress;
 
   int _goalIndex = 0;
+  late bool _showAllAchieved = dailyGoalSet.isAchieved;
 
   static Duration goalAnimationDuration = Duration(milliseconds: 1000);
 
@@ -100,6 +106,8 @@ class _DailyGoalsContainerState extends State<DailyGoalsContainer> with SingleTi
     _goalIndex++;
     if (_goalIndex < dailyGoalSet.goals.length) {
       _transitionToNextGoalProgression();
+    } else if (dailyGoalSet.isAchieved) {
+      _allAchievedAnimation();
     }
   }
 
@@ -115,6 +123,12 @@ class _DailyGoalsContainerState extends State<DailyGoalsContainer> with SingleTi
     });
     _controller.duration = goalAnimationDuration;
     _controller.forward(from: 0.0);
+  }
+
+  void _allAchievedAnimation() {
+    _showAllAchieved = true;
+    setState(() {});
+    // TODO
   }
 
   @override
@@ -134,29 +148,58 @@ class _DailyGoalsContainerState extends State<DailyGoalsContainer> with SingleTi
         Material(
           borderRadius: BorderRadius.circular(12),
           elevation: 4,
-          child: Container(
+          child: AnimatedContainer(
+            duration: Duration(milliseconds: 500),
             constraints: BoxConstraints(
               maxWidth: 320,
+              minHeight: 80,
             ),
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              gradient: getContainerGradient(_currentProgress, context),
+              gradient: getContainerGradient(_currentProgress, _showAllAchieved, context),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Column(
-              children: [
-                GoalsRow(dailyGoalSet: dailyGoalSet),
-                SizedBox(height: 8),
-                ProgressRow(progress: _currentProgress),
-              ],
-            ),
+            child: fillContainer(context),
           ),
         ),
       ],
     );
   }
 
-  Gradient getContainerGradient(double progress, BuildContext context) {
+  Widget fillContainer(BuildContext context) {
+    // Secret level completed
+    if (dailyGoalSet.isSecretLevelCompleted) {
+      return _SecretLevelDone();
+    }
+
+    // All goal achieved, Play secret level
+    if (_showAllAchieved) {
+      return _PlaySecretLevel(onSecretLevelPlay: widget.onPlaySecretLevel);
+    }
+
+    // Goal progression
+    return Column(
+      children: [
+        GoalsRow(dailyGoalSet: dailyGoalSet),
+        SizedBox(height: 8),
+        ProgressRow(progress: _currentProgress),
+      ],
+    );
+
+  }
+
+  static Gradient getContainerGradient(double progress, bool allAchieved, BuildContext context) {
+    if (allAchieved) {
+      return RadialGradient(
+        colors: [
+          MyColorPalette.of(context).secondary,
+          MyColorPalette.of(context).primary,
+        ],
+        stops: [0.0, 1.0],
+        center: Alignment.bottomCenter * 1.5,
+        radius: 1.5,
+      );
+    }
     var stop1 = 0.0 + progress;
     var stop2 = 0.3 + progress * 0.8;
 
@@ -169,6 +212,71 @@ class _DailyGoalsContainerState extends State<DailyGoalsContainer> with SingleTi
       stops: [stop1, stop2],
       begin: Alignment.centerLeft,
       end: Alignment.centerRight,
+    );
+  }
+}
+
+class _SecretLevelDone extends StatelessWidget {
+  const _SecretLevelDone({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Verstecktes Level absolviert!',
+            style: Theme.of(context).textTheme.labelSmall!.copyWith(
+              color: MyColorPalette.of(context).onPrimary,
+            ),
+          ),
+          SizedBox(width: 12),
+          Icon(
+            MyIcons.check,
+            color: MyColorPalette.of(context).onPrimary,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _PlaySecretLevel extends StatelessWidget {
+  const _PlaySecretLevel({
+    super.key,
+    required this.onSecretLevelPlay,
+  });
+
+  final Function onSecretLevelPlay;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        children: [
+          Icon(
+            MyIcons.lock,
+            color: MyColorPalette.of(context).onPrimary,
+          ),
+          SizedBox(width: 12),
+          Text(
+            'Verstecktes Level',
+            style: Theme.of(context).textTheme.labelSmall!.copyWith(
+              color: MyColorPalette.of(context).onPrimary,
+            ),
+          ),
+          Expanded(child: Container()),
+          MySecondaryTextButton(
+            onPressed: onSecretLevelPlay,
+            text: 'Spielen',
+          ),
+        ],
+      ),
     );
   }
 }

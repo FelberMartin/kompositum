@@ -23,9 +23,11 @@ void main() {
   group("json", () {
     test("toJson and fromJson are inverses", () {
       final goalSet = DailyGoalSet.generate(creationSeed: 0, date: DateTime.now());
+      goalSet.isSecretLevelCompleted = true;
       final json = goalSet.toJson();
       final goalSet2 = DailyGoalSet.fromJson(map: json, creationSeed: 0);
       expect(goalSet.date, goalSet2.date);
+      expect(goalSet.isSecretLevelCompleted, goalSet2.isSecretLevelCompleted);
       expect(goalSet.goals[0], goalSet2.goals[0]);
       expect(goalSet.goals[1], goalSet2.goals[1]);
       expect(goalSet.goals[2], goalSet2.goals[2]);
