@@ -2,9 +2,9 @@
 ## 1.0 Release
 ### Next up
 - Daily goals:
-  - Dont show on homeScreen?
+  - Dont show on homeScreen? -> if still, then adapt title color
   - All achieved -> play chain level
-  - Dialogs:
+  - Tutorial Dialogs:
     - DailyGoals
     - New gameMode
   - Remove reset button in settings

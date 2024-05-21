@@ -23,7 +23,6 @@ class TestDailyGoal extends DailyGoal {
 
   @override
   DailyGoal copy() {
-    // TODO: implement copy
     throw UnimplementedError();
   }
 }
@@ -89,7 +88,7 @@ void main() {
 
   test("UseHintsDailyGoal", () {
     final goal = UseHintsDailyGoal(targetValue: 1);
-    final hint = Hint(UniqueComponent("test", 0), HintComponentType.head);
+    final hint = Hint(UniqueComponent("test"), HintComponentType.head);
     goal.processGameEvent(HintBoughtGameEvent(hint));
     expect(goal.currentValue, 1);
   });

@@ -8,7 +8,6 @@ import 'package:kompositum/config/star_costs_rewards.dart';
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/data/models/compact_frequency_class.dart';
 import 'package:kompositum/data/models/unique_component.dart';
-import 'package:kompositum/game/big_compound/big_compound_game_level.dart';
 import 'package:kompositum/game/chain/chain_game_level.dart';
 import 'package:kompositum/game/chain/chain_generator.dart';
 import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
@@ -39,7 +38,7 @@ import '../widgets/play/top_row.dart';
 
 
 enum GameMode {
-  Pool, AllInOne, Chain
+  Pool, Chain
 }
 
 class GamePage extends StatefulWidget {
@@ -143,17 +142,6 @@ abstract class GamePageState extends State<GamePage> {
         displayedDifficulty: levelSetup!.displayedDifficulty,
         swappableCompounds: swappables,
       );
-    } else if (gameMode == GameMode.AllInOne) {
-      final generator = BigCompoundGenerator(locator<DatabaseInterface>());
-      final tree = await generator.generate();
-      print("Finished new pool for new level");
-      print(tree.toString());
-      poolGameLevel = BigCompoundGameLevel(
-        tree,
-        maxShownComponentCount: levelSetup!.maxShownComponentCount,
-        displayedDifficulty: levelSetup!.displayedDifficulty,
-        swappableCompounds: [],
-      );
     } else if (gameMode == GameMode.Chain) {
       final generator = ChainGenerator(locator<DatabaseInterface>());
       final compoundChain = await generator.generate(compoundCount: 10, frequencyClass: CompactFrequencyClass.medium);
@@ -163,9 +151,11 @@ abstract class GamePageState extends State<GamePage> {
         compoundChain,
         maxShownComponentCount: levelSetup!.maxShownComponentCount,
         displayedDifficulty: levelSetup!.displayedDifficulty,
-        swappableCompounds: [],
+        swappableCompounds: [],   // TODO: swappables for chain mode
       );
       toggleSelection((poolGameLevel as ChainGameLevel).currentModifier.id);
+    } else {
+      throw Exception("Unknown game mode");
     }
 
     _emitGameEvent(NewLevelStartGameEvent(levelSetup!, poolGameLevel));
