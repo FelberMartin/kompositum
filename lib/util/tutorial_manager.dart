@@ -9,7 +9,7 @@ import '../config/star_costs_rewards.dart';
 import '../data/key_value_store.dart';
 import '../data/models/unique_component.dart';
 import '../game/level_provider.dart';
-import '../game/pool_game_level.dart';
+import '../game/modi/pool/pool_game_level.dart';
 import '../widgets/play/dialogs/tutorials/missing_compound_tutorial_dialog.dart';
 
 enum TutorialPart {

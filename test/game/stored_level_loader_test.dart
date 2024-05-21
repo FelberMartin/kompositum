@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/data/models/unique_component.dart';
+import 'package:kompositum/game/modi/pool/pool_game_level.dart';
 import 'package:kompositum/game/stored_level_loader.dart';
-import 'package:kompositum/game/pool_game_level.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
 

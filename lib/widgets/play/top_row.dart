@@ -1,7 +1,5 @@
 import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:kompositum/config/my_icons.dart';
 
 import '../../config/my_theme.dart';
 import '../../game/level_provider.dart';

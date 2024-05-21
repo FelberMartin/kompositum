@@ -1,16 +1,10 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-import 'package:kompositum/game/game_event/game_event_stream.dart';
 import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/screens/game_page_classic.dart';
 import 'package:kompositum/screens/settings_page.dart';
 import 'package:kompositum/util/app_lifecycle_reactor.dart';
-import 'package:kompositum/util/audio_manager.dart';
 import 'package:kompositum/util/date_util.dart';
 import 'package:kompositum/util/notifications/notifictaion_manager.dart';
 import 'package:kompositum/widgets/common/my_3d_container.dart';
@@ -23,11 +17,7 @@ import '../config/locator.dart';
 import '../config/my_icons.dart';
 import '../config/my_theme.dart';
 import '../data/key_value_store.dart';
-import '../data/models/daily_goal_set.dart';
 import '../game/goals/daily_goal_set_manager.dart';
-import '../game/pool_generator/compound_pool_generator.dart';
-import '../game/swappable_detector.dart';
-import '../widgets/common/my_app_bar.dart';
 import '../widgets/common/my_background.dart';
 import '../widgets/common/util/clip_shadow_path.dart';
 import '../widgets/common/util/rounded_edge_clipper.dart';

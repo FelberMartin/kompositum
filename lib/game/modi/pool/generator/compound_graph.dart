@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:graph_collection/graph.dart';
 
-import '../../data/models/compound.dart';
+import '../../../../data/models/compound.dart';
 
 /// A graph that represents compounds. Each compound is represented by a modifier
 /// and a head. The graph is directed, with the modifier pointing to the head.

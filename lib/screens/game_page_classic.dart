@@ -1,13 +1,14 @@
+import 'package:kompositum/game/modi/pool/pool_game_level.dart';
+
 import '../config/locator.dart';
 import '../data/key_value_store.dart';
 import '../game/level_provider.dart';
-import '../game/pool_generator/compound_pool_generator.dart';
+import '../game/modi/pool/generator/compound_pool_generator.dart';
 import '../game/stored_level_loader.dart';
 import '../game/swappable_detector.dart';
 import '../util/tutorial_manager.dart';
 import '../widgets/play/dialogs/level_completed_dialog.dart';
 import 'game_page.dart';
-import 'package:kompositum/game/pool_game_level.dart';
 
 class GamePageClassicState extends GamePageState {
   GamePageClassicState({

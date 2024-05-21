@@ -1,10 +1,9 @@
 
 import 'dart:convert';
 
-import 'package:kompositum/util/audio_manager.dart';
+import 'package:kompositum/game/modi/pool/pool_game_level.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../game/pool_game_level.dart';
 import '../util/tutorial_manager.dart';
 import 'models/compound.dart';
 import 'models/daily_goal_set.dart';

@@ -5,12 +5,12 @@ import 'package:kompositum/data/models/unique_component.dart';
 import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 
-import '../../config/star_costs_rewards.dart';
-import '../../data/models/compound.dart';
-import '../attempts_watcher.dart';
-import '../hints/hint.dart';
-import '../pool_game_level.dart';
-import 'chain_generator.dart';
+import '../../../config/star_costs_rewards.dart';
+import '../../../data/models/compound.dart';
+import '../../attempts_watcher.dart';
+import '../../hints/hint.dart';
+import '../pool/pool_game_level.dart';
+import 'generator/chain_generator.dart';
 
 
 

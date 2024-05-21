@@ -1,7 +1,6 @@
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/util/date_util.dart';
 import 'package:kompositum/util/notifications/daily_notification_scheduler.dart';
-import 'package:kompositum/util/notifications/notifictaion_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
 

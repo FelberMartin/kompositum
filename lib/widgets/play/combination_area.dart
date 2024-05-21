@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kompositum/config/my_icons.dart';
 import 'package:kompositum/game/game_event/game_event.dart';
 import 'package:kompositum/widgets/common/my_icon_button.dart';

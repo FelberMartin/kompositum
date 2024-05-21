@@ -2,15 +2,13 @@ import 'dart:async';
 
 import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kompositum/config/my_icons.dart';
 import 'package:kompositum/config/star_costs_rewards.dart';
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/data/models/compact_frequency_class.dart';
 import 'package:kompositum/data/models/unique_component.dart';
-import 'package:kompositum/game/chain/chain_game_level.dart';
-import 'package:kompositum/game/chain/chain_generator.dart';
-import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
+import 'package:kompositum/game/modi/chain/chain_game_level.dart';
+import 'package:kompositum/game/modi/chain/generator/chain_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 import 'package:kompositum/util/audio_manager.dart';
 import 'package:kompositum/util/tutorial_manager.dart';
@@ -26,7 +24,8 @@ import '../game/game_event/game_event_stream.dart';
 import '../game/goals/daily_goal_set_manager.dart';
 import '../game/hints/hint.dart';
 import '../game/level_provider.dart';
-import '../game/pool_game_level.dart';
+import '../game/modi/pool/generator/compound_pool_generator.dart';
+import '../game/modi/pool/pool_game_level.dart';
 import '../util/ads/ad_manager.dart';
 import '../widgets/common/my_icon_button.dart';
 import '../widgets/play/bottom_content.dart';

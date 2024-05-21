@@ -13,7 +13,6 @@ import '../../../config/star_costs_rewards.dart';
 import '../../../data/models/daily_goal.dart';
 import '../../../data/models/daily_goal_set.dart';
 import '../../../game/goals/daily_goal_set_manager.dart';
-import '../../common/my_dialog.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

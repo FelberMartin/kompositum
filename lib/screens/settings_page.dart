@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kompositum/config/my_icons.dart';
 import 'package:kompositum/data/key_value_store.dart';

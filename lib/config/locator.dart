@@ -1,5 +1,12 @@
 import 'package:get_it/get_it.dart';
-import 'package:kompositum/game/pool_generator/graph_based_pool_generator.dart';
+import 'package:kompositum/data/compound_origin.dart';
+import 'package:kompositum/data/database_initializer.dart';
+import 'package:kompositum/data/database_interface.dart';
+import 'package:kompositum/data/key_value_store.dart';
+import 'package:kompositum/game/goals/daily_goal_set_manager.dart';
+import 'package:kompositum/game/level_provider.dart';
+import 'package:kompositum/game/modi/pool/generator/compound_pool_generator.dart';
+import 'package:kompositum/game/modi/pool/generator/graph_based_pool_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 import 'package:kompositum/util/ads/ad_manager.dart';
 import 'package:kompositum/util/app_version_provider.dart';
@@ -9,13 +16,6 @@ import 'package:kompositum/util/notifications/notifictaion_manager.dart';
 import 'package:kompositum/util/tutorial_manager.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../data/compound_origin.dart';
-import '../data/database_initializer.dart';
-import '../data/database_interface.dart';
-import '../data/key_value_store.dart';
-import '../game/goals/daily_goal_set_manager.dart';
-import '../game/level_provider.dart';
-import '../game/pool_generator/compound_pool_generator.dart';
 
 final locator = GetIt.instance;
 

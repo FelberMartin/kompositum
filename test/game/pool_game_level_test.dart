@@ -2,7 +2,7 @@ import 'package:kompositum/config/star_costs_rewards.dart';
 import 'package:kompositum/data/models/compound.dart';
 import 'package:kompositum/data/models/unique_component.dart';
 import 'package:kompositum/game/hints/hint.dart';
-import 'package:kompositum/game/pool_game_level.dart';
+import 'package:kompositum/game/modi/pool/pool_game_level.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 import 'package:test/test.dart';
 

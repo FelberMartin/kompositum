@@ -1,14 +1,11 @@
-import 'dart:collection';
 import 'dart:math';
 
 import 'package:kompositum/data/database_interface.dart';
 import 'package:kompositum/data/models/unique_component.dart';
-import 'package:kompositum/util/random_util.dart';
-import 'package:kompositum/util/string_util.dart';
 
-import '../../data/models/compact_frequency_class.dart';
-import '../../data/models/compound.dart';
-import '../pool_generator/compound_graph.dart';
+import '../../../../data/models/compact_frequency_class.dart';
+import '../../../../data/models/compound.dart';
+import '../../pool/generator/compound_graph.dart';
 
 class ComponentChain {
   final List<UniqueComponent> components;

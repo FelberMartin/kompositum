@@ -1,10 +1,10 @@
 import 'dart:math';
 
 import 'package:kompositum/data/models/compound.dart';
-import 'package:kompositum/game/pool_generator/compound_graph.dart';
+import 'package:kompositum/game/modi/pool/generator/compound_graph.dart';
 import 'package:test/test.dart';
 
-import '../../test_data/compounds.dart';
+import '../../../test_data/compounds.dart';
 
 void main() {
   group("fromCompounds", () {

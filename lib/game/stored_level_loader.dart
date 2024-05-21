@@ -1,6 +1,6 @@
-import 'package:kompositum/game/pool_game_level.dart';
 
 import '../data/key_value_store.dart';
+import 'modi/pool/pool_game_level.dart';
 
 class StoredLevelLoader {
 

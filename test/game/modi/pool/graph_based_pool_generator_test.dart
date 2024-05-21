@@ -1,13 +1,13 @@
 import 'package:kompositum/data/database_interface.dart';
 import 'package:kompositum/data/models/compact_frequency_class.dart';
 import 'package:kompositum/data/models/compound.dart';
-import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
-import 'package:kompositum/game/pool_generator/graph_based_pool_generator.dart';
+import 'package:kompositum/game/modi/pool/generator/compound_pool_generator.dart';
+import 'package:kompositum/game/modi/pool/generator/graph_based_pool_generator.dart';
 import 'package:test/test.dart';
 
-import '../../mocks/mock_database_initializer.dart';
-import '../../mocks/mock_database_interface.dart';
-import '../../test_data/compounds.dart';
+import '../../../mocks/mock_database_initializer.dart';
+import '../../../mocks/mock_database_interface.dart';
+import '../../../test_data/compounds.dart';
 import 'compound_pool_generator_test.dart';
 
 void main() {

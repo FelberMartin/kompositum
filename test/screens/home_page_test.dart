@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kompositum/config/my_theme.dart';
-import 'package:kompositum/game/pool_game_level.dart';
+import 'package:kompositum/game/modi/pool/pool_game_level.dart';
 import 'package:kompositum/main.dart';
 import 'package:kompositum/screens/daily_overview_page.dart';
 import 'package:kompositum/screens/game_page.dart';

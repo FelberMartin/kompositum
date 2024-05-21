@@ -2,10 +2,9 @@ import 'dart:collection';
 import 'dart:math';
 
 import 'package:kompositum/data/database_interface.dart';
-
-import '../../data/models/compact_frequency_class.dart';
-import '../../data/models/compound.dart';
-import '../level_provider.dart';
+import 'package:kompositum/data/models/compact_frequency_class.dart';
+import 'package:kompositum/data/models/compound.dart';
+import 'package:kompositum/game/level_provider.dart';
 
 abstract class CompoundPoolGenerator {
   final DatabaseInterface databaseInterface;
