@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import 'package:kompositum/game/difficulty.dart';
 import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/screens/game_page_classic.dart';
 import 'package:kompositum/screens/settings_page.dart';
@@ -86,7 +87,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     starCount = await keyValueStore.getStarCount();
     currentLevel = await keyValueStore.getLevel();
     currentLevelDifficulty = locator<LevelProvider>()
-        .generateLevelSetup(currentLevel).displayedDifficulty;
+        .generateLevelSetup(currentLevel).difficulty;
     isDailyFinished = await keyValueStore.getDailiesCompleted()
         .then((value) => value.any((day) => day.isSameDate(DateTime.now())));
     dailyGoalSetProgression = await dailyGoalSetManager.getProgression();
@@ -344,7 +345,7 @@ class PlayButton extends StatelessWidget {
             ),
             SizedBox(height: 4.0),
             Text(
-              currentLevelDifficulty.toUiString(),
+              currentLevelDifficulty.uiText,
               style: Theme.of(context).textTheme.labelSmall,
             )
           ],

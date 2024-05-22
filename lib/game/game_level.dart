@@ -6,12 +6,13 @@ import 'package:kompositum/config/star_costs_rewards.dart';
 import 'package:kompositum/data/models/compound.dart';
 import 'package:kompositum/data/models/unique_component.dart';
 import 'package:kompositum/game/attempts_watcher.dart';
+import 'package:kompositum/game/difficulty.dart';
 import 'package:kompositum/game/hints/hint.dart';
-import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 
 
 abstract class GameLevel {
+
   final int maxShownComponentCount;
 
   @protected
@@ -23,14 +24,12 @@ abstract class GameLevel {
   final shownComponents = <UniqueComponent>[];
   final hiddenComponents = <UniqueComponent>[];
 
-  final Difficulty displayedDifficulty;
   final hints = <Hint>[];
 
   late AttemptsWatcher attemptsWatcher;
 
   GameLevel({
-    this.maxShownComponentCount = 11,
-    this.displayedDifficulty = Difficulty.easy,
+    this.maxShownComponentCount = 9,
     this.swappableCompounds = const [],
   }) {
     attemptsWatcher = AttemptsWatcher();

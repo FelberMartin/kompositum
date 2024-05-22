@@ -9,6 +9,7 @@ import 'package:kompositum/game/goals/daily_goal_set_manager.dart';
 import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/game/modi/pool/generator/compound_pool_generator.dart';
 import 'package:kompositum/game/modi/pool/generator/graph_based_pool_generator.dart';
+import 'package:kompositum/game/modi/pool/pool_level_provider.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 import 'package:kompositum/util/ads/ad_manager.dart';
 import 'package:kompositum/util/app_version_provider.dart';

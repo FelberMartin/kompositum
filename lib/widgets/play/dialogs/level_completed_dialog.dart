@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
 import 'package:kompositum/config/locator.dart';
-import 'package:kompositum/game/level_provider.dart';
+import 'package:kompositum/game/difficulty.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 import 'package:kompositum/widgets/home/daily_goals_container.dart';
 
@@ -248,7 +248,7 @@ class _LevelRewardCalculationState extends State<LevelRewardCalculation> {
         SizedBox(height: 16.0),
         LevelInfo(
           infoName: "Schwierigkeit",
-          infoValue: widget.difficulty.toUiString(),
+          infoValue: widget.difficulty.uiText,
           hidden: _hideDifficulty,
         ),
         SizedBox(height: 4.0),

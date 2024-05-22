@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:kompositum/game/game_event/game_event.dart';
 import 'package:kompositum/game/game_level.dart';
+import 'package:kompositum/game/level_setup.dart';
 import 'package:kompositum/widgets/play/dialogs/tutorials/hidden_components_tutorial_dialog.dart';
 import 'package:kompositum/widgets/play/dialogs/tutorials/hints_tutorial_dialog.dart';
 

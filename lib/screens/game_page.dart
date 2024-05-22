@@ -8,6 +8,7 @@ import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/data/models/compact_frequency_class.dart';
 import 'package:kompositum/data/models/unique_component.dart';
 import 'package:kompositum/game/game_level.dart';
+import 'package:kompositum/game/level_setup.dart';
 import 'package:kompositum/game/modi/chain/chain_game_level.dart';
 import 'package:kompositum/game/modi/chain/generator/chain_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
@@ -138,8 +139,7 @@ abstract class GamePageState extends State<GamePage> {
       print("Finished new pool for new level");
       gameLevel = PoolGameLevel(
         compounds,
-        maxShownComponentCount: levelSetup!.maxShownComponentCount,
-        displayedDifficulty: levelSetup!.displayedDifficulty,
+        maxShownComponentCount: levelSetup!.difficulty.maxShownComponentCount,
         swappableCompounds: swappables,
       );
     } else if (gameMode == GameMode.Chain) {
@@ -149,11 +149,12 @@ abstract class GamePageState extends State<GamePage> {
       print(compoundChain.toString());
       gameLevel = ChainGameLevel(
         compoundChain,
-        maxShownComponentCount: levelSetup!.maxShownComponentCount,
-        displayedDifficulty: levelSetup!.displayedDifficulty,
+        maxShownComponentCount: levelSetup!.difficulty.maxShownComponentCount,
         swappableCompounds: [],   // TODO: swappables for chain mode
       );
       toggleSelection((gameLevel as ChainGameLevel).currentModifier.id);
+      // TODO:  SecretGamePageState
+      // TODO: make daily extend classicPool
     } else {
       throw Exception("Unknown game mode");
     }
@@ -167,6 +168,9 @@ abstract class GamePageState extends State<GamePage> {
   }
 
   Future<void> preLevelUpdate(Object levelIdentifier, isLevelAdvance);
+
+  // TODO: implement method
+  Future<GameLevel> generateGameLevel(LevelSetup levelSetup);
 
   /// Abstract method to override in subclasses. Called whenever
   /// the poolGameLevel is updated.
@@ -417,7 +421,7 @@ abstract class GamePageState extends State<GamePage> {
       canPop: false,
       dialog: LevelCompletedDialog(
         type: getLevelCompletedDialogType(),
-        difficulty: gameLevel.displayedDifficulty,
+        difficulty: levelSetup!.difficulty,
         failedAttempts: gameLevel.attemptsWatcher.overAllAttemptsFailed,
         nextLevelNumber: nextLevelNumber,
         dailyGoalSetProgression: dailyGoalSetProgression,
@@ -460,7 +464,7 @@ abstract class GamePageState extends State<GamePage> {
                   onBackPressed: () {
                     Navigator.pop(context);
                   },
-                  displayedDifficulty: levelSetup!.displayedDifficulty,
+                  difficulty: levelSetup!.difficulty,
                   title: getLevelTitle(),
                   starCount: starCount,
                 ),

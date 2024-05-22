@@ -5,6 +5,7 @@ import 'package:kompositum/data/database_interface.dart';
 import 'package:kompositum/data/models/compact_frequency_class.dart';
 import 'package:kompositum/data/models/compound.dart';
 import 'package:kompositum/game/level_provider.dart';
+import 'package:kompositum/game/level_setup.dart';
 
 abstract class CompoundPoolGenerator {
   final DatabaseInterface databaseInterface;
@@ -22,7 +23,7 @@ abstract class CompoundPoolGenerator {
     }
     return generate(
       compoundCount: levelSetup.compoundCount,
-      frequencyClass: levelSetup.frequencyClass,
+      frequencyClass: levelSetup.difficulty.frequencyClass,
       seed: levelSetup.poolGenerationSeed,
       ignoreBlockedCompounds: levelSetup.ignoreBlockedCompounds,
     );

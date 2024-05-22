@@ -1,5 +1,6 @@
 import 'package:kompositum/game/game_level.dart';
 import 'package:kompositum/game/hints/hint.dart';
+import 'package:kompositum/game/level_setup.dart';
 
 import '../../data/models/compound.dart';
 import '../level_provider.dart';

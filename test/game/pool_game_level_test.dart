@@ -193,7 +193,6 @@ void main() {
       final sut2 = PoolGameLevel.fromJson(json);
 
       expect(sut2.maxShownComponentCount, equals(3));
-      expect(sut2.displayedDifficulty, equals(sut.displayedDifficulty));
       expect(sut2.shownComponents, containsAllInOrder(sut.shownComponents));
       expect(sut2.hiddenComponents, containsAllInOrder(sut.hiddenComponents));
       expect(sut2.swappableCompounds, containsAllInOrder(sut.swappableCompounds));

@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
 import 'package:kompositum/data/models/unique_component.dart';
+import 'package:kompositum/game/difficulty.dart';
 import 'package:kompositum/game/game_level.dart';
 import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/game/swappable_detector.dart';
@@ -18,8 +19,7 @@ class PoolGameLevel extends GameLevel {
   PoolGameLevel(
     List<Compound> allCompounds,
     {
-      super.maxShownComponentCount = 11,
-      super.displayedDifficulty = Difficulty.easy,
+      super.maxShownComponentCount = 9,
       super.swappableCompounds = const [],
   }) {
     super.setup(
@@ -47,7 +47,6 @@ class PoolGameLevel extends GameLevel {
     final hints = (json['hints'] as List)
         .map((hint) => Hint.fromJson(hint))
         .toList();
-    final displayedDifficulty = Difficulty.values[json['displayedDifficulty'] as int];
     final maxShownComponentCount = json['maxShownComponentCount'] as int;
     final attemptsWatcher = json.containsKey('attemptsWatcher') ? AttemptsWatcher.fromJson(json['attemptsWatcher']) : AttemptsWatcher();
 
@@ -55,8 +54,7 @@ class PoolGameLevel extends GameLevel {
     final poolGameLevel = PoolGameLevel(
       allCompounds,
       swappableCompounds: swappableCompounds,
-      displayedDifficulty: displayedDifficulty,
-      maxShownComponentCount: maxShownComponentCount
+      maxShownComponentCount: maxShownComponentCount,
     );
 
     poolGameLevel.shownComponents.clear();
@@ -77,7 +75,6 @@ class PoolGameLevel extends GameLevel {
     'shownComponents': shownComponents.map((component) => component.toJson()).toList(),
     'hiddenComponents': hiddenComponents.map((component) => component.toJson()).toList(),
     'hints': hints.map((hint) => hint.toJson()).toList(),
-    'displayedDifficulty': displayedDifficulty.index,
     'maxShownComponentCount': maxShownComponentCount,
     'attemptsWatcher': attemptsWatcher.toJson(),
   };

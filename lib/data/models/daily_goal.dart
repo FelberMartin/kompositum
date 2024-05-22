@@ -1,5 +1,8 @@
 import 'dart:math';
 
+import 'package:kompositum/game/difficulty.dart';
+import 'package:kompositum/game/level_setup.dart';
+
 import '../../game/game_event/game_event.dart';
 import '../../game/level_provider.dart';
 
@@ -199,7 +202,7 @@ abstract class CompleteDifficultyDailyGoal extends DailyGoal {
   @override
   void processGameEvent(GameEvent event) {
     if (event is LevelCompletedGameEvent &&
-        event.levelSetup.displayedDifficulty == difficulty) {
+        event.levelSetup.difficulty == difficulty) {
       increaseCurrentValue();
     }
   }

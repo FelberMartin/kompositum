@@ -3,8 +3,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:kompositum/config/my_theme.dart';
 import 'package:kompositum/config/star_costs_rewards.dart';
 import 'package:kompositum/data/key_value_store.dart';
-import 'package:kompositum/game/level_provider.dart';
+import 'package:kompositum/game/level_setup.dart';
 import 'package:kompositum/game/modi/pool/pool_game_level.dart';
+import 'package:kompositum/game/modi/pool/pool_level_provider.dart';
 import 'package:kompositum/screens/game_page.dart';
 import 'package:kompositum/screens/game_page_classic.dart';
 import 'package:kompositum/util/tutorial_manager.dart';
@@ -26,7 +27,7 @@ void selectComponentByText(String text, GamePageState sut) {
 
 void main() {
   late MockCompoundPoolGenerator poolGenerator;
-  final levelProvider = BasicLevelProvider();
+  final levelProvider = LogarithmicLevelProvider();
   final keyValueStore = KeyValueStore();
   final swappableDetector = MockSwappableDetector();
   TutorialManager tutorialManager = MockTutorialManager();

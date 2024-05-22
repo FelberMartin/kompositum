@@ -1,9 +1,11 @@
 import 'package:kompositum/data/models/daily_goal.dart';
 import 'package:kompositum/data/models/unique_component.dart';
 import 'package:kompositum/game/attempts_watcher.dart';
+import 'package:kompositum/game/difficulty.dart';
 import 'package:kompositum/game/game_event/game_event.dart';
 import 'package:kompositum/game/hints/hint.dart';
 import 'package:kompositum/game/level_provider.dart';
+import 'package:kompositum/game/modi/pool/pool_level_provider.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
@@ -140,17 +142,17 @@ void main() {
   test("CompleteEasyLevelsDailyGoal", () {
     final goal = CompleteEasyLevelsDailyGoal(targetValue: 3);
     var levelSetup = MockLevelSetup();
-    when(() => levelSetup.displayedDifficulty).thenReturn(Difficulty.easy);
+    when(() => levelSetup.difficulty).thenReturn(Difficulty.easy);
     final poolGameLevel = MockPoolGameLevel();
     goal.processGameEvent(LevelCompletedGameEvent(levelSetup, poolGameLevel));
     expect(goal.currentValue, 1);
 
     // test that it does not increase for other difficulties
-    when(() => levelSetup.displayedDifficulty).thenReturn(Difficulty.medium);
+    when(() => levelSetup.difficulty).thenReturn(Difficulty.medium);
     goal.processGameEvent(LevelCompletedGameEvent(levelSetup, poolGameLevel));
     expect(goal.currentValue, 1);
 
-    when(() => levelSetup.displayedDifficulty).thenReturn(Difficulty.hard);
+    when(() => levelSetup.difficulty).thenReturn(Difficulty.hard);
     goal.processGameEvent(LevelCompletedGameEvent(levelSetup, poolGameLevel));
     expect(goal.currentValue, 1);
   });
@@ -158,7 +160,7 @@ void main() {
   test("CompleteMediumLevelsDailyGoal", () {
     final goal = CompleteMediumLevelsDailyGoal(targetValue: 1);
     var levelSetup = MockLevelSetup();
-    when(() => levelSetup.displayedDifficulty).thenReturn(Difficulty.medium);
+    when(() => levelSetup.difficulty).thenReturn(Difficulty.medium);
     final poolGameLevel = MockPoolGameLevel();
     goal.processGameEvent(LevelCompletedGameEvent(levelSetup, poolGameLevel));
     expect(goal.currentValue, 1);
@@ -167,7 +169,7 @@ void main() {
   test("CompleteHardLevelsDailyGoal", () {
     final goal = CompleteHardLevelsDailyGoal(targetValue: 1);
     var levelSetup = MockLevelSetup();
-    when(() => levelSetup.displayedDifficulty).thenReturn(Difficulty.hard);
+    when(() => levelSetup.difficulty).thenReturn(Difficulty.hard);
     final poolGameLevel = MockPoolGameLevel();
     goal.processGameEvent(LevelCompletedGameEvent(levelSetup, poolGameLevel));
     expect(goal.currentValue, 1);

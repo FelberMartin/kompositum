@@ -1,4 +1,5 @@
 import 'package:kompositum/game/level_provider.dart';
+import 'package:kompositum/game/level_setup.dart';
 import 'package:kompositum/game/modi/pool/pool_game_level.dart';
 import 'package:kompositum/util/tutorial_manager.dart';
 import 'package:mocktail/mocktail.dart';

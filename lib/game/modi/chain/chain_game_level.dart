@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
 import 'package:kompositum/data/models/unique_component.dart';
+import 'package:kompositum/game/difficulty.dart';
 import 'package:kompositum/game/game_level.dart';
 import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/game/swappable_detector.dart';
@@ -22,8 +23,7 @@ class ChainGameLevel extends GameLevel {
   ChainGameLevel(
     ComponentChain componentChain,
     {
-      super.maxShownComponentCount = 11,
-      super.displayedDifficulty = Difficulty.easy,
+      super.maxShownComponentCount = 9,
       super.swappableCompounds = const [],
   }) {
     final components = componentChain.components;

@@ -1,21 +1,21 @@
 import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
+import 'package:kompositum/game/difficulty.dart';
 
 import '../../config/my_theme.dart';
-import '../../game/level_provider.dart';
 import '../common/my_app_bar.dart';
 
 class TopRow extends StatelessWidget implements PreferredSizeWidget {
   const TopRow({
     super.key,
     required this.onBackPressed,
-    required this.displayedDifficulty,
+    required this.difficulty,
     required this.title,
     required this.starCount,
   });
 
   final VoidCallback onBackPressed;
-  final Difficulty displayedDifficulty;
+  final Difficulty difficulty;
   final String title;
   final int starCount;
 
@@ -47,7 +47,7 @@ class TopRow extends StatelessWidget implements PreferredSizeWidget {
           titleWidget,
           SizedBox(height: 4.0),
           Text(
-            displayedDifficulty.toUiString().toLowerCase(),
+            difficulty.uiText.toLowerCase(),
             style: Theme.of(context).textTheme.labelSmall!.copyWith(
               color: MyColorPalette.of(context).textSecondary,
             ),

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:kompositum/game/modi/pool/generator/compound_pool_generator.dart';
+import 'package:kompositum/game/modi/pool/pool_level_provider.dart';
 import 'package:kompositum/screens/game_page.dart';
 
 import '../config/locator.dart';
 import '../data/key_value_store.dart';
-import '../game/level_provider.dart';
 import '../game/swappable_detector.dart';
 import '../util/notifications/daily_notification_scheduler.dart';
 import '../util/tutorial_manager.dart';

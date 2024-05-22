@@ -4,6 +4,7 @@ import 'package:kompositum/data/models/compound.dart';
 import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/game/modi/pool/generator/compound_pool_generator.dart';
 import 'package:kompositum/game/modi/pool/generator/graph_based_pool_generator.dart';
+import 'package:kompositum/game/modi/pool/pool_level_provider.dart';
 import 'package:test/test.dart';
 
 import '../../../config/test_locator.dart';
@@ -212,7 +213,7 @@ void runGeneralPoolGeneratorTests(
     setupTestLocator();
     final poolGenerator = GraphBasedPoolGenerator(
         locator<DatabaseInterface>());
-    final levelProvider = BasicLevelProvider();
+    final levelProvider = LogarithmicLevelProvider();
 
     for (int level = 1; level < 30; level++) {
       final stopwatch = Stopwatch()..start();

@@ -1,4 +1,6 @@
 
+import 'package:kompositum/game/difficulty.dart';
+
 import '../game/level_provider.dart';
 
 class Costs {
@@ -31,6 +33,8 @@ class Rewards {
         return starsMediumLevel;
       case Difficulty.hard:
         return starsHardLevel;
+      default:
+        throw Exception("Unknown difficulty: $difficulty");
     }
   }
 
