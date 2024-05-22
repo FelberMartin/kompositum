@@ -8,8 +8,8 @@ import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/game/goals/daily_goal_set_manager.dart';
 import 'package:kompositum/game/level_setup_provider.dart';
 import 'package:kompositum/game/modi/classic/classic_level_setup_provider.dart';
-import 'package:kompositum/game/modi/classic/generator/compound_pool_generator.dart';
-import 'package:kompositum/game/modi/classic/generator/graph_based_pool_generator.dart';
+import 'package:kompositum/game/level_content_generator.dart';
+import 'package:kompositum/game/modi/classic/generator/graph_based_classic_level_content_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 import 'package:kompositum/util/ads/ad_manager.dart';
 import 'package:kompositum/util/app_version_provider.dart';
@@ -38,7 +38,7 @@ Future<void> setupTestLocator() async {
       forceReset: true
   ));
   locator.registerSingleton<DatabaseInterface>(DatabaseInterface(locator<DatabaseInitializer>()));
-  locator.registerSingleton<CompoundPoolGenerator>(GraphBasedPoolGenerator(locator<DatabaseInterface>()));
+  locator.registerSingleton<LevelContentGenerator>(GraphBasedClassicLevelContentGenerator(locator<DatabaseInterface>()));
   locator.registerSingleton<LevelSetupProvider>(LogarithmicLevelSetupProvider());
 
   locator.registerSingleton<SwappableDetector>(SwappableDetector(locator<DatabaseInterface>()));

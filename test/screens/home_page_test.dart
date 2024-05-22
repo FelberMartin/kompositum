@@ -50,7 +50,7 @@ void main() {
       await tester.tap(find.byKey(Key("daily_play_button")).hitTestable());
       await nonBlockingPump(tester);
       final DailyClassicGamePageState state = tester.state(find.byType(GamePage)) as DailyClassicGamePageState;
-      state.gameLevel = ClassicGameLevel([]);
+      state.gameLevel = ClassicGameLevelExtension.of([]);
       state.levelCompleted();
       await nonBlockingPump(tester);
 

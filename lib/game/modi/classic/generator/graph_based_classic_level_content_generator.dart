@@ -2,15 +2,16 @@ import 'dart:math';
 
 import 'package:kompositum/data/models/compact_frequency_class.dart';
 import 'package:kompositum/data/models/compound.dart';
+import 'package:kompositum/game/modi/classic/generator/classic_level_content.dart';
 import 'package:kompositum/game/modi/classic/generator/compound_graph.dart';
-import 'package:kompositum/game/modi/classic/generator/compound_pool_generator.dart';
+import 'package:kompositum/game/level_content_generator.dart';
 import 'package:kompositum/util/string_util.dart';
 
 
-class GraphBasedPoolGenerator extends CompoundPoolGenerator<List<Compound>> {
+class GraphBasedClassicLevelContentGenerator extends LevelContentGenerator<ClassicLevelContent> {
   late final Future<CompoundGraph> _fullGraph;
 
-  GraphBasedPoolGenerator(super.databaseInterface,
+  GraphBasedClassicLevelContentGenerator(super.databaseInterface,
       {super.blockLastN}) {
     _fullGraph = _getFullGraph();
   }
@@ -21,7 +22,7 @@ class GraphBasedPoolGenerator extends CompoundPoolGenerator<List<Compound>> {
   }
 
   @override
-  Future<List<Compound>> generateRestricted({
+  Future<ClassicLevelContent> generateRestricted({
     required int compoundCount,
     required CompactFrequencyClass frequencyClass,
     List<Compound> blockedCompounds = const [],
@@ -66,6 +67,6 @@ class GraphBasedPoolGenerator extends CompoundPoolGenerator<List<Compound>> {
         "Remaining selectable compounds: ${selectableGraph.getAllComponents().length}"
             " (took ${stopWatch.elapsedMilliseconds} ms)");
 
-    return compounds;
+    return ClassicLevelContent(compounds);
   }
 }

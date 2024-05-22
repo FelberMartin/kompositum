@@ -2,12 +2,13 @@ import 'dart:math';
 
 import 'package:kompositum/data/models/compact_frequency_class.dart';
 import 'package:kompositum/data/models/compound.dart';
-import 'package:kompositum/game/modi/classic/generator/compound_pool_generator.dart';
+import 'package:kompositum/game/level_content_generator.dart';
+import 'package:kompositum/game/modi/classic/generator/classic_level_content.dart';
 import 'package:kompositum/util/random_util.dart';
 import 'package:mocktail/mocktail.dart';
 
 
-class MockCompoundPoolGenerator extends Mock implements CompoundPoolGenerator {
+class MockCompoundPoolGenerator extends Mock implements LevelContentGenerator<ClassicLevelContent> {
   @override
   List<Compound> getBlockedCompounds() {
     return [];
@@ -20,12 +21,12 @@ class MockCompoundPoolGenerator extends Mock implements CompoundPoolGenerator {
 }
 
 
-class SimpleTestCompoundPoolGenerator extends CompoundPoolGenerator {
+class SimpleTestCompoundPoolGenerator extends LevelContentGenerator {
   SimpleTestCompoundPoolGenerator(super.databaseInterface,
       {super.blockLastN});
 
   @override
-  Future<List<Compound>> generateRestricted(
+  Future<ClassicLevelContent> generateRestricted(
       {required int compoundCount,
         required CompactFrequencyClass frequencyClass,
         List<Compound> blockedCompounds = const [],
@@ -39,6 +40,6 @@ class SimpleTestCompoundPoolGenerator extends CompoundPoolGenerator {
     final sample = randomSampleWithoutReplacement(
         possibleCompounds, compoundCount,
         random: random);
-    return Future.value(sample);
+    return Future.value(ClassicLevelContent(sample));
   }
 }

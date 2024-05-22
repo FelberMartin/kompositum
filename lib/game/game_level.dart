@@ -8,6 +8,7 @@ import 'package:kompositum/data/models/unique_component.dart';
 import 'package:kompositum/game/attempts_watcher.dart';
 import 'package:kompositum/game/difficulty.dart';
 import 'package:kompositum/game/hints/hint.dart';
+import 'package:kompositum/game/level_content.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 
 

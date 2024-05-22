@@ -4,7 +4,7 @@ import 'package:kompositum/game/modi/classic/classic_game_page_state.dart';
 import '../../../config/locator.dart';
 import '../../../data/key_value_store.dart';
 import '../../level_setup_provider.dart';
-import 'generator/compound_pool_generator.dart';
+import '../../level_content_generator.dart';
 import '../../stored_level_loader.dart';
 import '../../swappable_detector.dart';
 import '../../../util/tutorial_manager.dart';
@@ -12,8 +12,8 @@ import '../../../widgets/play/dialogs/level_completed_dialog.dart';
 
 class MainClassicGamePageState extends ClassicGamePageState {
   MainClassicGamePageState({
-    required super.levelProvider,
-    required super.poolGenerator,
+    required super.levelSetupProvider,
+    required super.levelContentGenerator,
     required super.keyValueStore,
     required super.swappableDetector,
     required super.tutorialManager,
@@ -21,8 +21,8 @@ class MainClassicGamePageState extends ClassicGamePageState {
 
   factory MainClassicGamePageState.fromLocator() {
     return MainClassicGamePageState(
-      levelProvider: locator<LevelSetupProvider>(),
-      poolGenerator: locator<CompoundPoolGenerator>(),
+      levelSetupProvider: locator<LevelSetupProvider>(),
+      levelContentGenerator: locator<LevelContentGenerator>(),
       keyValueStore: locator<KeyValueStore>(),
       swappableDetector: locator<SwappableDetector>(),
       tutorialManager: locator<TutorialManager>(),
@@ -34,7 +34,7 @@ class MainClassicGamePageState extends ClassicGamePageState {
   @override
   void startGame() async {
     final blocked = await keyValueStore.getBlockedCompoundNames();
-    await poolGenerator.setBlockedCompounds(blocked);
+    await levelContentGenerator.setBlockedCompounds(blocked);
 
     currentLevel = await keyValueStore.getLevel();
     final levelLoader = StoredLevelLoader(keyValueStore);
@@ -51,7 +51,7 @@ class MainClassicGamePageState extends ClassicGamePageState {
       updateGameToLevel(currentLevel, isLevelAdvance: false);
     } else {
       // Default case: Load the stored level.
-      levelSetup = levelProvider.generateLevelSetup(currentLevel);
+      levelSetup = levelSetupProvider.generateLevelSetup(currentLevel);
       gameLevel = loadedLevel;
       if (gameLevel.attemptsWatcher.allAttemptsUsed()) {
         showNoAttemptsLeftDialog();
@@ -72,16 +72,16 @@ class MainClassicGamePageState extends ClassicGamePageState {
       // Save the blocked compounds BEFORE the generation of the new level,
       // so that when regenerating the same level later, the same compounds
       // are blocked.
-      await keyValueStore.storeBlockedCompounds(poolGenerator.getBlockedCompounds());
+      await keyValueStore.storeBlockedCompounds(levelContentGenerator.getBlockedCompounds());
     } else {
       final blocked = await keyValueStore.getBlockedCompoundNames();
-      await poolGenerator.setBlockedCompounds(blocked);
+      await levelContentGenerator.setBlockedCompounds(blocked);
     }
   }
 
   @override
   void onGameLevelUpdate() {
-    keyValueStore.storeClassicPoolGameLevel(gameLevel as ClassicGameLevel);
+    keyValueStore.storeClassicGameLevel(gameLevel as ClassicGameLevel);
   }
 
   @override

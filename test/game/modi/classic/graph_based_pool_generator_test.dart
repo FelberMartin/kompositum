@@ -1,8 +1,8 @@
 import 'package:kompositum/data/database_interface.dart';
 import 'package:kompositum/data/models/compact_frequency_class.dart';
 import 'package:kompositum/data/models/compound.dart';
-import 'package:kompositum/game/modi/classic/generator/compound_pool_generator.dart';
-import 'package:kompositum/game/modi/classic/generator/graph_based_pool_generator.dart';
+import 'package:kompositum/game/level_content_generator.dart';
+import 'package:kompositum/game/modi/classic/generator/graph_based_classic_level_content_generator.dart';
 import 'package:test/test.dart';
 
 import '../../../mocks/mock_database_initializer.dart';
@@ -12,14 +12,14 @@ import 'compound_pool_generator_test.dart';
 
 void main() {
   final databaseInterface = MockDatabaseInterface();
-  late CompoundPoolGenerator sut;
+  late LevelContentGenerator sut;
 
   runGeneralPoolGeneratorTests((
     databaseInterface,
     {
       int blockLastN = 50
     }) =>
-      GraphBasedPoolGenerator(
+      GraphBasedClassicLevelContentGenerator(
           databaseInterface,
           blockLastN: blockLastN
       )
@@ -33,7 +33,7 @@ void main() {
         Compounds.Kuchenform,
         Compounds.Formsache
       ];
-      sut = GraphBasedPoolGenerator(databaseInterface);
+      sut = GraphBasedClassicLevelContentGenerator(databaseInterface);
       final compounds = await sut.generate(
         frequencyClass: CompactFrequencyClass.easy,
         compoundCount: 3,
@@ -45,7 +45,7 @@ void main() {
   test("should not return duplicates", () async {
     for (int i = 0; i < 10; i++) {
       databaseInterface.compounds = [Compounds.Apfelkuchen, Compounds.Schneemann];
-        sut = GraphBasedPoolGenerator(databaseInterface);
+        sut = GraphBasedClassicLevelContentGenerator(databaseInterface);
         final compounds = await sut.generateRestricted(
         frequencyClass: CompactFrequencyClass.easy,
         compoundCount: 3,
@@ -61,7 +61,7 @@ void main() {
         Compound(id: 0, name: "Elfmeter", modifier: "elf", head: "Meter", frequencyClass: 1),
         Compound(id: 0, name: "Nationalelf", modifier: "national", head: "Elf", frequencyClass: 1),
       ];
-      sut = GraphBasedPoolGenerator(databaseInterface);
+      sut = GraphBasedClassicLevelContentGenerator(databaseInterface);
       final compounds = await sut.generate(
         frequencyClass: CompactFrequencyClass.easy,
         compoundCount: 3,
@@ -76,7 +76,7 @@ void main() {
       Compound(id: 0, name: "Überflussgesellschaft", modifier: "Überfluss", head: "Gesellschaft", frequencyClass: 1),
     ]);
     final objectBoxInterface = DatabaseInterface(databaseInitializer);
-    sut = GraphBasedPoolGenerator(objectBoxInterface);
+    sut = GraphBasedClassicLevelContentGenerator(objectBoxInterface);
     final compounds = await sut.generate(
       frequencyClass: CompactFrequencyClass.easy,
       compoundCount: 2,

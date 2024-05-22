@@ -20,7 +20,7 @@ void main() {
   late ClassicGameLevel sut;
 
   setUp(() {
-    sut = ClassicGameLevel([Compounds.Krankenhaus]);
+    sut = ClassicGameLevelExtension.of([Compounds.Krankenhaus]);
   });
 
   group("getCompoundIfExisting", () {
@@ -40,14 +40,14 @@ void main() {
     });
 
     test("should return the swapped compound if it exists", () {
-      sut = ClassicGameLevel([Compounds.Maschinenbau], swappableCompounds: [Swappable(Compounds.Maschinenbau, Compounds.Baumaschine)]);
+      sut = ClassicGameLevelExtension.of([Compounds.Maschinenbau], swappableCompounds: [Swappable(Compounds.Maschinenbau, Compounds.Baumaschine)]);
       final result = sut.getCompoundIfExisting("Bau", "Maschine");
       expect(result, isNotNull);
       expect(result, Compounds.Baumaschine);
     });
 
     test("should return the compound and not the swapped version if entered non-swapped", () {
-      sut = ClassicGameLevel([Compounds.Maschinenbau], swappableCompounds: [Swappable(Compounds.Maschinenbau, Compounds.Baumaschine)]);
+      sut = ClassicGameLevelExtension.of([Compounds.Maschinenbau], swappableCompounds: [Swappable(Compounds.Maschinenbau, Compounds.Baumaschine)]);
       final result = sut.getCompoundIfExisting("Maschine", "Bau");
       expect(result, isNotNull);
       expect(result, Compounds.Maschinenbau);
@@ -65,7 +65,7 @@ void main() {
     test(
         "should fill the shown components with new components",
         () {
-      sut = ClassicGameLevel([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 2);
+      sut = ClassicGameLevelExtension.of([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 2);
       sut.shownComponents.clear();
       sut.shownComponents.addAll(UniqueComponent.fromCompounds([Compounds.Krankenhaus]));
       sut.hiddenComponents.clear();
@@ -76,7 +76,7 @@ void main() {
     });
 
     test("should remove the original of the swapped compound if it exists", () {
-      sut = ClassicGameLevel([Compounds.Maschinenbau], swappableCompounds: [Swappable(Compounds.Maschinenbau, Compounds.Baumaschine)]);
+      sut = ClassicGameLevelExtension.of([Compounds.Maschinenbau], swappableCompounds: [Swappable(Compounds.Maschinenbau, Compounds.Baumaschine)]);
       removeCompoundHelper(sut, Compounds.Baumaschine);
       expect(sut.shownComponents, isEmpty);
     });
@@ -97,7 +97,7 @@ void main() {
     test(
         "should return the next component if there are more unshown components",
         () async {
-      sut = ClassicGameLevel([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 2);
+      sut = ClassicGameLevelExtension.of([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 2);
 
       final nextComponent = sut.getNextShownComponent();
       expect(nextComponent, isNotInList(sut.shownComponents));
@@ -106,7 +106,7 @@ void main() {
     test(
         "if there are are no compounds in the shown pool, the last getNextShownComponent adds a compound",
         () async {
-        sut = ClassicGameLevel(
+        sut = ClassicGameLevelExtension.of(
           Compounds.all,
           maxShownComponentCount: 2,
         );
@@ -127,14 +127,14 @@ void main() {
     });
 
     test("should return the same component for the same passed seed", () {
-      sut = ClassicGameLevel([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 2);
+      sut = ClassicGameLevelExtension.of([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 2);
       final firstComponent = sut.getNextShownComponent(seed: 1);
       final secondComponent = sut.getNextShownComponent(seed: 1);
       expect(firstComponent, equals(secondComponent));
     });
 
     test("should return different components if no seed is passed", () {
-      sut = ClassicGameLevel([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 2);
+      sut = ClassicGameLevelExtension.of([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 2);
       final components = <UniqueComponent>[];
       for (var i = 0; i < 10; i++) {
         components.add(sut.getNextShownComponent());
@@ -162,7 +162,7 @@ void main() {
     });
 
     test("should remove the hint if the hinted component is solved", () {
-      sut = ClassicGameLevel([Compounds.Krankenhaus], maxShownComponentCount: 2);
+      sut = ClassicGameLevelExtension.of([Compounds.Krankenhaus], maxShownComponentCount: 2);
       sut.requestHint(999);
       expect(sut.hints, hasLength(1));
       expect(sut.hints.first.hintedComponent.text, "krank");
@@ -173,7 +173,7 @@ void main() {
     });
 
     test("should not remove the hint if the hinted component is not solved", () {
-      sut = ClassicGameLevel([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 4);
+      sut = ClassicGameLevelExtension.of([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 4);
       sut.hints.add(Hint(UniqueComponent("krank"), HintComponentType.modifier));
 
       removeCompoundHelper(sut, Compounds.Apfelbaum);
@@ -183,7 +183,7 @@ void main() {
 
   group("json", () {
     test("should keep the main attributes after toJson -> fromJson", () {
-      sut = ClassicGameLevel(
+      sut = ClassicGameLevelExtension.of(
         [Compounds.Krankenhaus, Compounds.Apfelbaum],
         maxShownComponentCount: 3,
         swappableCompounds: [Swappable(Compounds.Maschinenbau, Compounds.Baumaschine)],

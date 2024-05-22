@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:kompositum/game/level_setup.dart';
+
 import '../../game/game_event/game_event.dart';
 import '../../util/random_util.dart';
 import 'daily_goal.dart';
@@ -66,6 +68,9 @@ class DailyGoalSet {
   }
 
   void processGameEvent(GameEvent event) {
+    if (event is LevelCompletedGameEvent && event.levelSetup.levelType == LevelType.secretChain) {
+      isSecretLevelCompleted = true;
+    }
     for (final goal in goals) {
       goal.processGameEvent(event);
     }

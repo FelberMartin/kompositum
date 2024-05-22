@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:kompositum/game/modi/classic/classic_game_page_state.dart';
 import 'package:kompositum/game/modi/classic/classic_level_setup_provider.dart';
-import 'package:kompositum/game/modi/classic/generator/compound_pool_generator.dart';
+import 'package:kompositum/game/level_content_generator.dart';
 import 'package:kompositum/game/modi/classic/main_classic_game_page_state.dart';
 import 'package:kompositum/screens/game_page.dart';
 
@@ -15,8 +15,8 @@ import '../../../widgets/play/dialogs/level_completed_dialog.dart';
 
 class DailyClassicGamePageState extends ClassicGamePageState {
   DailyClassicGamePageState({
-    required super.levelProvider,
-    required super.poolGenerator,
+    required super.levelSetupProvider,
+    required super.levelContentGenerator,
     required super.keyValueStore,
     required super.swappableDetector,
     required super.tutorialManager,
@@ -25,8 +25,8 @@ class DailyClassicGamePageState extends ClassicGamePageState {
 
   factory DailyClassicGamePageState.fromLocator(DateTime date) {
     return DailyClassicGamePageState(
-      levelProvider: DailyLevelSetupProvider(),
-      poolGenerator: locator<CompoundPoolGenerator>(),
+      levelSetupProvider: DailyLevelSetupProvider(),
+      levelContentGenerator: locator<LevelContentGenerator>(),
       keyValueStore: locator<KeyValueStore>(),
       swappableDetector: locator<SwappableDetector>(),
       tutorialManager: locator<TutorialManager>(),

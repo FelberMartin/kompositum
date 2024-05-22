@@ -1,8 +1,9 @@
 import 'package:kompositum/data/database_interface.dart';
 import 'package:kompositum/data/models/compound.dart';
 import 'package:kompositum/data/models/unique_component.dart';
+import 'package:kompositum/game/level_content.dart';
 
-class ComponentChain {
+class ComponentChain extends LevelContent {
   final List<UniqueComponent> components;
   final List<Compound> compounds;
 
@@ -32,6 +33,11 @@ class ComponentChain {
   @override
   String toString() {
     return components.map((component) => component.text).join(" ");
+  }
+
+  @override
+  List<Compound> getCompounds() {
+    return compounds;
   }
 
 }

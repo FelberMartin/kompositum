@@ -5,6 +5,7 @@ import 'package:kompositum/data/models/unique_component.dart';
 import 'package:kompositum/game/difficulty.dart';
 import 'package:kompositum/game/game_level.dart';
 import 'package:kompositum/game/level_setup_provider.dart';
+import 'package:kompositum/game/modi/classic/generator/classic_level_content.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 
 import '../../../config/star_costs_rewards.dart';
@@ -17,14 +18,14 @@ import '../../hints/hint.dart';
 class ClassicGameLevel extends GameLevel {
 
   ClassicGameLevel(
-    List<Compound> allCompounds,
+    ClassicLevelContent levelContent,
     {
       super.maxShownComponentCount = 9,
       super.swappableCompounds = const [],
   }) {
     super.initialize(
-      compounds: allCompounds,
-      selectableComponents: UniqueComponent.fromCompounds(allCompounds),
+      compounds: levelContent.getCompounds(),
+      selectableComponents: levelContent.selectableComponents(),
     );
   }
 
@@ -52,7 +53,7 @@ class ClassicGameLevel extends GameLevel {
 
 
     final poolGameLevel = ClassicGameLevel(
-      allCompounds,
+      ClassicLevelContent(allCompounds),
       swappableCompounds: swappableCompounds,
       maxShownComponentCount: maxShownComponentCount,
     );

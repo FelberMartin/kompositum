@@ -11,7 +11,7 @@ import 'package:kompositum/game/game_level.dart';
 import 'package:kompositum/game/level_setup.dart';
 import 'package:kompositum/game/modi/chain/chain_game_level.dart';
 import 'package:kompositum/game/modi/chain/generator/chain_generator.dart';
-import 'package:kompositum/game/modi/classic/generator/compound_pool_generator.dart';
+import 'package:kompositum/game/level_content_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 import 'package:kompositum/util/audio_manager.dart';
 import 'package:kompositum/util/tutorial_manager.dart';
@@ -50,15 +50,15 @@ class GamePage extends StatefulWidget {
 
 abstract class GamePageState extends State<GamePage> {
   GamePageState({
-    required this.levelProvider,
-    required this.poolGenerator,
+    required this.levelSetupProvider,
+    required this.levelContentGenerator,
     required this.keyValueStore,
     required this.swappableDetector,
     required this.tutorialManager,
   });
 
-  final LevelSetupProvider levelProvider;
-  final CompoundPoolGenerator poolGenerator;
+  final LevelSetupProvider levelSetupProvider;
+  final LevelContentGenerator levelContentGenerator;
   final KeyValueStore keyValueStore;
   final SwappableDetector swappableDetector;
   final TutorialManager tutorialManager;
@@ -123,7 +123,7 @@ abstract class GamePageState extends State<GamePage> {
     });
 
     print("Generating new pool for new level");
-    levelSetup = levelProvider.generateLevelSetup(levelIdentifier);
+    levelSetup = levelSetupProvider.generateLevelSetup(levelIdentifier);
     setState(() {});
 
     gameLevel = await generateGameLevel(levelSetup!);

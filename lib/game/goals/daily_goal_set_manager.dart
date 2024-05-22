@@ -76,8 +76,10 @@ class DailyGoalSetManager {
     stream.listen((event) {
       final dailyGoalSet = _dailyGoalSet!;
       final progressBefore = dailyGoalSet.progress;
+      final secretLevelBefore = dailyGoalSet.isSecretLevelCompleted;
       dailyGoalSet.processGameEvent(event);
-      if (dailyGoalSet.progress > progressBefore) {
+      if (dailyGoalSet.progress > progressBefore ||
+          dailyGoalSet.isSecretLevelCompleted != secretLevelBefore) {
         keyValueStore.storeDailyGoalSet(dailyGoalSet);
       }
     });

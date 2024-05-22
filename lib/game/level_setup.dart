@@ -11,7 +11,7 @@ enum LevelType {
 
   /// Chain levels are special levels that are only available for a day. They
   /// are in the "chain" modus.
-  chain,
+  secretChain,
 }
 
 class LevelSetup {

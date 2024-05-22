@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
 
 import '../test_data/compounds.dart';
+import '../test_util.dart';
 
 void main() {
 
@@ -20,7 +21,7 @@ void main() {
   }
 
   test("should return the loaded level", () async {
-    final classicGameLevel = ClassicGameLevel([Compounds.Krankenhaus]);
+    final classicGameLevel = ClassicGameLevelExtension.of([Compounds.Krankenhaus]);
     final sut = createSut(classicGameLevel);
     final result = await sut.loadLevel();
     expect(result!.shownComponents, classicGameLevel.shownComponents);
@@ -36,20 +37,20 @@ void main() {
   });
 
   test('should skip the level if the stored game has no components', () async {
-    final classicGameLevel = ClassicGameLevel([]);
+    final classicGameLevel = ClassicGameLevelExtension.of([]);
     final sut = createSut(classicGameLevel);
     expect(sut.loadLevel(), throwsException);
   });
 
   test('should skip the level if the stored game has odd component count', () async {
-    final classicGameLevel = ClassicGameLevel([Compounds.Krankenhaus]);
+    final classicGameLevel = ClassicGameLevelExtension.of([Compounds.Krankenhaus]);
     classicGameLevel.shownComponents.add(UniqueComponent("a"));
     final sut = createSut(classicGameLevel);
     expect(sut.loadLevel(), throwsException);
   });
 
   test("should not skip the level if the stored game has even component count", () async {
-    final classicGameLevel = ClassicGameLevel([Compounds.Krankenhaus]);
+    final classicGameLevel = ClassicGameLevelExtension.of([Compounds.Krankenhaus]);
     classicGameLevel.shownComponents.add(UniqueComponent("a"));
     classicGameLevel.hiddenComponents.add(UniqueComponent("b"));
     final sut = createSut(classicGameLevel);

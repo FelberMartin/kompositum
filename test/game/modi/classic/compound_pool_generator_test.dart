@@ -3,8 +3,8 @@ import 'package:kompositum/data/models/compact_frequency_class.dart';
 import 'package:kompositum/data/models/compound.dart';
 import 'package:kompositum/game/level_setup_provider.dart';
 import 'package:kompositum/game/modi/classic/classic_level_setup_provider.dart';
-import 'package:kompositum/game/modi/classic/generator/compound_pool_generator.dart';
-import 'package:kompositum/game/modi/classic/generator/graph_based_pool_generator.dart';
+import 'package:kompositum/game/level_content_generator.dart';
+import 'package:kompositum/game/modi/classic/generator/graph_based_classic_level_content_generator.dart';
 import 'package:test/test.dart';
 
 import '../../../config/test_locator.dart';
@@ -23,7 +23,7 @@ void main() {
 void runGeneralPoolGeneratorTests(
     Function(DatabaseInterface, {int blockLastN}) createSut
 ) {
-  late CompoundPoolGenerator sut;
+  late LevelContentGenerator sut;
   late MockDatabaseInterface databaseInterface;
 
   setUp(() {
@@ -125,7 +125,7 @@ void runGeneralPoolGeneratorTests(
             compoundCount: 3,
             seed: 0,
           );
-          returnedPools.add(pool.first);
+          returnedPools.add(pool.getCompounds().first);
         }
         expect(returnedPools.toSet().length, 1);
       },
@@ -146,7 +146,7 @@ void runGeneralPoolGeneratorTests(
             frequencyClass: CompactFrequencyClass.easy,
             compoundCount: 2,
           );
-          returnedCompounds.add(pool.first);
+          returnedCompounds.add(pool.getCompounds().first);
         }
         expect(returnedCompounds,
             containsAll([Compounds.Krankenhaus, Compounds.Apfelbaum]));
@@ -197,7 +197,7 @@ void runGeneralPoolGeneratorTests(
 
   test("Should return Wort + Schatz for the first level", () async {
     databaseInterface.compounds = Compounds.all;
-    final poolGenerator = GraphBasedPoolGenerator(databaseInterface);
+    final poolGenerator = GraphBasedClassicLevelContentGenerator(databaseInterface);
     final levelProvider = LogarithmicLevelSetupProvider();
     final levelSetup = levelProvider.generateLevelSetup(1);
     final compounds = await poolGenerator.generateFromLevelSetup(levelSetup);
@@ -211,7 +211,7 @@ void runGeneralPoolGeneratorTests(
       () async {
 
     setupTestLocator();
-    final poolGenerator = GraphBasedPoolGenerator(
+    final poolGenerator = GraphBasedClassicLevelContentGenerator(
         locator<DatabaseInterface>());
     final levelProvider = LogarithmicLevelSetupProvider();
 

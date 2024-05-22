@@ -4,16 +4,17 @@ import 'dart:math';
 import 'package:kompositum/data/database_interface.dart';
 import 'package:kompositum/data/models/compact_frequency_class.dart';
 import 'package:kompositum/data/models/compound.dart';
+import 'package:kompositum/game/level_content.dart';
 import 'package:kompositum/game/level_setup.dart';
 
 
-abstract class CompoundPoolGenerator<T> {
+abstract class LevelContentGenerator<T extends LevelContent> {
   final DatabaseInterface databaseInterface;
 
   final int blockLastN;
   final Queue<Compound> _blockedCompounds = Queue();
 
-  CompoundPoolGenerator(this.databaseInterface,
+  LevelContentGenerator(this.databaseInterface,
       {this.blockLastN = 50});
 
   Future<T> generateFromLevelSetup(LevelSetup levelSetup) async {
@@ -45,12 +46,13 @@ abstract class CompoundPoolGenerator<T> {
     }
 
     final blockedCompounds = _blockedCompounds.toList();
-    T compounds = await generateRestricted(
+    T levelContent = await generateRestricted(
         compoundCount: compoundCount,
         frequencyClass: frequencyClass,
         blockedCompounds: ignoreBlockedCompounds ? [] : blockedCompounds,
         seed: seed);
 
+    final compounds = levelContent.getCompounds();
     if (!ignoreBlockedCompounds) {
       _updateBlockedCompounds(compounds);
     }
@@ -62,7 +64,7 @@ abstract class CompoundPoolGenerator<T> {
       print("Not enough compounds found with out clashes. "
           "Only ${compounds.length} of $compoundCount compounds found.");
     }
-    return compounds;
+    return levelContent;
   }
 
   Future<T> generateRestricted(

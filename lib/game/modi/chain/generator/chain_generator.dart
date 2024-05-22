@@ -1,22 +1,20 @@
 import 'dart:math';
 
-import 'package:kompositum/data/database_interface.dart';
-import 'package:kompositum/data/models/unique_component.dart';
+import 'package:kompositum/game/level_content_generator.dart';
 import 'package:kompositum/game/modi/chain/generator/component_chain.dart';
 import 'package:kompositum/game/modi/classic/generator/compound_graph.dart';
 
 import '../../../../data/models/compact_frequency_class.dart';
 import '../../../../data/models/compound.dart';
 
-class ChainGenerator extends {
-  final DatabaseInterface databaseInterface;
+class ChainGenerator extends LevelContentGenerator<ComponentChain> {
 
-  ChainGenerator(this.databaseInterface);
+  ChainGenerator(super.databaseInterface);
 
-
-  Future<ComponentChain> generate({
-    required int compoundCount,
+  @override
+  Future<ComponentChain> generateRestricted({required int compoundCount,
     required CompactFrequencyClass frequencyClass,
+    List<Compound> blockedCompounds = const [],
     int? seed
   }) async {
 

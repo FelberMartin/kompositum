@@ -3,7 +3,7 @@ import 'package:kompositum/data/database_interface.dart';
 import 'package:kompositum/data/models/compact_frequency_class.dart';
 import 'package:kompositum/game/level_setup_provider.dart';
 import 'package:kompositum/game/modi/classic/classic_level_setup_provider.dart';
-import 'package:kompositum/game/modi/classic/generator/graph_based_pool_generator.dart';
+import 'package:kompositum/game/modi/classic/generator/graph_based_classic_level_content_generator.dart';
 import 'package:test/test.dart';
 
 
@@ -15,7 +15,7 @@ void main() {
   /// Findings:
   /// - The chance of having no duplicates at level 6 is only ~30%.
   test(skip: true, "how many duplicates are there within the first 20 levels", () async {
-    final poolGenerator = GraphBasedPoolGenerator(locator<DatabaseInterface>());
+    final poolGenerator = GraphBasedClassicLevelContentGenerator(locator<DatabaseInterface>());
     sut = LogarithmicLevelSetupProvider();
 
     // Print the number of compounds in the easy frequency class
@@ -27,8 +27,8 @@ void main() {
     final overallCompounds = <String>[];
     for (int level = 1; level < 20; level++) {
       final levelSetup = sut.generateLevelSetup(level);
-      final compounds = await poolGenerator.generateFromLevelSetup(levelSetup);
-      final compoundNames = compounds.map((compound) => compound.name).toList();
+      final content = await poolGenerator.generateFromLevelSetup(levelSetup);
+      final compoundNames = content.getCompounds().map((compound) => compound.name).toList();
       print("Level $level: $compoundNames");
 
       final duplicates = compoundNames.where((name) => overallCompounds.contains(name)).toList();
