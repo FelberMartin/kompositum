@@ -1,6 +1,7 @@
 
+import 'package:kompositum/game/modi/classic/classic_game_level.dart';
+
 import '../data/key_value_store.dart';
-import 'modi/pool/pool_game_level.dart';
 
 class StoredLevelLoader {
 
@@ -8,8 +9,8 @@ class StoredLevelLoader {
 
   StoredLevelLoader(this._keyValueStore);
 
-  Future<PoolGameLevel?> loadLevel() async {
-    final storedProgress = await _keyValueStore.getClassicPoolGameLevel();
+  Future<ClassicGameLevel?> loadLevel() async {
+    final storedProgress = await _keyValueStore.getClassicGameLevel();
     if (storedProgress == null) {
       return null;
     }

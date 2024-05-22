@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:kompositum/config/my_icons.dart';
-import 'package:kompositum/screens/game_page_daily.dart';
+import 'package:kompositum/game/modi/classic/daily_classic_game_page_state.dart';
 import 'package:kompositum/util/date_util.dart';
 import 'package:kompositum/util/emoji_provider.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
@@ -102,7 +102,7 @@ class _DailyOverviewPageState extends State<DailyOverviewPage> {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => GamePage(
-          state: GamePageDailyState.fromLocator(_selectedDay!))
+          state: DailyClassicGamePageState.fromLocator(_selectedDay!))
     )).then((value) {
       _updatePage();
     });

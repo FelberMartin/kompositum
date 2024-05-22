@@ -1,7 +1,7 @@
 
 import 'package:kompositum/game/difficulty.dart';
 
-import '../game/level_provider.dart';
+import '../game/level_setup_provider.dart';
 
 class Costs {
   static const int hintCostBase = 30;

@@ -3,8 +3,6 @@ import 'package:kompositum/game/hints/hint.dart';
 import 'package:kompositum/game/level_setup.dart';
 
 import '../../data/models/compound.dart';
-import '../level_provider.dart';
-import '../modi/pool/pool_game_level.dart';
 
 abstract class GameEvent {
   const GameEvent();

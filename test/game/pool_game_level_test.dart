@@ -2,7 +2,7 @@ import 'package:kompositum/config/star_costs_rewards.dart';
 import 'package:kompositum/data/models/compound.dart';
 import 'package:kompositum/data/models/unique_component.dart';
 import 'package:kompositum/game/hints/hint.dart';
-import 'package:kompositum/game/modi/pool/pool_game_level.dart';
+import 'package:kompositum/game/modi/classic/classic_game_level.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 import 'package:test/test.dart';
 
@@ -10,17 +10,17 @@ import '../test_data/compounds.dart';
 import '../test_util.dart';
 
 
-void removeCompoundHelper(PoolGameLevel sut, Compound compound) {
+void removeCompoundHelper(ClassicGameLevel sut, Compound compound) {
   final modifier = sut.shownComponents.firstWhere((element) => element.text == compound.modifier);
   final head = sut.shownComponents.firstWhere((element) => element.text == compound.head);
   sut.removeCompoundFromShown(compound, modifier, head);
 }
 
 void main() {
-  late PoolGameLevel sut;
+  late ClassicGameLevel sut;
 
   setUp(() {
-    sut = PoolGameLevel([Compounds.Krankenhaus]);
+    sut = ClassicGameLevel([Compounds.Krankenhaus]);
   });
 
   group("getCompoundIfExisting", () {
@@ -40,14 +40,14 @@ void main() {
     });
 
     test("should return the swapped compound if it exists", () {
-      sut = PoolGameLevel([Compounds.Maschinenbau], swappableCompounds: [Swappable(Compounds.Maschinenbau, Compounds.Baumaschine)]);
+      sut = ClassicGameLevel([Compounds.Maschinenbau], swappableCompounds: [Swappable(Compounds.Maschinenbau, Compounds.Baumaschine)]);
       final result = sut.getCompoundIfExisting("Bau", "Maschine");
       expect(result, isNotNull);
       expect(result, Compounds.Baumaschine);
     });
 
     test("should return the compound and not the swapped version if entered non-swapped", () {
-      sut = PoolGameLevel([Compounds.Maschinenbau], swappableCompounds: [Swappable(Compounds.Maschinenbau, Compounds.Baumaschine)]);
+      sut = ClassicGameLevel([Compounds.Maschinenbau], swappableCompounds: [Swappable(Compounds.Maschinenbau, Compounds.Baumaschine)]);
       final result = sut.getCompoundIfExisting("Maschine", "Bau");
       expect(result, isNotNull);
       expect(result, Compounds.Maschinenbau);
@@ -65,7 +65,7 @@ void main() {
     test(
         "should fill the shown components with new components",
         () {
-      sut = PoolGameLevel([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 2);
+      sut = ClassicGameLevel([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 2);
       sut.shownComponents.clear();
       sut.shownComponents.addAll(UniqueComponent.fromCompounds([Compounds.Krankenhaus]));
       sut.hiddenComponents.clear();
@@ -76,7 +76,7 @@ void main() {
     });
 
     test("should remove the original of the swapped compound if it exists", () {
-      sut = PoolGameLevel([Compounds.Maschinenbau], swappableCompounds: [Swappable(Compounds.Maschinenbau, Compounds.Baumaschine)]);
+      sut = ClassicGameLevel([Compounds.Maschinenbau], swappableCompounds: [Swappable(Compounds.Maschinenbau, Compounds.Baumaschine)]);
       removeCompoundHelper(sut, Compounds.Baumaschine);
       expect(sut.shownComponents, isEmpty);
     });
@@ -97,7 +97,7 @@ void main() {
     test(
         "should return the next component if there are more unshown components",
         () async {
-      sut = PoolGameLevel([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 2);
+      sut = ClassicGameLevel([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 2);
 
       final nextComponent = sut.getNextShownComponent();
       expect(nextComponent, isNotInList(sut.shownComponents));
@@ -106,7 +106,7 @@ void main() {
     test(
         "if there are are no compounds in the shown pool, the last getNextShownComponent adds a compound",
         () async {
-        sut = PoolGameLevel(
+        sut = ClassicGameLevel(
           Compounds.all,
           maxShownComponentCount: 2,
         );
@@ -127,14 +127,14 @@ void main() {
     });
 
     test("should return the same component for the same passed seed", () {
-      sut = PoolGameLevel([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 2);
+      sut = ClassicGameLevel([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 2);
       final firstComponent = sut.getNextShownComponent(seed: 1);
       final secondComponent = sut.getNextShownComponent(seed: 1);
       expect(firstComponent, equals(secondComponent));
     });
 
     test("should return different components if no seed is passed", () {
-      sut = PoolGameLevel([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 2);
+      sut = ClassicGameLevel([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 2);
       final components = <UniqueComponent>[];
       for (var i = 0; i < 10; i++) {
         components.add(sut.getNextShownComponent());
@@ -162,7 +162,7 @@ void main() {
     });
 
     test("should remove the hint if the hinted component is solved", () {
-      sut = PoolGameLevel([Compounds.Krankenhaus], maxShownComponentCount: 2);
+      sut = ClassicGameLevel([Compounds.Krankenhaus], maxShownComponentCount: 2);
       sut.requestHint(999);
       expect(sut.hints, hasLength(1));
       expect(sut.hints.first.hintedComponent.text, "krank");
@@ -173,7 +173,7 @@ void main() {
     });
 
     test("should not remove the hint if the hinted component is not solved", () {
-      sut = PoolGameLevel([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 4);
+      sut = ClassicGameLevel([Compounds.Krankenhaus, Compounds.Apfelbaum], maxShownComponentCount: 4);
       sut.hints.add(Hint(UniqueComponent("krank"), HintComponentType.modifier));
 
       removeCompoundHelper(sut, Compounds.Apfelbaum);
@@ -183,14 +183,14 @@ void main() {
 
   group("json", () {
     test("should keep the main attributes after toJson -> fromJson", () {
-      sut = PoolGameLevel(
+      sut = ClassicGameLevel(
         [Compounds.Krankenhaus, Compounds.Apfelbaum],
         maxShownComponentCount: 3,
         swappableCompounds: [Swappable(Compounds.Maschinenbau, Compounds.Baumaschine)],
       );
 
       final json = sut.toJson();
-      final sut2 = PoolGameLevel.fromJson(json);
+      final sut2 = ClassicGameLevel.fromJson(json);
 
       expect(sut2.maxShownComponentCount, equals(3));
       expect(sut2.shownComponents, containsAllInOrder(sut.shownComponents));
@@ -207,7 +207,7 @@ void main() {
       sut.requestHint(999);
       sut.requestHint(999);
       Map<String, dynamic> json = sut.toJson();
-      final sut2 = PoolGameLevel.fromJson(json);
+      final sut2 = ClassicGameLevel.fromJson(json);
 
       expect(sut2.hints, hasLength(2));
       expect(sut2.hints.first, equals(sut.hints.first));

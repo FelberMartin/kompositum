@@ -4,10 +4,10 @@ import 'dart:math';
 import 'package:kompositum/data/database_interface.dart';
 import 'package:kompositum/data/models/compact_frequency_class.dart';
 import 'package:kompositum/data/models/compound.dart';
-import 'package:kompositum/game/level_provider.dart';
 import 'package:kompositum/game/level_setup.dart';
 
-abstract class CompoundPoolGenerator {
+
+abstract class CompoundPoolGenerator<T> {
   final DatabaseInterface databaseInterface;
 
   final int blockLastN;
@@ -16,10 +16,11 @@ abstract class CompoundPoolGenerator {
   CompoundPoolGenerator(this.databaseInterface,
       {this.blockLastN = 50});
 
-  Future<List<Compound>> generateFromLevelSetup(LevelSetup levelSetup) async {
-    if (levelSetup.levelIdentifier == 1) {
+  Future<T> generateFromLevelSetup(LevelSetup levelSetup) async {
+    if (levelSetup.levelType == LevelType.mainClassic && levelSetup.levelIdentifier == 1) {
       final wortschatz = await databaseInterface.getCompoundByName("Wortschatz");
-      return [wortschatz!];
+      assert(T == List<Compound>);
+      return [wortschatz!] as T;
     }
     return generate(
       compoundCount: levelSetup.compoundCount,
@@ -29,7 +30,7 @@ abstract class CompoundPoolGenerator {
     );
   }
 
-  Future<List<Compound>> generate({
+  Future<T> generate({
     required CompactFrequencyClass frequencyClass,
     required int compoundCount,
     int? seed,
@@ -44,7 +45,7 @@ abstract class CompoundPoolGenerator {
     }
 
     final blockedCompounds = _blockedCompounds.toList();
-    List<Compound> compounds = await generateRestricted(
+    T compounds = await generateRestricted(
         compoundCount: compoundCount,
         frequencyClass: frequencyClass,
         blockedCompounds: ignoreBlockedCompounds ? [] : blockedCompounds,
@@ -64,7 +65,7 @@ abstract class CompoundPoolGenerator {
     return compounds;
   }
 
-  Future<List<Compound>> generateRestricted(
+  Future<T> generateRestricted(
       {required int compoundCount,
       required CompactFrequencyClass frequencyClass,
       List<Compound> blockedCompounds = const [],

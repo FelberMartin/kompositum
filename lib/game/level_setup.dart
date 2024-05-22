@@ -2,12 +2,12 @@
 import 'package:kompositum/game/difficulty.dart';
 
 enum LevelType {
-  /// Classic levels are in the "pool" modus and the main levels of the game.
-  classic,
+  /// Classic levels are in the "classic" modus and the main levels of the game.
+  mainClassic,
 
   /// Daily levels are special levels that are only available for a day. They
-  /// are also in the "pool" modus.
-  daily,
+  /// are also in the "classic" modus.
+  dailyClassic,
 
   /// Chain levels are special levels that are only available for a day. They
   /// are in the "chain" modus.
@@ -26,7 +26,7 @@ class LevelSetup {
     required this.levelIdentifier,
     required this.compoundCount,
     required this.poolGenerationSeed,
-    this.levelType = LevelType.classic,
+    this.levelType = LevelType.mainClassic,
     this.difficulty = Difficulty.easy,
     this.ignoreBlockedCompounds = false,
   });

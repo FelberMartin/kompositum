@@ -11,6 +11,7 @@ import 'package:kompositum/game/game_level.dart';
 import 'package:kompositum/game/level_setup.dart';
 import 'package:kompositum/game/modi/chain/chain_game_level.dart';
 import 'package:kompositum/game/modi/chain/generator/chain_generator.dart';
+import 'package:kompositum/game/modi/classic/generator/compound_pool_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 import 'package:kompositum/util/audio_manager.dart';
 import 'package:kompositum/util/tutorial_manager.dart';
@@ -25,9 +26,7 @@ import '../game/game_event/game_event.dart';
 import '../game/game_event/game_event_stream.dart';
 import '../game/goals/daily_goal_set_manager.dart';
 import '../game/hints/hint.dart';
-import '../game/level_provider.dart';
-import '../game/modi/pool/generator/compound_pool_generator.dart';
-import '../game/modi/pool/pool_game_level.dart';
+import '../game/level_setup_provider.dart';
 import '../util/ads/ad_manager.dart';
 import '../widgets/common/my_icon_button.dart';
 import '../widgets/play/bottom_content.dart';
@@ -37,10 +36,6 @@ import '../widgets/play/dialogs/no_attempts_left_dialog.dart';
 import '../widgets/play/dialogs/report_dialog.dart';
 import '../widgets/play/top_row.dart';
 
-
-enum GameMode {
-  Pool, Chain
-}
 
 class GamePage extends StatefulWidget {
   const GamePage(
@@ -60,15 +55,13 @@ abstract class GamePageState extends State<GamePage> {
     required this.keyValueStore,
     required this.swappableDetector,
     required this.tutorialManager,
-    this.gameMode = GameMode.Pool
   });
 
-  final LevelProvider levelProvider;
+  final LevelSetupProvider levelProvider;
   final CompoundPoolGenerator poolGenerator;
   final KeyValueStore keyValueStore;
   final SwappableDetector swappableDetector;
   final TutorialManager tutorialManager;
-  final GameMode gameMode;
   late AdManager adManager = locator<AdManager>();
   late DailyGoalSetManager dailyGoalSetManager = locator<DailyGoalSetManager>();
 
@@ -133,31 +126,8 @@ abstract class GamePageState extends State<GamePage> {
     levelSetup = levelProvider.generateLevelSetup(levelIdentifier);
     setState(() {});
 
-    if (gameMode == GameMode.Pool) {
-      final compounds = await poolGenerator.generateFromLevelSetup(levelSetup!);
-      final swappables = await swappableDetector.getSwappables(compounds);
-      print("Finished new pool for new level");
-      gameLevel = PoolGameLevel(
-        compounds,
-        maxShownComponentCount: levelSetup!.difficulty.maxShownComponentCount,
-        swappableCompounds: swappables,
-      );
-    } else if (gameMode == GameMode.Chain) {
-      final generator = ChainGenerator(locator<DatabaseInterface>());
-      final compoundChain = await generator.generate(compoundCount: 10, frequencyClass: CompactFrequencyClass.medium);
-      print("Finished new pool for new level");
-      print(compoundChain.toString());
-      gameLevel = ChainGameLevel(
-        compoundChain,
-        maxShownComponentCount: levelSetup!.difficulty.maxShownComponentCount,
-        swappableCompounds: [],   // TODO: swappables for chain mode
-      );
-      toggleSelection((gameLevel as ChainGameLevel).currentModifier.id);
-      // TODO:  SecretGamePageState
-      // TODO: make daily extend classicPool
-    } else {
-      throw Exception("Unknown game mode");
-    }
+    gameLevel = await generateGameLevel(levelSetup!);
+    print("Finished new pool for new level");
 
     _emitGameEvent(NewLevelStartGameEvent(levelSetup!, gameLevel));
     onGameLevelUpdate();

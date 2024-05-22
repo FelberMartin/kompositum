@@ -1,10 +1,10 @@
 import 'package:kompositum/data/database_interface.dart';
 import 'package:kompositum/data/models/compact_frequency_class.dart';
 import 'package:kompositum/data/models/compound.dart';
-import 'package:kompositum/game/level_provider.dart';
-import 'package:kompositum/game/modi/pool/generator/compound_pool_generator.dart';
-import 'package:kompositum/game/modi/pool/generator/graph_based_pool_generator.dart';
-import 'package:kompositum/game/modi/pool/pool_level_provider.dart';
+import 'package:kompositum/game/level_setup_provider.dart';
+import 'package:kompositum/game/modi/classic/classic_level_setup_provider.dart';
+import 'package:kompositum/game/modi/classic/generator/compound_pool_generator.dart';
+import 'package:kompositum/game/modi/classic/generator/graph_based_pool_generator.dart';
 import 'package:test/test.dart';
 
 import '../../../config/test_locator.dart';
@@ -198,7 +198,7 @@ void runGeneralPoolGeneratorTests(
   test("Should return Wort + Schatz for the first level", () async {
     databaseInterface.compounds = Compounds.all;
     final poolGenerator = GraphBasedPoolGenerator(databaseInterface);
-    final levelProvider = LogarithmicLevelProvider();
+    final levelProvider = LogarithmicLevelSetupProvider();
     final levelSetup = levelProvider.generateLevelSetup(1);
     final compounds = await poolGenerator.generateFromLevelSetup(levelSetup);
     expect(compounds, [Compounds.Wortschatz]);
@@ -213,7 +213,7 @@ void runGeneralPoolGeneratorTests(
     setupTestLocator();
     final poolGenerator = GraphBasedPoolGenerator(
         locator<DatabaseInterface>());
-    final levelProvider = LogarithmicLevelProvider();
+    final levelProvider = LogarithmicLevelSetupProvider();
 
     for (int level = 1; level < 30; level++) {
       final stopwatch = Stopwatch()..start();

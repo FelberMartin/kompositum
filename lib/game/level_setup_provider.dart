@@ -4,7 +4,7 @@ import 'package:kompositum/game/difficulty.dart';
 import 'package:kompositum/game/level_setup.dart';
 
 
-abstract class LevelProvider {
+abstract class LevelSetupProvider {
 
   LevelSetup generateLevelSetup(Object levelIdentifier);
 

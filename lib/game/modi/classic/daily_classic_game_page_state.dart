@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:kompositum/game/modi/pool/generator/compound_pool_generator.dart';
-import 'package:kompositum/game/modi/pool/pool_level_provider.dart';
+import 'package:kompositum/game/modi/classic/classic_game_page_state.dart';
+import 'package:kompositum/game/modi/classic/classic_level_setup_provider.dart';
+import 'package:kompositum/game/modi/classic/generator/compound_pool_generator.dart';
+import 'package:kompositum/game/modi/classic/main_classic_game_page_state.dart';
 import 'package:kompositum/screens/game_page.dart';
 
-import '../config/locator.dart';
-import '../data/key_value_store.dart';
-import '../game/swappable_detector.dart';
-import '../util/notifications/daily_notification_scheduler.dart';
-import '../util/tutorial_manager.dart';
-import '../widgets/play/dialogs/level_completed_dialog.dart';
-import 'game_page_classic.dart';
+import '../../../config/locator.dart';
+import '../../../data/key_value_store.dart';
+import '../../swappable_detector.dart';
+import '../../../util/notifications/daily_notification_scheduler.dart';
+import '../../../util/tutorial_manager.dart';
+import '../../../widgets/play/dialogs/level_completed_dialog.dart';
 
-class GamePageDailyState extends GamePageState {
-  GamePageDailyState({
+class DailyClassicGamePageState extends ClassicGamePageState {
+  DailyClassicGamePageState({
     required super.levelProvider,
     required super.poolGenerator,
     required super.keyValueStore,
@@ -22,9 +23,9 @@ class GamePageDailyState extends GamePageState {
     required this.date,
   });
 
-  factory GamePageDailyState.fromLocator(DateTime date) {
-    return GamePageDailyState(
-      levelProvider: DailyLevelProvider(),
+  factory DailyClassicGamePageState.fromLocator(DateTime date) {
+    return DailyClassicGamePageState(
+      levelProvider: DailyLevelSetupProvider(),
       poolGenerator: locator<CompoundPoolGenerator>(),
       keyValueStore: locator<KeyValueStore>(),
       swappableDetector: locator<SwappableDetector>(),
@@ -87,7 +88,7 @@ class GamePageDailyState extends GamePageState {
     } else if (resultType == LevelCompletedDialogResultType.daily_continueWithClassic) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => GamePage(state: GamePageClassicState.fromLocator())),
+          MaterialPageRoute(builder: (context) => GamePage(state: MainClassicGamePageState.fromLocator())),
         );
       return;
     }

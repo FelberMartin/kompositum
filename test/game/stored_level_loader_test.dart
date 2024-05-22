@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/data/models/unique_component.dart';
-import 'package:kompositum/game/modi/pool/pool_game_level.dart';
+import 'package:kompositum/game/modi/classic/classic_game_level.dart';
 import 'package:kompositum/game/stored_level_loader.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
@@ -11,19 +11,19 @@ import '../test_data/compounds.dart';
 
 void main() {
 
-  StoredLevelLoader createSut(PoolGameLevel poolGameLevel) {
+  StoredLevelLoader createSut(ClassicGameLevel classicGameLevel) {
     SharedPreferences.setMockInitialValues({
       "level": 10,
-      "classicPoolGameLevel": jsonEncode(poolGameLevel.toJson()),
+      "classicClassicGameLevel": jsonEncode(classicGameLevel.toJson()),
     });
     return StoredLevelLoader(KeyValueStore());
   }
 
   test("should return the loaded level", () async {
-    final poolGameLevel = PoolGameLevel([Compounds.Krankenhaus]);
-    final sut = createSut(poolGameLevel);
+    final classicGameLevel = ClassicGameLevel([Compounds.Krankenhaus]);
+    final sut = createSut(classicGameLevel);
     final result = await sut.loadLevel();
-    expect(result!.shownComponents, poolGameLevel.shownComponents);
+    expect(result!.shownComponents, classicGameLevel.shownComponents);
   });
 
   test("should return null if there is no stored level", () async {
@@ -36,24 +36,24 @@ void main() {
   });
 
   test('should skip the level if the stored game has no components', () async {
-    final poolGameLevel = PoolGameLevel([]);
-    final sut = createSut(poolGameLevel);
+    final classicGameLevel = ClassicGameLevel([]);
+    final sut = createSut(classicGameLevel);
     expect(sut.loadLevel(), throwsException);
   });
 
   test('should skip the level if the stored game has odd component count', () async {
-    final poolGameLevel = PoolGameLevel([Compounds.Krankenhaus]);
-    poolGameLevel.shownComponents.add(UniqueComponent("a"));
-    final sut = createSut(poolGameLevel);
+    final classicGameLevel = ClassicGameLevel([Compounds.Krankenhaus]);
+    classicGameLevel.shownComponents.add(UniqueComponent("a"));
+    final sut = createSut(classicGameLevel);
     expect(sut.loadLevel(), throwsException);
   });
 
   test("should not skip the level if the stored game has even component count", () async {
-    final poolGameLevel = PoolGameLevel([Compounds.Krankenhaus]);
-    poolGameLevel.shownComponents.add(UniqueComponent("a"));
-    poolGameLevel.hiddenComponents.add(UniqueComponent("b"));
-    final sut = createSut(poolGameLevel);
+    final classicGameLevel = ClassicGameLevel([Compounds.Krankenhaus]);
+    classicGameLevel.shownComponents.add(UniqueComponent("a"));
+    classicGameLevel.hiddenComponents.add(UniqueComponent("b"));
+    final sut = createSut(classicGameLevel);
     final result = await sut.loadLevel();
-    expect(result!.shownComponents, poolGameLevel.shownComponents);
+    expect(result!.shownComponents, classicGameLevel.shownComponents);
   });
 }

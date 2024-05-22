@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:kompositum/game/difficulty.dart';
-import 'package:kompositum/game/level_provider.dart';
-import 'package:kompositum/screens/game_page_classic.dart';
+import 'package:kompositum/game/level_setup_provider.dart';
+import 'package:kompositum/game/modi/classic/daily_classic_game_page_state.dart';
+import 'package:kompositum/game/modi/classic/main_classic_game_page_state.dart';
 import 'package:kompositum/screens/settings_page.dart';
 import 'package:kompositum/util/app_lifecycle_reactor.dart';
 import 'package:kompositum/util/date_util.dart';
@@ -23,7 +24,6 @@ import '../widgets/common/my_background.dart';
 import '../widgets/common/util/clip_shadow_path.dart';
 import '../widgets/common/util/rounded_edge_clipper.dart';
 import 'game_page.dart';
-import 'game_page_daily.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
     keyValueStore.isFirstLaunch().then((value) {
       if (value) {
-        _launchGame(GameMode.Pool);
+        _launchClassicGame();
       }
     });
   }
@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
     starCount = await keyValueStore.getStarCount();
     currentLevel = await keyValueStore.getLevel();
-    currentLevelDifficulty = locator<LevelProvider>()
+    currentLevelDifficulty = locator<LevelSetupProvider>()
         .generateLevelSetup(currentLevel).difficulty;
     isDailyFinished = await keyValueStore.getDailiesCompleted()
         .then((value) => value.any((day) => day.isSameDate(DateTime.now())));
@@ -98,10 +98,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     });
   }
 
-  void _launchGame(GameMode gameMode) {
+  void _launchClassicGame() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => GamePage(state: GamePageClassicState.fromLocator(gameMode))),
+      MaterialPageRoute(builder: (context) => GamePage(state: MainClassicGamePageState.fromLocator())),
     ).then((value) {
       _updatePage();
     });
@@ -111,7 +111,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => GamePage(
-        state: GamePageDailyState.fromLocator(DateTime.now()))),
+        state: DailyClassicGamePageState.fromLocator(DateTime.now()))),
     ).then((value) {
       _updatePage();
     });
@@ -164,7 +164,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 isLoading ? PlayButton.loading() : PlayButton(
                   currentLevel: currentLevel,
                   currentLevelDifficulty: currentLevelDifficulty,
-                  onPressed: () => _launchGame(GameMode.Pool),
+                  onPressed: () => _launchClassicGame(),
                 ),
                 Expanded(child: Container()),
               ],

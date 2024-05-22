@@ -4,7 +4,7 @@ import 'package:kompositum/game/difficulty.dart';
 import 'package:kompositum/game/level_setup.dart';
 
 import '../../game/game_event/game_event.dart';
-import '../../game/level_provider.dart';
+import '../../game/level_setup_provider.dart';
 
 /// A daily goal that the player can achieve. It only focuses on a single aspect of the game.
 /// This can not be an entity for objectbox, because it does currently not support
@@ -144,7 +144,7 @@ abstract class LevelCompletionDailyGoal extends DailyGoal {
 
 class CompleteDailyLevelDailyGoal extends LevelCompletionDailyGoal {
   CompleteDailyLevelDailyGoal()
-      : super(uiText: "Tägliches Rätsel", targetValue: 1, acceptedLevelTypes: [LevelType.daily]);
+      : super(uiText: "Tägliches Rätsel", targetValue: 1, acceptedLevelTypes: [LevelType.dailyClassic]);
 
   // Pointless factory method, but here for consistency
   factory CompleteDailyLevelDailyGoal.generate({required Random random}) {
@@ -161,7 +161,7 @@ class CompleteDailyLevelDailyGoal extends LevelCompletionDailyGoal {
 class CompleteClassicLevelsDailyGoal extends LevelCompletionDailyGoal {
   CompleteClassicLevelsDailyGoal(
       {required super.targetValue})
-      : super(uiText: "Klassische Level", acceptedLevelTypes: [LevelType.classic]);
+      : super(uiText: "Klassische Level", acceptedLevelTypes: [LevelType.mainClassic]);
 
   factory CompleteClassicLevelsDailyGoal.generate({required Random random}) {
     final value = random.nextInt(8) + 3;
@@ -177,7 +177,7 @@ class CompleteClassicLevelsDailyGoal extends LevelCompletionDailyGoal {
 
 class CompleteAnyLevelsDailyGoal extends LevelCompletionDailyGoal {
   CompleteAnyLevelsDailyGoal({required super.targetValue})
-      : super(uiText: "Beliebige Level", acceptedLevelTypes: [LevelType.classic, LevelType.daily]);
+      : super(uiText: "Beliebige Level", acceptedLevelTypes: [LevelType.mainClassic, LevelType.dailyClassic]);
 
   factory CompleteAnyLevelsDailyGoal.generate({required Random random}) {
     final value = random.nextInt(10) + 3;

@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:kompositum/data/models/compact_frequency_class.dart';
 import 'package:kompositum/data/models/compound.dart';
-import 'package:kompositum/game/modi/pool/generator/compound_pool_generator.dart';
+import 'package:kompositum/game/modi/classic/generator/compound_pool_generator.dart';
 import 'package:kompositum/util/random_util.dart';
 import 'package:mocktail/mocktail.dart';
 

@@ -4,7 +4,7 @@ import 'package:collection/collection.dart'; // You have to add this manually, f
 import 'package:kompositum/data/models/unique_component.dart';
 import 'package:kompositum/game/difficulty.dart';
 import 'package:kompositum/game/game_level.dart';
-import 'package:kompositum/game/level_provider.dart';
+import 'package:kompositum/game/level_setup_provider.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 
 import '../../../config/star_costs_rewards.dart';
@@ -14,21 +14,21 @@ import '../../hints/hint.dart';
 
 
 
-class PoolGameLevel extends GameLevel {
+class ClassicGameLevel extends GameLevel {
 
-  PoolGameLevel(
+  ClassicGameLevel(
     List<Compound> allCompounds,
     {
       super.maxShownComponentCount = 9,
       super.swappableCompounds = const [],
   }) {
-    super.setup(
+    super.initialize(
       compounds: allCompounds,
       selectableComponents: UniqueComponent.fromCompounds(allCompounds),
     );
   }
 
-  static PoolGameLevel fromJson(Map<String, dynamic> json) {
+  static ClassicGameLevel fromJson(Map<String, dynamic> json) {
     final allCompounds = (json['_allCompounds'] as List)
         .map((compound) => Compound.fromJson(compound))
         .toList();
@@ -51,7 +51,7 @@ class PoolGameLevel extends GameLevel {
     final attemptsWatcher = json.containsKey('attemptsWatcher') ? AttemptsWatcher.fromJson(json['attemptsWatcher']) : AttemptsWatcher();
 
 
-    final poolGameLevel = PoolGameLevel(
+    final poolGameLevel = ClassicGameLevel(
       allCompounds,
       swappableCompounds: swappableCompounds,
       maxShownComponentCount: maxShownComponentCount,

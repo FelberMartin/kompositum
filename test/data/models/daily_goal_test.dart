@@ -4,8 +4,8 @@ import 'package:kompositum/game/attempts_watcher.dart';
 import 'package:kompositum/game/difficulty.dart';
 import 'package:kompositum/game/game_event/game_event.dart';
 import 'package:kompositum/game/hints/hint.dart';
-import 'package:kompositum/game/level_provider.dart';
-import 'package:kompositum/game/modi/pool/pool_level_provider.dart';
+import 'package:kompositum/game/level_setup_provider.dart';
+import 'package:kompositum/game/modi/classic/classic_level_setup_provider.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
@@ -97,7 +97,7 @@ void main() {
 
   test("CompleteDailyLevelDailyGoal", () {
     final goal = CompleteDailyLevelDailyGoal();
-    final levelSetup = DailyLevelProvider().generateLevelSetup(DateTime.now());
+    final levelSetup = DailyLevelSetupProvider().generateLevelSetup(DateTime.now());
     final poolGameLevel = MockPoolGameLevel();
     goal.processGameEvent(LevelCompletedGameEvent(levelSetup, poolGameLevel));
     expect(goal.currentValue, 1);
@@ -105,7 +105,7 @@ void main() {
 
   test("CompleteDailyLevelDailyGoal: dont increase if a classic level is completed", () {
     final goal = CompleteDailyLevelDailyGoal();
-    final levelSetup = locator<LevelProvider>().generateLevelSetup(1);
+    final levelSetup = locator<LevelSetupProvider>().generateLevelSetup(1);
     final poolGameLevel = MockPoolGameLevel();
     goal.processGameEvent(LevelCompletedGameEvent(levelSetup, poolGameLevel));
     expect(goal.currentValue, 0);
@@ -113,7 +113,7 @@ void main() {
 
   test("CompleteClassicLevelsDailyGoal", () {
     final goal = CompleteClassicLevelsDailyGoal(targetValue: 1);
-    final levelSetup = locator<LevelProvider>().generateLevelSetup(1);
+    final levelSetup = locator<LevelSetupProvider>().generateLevelSetup(1);
     final poolGameLevel = MockPoolGameLevel();
     goal.processGameEvent(LevelCompletedGameEvent(levelSetup, poolGameLevel));
     expect(goal.currentValue, 1);
@@ -121,7 +121,7 @@ void main() {
 
   test("CompleteClassicLevelsDailyGoal: dont increase if a daily level is completed", () {
     final goal = CompleteClassicLevelsDailyGoal(targetValue: 1);
-    final levelSetup = DailyLevelProvider().generateLevelSetup(DateTime.now());
+    final levelSetup = DailyLevelSetupProvider().generateLevelSetup(DateTime.now());
     final poolGameLevel = MockPoolGameLevel();
     goal.processGameEvent(LevelCompletedGameEvent(levelSetup, poolGameLevel));
     expect(goal.currentValue, 0);
@@ -129,12 +129,12 @@ void main() {
 
   test("CompleteAnyLevelsDailyGoal", () {
     final goal = CompleteAnyLevelsDailyGoal(targetValue: 2);
-    var levelSetup = locator<LevelProvider>().generateLevelSetup(1);
+    var levelSetup = locator<LevelSetupProvider>().generateLevelSetup(1);
     final poolGameLevel = MockPoolGameLevel();
     goal.processGameEvent(LevelCompletedGameEvent(levelSetup, poolGameLevel));
     expect(goal.currentValue, 1);
 
-    levelSetup = DailyLevelProvider().generateLevelSetup(DateTime.now());
+    levelSetup = DailyLevelSetupProvider().generateLevelSetup(DateTime.now());
     goal.processGameEvent(LevelCompletedGameEvent(levelSetup, poolGameLevel));
     expect(goal.currentValue, 2);
   });

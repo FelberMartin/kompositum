@@ -4,10 +4,10 @@ import 'package:kompositum/config/my_theme.dart';
 import 'package:kompositum/config/star_costs_rewards.dart';
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/game/level_setup.dart';
-import 'package:kompositum/game/modi/pool/pool_game_level.dart';
-import 'package:kompositum/game/modi/pool/pool_level_provider.dart';
+import 'package:kompositum/game/modi/classic/classic_game_level.dart';
+import 'package:kompositum/game/modi/classic/classic_level_setup_provider.dart';
+import 'package:kompositum/game/modi/classic/main_classic_game_page_state.dart';
 import 'package:kompositum/screens/game_page.dart';
-import 'package:kompositum/screens/game_page_classic.dart';
 import 'package:kompositum/util/tutorial_manager.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,7 +27,7 @@ void selectComponentByText(String text, GamePageState sut) {
 
 void main() {
   late MockCompoundPoolGenerator poolGenerator;
-  final levelProvider = LogarithmicLevelProvider();
+  final levelProvider = LogarithmicLevelSetupProvider();
   final keyValueStore = KeyValueStore();
   final swappableDetector = MockSwappableDetector();
   TutorialManager tutorialManager = MockTutorialManager();
@@ -38,7 +38,7 @@ void main() {
     await tester.pumpWidget(MaterialApp(
       theme: myTheme,
       home: GamePage(
-          state: GamePageClassicState(
+          state: MainClassicGamePageState(
               levelProvider: levelProvider,
               poolGenerator: poolGenerator,
               keyValueStore: keyValueStore,
@@ -64,7 +64,7 @@ void main() {
           "should select the toggled component as modifier, if nothing else is selected",
           (tester) async {
         await _pumpGamePage(tester);
-        sut.gameLevel = PoolGameLevel([Compounds.Apfelbaum]);
+        sut.gameLevel = ClassicGameLevel([Compounds.Apfelbaum]);
         final component = sut.gameLevel.shownComponents[0];
         sut.toggleSelection(component.id);
 
@@ -75,7 +75,7 @@ void main() {
           "should selected the toggled component as head, if a modifier is already selected",
           (tester) async {
         await _pumpGamePage(tester);
-        sut.gameLevel = PoolGameLevel([Compounds.Apfelbaum]);
+        sut.gameLevel = ClassicGameLevel([Compounds.Apfelbaum]);
         final modifier = sut.gameLevel.shownComponents[0];
         sut.toggleSelection(modifier.id);
         final head = sut.gameLevel.shownComponents[1];
@@ -88,7 +88,7 @@ void main() {
           "should unselect the toggled component, if it is already selected",
           (tester) async {
         await _pumpGamePage(tester);
-        sut.gameLevel = PoolGameLevel([Compounds.Apfelbaum]);
+        sut.gameLevel = ClassicGameLevel([Compounds.Apfelbaum]);
         final modifier = sut.gameLevel.shownComponents[0];
         sut.toggleSelection(modifier.id);
         sut.toggleSelection(modifier.id);
@@ -101,7 +101,7 @@ void main() {
         (tester) async {
       await _pumpGamePage(tester);
       sut.gameLevel =
-          PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
+          ClassicGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
       selectComponentByText("Apfel", sut);
       selectComponentByText("Baum", sut);
 
@@ -118,7 +118,7 @@ void main() {
         await _pumpGamePage(tester);
         sut.starCount = 1000;
         sut.gameLevel =
-            PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
+            ClassicGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
         selectComponentByText("Baum", sut);
         selectComponentByText("Schnee", sut);
         sut.buyHint();
@@ -133,7 +133,7 @@ void main() {
         await _pumpGamePage(tester);
         sut.starCount = 1000;
         sut.gameLevel =
-            PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
+            ClassicGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
         selectComponentByText("Baum", sut);
         selectComponentByText("Schnee", sut);
         sut.buyHint();
@@ -147,7 +147,7 @@ void main() {
           (tester) async {
         await _pumpGamePage(tester);
         sut.starCount = 1000;
-        sut.gameLevel = PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
+        sut.gameLevel = ClassicGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
         selectComponentByText("Baum", sut);
         selectComponentByText("Schnee", sut);
         expect(sut.gameLevel.attemptsWatcher.attemptsLeft, 4);
@@ -174,7 +174,7 @@ void main() {
         (tester) async {
       await _pumpGamePage(tester);
       sut.gameLevel =
-          PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
+          ClassicGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
       final starCountBefore = sut.starCount;
 
       selectComponentByText("Apfel", sut);
@@ -188,7 +188,7 @@ void main() {
             (tester) async {
           await _pumpGamePage(tester);
           sut.gameLevel =
-              PoolGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
+              ClassicGameLevel([Compounds.Apfelbaum, Compounds.Schneemann]);
           selectComponentByText("Apfel", sut);
           selectComponentByText("Baum", sut);
           expect(sut.gameLevel.shownComponents.length, 2);

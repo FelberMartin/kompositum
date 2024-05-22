@@ -1,33 +1,31 @@
-import 'package:kompositum/game/modi/pool/pool_game_level.dart';
+import 'package:kompositum/game/modi/classic/classic_game_level.dart';
+import 'package:kompositum/game/modi/classic/classic_game_page_state.dart';
 
-import '../config/locator.dart';
-import '../data/key_value_store.dart';
-import '../game/level_provider.dart';
-import '../game/modi/pool/generator/compound_pool_generator.dart';
-import '../game/stored_level_loader.dart';
-import '../game/swappable_detector.dart';
-import '../util/tutorial_manager.dart';
-import '../widgets/play/dialogs/level_completed_dialog.dart';
-import 'game_page.dart';
+import '../../../config/locator.dart';
+import '../../../data/key_value_store.dart';
+import '../../level_setup_provider.dart';
+import 'generator/compound_pool_generator.dart';
+import '../../stored_level_loader.dart';
+import '../../swappable_detector.dart';
+import '../../../util/tutorial_manager.dart';
+import '../../../widgets/play/dialogs/level_completed_dialog.dart';
 
-class GamePageClassicState extends GamePageState {
-  GamePageClassicState({
+class MainClassicGamePageState extends ClassicGamePageState {
+  MainClassicGamePageState({
     required super.levelProvider,
     required super.poolGenerator,
     required super.keyValueStore,
     required super.swappableDetector,
     required super.tutorialManager,
-    super.gameMode
   });
 
-  factory GamePageClassicState.fromLocator([GameMode gameMode = GameMode.Pool]) {
-    return GamePageClassicState(
-      levelProvider: locator<LevelProvider>(),
+  factory MainClassicGamePageState.fromLocator() {
+    return MainClassicGamePageState(
+      levelProvider: locator<LevelSetupProvider>(),
       poolGenerator: locator<CompoundPoolGenerator>(),
       keyValueStore: locator<KeyValueStore>(),
       swappableDetector: locator<SwappableDetector>(),
       tutorialManager: locator<TutorialManager>(),
-      gameMode: gameMode
     );
   }
 
@@ -35,10 +33,6 @@ class GamePageClassicState extends GamePageState {
 
   @override
   void startGame() async {
-    if (gameMode != GameMode.Pool) {
-      updateGameToLevel(currentLevel, isLevelAdvance: false);
-      return;
-    }
     final blocked = await keyValueStore.getBlockedCompoundNames();
     await poolGenerator.setBlockedCompounds(blocked);
 
@@ -51,7 +45,7 @@ class GamePageClassicState extends GamePageState {
     });
   }
 
-  void _onPoolGameLevelLoaded(PoolGameLevel? loadedLevel) {
+  void _onPoolGameLevelLoaded(ClassicGameLevel? loadedLevel) {
     if (loadedLevel == null) {
       // Should only happen for the first level or if stored level is got deleted.
       updateGameToLevel(currentLevel, isLevelAdvance: false);
@@ -87,7 +81,7 @@ class GamePageClassicState extends GamePageState {
 
   @override
   void onGameLevelUpdate() {
-    keyValueStore.storeClassicPoolGameLevel(gameLevel as PoolGameLevel);
+    keyValueStore.storeClassicPoolGameLevel(gameLevel as ClassicGameLevel);
   }
 
   @override

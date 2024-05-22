@@ -1,7 +1,7 @@
 
 import 'dart:convert';
 
-import 'package:kompositum/game/modi/pool/pool_game_level.dart';
+import 'package:kompositum/game/modi/classic/classic_game_level.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../util/tutorial_manager.dart';
@@ -63,16 +63,16 @@ class KeyValueStore {
     return completedDaysString.map((dayString) => DateTime.parse(dayString)).toList();
   }
 
-  Future<void> storeClassicPoolGameLevel(PoolGameLevel level) async {
+  Future<void> storeClassicGameLevel(ClassicGameLevel level) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString("classicPoolGameLevel", jsonEncode(level.toJson()));
   }
 
-  Future<PoolGameLevel?> getClassicPoolGameLevel() async {
+  Future<ClassicGameLevel?> getClassicGameLevel() async {
     final prefs = await SharedPreferences.getInstance();
     final json = prefs.getString("classicPoolGameLevel");
     if (json != null && json != "{}") {
-      return PoolGameLevel.fromJson(Map<String, dynamic>.from(jsonDecode(json)));
+      return ClassicGameLevel.fromJson(Map<String, dynamic>.from(jsonDecode(json)));
     }
     return null;
   }

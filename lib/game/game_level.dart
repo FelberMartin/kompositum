@@ -35,7 +35,7 @@ abstract class GameLevel {
     attemptsWatcher = AttemptsWatcher();
   }
 
-  void setup({
+  void initialize({
     required compounds,
     required List<UniqueComponent> selectableComponents,
   }) {

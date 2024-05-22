@@ -1,13 +1,16 @@
 import 'dart:math';
 
 import 'package:kompositum/game/difficulty.dart';
-import 'package:kompositum/game/level_provider.dart';
+import 'package:kompositum/game/level_setup_provider.dart';
 import 'package:kompositum/game/level_setup.dart';
+
+
+abstract class ClassicLevelSetupProvider extends LevelSetupProvider {}
 
 
 /// This LevelProvider should produce levels that globally increase in
 /// difficulty, in a logarithmic way.
-class LogarithmicLevelProvider extends LevelProvider {
+class LogarithmicLevelSetupProvider extends ClassicLevelSetupProvider {
 
   LevelSetup _generateForFirstLevels(int levelNumber) {
     return LevelSetup(
@@ -47,7 +50,7 @@ class LogarithmicLevelProvider extends LevelProvider {
     final weightEasy = 10.0;
     final weightMedium = 2 * log(0.3 * x * x);
     final weightHard = min(0.2 * x, 25.0);
-    return LevelProvider.getRandomDifficulty(weightEasy, weightMedium, weightHard, seed: seed);
+    return LevelSetupProvider.getRandomDifficulty(weightEasy, weightMedium, weightHard, seed: seed);
   }
 
   int _getCompoundCount(double baseLevel, int levelNumber, Difficulty difficulty, {int? seed}) {
@@ -62,19 +65,19 @@ class LogarithmicLevelProvider extends LevelProvider {
 
 }
 
-class DailyLevelProvider extends LevelProvider {
+class DailyLevelSetupProvider extends ClassicLevelSetupProvider {
   @override
   LevelSetup generateLevelSetup(Object levelIdentifier) {
     assert(levelIdentifier is DateTime);
     final date = levelIdentifier as DateTime;
     final seed = date.day + date.month * 100 + date.year * 10000;
 
-    final difficulty = LevelProvider.getRandomDifficulty(1, 1, 1, seed: seed);
+    final difficulty = LevelSetupProvider.getRandomDifficulty(1, 1, 1, seed: seed);
     final compoundCount = Random(seed).nextInt(11) + 4;
 
     return LevelSetup(
       levelIdentifier: date,
-      levelType: LevelType.daily,
+      levelType: LevelType.dailyClassic,
       compoundCount: compoundCount,
       poolGenerationSeed: seed,
       difficulty: difficulty,

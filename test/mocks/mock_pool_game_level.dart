@@ -1,4 +1,4 @@
-import 'package:kompositum/game/modi/pool/pool_game_level.dart';
+import 'package:kompositum/game/modi/classic/classic_game_level.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockPoolGameLevel extends Mock implements PoolGameLevel {}
+class MockPoolGameLevel extends Mock implements ClassicGameLevel {}

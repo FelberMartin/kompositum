@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kompositum/config/my_theme.dart';
-import 'package:kompositum/game/modi/pool/pool_game_level.dart';
+import 'package:kompositum/game/modi/classic/classic_game_level.dart';
+import 'package:kompositum/game/modi/classic/daily_classic_game_page_state.dart';
 import 'package:kompositum/main.dart';
 import 'package:kompositum/screens/daily_overview_page.dart';
 import 'package:kompositum/screens/game_page.dart';
-import 'package:kompositum/screens/game_page_daily.dart';
 import 'package:kompositum/screens/home_page.dart';
 import 'package:kompositum/util/notifications/daily_notification_scheduler.dart';
 import 'package:kompositum/util/notifications/notifictaion_manager.dart';
@@ -49,8 +49,8 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(Key("daily_play_button")).hitTestable());
       await nonBlockingPump(tester);
-      final GamePageDailyState state = tester.state(find.byType(GamePage)) as GamePageDailyState;
-      state.gameLevel = PoolGameLevel([]);
+      final DailyClassicGamePageState state = tester.state(find.byType(GamePage)) as DailyClassicGamePageState;
+      state.gameLevel = ClassicGameLevel([]);
       state.levelCompleted();
       await nonBlockingPump(tester);
 
