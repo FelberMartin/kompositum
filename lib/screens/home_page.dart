@@ -3,6 +3,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:kompositum/game/difficulty.dart';
 import 'package:kompositum/game/level_setup_provider.dart';
+import 'package:kompositum/game/modi/chain/chain_game_page_state.dart';
 import 'package:kompositum/game/modi/classic/daily_classic_game_page_state.dart';
 import 'package:kompositum/game/modi/classic/main_classic_game_page_state.dart';
 import 'package:kompositum/screens/settings_page.dart';
@@ -117,6 +118,16 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     });
   }
 
+  void _launchSecretLevel() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => GamePage(
+        state: ChainGamePageState.fromLocator(DateTime.now()))),
+    ).then((value) {
+      _updatePage();
+    });
+  }
+
   void _launchSettings() {
     Navigator.push(
       context,
@@ -159,6 +170,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                     animationStartDelay: Duration.zero,
                     onPlaySecretLevel: () {}, // TODO
                   ),
+                ),
+                MyPrimaryTextButton(
+                  text: "Chain",
+                  onPressed: _launchSecretLevel,
                 ),
                 Expanded(flex: 1, child: Container()),
                 isLoading ? PlayButton.loading() : PlayButton(

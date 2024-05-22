@@ -10,7 +10,7 @@ class ChainLevelSetupProvider extends LevelSetupProvider {
     final date = levelIdentifier as DateTime;
     final seed = date.day + date.month * 100 + date.year * 10000;
 
-    final difficulty = LevelSetupProvider.getRandomDifficulty(1, 1, 1, seed: seed);
+    final difficulty = LevelSetupProvider.getRandomDifficulty(0, 1, 1, seed: seed);
     final compoundCount = Random(seed).nextInt(11) + 7;
 
     return LevelSetup(

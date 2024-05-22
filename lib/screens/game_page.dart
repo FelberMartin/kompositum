@@ -71,6 +71,8 @@ abstract class GamePageState extends State<GamePage> {
   int starCount = 0;
   bool isLoading = true;
 
+  bool keepModifierFixed = false;
+
   Map<SelectionType, int> selectionTypeToComponentId = {
     SelectionType.modifier: -1,
     SelectionType.head: -1,
@@ -81,17 +83,16 @@ abstract class GamePageState extends State<GamePage> {
   UniqueComponent? dummyModifier, dummyHead;
 
   UniqueComponent? get selectedModifier {
-    if (gameLevel is ChainGameLevel) {
-      return dummyModifier ?? (gameLevel as ChainGameLevel).currentModifier;
-    }
     final selectedId = selectionTypeToComponentId[SelectionType.modifier];
     final selectedComponent = gameLevel.shownComponents.firstWhereOrNull((element) => element.id == selectedId);
     return selectedComponent ?? dummyModifier;
   }
 
-  UniqueComponent? get selectedHead =>
-      gameLevel.shownComponents.firstWhereOrNull((element) =>
-          element.id == selectionTypeToComponentId[SelectionType.head]) ?? dummyHead;
+  UniqueComponent? get selectedHead {
+    final selectedId = selectionTypeToComponentId[SelectionType.head];
+    final selectedComponent = gameLevel.shownComponents.firstWhereOrNull((element) => element.id == selectedId);
+    return selectedComponent ?? dummyHead;
+  }
 
   @override
   void initState() {
@@ -167,6 +168,9 @@ abstract class GamePageState extends State<GamePage> {
   }
 
   void resetSelection(SelectionType selectionType, {bool shouldSetState = true}) {
+    if (keepModifierFixed && selectionType == SelectionType.modifier) {
+      return;
+    }
     selectionTypeToComponentId[selectionType] = -1;
     if (shouldSetState) {
       setState(() {});
@@ -180,7 +184,7 @@ abstract class GamePageState extends State<GamePage> {
     }
     final selectionType = getSelectionTypeForComponentId(componentId);
     if (selectionType != null) {
-      selectionTypeToComponentId[selectionType] = -1;
+      resetSelection(selectionType, shouldSetState: false);
     } else if (selectionTypeToComponentId[SelectionType.modifier] == -1) {
       selectionTypeToComponentId[SelectionType.modifier] = componentId;
     } else {

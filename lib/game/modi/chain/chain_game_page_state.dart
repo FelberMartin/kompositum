@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kompositum/config/locator.dart';
 import 'package:kompositum/data/key_value_store.dart';
+import 'package:kompositum/data/models/compact_frequency_class.dart';
+import 'package:kompositum/data/models/unique_component.dart';
 import 'package:kompositum/game/game_level.dart';
-import 'package:kompositum/game/level_content_generator.dart';
 import 'package:kompositum/game/level_setup.dart';
-import 'package:kompositum/game/level_setup_provider.dart';
 import 'package:kompositum/game/modi/chain/chain_game_level.dart';
 import 'package:kompositum/game/modi/chain/chain_level_setup_provider.dart';
 import 'package:kompositum/game/modi/chain/generator/chain_generator.dart';
@@ -37,21 +37,38 @@ class ChainGamePageState extends GamePageState {
   }
 
   final DateTime date;
+  static const int fixedModifierId = -100;
 
-  @override
-  Future<GameLevel> generateGameLevel(LevelSetup levelSetup) async {
-    final levelContent = await levelContentGenerator.generateFromLevelSetup(levelSetup);
-    gameLevel = ChainGameLevel(
-      levelContent as ComponentChain,
-      maxShownComponentCount: levelSetup.difficulty.maxShownComponentCount,
-    );
-    toggleSelection((gameLevel as ChainGameLevel).currentModifier.id);
-    return gameLevel;
+  void _setFixedModifier() {
+    selectionTypeToComponentId[SelectionType.modifier] = fixedModifierId;
   }
 
   @override
+  UniqueComponent? get selectedModifier {
+    return dummyModifier ?? (gameLevel as ChainGameLevel).currentModifier;
+  }
+
+    @override
   void startGame() async {
+    _setFixedModifier();
+    keepModifierFixed = true;
     updateGameToLevel(date, isLevelAdvance: false);
+  }
+
+  @override
+  Future<GameLevel> generateGameLevel(LevelSetup levelSetup) async {
+    // final levelContent = await levelContentGenerator.generateFromLevelSetup(levelSetup);
+    final levelContent = await levelContentGenerator.generate(
+      compoundCount: 20,
+      frequencyClass: CompactFrequencyClass.medium,
+      seed: levelSetup.poolGenerationSeed,
+    );
+    print("LevelContent: $levelContent");
+    gameLevel = ChainGameLevel(
+      levelContent as ComponentChain,
+      maxShownComponentCount: 100,    // TODO: for now test this with unlimited
+    );
+    return gameLevel;
   }
 
   @override

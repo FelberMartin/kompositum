@@ -129,6 +129,7 @@ abstract class GameLevel {
   UniqueComponent getNextShownComponent({int? seed}) {
     final random = seed == null ? Random() : Random(seed);
     final refillCount = maxShownComponentCount - shownComponents.length;
+    // TODO: adapt this for chain levels
     if (refillCount > 1 || _isAnyCompoundInShownComponents()) {
       return hiddenComponents[random.nextInt(hiddenComponents.length)];
     }
@@ -156,6 +157,7 @@ abstract class GameLevel {
   }
 
   Hint? requestHint(int starCount) {
+    // TODO hint generation for chain levels
     if (canRequestHint(starCount)) {
       final hint = Hint.generate(allCompounds, shownComponents, hints);
       hints.add(hint);
