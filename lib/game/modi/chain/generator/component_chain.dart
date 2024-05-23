@@ -20,7 +20,7 @@ class ComponentChain extends LevelContent {
     for (int i = 0; i < componentStrings.length - 1; i++) {
       final modifier = componentStrings[i];
       final head = componentStrings[i + 1];
-      final compound = await databaseInterface.getCompound(modifier, head, caseSensitive: false);
+      final compound = await databaseInterface.getCompoundSafe(modifier, head);
       compounds.add(compound!);
       components.add(UniqueComponent(compound.modifier));
     }

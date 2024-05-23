@@ -9,7 +9,7 @@ import '../../../../data/models/compound.dart';
 
 class ChainGenerator extends LevelContentGenerator<ComponentChain> {
 
-  static const int maxIterations = 8;
+  static const int maxIterations = 50;
 
   late final Future<CompoundGraph> _fullGraph;
 
