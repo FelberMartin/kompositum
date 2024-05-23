@@ -71,6 +71,23 @@ void main() {
       ]);
       expect(compoundGraph.getNeighbors("Apfel"), containsAll(["baum", "kuchen"]));
     });
+
+    test("getLinkedModifiers should return all modifiers of a head", () {
+      final compoundGraph = CompoundGraph.fromCompounds([
+        Compounds.Apfelbaum, Compounds.Apfelkuchen, Compounds.Schneemann
+      ]);
+      expect(compoundGraph.getLinkedModifiers("Baum"), contains("apfel"));
+    });
+
+    test("getLinkedHeads should return all heads of a modifier", ()
+    {
+      final compoundGraph = CompoundGraph.fromCompounds([
+        Compounds.Apfelbaum, Compounds.Apfelkuchen, Compounds.Schneemann
+      ]);
+      final result = compoundGraph.getLinkedHeads("Apfel");
+      expect(result, contains("baum"));
+      expect(result, contains("kuchen"));
+    });
   });
 
   group("getConflictingComponents", () {

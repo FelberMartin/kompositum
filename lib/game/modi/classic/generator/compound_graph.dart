@@ -22,7 +22,11 @@ class CompoundGraph {
   /// Hint: This method is idempotent. That is, adding the same compound twice
   /// will not change the graph.
   void addCompound(Compound compound) {
-    _graph.linkTo(compound.modifier.toLowerCase(), compound.head.toLowerCase());
+    addLink(compound.modifier, compound.head);
+  }
+
+  void addLink(String modifier, String head) {
+    _graph.linkTo(modifier.toLowerCase(), head.toLowerCase());
   }
 
   /// For testing only.
@@ -35,16 +39,33 @@ class CompoundGraph {
   }
 
   List<String> getConflictingComponents(Compound compound) {
-    final modifierNeighbors = getNeighbors(compound.modifier.toLowerCase());
-    final headNeighbors = getNeighbors(compound.head.toLowerCase());
+    final modifierNeighbors = getNeighbors(compound.modifier);
+    final headNeighbors = getNeighbors(compound.head);
     return [...modifierNeighbors, ...headNeighbors];
   }
 
+  /// Returns all neighbors of the given component. A neighbor is a component
+  /// that is linked to the given component.
   List<String> getNeighbors(String component) {
-    final lcComponent = component.toLowerCase();
-    final linkedHeads = _graph.linkTos(lcComponent).toList();
-    final linkedModifiers = _graph.linkFroms(lcComponent).toList();
+    final linkedHeads = getLinkedHeads(component);
+    final linkedModifiers = getLinkedModifiers(component);
     return [...linkedHeads, ...linkedModifiers];
+  }
+
+  /// Returns all heads that are linked to the given modifier.
+  /// Example: getLinkedHeads("apfel") returns ["baum", "kuchen"]
+  List<String> getLinkedHeads(String modifier) {
+    final result = _graph.linkTos(modifier.toLowerCase()).toList();
+    // Without that a List<dynamic> is returned
+    return [...result];
+  }
+
+  /// Returns all modifiers that are linked to the given head.
+  /// Example: getLinkedModifiers("baum") returns ["apfel"]
+  List<String> getLinkedModifiers(String head) {
+    final result = _graph.linkFroms(head.toLowerCase()).toList();
+    // Without that a List<dynamic> is returned
+    return [...result];
   }
 
   void removeCompounds(List<Compound> compounds) {
@@ -121,7 +142,7 @@ class CompoundGraph {
     for (var element in _graph) {
       final links = _graph.linkTos(element);
       for (final link in links) {
-        copy._graph.linkTo(element, link);
+        copy.addLink(element, link);
       }
     }
     return copy;

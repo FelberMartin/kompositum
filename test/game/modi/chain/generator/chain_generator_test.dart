@@ -107,7 +107,7 @@ void main() {
     test("measure time for many chain creations", () async {
       final databaseInterface = locator.get<DatabaseInterface>();
       sut = ChainGenerator(databaseInterface);
-      final chainCount = 100;
+      final chainCount = 10;
       final compoundCound = 15;
       final stopwatch = Stopwatch();
       final stopwatchTimes = <int>[];
@@ -127,11 +127,10 @@ void main() {
 
       print("\n#############################################################");
 
-
       // Print the average length of the chains and how often the expected length was reached
       final expectedLength = compoundCound + 1;
       final averageLength = chains.map((chain) => chain.getCompounds().length).reduce((a, b) => a + b) / chainCount;
-      final expectedLengthCount = chains.where((chain) => chain.getCompounds().length == expectedLength).length;
+      final expectedLengthCount = chains.where((chain) => chain.components.length == expectedLength).length;
       print("Average length: $averageLength, expected length ($expectedLength) reached $expectedLengthCount/$chainCount");
 
       // Print the average, min and max time
@@ -140,11 +139,14 @@ void main() {
       final maxT = stopwatchTimes.reduce(max);
       print("Average: $average ms, min: $minT ms, max: $maxT ms");
 
-      /* Write down the improvements here:
+      /* Write down the improvements here:  (MEDIUM)
+      Backtracking:
+        Average length: 15.0, expected length (16) reached 50/50
+        Average: 415.56 ms, min: 296 ms, max: 1724 ms
 
       Recursive implementation:
-        Average length: 6.81, expected length (16) reached 0/100
-        Average: 407.85 ms, min: 300 ms, max: 1769 ms
+       Average length: 6.98, expected length (16) reached 0/50
+       Average: 462.74 ms, min: 389 ms, max: 1776 ms
 
       Increase maxIterations to 50:
         Average length: 6.81, expected length (16) reached 0/100

@@ -79,12 +79,14 @@ class ChainGenerator extends LevelContentGenerator<ComponentChain> {
       return [startString];
     }
 
+
     final head = selectableGraph.getRandomHeadForModifier(modifier: startString, random: random);
     if (head == null) {
       return [startString];
     }
 
-    final conflicts = conflictsGraph.getNeighbors(startString);
+    final selectableGraphInitially = selectableGraph.copy();
+    final conflicts = conflictsGraph.getLinkedHeads(startString);
     conflicts.remove(head);
     selectableGraph.removeComponents(conflicts);
 
@@ -102,7 +104,18 @@ class ChainGenerator extends LevelContentGenerator<ComponentChain> {
     }
 
     // Otherwise, try to find a better continuation
-    // TODO
+    selectableGraphInitially.removeComponent(head);
+    final alternative = getBestChainForStartString(
+      startString: startString,
+      selectableGraph: selectableGraphInitially,
+      conflictsGraph: conflictsGraph,
+      random: random,
+      maxChainLength: maxChainLength,
+    );
+
+    if (alternative.length > continuation.length) {
+      return alternative;
+    }
     return [startString, ...continuation];
   }
 
