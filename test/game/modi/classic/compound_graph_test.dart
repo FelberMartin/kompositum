@@ -163,4 +163,15 @@ void main() {
       expect(compoundGraph.getAllComponents(), ["apfel", "baum"]);
     });
   });
+
+  group("copy", () {
+    test("should create a copy of the graph", () {
+      final compoundGraph = CompoundGraph.fromCompounds([
+        Compounds.Apfelbaum, Compounds.Apfelkuchen, Compounds.Schneemann
+      ]);
+      final copy = compoundGraph.copy();
+      expect(copy.getAllComponents(), compoundGraph.getAllComponents());
+      expect(copy.getNeighbors("apfel"), compoundGraph.getNeighbors("apfel"));
+    });
+  });
 }

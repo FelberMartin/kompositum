@@ -112,4 +112,15 @@ class CompoundGraph {
     return linkedModifiers[random!.nextInt(linkedModifiers.length)];
   }
 
+  CompoundGraph copy() {
+    final copy = CompoundGraph();
+    for (var element in _graph) {
+      final links = _graph.linkTos(element);
+      for (final link in links) {
+        copy._graph.linkTo(element, link);
+      }
+    }
+    return copy;
+  }
+
 }

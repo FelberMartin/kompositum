@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:kompositum/data/database_interface.dart';
 import 'package:kompositum/data/models/compound.dart';
 import 'package:kompositum/data/models/unique_component.dart';
@@ -38,6 +39,22 @@ class ComponentChain extends LevelContent {
   @override
   List<Compound> getCompounds() {
     return compounds;
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is ComponentChain &&
+      listEquals(other.compounds, compounds);
+  }
+
+  @override
+  int get hashCode => _deepHash(compounds);
+
+  // Helper method to generate a consistent hash code for a list
+  int _deepHash(List<dynamic> list) {
+    return list.fold(0, (previousValue, element) => previousValue ^ element.hashCode);
   }
 
 }

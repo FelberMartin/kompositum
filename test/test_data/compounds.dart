@@ -69,7 +69,7 @@ class Compounds {
   static var SachSchaden = Compound(
     id: 0,
     name: "Sachschaden",
-    modifier: "Sach",
+    modifier: "Sache",
     head: "Schaden",
     frequencyClass: 1,
   );
@@ -103,6 +103,14 @@ class Compounds {
     name: "Maschinenbau",
     modifier: "Maschine",
     head: "Bau",
+    frequencyClass: 1,
+  );
+
+  static var Bauamt = Compound(
+    id: 0,
+    name: "Bauamt",
+    modifier: "Bau",
+    head: "Amt",
     frequencyClass: 1,
   );
 
