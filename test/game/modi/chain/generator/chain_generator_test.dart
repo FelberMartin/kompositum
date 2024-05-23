@@ -87,6 +87,7 @@ void main() {
         startString: "apfel",
         selectableGraph: selectableGraph,
         conflictsGraph: selectableGraph.copy(),
+        blockedComponents: [],
         random: Random(0),
         maxChainLength: 3,
       );
@@ -107,7 +108,7 @@ void main() {
     test("measure time for many chain creations", () async {
       final databaseInterface = locator.get<DatabaseInterface>();
       sut = ChainGenerator(databaseInterface);
-      final chainCount = 10;
+      final chainCount = 50;
       final compoundCound = 15;
       final stopwatch = Stopwatch();
       final stopwatchTimes = <int>[];
@@ -129,7 +130,7 @@ void main() {
 
       // Print the average length of the chains and how often the expected length was reached
       final expectedLength = compoundCound + 1;
-      final averageLength = chains.map((chain) => chain.getCompounds().length).reduce((a, b) => a + b) / chainCount;
+      final averageLength = chains.map((chain) => chain.components.length).reduce((a, b) => a + b) / chainCount;
       final expectedLengthCount = chains.where((chain) => chain.components.length == expectedLength).length;
       print("Average length: $averageLength, expected length ($expectedLength) reached $expectedLengthCount/$chainCount");
 
@@ -140,20 +141,24 @@ void main() {
       print("Average: $average ms, min: $minT ms, max: $maxT ms");
 
       /* Write down the improvements here:  (MEDIUM)
+      BlockedComponents instead of copying graph:
+        Average length: 16.0, expected length (16) reached 50/50
+        Average: 232.26 ms, min: 197 ms, max: 1480 ms
+
       Backtracking:
-        Average length: 15.0, expected length (16) reached 50/50
+        Average length: 16.0, expected length (16) reached 50/50
         Average: 415.56 ms, min: 296 ms, max: 1724 ms
 
       Recursive implementation:
-       Average length: 6.98, expected length (16) reached 0/50
+       Average length: 7.98, expected length (16) reached 0/50
        Average: 462.74 ms, min: 389 ms, max: 1776 ms
 
       Increase maxIterations to 50:
-        Average length: 6.81, expected length (16) reached 0/100
+        Average length: 7.81, expected length (16) reached 0/100
         Average: 418.4 ms, min: 317 ms, max: 1755 ms
 
       Initial implementation:
-        Average length: 4.58, expected length (16) reached 0/100
+        Average length: 5.58, expected length (16) reached 0/100
         Average: 144.21 ms, min: 93 ms, max: 1435 ms
        */
     });

@@ -90,6 +90,42 @@ void main() {
     });
   });
 
+  group("getRandomHeadForModifier", () {
+    test("should return a random head for a given modifier", () {
+      final compoundGraph = CompoundGraph.fromCompounds([
+        Compounds.Apfelbaum, Compounds.Apfelkuchen, Compounds.Schneemann
+      ]);
+      final head = compoundGraph.getRandomHeadForModifier(modifier: "Apfel", random: Random());
+      expect(head, isNotNull);
+      expect(head, anyOf("baum", "kuchen"));
+    });
+
+    test("should not return a blocked head", () {
+      final compoundGraph = CompoundGraph.fromCompounds([
+        Compounds.Apfelbaum, Compounds.Apfelkuchen, Compounds.Schneemann
+      ]);
+      final head = compoundGraph.getRandomHeadForModifier(
+          modifier: "Apfel",
+          blockedHeads: ["baum"],
+          random: Random()
+      );
+      expect(head, isNotNull);
+      expect(head, "kuchen");
+    });
+
+    test("should return null if no head is available", () {
+      final compoundGraph = CompoundGraph.fromCompounds([
+        Compounds.Apfelbaum, Compounds.Apfelkuchen, Compounds.Schneemann
+      ]);
+      final head = compoundGraph.getRandomHeadForModifier(
+          modifier: "Apfel",
+          blockedHeads: ["baum", "kuchen"],
+          random: Random()
+      );
+      expect(head, isNull);
+    });
+  });
+
   group("getConflictingComponents", () {
     test("should return the components of the given compound", () {
       final compoundGraph = CompoundGraph.fromCompounds([Compounds.Apfelbaum]);

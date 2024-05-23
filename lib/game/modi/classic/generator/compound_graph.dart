@@ -117,9 +117,11 @@ class CompoundGraph {
 
   String? getRandomHeadForModifier({
     required String modifier,
+    List<String> blockedHeads = const [],
     Random? random,
   }) {
-    final linkedHeads = _graph.linkTos(modifier).toList();
+    final linkedHeads = getLinkedHeads(modifier);
+    linkedHeads.removeWhere((head) => blockedHeads.contains(head.toLowerCase()));
     if (linkedHeads.isEmpty) {
       return null;
     }
@@ -130,7 +132,7 @@ class CompoundGraph {
     required String head,
     Random? random,
   }) {
-    final linkedModifiers = _graph.linkFroms(head).toList();
+    final linkedModifiers = getLinkedModifiers(head);
     if (linkedModifiers.isEmpty) {
       return null;
     }

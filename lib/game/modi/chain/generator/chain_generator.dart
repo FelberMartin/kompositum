@@ -45,6 +45,7 @@ class ChainGenerator extends LevelContentGenerator<ComponentChain> {
         startString: startString,
         selectableGraph: selectableGraph,
         conflictsGraph: fullGraph,
+        blockedComponents: [],
         random: random,
         maxChainLength: maxChainLength,
       );
@@ -72,6 +73,7 @@ class ChainGenerator extends LevelContentGenerator<ComponentChain> {
     required String startString,
     required CompoundGraph selectableGraph,
     required CompoundGraph conflictsGraph,
+    required List<String> blockedComponents,
     required Random random,
     required int maxChainLength,
   }) {
@@ -79,21 +81,23 @@ class ChainGenerator extends LevelContentGenerator<ComponentChain> {
       return [startString];
     }
 
-
-    final head = selectableGraph.getRandomHeadForModifier(modifier: startString, random: random);
+    final head = selectableGraph.getRandomHeadForModifier(
+        modifier: startString,
+        blockedHeads: blockedComponents,
+        random: random
+    );
     if (head == null) {
       return [startString];
     }
 
-    final selectableGraphInitially = selectableGraph.copy();
     final conflicts = conflictsGraph.getLinkedHeads(startString);
     conflicts.remove(head);
-    selectableGraph.removeComponents(conflicts);
 
     final continuation = getBestChainForStartString(
       startString: head,
       selectableGraph: selectableGraph,
       conflictsGraph: conflictsGraph,
+      blockedComponents: conflicts,
       random: random,
       maxChainLength: maxChainLength - 1,
     );
@@ -104,11 +108,11 @@ class ChainGenerator extends LevelContentGenerator<ComponentChain> {
     }
 
     // Otherwise, try to find a better continuation
-    selectableGraphInitially.removeComponent(head);
     final alternative = getBestChainForStartString(
       startString: startString,
-      selectableGraph: selectableGraphInitially,
+      selectableGraph: selectableGraph,
       conflictsGraph: conflictsGraph,
+      blockedComponents: [...blockedComponents, head],
       random: random,
       maxChainLength: maxChainLength,
     );
