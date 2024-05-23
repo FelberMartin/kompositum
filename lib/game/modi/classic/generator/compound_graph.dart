@@ -59,8 +59,12 @@ class CompoundGraph {
 
   void removeComponents(List<String> components) {
     for (final component in components) {
-      _graph.remove(component.toLowerCase());
+      removeComponent(component);
     }
+  }
+
+  void removeComponent(String component) {
+    _graph.remove(component.toLowerCase());
   }
 
   /// Returns a random pair of a modifier and a head in the graph.

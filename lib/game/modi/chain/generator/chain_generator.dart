@@ -75,33 +75,35 @@ class ChainGenerator extends LevelContentGenerator<ComponentChain> {
     required Random random,
     required int maxChainLength,
   }) {
-    final componentStrings = <String>[startString];
-    final bestChain = <String>[];
-
-    while (bestChain.length < maxChainLength) {
-      final modifier = componentStrings.last;
-      final head = selectableGraph.getRandomHeadForModifier(modifier: modifier, random: random);
-      if (head == null) {
-        // if (componentStrings.length > 1) {
-        //   componentStrings.removeLast();
-        // } else {
-        //   // Only the start string is left
-        //   break;
-        // }
-        break;
-      } else {
-        componentStrings.add(head);
-        if (componentStrings.length > bestChain.length) {
-          bestChain.clear();
-          bestChain.addAll(componentStrings);
-        }
-      }
-      final conflicts = conflictsGraph.getNeighbors(modifier);
-      conflicts.remove(head);
-      selectableGraph.removeComponents(conflicts);
+    if (maxChainLength == 1) {
+      return [startString];
     }
 
-    return bestChain;
+    final head = selectableGraph.getRandomHeadForModifier(modifier: startString, random: random);
+    if (head == null) {
+      return [startString];
+    }
+
+    final conflicts = conflictsGraph.getNeighbors(startString);
+    conflicts.remove(head);
+    selectableGraph.removeComponents(conflicts);
+
+    final continuation = getBestChainForStartString(
+      startString: head,
+      selectableGraph: selectableGraph,
+      conflictsGraph: conflictsGraph,
+      random: random,
+      maxChainLength: maxChainLength - 1,
+    );
+
+    // Best case: the continuation is as long as the maximum chain length
+    if (continuation.length == maxChainLength - 1) {
+      return [startString, ...continuation];
+    }
+
+    // Otherwise, try to find a better continuation
+    // TODO
+    return [startString, ...continuation];
   }
 
 }

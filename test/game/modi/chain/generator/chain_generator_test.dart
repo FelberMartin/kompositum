@@ -142,6 +142,10 @@ void main() {
 
       /* Write down the improvements here:
 
+      Recursive implementation:
+        Average length: 6.81, expected length (16) reached 0/100
+        Average: 407.85 ms, min: 300 ms, max: 1769 ms
+
       Increase maxIterations to 50:
         Average length: 6.81, expected length (16) reached 0/100
         Average: 418.4 ms, min: 317 ms, max: 1755 ms

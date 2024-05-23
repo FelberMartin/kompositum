@@ -75,7 +75,7 @@ class MockDatabaseInterface implements DatabaseInterface {
 
   @override
   Future<Compound?> getCompoundSafe(String modifier, String head) {
-    return getCompound(modifier, head);
+    return getCompound(modifier, head, caseSensitive: false);
   }
 
 }
