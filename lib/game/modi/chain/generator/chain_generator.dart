@@ -9,7 +9,7 @@ import '../../../../data/models/compound.dart';
 
 class ChainGenerator extends LevelContentGenerator<ComponentChain> {
 
-  static const int maxIterations = 50;
+  static const int maxIterations = 15;
 
   late final Future<CompoundGraph> _fullGraph;
 
@@ -55,7 +55,7 @@ class ChainGenerator extends LevelContentGenerator<ComponentChain> {
         bestChain.addAll(componentStrings);
       }
 
-      print("Iteration $iteration: Chain length ${componentStrings.length} of $maxChainLength [$startString]");
+      print("Iteration $iteration: Chain length ${componentStrings.length} of $maxChainLength $componentStrings");
       iteration++;
       if (iteration > maxIterations) {
         print("Max iterations reached");
@@ -81,6 +81,9 @@ class ChainGenerator extends LevelContentGenerator<ComponentChain> {
       return [startString];
     }
 
+    // To prevent infinite loops, we block the start string
+    blockedComponents = [...blockedComponents, startString];
+
     final head = selectableGraph.getRandomHeadForModifier(
         modifier: startString,
         blockedHeads: blockedComponents,
@@ -91,13 +94,12 @@ class ChainGenerator extends LevelContentGenerator<ComponentChain> {
     }
 
     final conflicts = conflictsGraph.getLinkedHeads(startString);
-    conflicts.remove(head);
 
     final continuation = getBestChainForStartString(
       startString: head,
       selectableGraph: selectableGraph,
       conflictsGraph: conflictsGraph,
-      blockedComponents: conflicts,
+      blockedComponents: [...blockedComponents, ...conflicts],
       random: random,
       maxChainLength: maxChainLength - 1,
     );

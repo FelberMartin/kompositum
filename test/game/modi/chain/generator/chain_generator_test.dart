@@ -72,6 +72,22 @@ void main() {
     expect(chain.getCompounds().length, 2);
   });
 
+  test("prevent loops", () async {
+    databaseInterface.compounds = [
+      Compounds.Apfelkuchen,
+      Compounds.Kuchenform,
+      Compounds.Formsache,
+      // Artificial loop "Sachapfel"
+      Compound(id: 0, name: "Sachapfel", modifier: "Sache", head: "Apfel", frequencyClass: 1),
+    ];
+    sut = ChainGenerator(databaseInterface);
+    final chain = await sut.generateRestricted(
+      compoundCount: 10,
+      frequencyClass: CompactFrequencyClass.easy,
+    );
+    expect(chain.getCompounds().length, 3);
+  });
+
   group("getBestChainForStartString", () {
     test("should return a chain with the start string", () async {
       databaseInterface.compounds = [
@@ -108,8 +124,8 @@ void main() {
     test("measure time for many chain creations", () async {
       final databaseInterface = locator.get<DatabaseInterface>();
       sut = ChainGenerator(databaseInterface);
-      final chainCount = 50;
-      final compoundCound = 15;
+      final chainCount = 5;
+      final compoundCound = 30;
       final stopwatch = Stopwatch();
       final stopwatchTimes = <int>[];
       final chains = <ComponentChain>[];
