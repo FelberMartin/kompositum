@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kompositum/config/my_icons.dart';
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/util/notifications/daily_notification_scheduler.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../config/locator.dart';
 import '../config/my_theme.dart';
@@ -89,7 +90,14 @@ class _SettingsPageState extends State<SettingsPage> {
                           onChange: setIsDailyNotificationActive,
                         )
                       ],
-                    )
+                    ),
+                    SizedBox(height: 32.0),
+                    SettingsGroup(
+                      title: "Datenschutzerklärung",
+                      children: [
+                        PrivacyPolicy()
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -163,6 +171,32 @@ class BooleanSettingsRow extends StatelessWidget {
           onChanged: onChange,
         )
       ],
+    );
+  }
+}
+
+class PrivacyPolicy extends StatelessWidget {
+
+  static const String privacyPolicyUrl = "https://github.com/FelberMartin/kompositum/blob/main/PrivacyPolicy.md";
+
+  void _launchPrivacyPolicy() async {
+    final Uri url = Uri.parse(privacyPolicyUrl);
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $privacyPolicyUrl');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: _launchPrivacyPolicy,
+      child: Text(
+        "Klicken Sie hier, um unsere Datenschutzerklärung zu lesen (Englisch).",
+        style: Theme.of(context).textTheme.labelSmall!.copyWith(
+          color: MyColorPalette.of(context).textSecondary,
+          decoration: TextDecoration.underline,
+        ),
+      ),
     );
   }
 }
