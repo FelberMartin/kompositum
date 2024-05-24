@@ -2,7 +2,6 @@
 ## 1.0 Release
 ### Next up
 - Daily goals:
-  - adapt getNextComponentToShow() or use unlimited shown components?
   - Tutorial Dialogs:
     - DailyGoals
     - New gameMode

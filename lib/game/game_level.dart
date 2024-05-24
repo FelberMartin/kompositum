@@ -14,8 +14,11 @@ import 'package:kompositum/game/swappable_detector.dart';
 
 abstract class GameLevel {
 
+  @protected
   final int maxHintCount = 2;
+
   final int maxShownComponentCount;
+  final int minSolvableCompoundsInPool;
 
   @protected
   final allCompounds = <Compound>[];
@@ -32,6 +35,7 @@ abstract class GameLevel {
 
   GameLevel({
     this.maxShownComponentCount = 9,
+    this.minSolvableCompoundsInPool = 1,
     this.swappableCompounds = const [],
   }) {
     attemptsWatcher = AttemptsWatcher();
@@ -130,20 +134,21 @@ abstract class GameLevel {
   UniqueComponent getNextShownComponent({int? seed}) {
     final random = seed == null ? Random() : Random(seed);
     final refillCount = maxShownComponentCount - shownComponents.length;
-    // TODO: adapt this for chain levels
-    if (refillCount > 1 || _isAnyCompoundInShownComponents()) {
-      return hiddenComponents[random.nextInt(hiddenComponents.length)];
+    final solvableCompounds = _compoundCountInShownComponents();
+    if (solvableCompounds < minSolvableCompoundsInPool && refillCount <= minSolvableCompoundsInPool) {
+      return findComponentToCreateNewSolvable(random);
     }
 
-    return _findMissingComponentForRandomCompound(random);
+    return hiddenComponents[random.nextInt(hiddenComponents.length)];
   }
 
-  bool _isAnyCompoundInShownComponents() {
+  int _compoundCountInShownComponents() {
     return allCompounds
-        .any((compound) => compound.isSolvedBy(shownComponents));
+        .where((compound) => compound.isSolvedBy(shownComponents)).length;
   }
 
-  UniqueComponent _findMissingComponentForRandomCompound(Random random) {
+  @protected
+  UniqueComponent findComponentToCreateNewSolvable(Random random) {
     final compoundsCurrentlyCompletable = unsolvedCompounds
         .where((compound) => compound.isOnlyPartiallySolvedBy(shownComponents))
         .toList();

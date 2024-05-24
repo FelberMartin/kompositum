@@ -38,12 +38,14 @@ extension ClassicGameLevelExtension on ClassicGameLevel {
 
   static ClassicGameLevel of(List<Compound> compounds, {
     int maxShownComponentCount = 9,
+    int minSolvableCompoundsInPool = 1,
     List<Swappable> swappableCompounds = const [],
   }) {
     final levelContent = ClassicLevelContent(compounds);
     return ClassicGameLevel(
       levelContent,
       maxShownComponentCount: maxShownComponentCount,
+      minSolvableCompoundsInPool: minSolvableCompoundsInPool,
       swappableCompounds: swappableCompounds,
     );
   }

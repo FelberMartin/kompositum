@@ -21,6 +21,7 @@ class ClassicGameLevel extends GameLevel {
     ClassicLevelContent levelContent,
     {
       super.maxShownComponentCount = 9,
+      super.minSolvableCompoundsInPool = 1,
       super.swappableCompounds = const [],
   }) {
     super.initialize(

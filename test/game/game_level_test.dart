@@ -1,6 +1,7 @@
 import 'package:kompositum/config/star_costs_rewards.dart';
 import 'package:kompositum/data/models/compound.dart';
 import 'package:kompositum/data/models/unique_component.dart';
+import 'package:kompositum/game/game_level.dart';
 import 'package:kompositum/game/hints/hint.dart';
 import 'package:kompositum/game/modi/classic/classic_game_level.dart';
 import 'package:kompositum/game/swappable_detector.dart';
@@ -14,6 +15,15 @@ void removeCompoundHelper(ClassicGameLevel sut, Compound compound) {
   final modifier = sut.shownComponents.firstWhere((element) => element.text == compound.modifier);
   final head = sut.shownComponents.firstWhere((element) => element.text == compound.head);
   sut.removeCompoundFromShown(compound, modifier, head);
+}
+
+void initShownAndHiddenComponents(GameLevel sut, List<String> shownComponents) {
+  final allComponents = sut.shownComponents + sut.hiddenComponents;
+  final toBeShown = allComponents.where((element) => shownComponents.contains(element.text));
+  sut.shownComponents.clear();
+  sut.shownComponents.addAll(toBeShown);
+  sut.hiddenComponents.clear();
+  sut.hiddenComponents.addAll(allComponents.where((element) => !shownComponents.contains(element.text)));
 }
 
 void main() {
@@ -110,20 +120,33 @@ void main() {
           Compounds.all,
           maxShownComponentCount: 2,
         );
-
-        final allComponents = sut.shownComponents + sut.hiddenComponents;
-        final krankComponent = allComponents.firstWhere((element) => element.text == "krank");
-        sut.shownComponents.clear();
-        sut.shownComponents.add(krankComponent);
-        sut.hiddenComponents.clear();
-        sut.hiddenComponents
-            .addAll(allComponents.where((element) => element != krankComponent));
+        initShownAndHiddenComponents(sut, ["krank"]);
 
         for (var i = 0; i < 5; i++) {
           // Repeat to ensure that the test is not passing by luck
           final nextComponent = sut.getNextShownComponent();
           expect(nextComponent.text, "Haus");
         }
+    });
+
+    test("minSolvableCompoundsInPool: ensures two compounds are in the pool if set to two", () async {
+      sut = ClassicGameLevelExtension.of(
+        Compounds.all,
+        maxShownComponentCount: 4,
+        minSolvableCompoundsInPool: 2,
+      );
+      initShownAndHiddenComponents(sut, ["krank", "Schnee"]);   // Krankenhaus, Schneemann
+
+      for (var i = 0; i < 5; i++) {
+        // Repeat to ensure that the test is not passing by luck
+        final nextComponent = sut.getNextShownComponent();
+        sut.shownComponents.add(nextComponent);
+        final nextComponent2 = sut.getNextShownComponent();
+        expect([nextComponent.text, nextComponent2.text], containsAll(["Haus", "Mann"]));
+
+        // Undo
+        sut.shownComponents.removeLast();
+      }
     });
 
     test("should return the same component for the same passed seed", () {
