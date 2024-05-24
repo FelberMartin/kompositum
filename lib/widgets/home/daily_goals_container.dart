@@ -50,11 +50,13 @@ class DailyGoalsContainer extends StatefulWidget {
     required this.progression,
     required this.onPlaySecretLevel,
     this.animationStartDelay = const Duration(milliseconds: 2000),
+    this.onAnimationEnd,
   });
 
   final DailyGoalSetProgression progression;
   final Function onPlaySecretLevel;
   final Duration animationStartDelay;
+  final Function? onAnimationEnd;
 
   @override
   State<DailyGoalsContainer> createState() => _DailyGoalsContainerState();
@@ -106,8 +108,11 @@ class _DailyGoalsContainerState extends State<DailyGoalsContainer> with SingleTi
     _goalIndex++;
     if (_goalIndex < dailyGoalSet.goals.length) {
       _transitionToNextGoalProgression();
-    } else if (dailyGoalSet.isAchieved) {
-      _allAchievedAnimation();
+    } else {
+      widget.onAnimationEnd?.call();
+      if (dailyGoalSet.isAchieved) {
+        _allAchievedAnimation();
+      }
     }
   }
 

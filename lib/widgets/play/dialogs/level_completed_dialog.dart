@@ -4,6 +4,8 @@ import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
 import 'package:kompositum/config/locator.dart';
 import 'package:kompositum/game/difficulty.dart';
+import 'package:kompositum/game/modi/chain/chain_game_page_state.dart';
+import 'package:kompositum/screens/game_page.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 import 'package:kompositum/widgets/home/daily_goals_container.dart';
 
@@ -106,20 +108,45 @@ class LevelCompletedDialog extends StatefulWidget {
 
 class _LevelCompletedDialogState extends State<LevelCompletedDialog> {
 
+  late int starsForFailedAttempts = Rewards.getStarCountForFailedAttempts(
+    widget.failedAttempts,
+  );
+  late int starsForDifficulty = Rewards.byDifficulty(
+    widget.difficulty,
+  );
+
+  bool _rewardAnimationFinished = false;
+  bool _dailyGoalsAnimationFinished = false;
+
   @override
   void initState() {
     super.initState();
   }
 
+  _onRewardAnimationEnd() => setState(() { _rewardAnimationFinished = true; });
+  _onDailyGoalsAnimationEnd() => setState(() { _dailyGoalsAnimationFinished = true; });
+
+
+  void _launchSecretLevel() {
+    final date = widget.dailyGoalSetProgression!.current.date;
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => GamePage(
+          state: ChainGamePageState.fromLocator(date))),
+    ).then((value) {
+      // TODO: Do nothing here? Or automatic continue?
+    });
+  }
+
+  void onContinue(LevelCompletedDialogResultType resultType) {
+    widget.onContinue(LevelCompletedDialogResult(
+      type: resultType,
+      starCountIncrease: starsForFailedAttempts + starsForDifficulty,
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
-    final starsForFailedAttempts = Rewards.getStarCountForFailedAttempts(
-      widget.failedAttempts,
-    );
-    final starsForDifficulty = Rewards.byDifficulty(
-      widget.difficulty,
-    );
-
     return Scaffold(
       backgroundColor: MyColorPalette.of(context).secondary,
       body: SafeArea(
@@ -143,17 +170,23 @@ class _LevelCompletedDialogState extends State<LevelCompletedDialog> {
                 starsForFailedAttempts: starsForFailedAttempts,
                 difficulty: widget.difficulty,
                 starsForDifficulty: starsForDifficulty,
+                onAnimationEnd: _onRewardAnimationEnd,
               ),
               Expanded(child: Container()),
               widget.dailyGoalSetProgression != null ? DailyGoalsContainer(
                 progression: widget.dailyGoalSetProgression!,
-                onPlaySecretLevel: () {},   // TODO
+                onPlaySecretLevel: _launchSecretLevel,
+                onAnimationEnd: _onDailyGoalsAnimationEnd,
               ) : Container(),
               Expanded(child: Container()),
-              _BottomContent(
-                onContinue: widget.onContinue,
-                type: widget.type,
-                nextLevelNumber: widget.nextLevelNumber,
+              AnimatedOpacity(
+                opacity: _rewardAnimationFinished && _dailyGoalsAnimationFinished ? 1 : 0,
+                duration: Duration(milliseconds: 500),
+                child: _BottomContent(
+                  onContinue: onContinue,
+                  type: widget.type,
+                  nextLevelNumber: widget.nextLevelNumber,
+                ),
               ),
               Expanded(child: Container()),
             ],
@@ -171,12 +204,14 @@ class LevelRewardCalculation extends StatefulWidget {
     required this.starsForFailedAttempts,
     required this.difficulty,
     required this.starsForDifficulty,
+    this.onAnimationEnd,
   });
 
   final int failedAttempts;
   final int starsForFailedAttempts;
   final Difficulty difficulty;
   final int starsForDifficulty;
+  final Function? onAnimationEnd;
 
   @override
   State<LevelRewardCalculation> createState() => _LevelRewardCalculationState();
@@ -191,6 +226,7 @@ class _LevelRewardCalculationState extends State<LevelRewardCalculation> {
   static Duration startDelay = Duration(milliseconds: 0);
   static Duration showDelay = Duration(milliseconds: 400);
   static Duration increaseCounterDelay = Duration(milliseconds: 200);
+  static Duration increaseCounterDuration = Duration(milliseconds: 300);
 
   @override
   void initState() {
@@ -221,6 +257,9 @@ class _LevelRewardCalculationState extends State<LevelRewardCalculation> {
         setState(() {
           _totalStars += widget.starsForFailedAttempts;
         });
+        Future.delayed(increaseCounterDuration, () {
+          widget.onAnimationEnd?.call();
+        });
       });
     });
   }
@@ -233,6 +272,7 @@ class _LevelRewardCalculationState extends State<LevelRewardCalculation> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             AnimatedFlipCounter(
+              duration: increaseCounterDuration,
               value: _totalStars,
               prefix: "+",
               textStyle: Theme.of(context).textTheme.titleLarge,
@@ -306,7 +346,7 @@ class _BottomContent extends StatelessWidget {
     required this.nextLevelNumber,
   });
 
-  final Function(LevelCompletedDialogResult) onContinue;
+  final Function(LevelCompletedDialogResultType) onContinue;
   final LevelCompletedDialogType type;
   final int nextLevelNumber;
 
@@ -316,10 +356,7 @@ class _BottomContent extends StatelessWidget {
       return MyPrimaryTextButtonLarge(
         text: "Weiter",
         onPressed: () {
-          onContinue(LevelCompletedDialogResult(
-            type: LevelCompletedDialogResultType.classic_continue,
-            starCountIncrease: 3,
-          ));
+          onContinue(LevelCompletedDialogResultType.classic_continue);
         },
       );
     } else if (type == LevelCompletedDialogType.daily) {
@@ -328,20 +365,14 @@ class _BottomContent extends StatelessWidget {
           MySecondaryTextButton(
             text: "Zurück zur Übersicht",
             onPressed: () {
-              onContinue(LevelCompletedDialogResult(
-                type: LevelCompletedDialogResultType.daily_backToOverview,
-                starCountIncrease: 3,
-              ));
+              onContinue(LevelCompletedDialogResultType.daily_backToOverview);
             },
           ),
           SizedBox(height: 8),
           MyPrimaryTextButton(
             text: "Level $nextLevelNumber",
             onPressed: () {
-              onContinue(LevelCompletedDialogResult(
-                type: LevelCompletedDialogResultType.daily_continueWithClassic,
-                starCountIncrease: 3,
-              ));
+              onContinue(LevelCompletedDialogResultType.daily_continueWithClassic);
             },
           ),
         ],

@@ -119,10 +119,11 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   }
 
   void _launchSecretLevel() {
+    final date = dailyGoalSetProgression.current.date;
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => GamePage(
-        state: ChainGamePageState.fromLocator(DateTime.now()))),
+        state: ChainGamePageState.fromLocator(date))),
     ).then((value) {
       _updatePage();
     });
@@ -168,12 +169,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                     key: ValueKey(dailyGoalSetProgression.current.progress),
                     progression: dailyGoalSetProgression,
                     animationStartDelay: Duration.zero,
-                    onPlaySecretLevel: () {}, // TODO
+                    onPlaySecretLevel: _launchSecretLevel,
                   ),
-                ),
-                MyPrimaryTextButton(
-                  text: "Chain",
-                  onPressed: _launchSecretLevel,
                 ),
                 Expanded(flex: 1, child: Container()),
                 isLoading ? PlayButton.loading() : PlayButton(
