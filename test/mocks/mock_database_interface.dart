@@ -43,7 +43,6 @@ class MockDatabaseInterface implements DatabaseInterface {
   }
 
   @override
-  // TODO: implement databaseInitializer
   DatabaseInitializer get databaseInitializer => throw UnimplementedError();
 
   @override

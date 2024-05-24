@@ -2,12 +2,11 @@
 ## 1.0 Release
 ### Next up
 - Daily goals:
-  - Dont show on homeScreen? -> if still, then adapt title color
-  - All achieved -> play chain level
-    - Optimize generation
+  - adapt getNextComponentToShow() or use unlimited shown components?
   - Tutorial Dialogs:
     - DailyGoals
     - New gameMode
+  - Dont show on homeScreen? -> if still, then adapt title color
   - Remove reset button in settings
   - Look for todos in code
 - Locking?
@@ -22,6 +21,7 @@
   - Light / Dark mode
 - Add to blocked words:
   - Geisel
+  - abschieben
 
 ### Later
 - LevelFinishedDialog: diamonds for used attempts confusing (remove diamonds for attempts, or

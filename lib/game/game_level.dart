@@ -14,6 +14,7 @@ import 'package:kompositum/game/swappable_detector.dart';
 
 abstract class GameLevel {
 
+  final int maxHintCount = 2;
   final int maxShownComponentCount;
 
   @protected
@@ -157,9 +158,8 @@ abstract class GameLevel {
   }
 
   Hint? requestHint(int starCount) {
-    // TODO hint generation for chain levels
     if (canRequestHint(starCount)) {
-      final hint = Hint.generate(allCompounds, shownComponents, hints);
+      final hint = generateHint();
       hints.add(hint);
       print("Hint: ${hint.hintedComponent} (${hint.type})");
 
@@ -172,8 +172,11 @@ abstract class GameLevel {
     return null;
   }
 
+  @protected
+  Hint generateHint();
+
   bool canRequestHint(int starCount) {
-    return hints.length < 2 && getHintCost() <= starCount;
+    return hints.length < maxHintCount && getHintCost() <= starCount;
   }
 
   int getHintCost() {

@@ -57,12 +57,12 @@ class ChainGamePageState extends GamePageState {
 
   @override
   Future<GameLevel> generateGameLevel(LevelSetup levelSetup) async {
-    // final levelContent = await levelContentGenerator.generateFromLevelSetup(levelSetup);
-    final levelContent = await levelContentGenerator.generate(
-      compoundCount: 20,
-      frequencyClass: CompactFrequencyClass.medium,
-      seed: levelSetup.poolGenerationSeed,
-    );
+    final levelContent = await levelContentGenerator.generateFromLevelSetup(levelSetup);
+    // final levelContent = await levelContentGenerator.generate(
+    //   compoundCount: 20,
+    //   frequencyClass: CompactFrequencyClass.medium,
+    //   seed: levelSetup.poolGenerationSeed,
+    // );
     print("LevelContent: $levelContent");
     gameLevel = ChainGameLevel(
       levelContent as ComponentChain,

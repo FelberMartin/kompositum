@@ -1,5 +1,6 @@
 import 'package:kompositum/data/models/unique_component.dart';
 import 'package:kompositum/game/game_level.dart';
+import 'package:kompositum/game/hints/hint.dart';
 import 'package:kompositum/game/modi/chain/generator/component_chain.dart';
 
 import '../../../data/models/compound.dart';
@@ -7,6 +8,9 @@ import '../../../data/models/compound.dart';
 
 
 class ChainGameLevel extends GameLevel {
+
+  @override
+  final maxHintCount = 1;
 
   late UniqueComponent currentModifier;
 
@@ -34,6 +38,12 @@ class ChainGameLevel extends GameLevel {
   ) {
     super.removeCompoundFromShown(compound, modifier, head);
     currentModifier = head;
+  }
+
+  @override
+  Hint generateHint() {
+    final dummyHint = Hint(currentModifier, HintComponentType.modifier);
+    return Hint.generate(allCompounds, shownComponents, [dummyHint]);
   }
 
 }

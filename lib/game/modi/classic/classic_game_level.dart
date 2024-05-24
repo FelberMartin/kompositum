@@ -29,6 +29,11 @@ class ClassicGameLevel extends GameLevel {
     );
   }
 
+  @override
+  Hint generateHint() {
+    return Hint.generate(allCompounds, shownComponents, hints);
+  }
+
   static ClassicGameLevel fromJson(Map<String, dynamic> json) {
     final allCompounds = (json['_allCompounds'] as List)
         .map((compound) => Compound.fromJson(compound))
