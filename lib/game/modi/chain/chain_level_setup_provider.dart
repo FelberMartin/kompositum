@@ -17,7 +17,7 @@ class ChainLevelSetupProvider extends LevelSetupProvider {
 
     return LevelSetup(
       levelIdentifier: date,
-      levelType: LevelType.dailyClassic,
+      levelType: LevelType.secretChain,
       compoundCount: compoundCount,
       poolGenerationSeed: seed,
       difficulty: difficulty,

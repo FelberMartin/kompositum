@@ -382,6 +382,10 @@ abstract class GamePageState extends State<GamePage> {
 
   void showLevelCompletedDialog() async {
     final nextLevelNumber = await keyValueStore.getLevel();   // This is only used in the daily mode.
+    final dialogType = getLevelCompletedDialogType();
+    if (dialogType == LevelCompletedDialogType.secretLevel) {
+      await dailyGoalSetManager.update();
+    }
     final dailyGoalSetProgression = await dailyGoalSetManager.getProgression();
     dailyGoalSetManager.resetProgression();
 
@@ -393,7 +397,7 @@ abstract class GamePageState extends State<GamePage> {
       barrierDismissible: false,
       canPop: false,
       dialog: LevelCompletedDialog(
-        type: getLevelCompletedDialogType(),
+        type: dialogType,
         difficulty: levelSetup!.difficulty,
         failedAttempts: gameLevel.attemptsWatcher.overAllAttemptsFailed,
         nextLevelNumber: nextLevelNumber,

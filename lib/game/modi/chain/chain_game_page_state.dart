@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kompositum/config/locator.dart';
 import 'package:kompositum/data/key_value_store.dart';
-import 'package:kompositum/data/models/compact_frequency_class.dart';
 import 'package:kompositum/data/models/unique_component.dart';
 import 'package:kompositum/game/game_level.dart';
 import 'package:kompositum/game/level_setup.dart';
@@ -83,20 +82,13 @@ class ChainGamePageState extends GamePageState {
 
   @override
   LevelCompletedDialogType getLevelCompletedDialogType() {
-    return LevelCompletedDialogType.daily;
+    return LevelCompletedDialogType.secretLevel;
   }
 
   @override
   void onLevelCompletedDialogClosed(LevelCompletedDialogResultType resultType) {
-    // TODO: new dialog for secret level
-    if (resultType == LevelCompletedDialogResultType.daily_backToOverview) {
+    if (resultType == LevelCompletedDialogResultType.secretLevel_continue) {
       Navigator.pop(context);
-      return;
-    } else if (resultType == LevelCompletedDialogResultType.daily_continueWithClassic) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => GamePage(state: MainClassicGamePageState.fromLocator())),
-      );
       return;
     }
   }

@@ -133,7 +133,6 @@ class _DailyGoalsContainerState extends State<DailyGoalsContainer> with SingleTi
   void _allAchievedAnimation() {
     _showAllAchieved = true;
     setState(() {});
-    // TODO
   }
 
   @override

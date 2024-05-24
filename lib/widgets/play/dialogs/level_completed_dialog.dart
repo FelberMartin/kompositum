@@ -45,12 +45,14 @@ void main() async {
 enum LevelCompletedDialogType {
   classic,
   daily,
+  secretLevel,
 }
 
 enum LevelCompletedDialogResultType {
   classic_continue,
   daily_continueWithClassic,
   daily_backToOverview,
+  secretLevel_continue,
 }
 
 class LevelCompletedDialogResult {
@@ -134,7 +136,12 @@ class _LevelCompletedDialogState extends State<LevelCompletedDialog> {
       MaterialPageRoute(builder: (context) => GamePage(
           state: ChainGamePageState.fromLocator(date))),
     ).then((value) {
-      // TODO: Do nothing here? Or automatic continue?
+      if (widget.type == LevelCompletedDialogType.classic) {
+        onContinue(LevelCompletedDialogResultType.classic_continue);
+      }
+      if (widget.type == LevelCompletedDialogType.daily) {
+        onContinue(LevelCompletedDialogResultType.daily_continueWithClassic);
+      }
     });
   }
 
@@ -377,7 +384,14 @@ class _BottomContent extends StatelessWidget {
           ),
         ],
       );
+    } else if (type == LevelCompletedDialogType.secretLevel) {
+      return MyPrimaryTextButtonLarge(
+        text: "Weiter",
+        onPressed: () {
+          onContinue(LevelCompletedDialogResultType.secretLevel_continue);
+        },
+      );
     }
-    return Container();
+    throw Exception("Unknown LevelCompletedDialogType: $type");
   }
 }
