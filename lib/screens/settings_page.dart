@@ -191,7 +191,7 @@ class PrivacyPolicy extends StatelessWidget {
     return GestureDetector(
       onTap: _launchPrivacyPolicy,
       child: Text(
-        "Klicken Sie hier, um unsere Datenschutzerklärung zu lesen (Englisch).",
+        "Klicke hier, um unsere Datenschutzerklärung zu lesen (Englisch).",
         style: Theme.of(context).textTheme.labelSmall!.copyWith(
           color: MyColorPalette.of(context).textSecondary,
           decoration: TextDecoration.underline,
