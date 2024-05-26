@@ -1,7 +1,6 @@
 # TODOs    
 ## 1.0 Release
 ### Next up
-- Create new aab, send changes for review
 
 ### Later
 - LevelFinishedDialog: diamonds for used attempts confusing (remove diamonds for attempts, or
