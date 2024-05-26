@@ -501,15 +501,15 @@ Absatzzahl,Absatz,Zahl,17.0
 Absatzüberschrift,Absatz,Überschrift,
 Absauganlage,absaugen,Anlage,20.0
 Abschaltautomatik,abschalten,Automatik,22.0
-Abschiebegewahrsam,abschieben,Gewahrsam,19.0
-Abschiebehaft,abschieben,Haft,16.0
-Abschiebehindernis,abschieben,Hindernis,20.0
-Abschiebepraxis,abschieben,Praxis,18.0
-Abschiebungsandrohung,Abschiebung,Androhung,22.0
+Abschiebegewahrsam,abschieben,Gewahrsam,
+Abschiebehaft,abschieben,Haft,
+Abschiebehindernis,abschieben,Hindernis,
+Abschiebepraxis,abschieben,Praxis,
+Abschiebungsandrohung,Abschiebung,Androhung,
 Abschiebungsanordnung,Abschiebung,Anordnung,
-Abschiebungshaft,Abschiebung,Haft,21.0
-Abschiebungshindernis,Abschiebung,Hindernis,20.0
-Abschiebungsschutz,Abschiebung,Schutz,21.0
+Abschiebungshaft,Abschiebung,Haft,
+Abschiebungshindernis,Abschiebung,Hindernis,
+Abschiebungsschutz,Abschiebung,Schutz,
 Abschiedsabend,Abschied,Abend,19.0
 Abschiedsbesuch,Abschied,Besuch,19.0
 Abschiedsbrief,Abschied,Brief,16.0
@@ -3012,6 +3012,7 @@ Anschlagswelle,Anschlag,Welle,
 Anschlagsziel,Anschlag,Ziel,
 Anschlagtafel,Anschlag,Tafel,
 Anschlagzettel,Anschlag,Zettel,
+Anschluss,an,Schluss,
 Anschlussarbeit,Anschluss,Arbeit,21.0
 Anschlussbahn,Anschluss,Bahn,
 Anschlussbahnhof,Anschluss,Bahnhof,
@@ -11938,6 +11939,7 @@ Bimmelbahn,bimmeln,Bahn,19.0
 Bimsstein,Bims,Stein,19.0
 Bindegarn,binden,Garn,
 Bindegewebe,Binde,Gewebe,18.0
+Bindegewebe,binden,Gewebe,
 Bindegewebsfaser,Bindegewebe,Faser,23.0
 Bindegewebsgeschwulst,Bindegewebe,Geschwulst,
 Bindegewebsmassage,Bindegewebe,Massage,
@@ -20158,6 +20160,7 @@ Eihaut,Ei,Haut,23.0
 Eihülle,Ei,Hülle,22.0
 Eiklar,Ei,Klar,19.0
 Eilantrag,Eile,Antrag,16.0
+Eilantrag,eilen,Antrag,
 Eilbote,eilen,Bote,21.0
 Eilbotschaft,Eile,Botschaft,
 Eilbrief,Eile,Brief,20.0
@@ -24019,6 +24022,7 @@ Erzlager,Erz,Lager,22.0
 Erzlagerstätte,Erz,Lagerstätte,22.0
 Erzmine,Erz,Mine,22.0
 Erzmineral,Erz,Mineral,
+Erzrivale,Erz,Rivale,
 Erztransport,Erz,Transport,
 Erzvorkommen,Erz,Vorkommen,21.0
 Erzwespe,Erz,Wespe,22.0
@@ -33787,13 +33791,13 @@ Geigenstunde,Geige,Stunde,22.0
 Geigenunterricht,Geige,Unterricht,20.0
 Geigenvirtuose,Geige,Virtuose,19.0
 Geigerzähler,Geiger,Zähler,19.0
-Geiselbefreiung,Geisel,Befreiung,19.0
-Geiseldrama,Geisel,Drama,16.0
-Geiselerschießung,Geisel,Erschießung,21.0
-Geiselfrage,Geisel,Frage,21.0
-Geiselhaft,Geisel,Haft,16.0
-Geiselnahme,Geisel,Nahme,14.0
-Geiselnehmer,Geisel,Nehmer,15.0
+Geiselbefreiung,Geisel,Befreiung,
+Geiseldrama,Geisel,Drama,
+Geiselerschießung,Geisel,Erschießung,
+Geiselfrage,Geisel,Frage,
+Geiselhaft,Geisel,Haft,
+Geiselnahme,Geisel,Nahme,
+Geiselnehmer,Geisel,Nehmer,
 Geisterbahn,Geist,Bahn,17.0
 Geisterbahnfahrt,Geisterbahn,Fahrt,21.0
 Geisterbahnhof,Geist,Bahnhof,21.0
@@ -40096,6 +40100,7 @@ Handelstätigkeit,Handel,Tätigkeit,20.0
 Handelsumsatz,Handel,Umsatz,19.0
 Handelsunternehmen,Handel,Unternehmen,16.0
 Handelsverband,Handel,Verband,18.0
+Handelsverband,Handeln,Verband,
 Handelsverbindung,Handel,Verbindung,21.0
 Handelsverbot,Handel,Verbot,18.0
 Handelsverein,Handel,Verein,22.0
@@ -61767,6 +61772,7 @@ Mannesstamm,Mann,Stamm,22.0
 Mannsbild,Mann,Bild,17.0
 Mannschaftsarzt,Mannschaft,Arzt,16.0
 Mannschaftsaufstellung,Mannschaft,Aufstellung,17.0
+Mannschaftsbericht,Mannschaft,Bericht,
 Mannschaftsbesprechung,Mannschaft,Besprechung,20.0
 Mannschaftsbetreuer,Mannschaft,Betreuer,19.0
 Mannschaftsbild,Mannschaft,Bild,21.0
@@ -62417,7 +62423,7 @@ Massagesalon,Massage,Salon,19.0
 Massagetechnik,Massage,Technik,20.0
 Massageöl,Massage,Öl,20.0
 Massenabfertigung,Masse,Abfertigung,20.0
-Massenabschiebung,Masse,Abschiebung,20.0
+Massenabschiebung,Masse,Abschiebung,
 Massenaktion,Masse,Aktion,20.0
 Massenandrang,Masse,Andrang,18.0
 Massenangriff,Masse,Angriff,
@@ -71307,7 +71313,7 @@ Opuszahl,Opus,Zahl,21.0
 Orakelspruch,Orakel,Spruch,20.0
 Orakelstätte,Orakel,Stätte,23.0
 Oralsex,oral,Sex,
-Oralverkehr,oral,Verkehr,19.0
+Oralverkehr,oral,Verkehr,
 Orangenbaum,Orange,Baum,19.0
 Orangenblüte,Orange,Blüte,21.0
 Orangenbäumchen,Orange,Bäumchen,
@@ -85227,6 +85233,7 @@ Schlaginstrument,Schlag,Instrument,18.0
 Schlagjeans,Schlag,Jeans,
 Schlagkombination,Schlag,Kombination,21.0
 Schlagkraft,Schlag,Kraft,16.0
+Schlagkraft,schlagen,Kraft,
 Schlaglicht,Schlag,Licht,16.0
 Schlagloch,Schlag,Loch,16.0
 Schlaglochpiste,Schlagloch,Piste,20.0
@@ -87948,6 +87955,7 @@ Schüttelfrost,schütteln,Frost,19.0
 Schüttellähmung,schütteln,Lähmung,20.0
 Schüttelreim,schütteln,Reim,20.0
 Schüttgut,schütten,Gut,20.0
+Schützenball,Schütze,Ball,
 Schützenbruder,Schütze,Bruder,18.0
 Schützenbruderschaft,Schütze,Bruderschaft,15.0
 Schützenbund,Schütze,Bund,16.0
@@ -103860,6 +103868,7 @@ Unterfranken,untere,Franken,
 Unterfunktion,untere,Funktion,20.0
 Unterfutter,unter,Futter,20.0
 Unterführer,untere,Führer,20.0
+Unterführung,untere,Führung,
 Untergang,unter,Gang,
 Untergangsstimmung,Untergang,Stimmung,19.0
 Untergangsszenario,Untergang,Szenario,21.0
@@ -108365,6 +108374,7 @@ Vorstandswahl,Vorstand,Wahl,15.0
 Vorstandswechsel,Vorstand,Wechsel,20.0
 Vorsteherdrüse,Vorsteher,Drüse,20.0
 Vorstehhund,vorstehen,Hund,21.0
+Vorstellung,vor,Stellung,
 Vorstellungsbeginn,Vorstellung,Beginn,18.0
 Vorstellungsgespräch,Vorstellung,Gespräch,15.0
 Vorstellungskraft,Vorstellung,Kraft,16.0
@@ -111609,6 +111619,7 @@ Werkzeugmechaniker,Werkzeug,Mechaniker,19.0
 Werkzeugstahl,Werkzeug,Stahl,21.0
 Werkzeugtasche,Werkzeug,Tasche,21.0
 Werkzeugteil,Werkzeug,Teil,
+Werkzeugwagen,Werkzeug,Wagen,
 Wermutstropfen,Wermut,Tropfen,15.0
 Wermutöl,Wermut,Öl,
 Wertanalyse,Wert,Analyse,22.0
@@ -111642,6 +111653,7 @@ Wertermittlung,Wert,Ermittlung,19.0
 Wertersatz,Wert,Ersatz,
 Werteskala,Wert,Skala,20.0
 Wertesystem,Wert,System,18.0
+Werteunion,Wert,Union,
 Werteverfall,Wert,Verfall,18.0
 Wertevermittlung,Wert,Vermittlung,19.0
 Wertewandel,Wert,Wandel,18.0
