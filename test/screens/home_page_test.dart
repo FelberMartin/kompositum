@@ -67,6 +67,7 @@ void main() {
     });
 
     testWidgets("after finishing the daily level, the notification is created for the next day", (WidgetTester tester) async {
+      SharedPreferences.setMockInitialValues({"level": 3});
       await tester.pumpWidget(MaterialApp(theme: myTheme, home: HomePage()));
       await nonBlockingPump(tester);
       await tester.tap(find.byKey(Key("daily_play_button")).hitTestable());

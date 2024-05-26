@@ -262,6 +262,9 @@ abstract class GamePageState extends State<GamePage> {
   }
 
   void _emitGameEvent(GameEvent event) {
+    if (gameEventStreamController.isClosed) {
+      return;
+    }
     gameEventStreamController.sink.add(event);
   }
 
