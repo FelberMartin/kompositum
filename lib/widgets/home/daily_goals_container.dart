@@ -1,5 +1,6 @@
 import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kompositum/config/my_icons.dart';
 import 'package:kompositum/config/my_theme.dart';
@@ -21,6 +22,7 @@ void main() async {
       CompleteAnyLevelsDailyGoal(targetValue: 3)..increaseCurrentValue(amount: 1),
     ],
   );
+  // goalSet.isSecretLevelCompleted = true;
 
   final goalSet2 = goalSet.copy();
   goalSet2.goals[0].increaseCurrentValue(amount: 8);
@@ -239,9 +241,9 @@ class _SecretLevelDone extends StatelessWidget {
             ),
           ),
           SizedBox(width: 12),
-          Icon(
-            MyIcons.check,
-            color: MyColorPalette.of(context).onPrimary,
+          SvgPicture.asset(
+            MyIcons.treasureChestOpenSvg,
+            width: 32,
           ),
         ],
       ),
@@ -263,9 +265,9 @@ class _PlaySecretLevel extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Row(
         children: [
-          Icon(
-            MyIcons.lock,
-            color: MyColorPalette.of(context).onPrimary,
+          SvgPicture.asset(
+            MyIcons.treasureChestClosedSvg,
+            width: 32,
           ),
           SizedBox(width: 12),
           Text(
@@ -315,6 +317,11 @@ class ProgressRow extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             minHeight: 8,
           ),
+        ),
+        SizedBox(width: 8),
+        SvgPicture.asset(
+          MyIcons.treasureChestClosedSvg,
+          width: 16,
         ),
       ],
     );

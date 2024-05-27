@@ -25,4 +25,8 @@ class MyIcons {
 
   static const IconData lock = FontAwesomeIcons.lockOpen;
   static const IconData check = FontAwesomeIcons.check;
+  static const IconData chain = FontAwesomeIcons.link;
+
+  static const String treasureChestClosedSvg = "assets/icons/treasure_chest_closed.svg";
+  static const String treasureChestOpenSvg = "assets/icons/treasure_chest_open.svg";
 }

@@ -3,11 +3,14 @@
 ### Next up
 - Daily goals:
   - Tutorial Dialogs:
-    - DailyGoals
-    - New gameMode
-  - Dont show on homeScreen? -> if still, then adapt title color
+    - Integrate dialog logic
+  - Dont show on homeScreen? 
+    - -> if still, then adapt title color 
+    - test whether goal on home screen are updated correctly
   - Remove reset button in settings
   - Look for todos in code
+  - Chain Level: title show chain level (only use medium or custom compactFrequencyClass)
+    - Add lock indicator to current modifier
 - Locking?
   - Dailies at lvl 30
   - Daily Goals at lvl 50
@@ -18,9 +21,9 @@
 - Redesign?
   - Remove oval borders -> rounded corner rectangle
   - Light / Dark mode
-- Add to blocked words:
-  - Geisel
-  - abschieben
+- Ads
+  - Real ads inside the app
+  - Ads for the app
 
 ### Later
 - LevelFinishedDialog: diamonds for used attempts confusing (remove diamonds for attempts, or

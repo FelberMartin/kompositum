@@ -93,11 +93,18 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/app_icon/fg_cropped.png
+    # Data
     - assets/final_compounds.csv
     - assets/compounds_with_level.csv
     - test/test_data/test_compounds.csv
+
+    # Images
+    - assets/images/app_icon/fg_cropped.png
     - assets/images/background.svg
+    - assets/icons/treasure_chest_closed.svg
+    - assets/icons/treasure_chest_open.svg
+
+    # Sounds
     - assets/sounds/score.wav
     - assets/sounds/levelup.wav
     - assets/sounds/success_02.wav
