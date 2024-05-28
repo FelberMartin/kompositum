@@ -244,6 +244,7 @@ class InputRow extends StatelessWidget {
               color: Theme.of(context).colorScheme.primary,
             ),
             onChanged: onChanged,
+            textCapitalization: TextCapitalization.words,
           ),
         ),
       ],
