@@ -1,12 +1,14 @@
 
 import 'dart:convert';
 
-import 'package:kompositum/util/audio_manager.dart';
+import 'package:kompositum/game/modi/classic/classic_game_level.dart';
+import 'package:kompositum/util/app_version_provider.dart';
+import 'package:kompositum/util/update_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../game/pool_game_level.dart';
 import '../util/tutorial_manager.dart';
 import 'models/compound.dart';
+import 'models/daily_goal_set.dart';
 
 class KeyValueStore {
 
@@ -63,16 +65,16 @@ class KeyValueStore {
     return completedDaysString.map((dayString) => DateTime.parse(dayString)).toList();
   }
 
-  Future<void> storeClassicPoolGameLevel(PoolGameLevel level) async {
+  Future<void> storeClassicGameLevel(ClassicGameLevel level) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString("classicPoolGameLevel", jsonEncode(level.toJson()));
   }
 
-  Future<PoolGameLevel?> getClassicPoolGameLevel() async {
+  Future<ClassicGameLevel?> getClassicGameLevel() async {
     final prefs = await SharedPreferences.getInstance();
     final json = prefs.getString("classicPoolGameLevel");
-    if (json != null) {
-      return PoolGameLevel.fromJson(Map<String, dynamic>.from(jsonDecode(json)));
+    if (json != null && json != "{}") {
+      return ClassicGameLevel.fromJson(Map<String, dynamic>.from(jsonDecode(json)));
     }
     return null;
   }
@@ -83,18 +85,24 @@ class KeyValueStore {
   }
 
   Future<void> storeTutorialPartAsShown(TutorialPart part) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool("tutorialPartShown_${part.toString()}", true);
+    return storeBooleanSetting(BooleanSetting("tutorialPartShown_${part.toString()}", false), true);
   }
 
   Future<bool> wasTutorialPartShown(TutorialPart part) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getBool("tutorialPartShown_${part.toString()}") ?? false;
+    return getBooleanSetting(BooleanSetting("tutorialPartShown_${part.toString()}", false));
+  }
+
+  Future<void> storeUpdateDialogAsShown(UpdateDialog updateDialog) async {
+    return storeBooleanSetting(BooleanSetting("updateDialogShown_${updateDialog.identifier}", false), true);
+  }
+
+  Future<bool> wasUpdateDialogShown(UpdateDialog updateDialog) async {
+    return getBooleanSetting(BooleanSetting("updateDialogShown_${updateDialog.identifier}", false));
   }
 
   Future<String> getPreviousAppVersion() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString("previousAppVersion") ?? "1.0.0";
+    return prefs.getString("previousAppVersion") ?? AppVersionProvider.noAppVersion;
   }
 
   Future<void> storeAppVersion(String version) async {
@@ -110,6 +118,24 @@ class KeyValueStore {
   Future<void> storeBooleanSetting(BooleanSetting booleanSetting, bool value) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(booleanSetting.name, value);
+  }
+
+  Future<void> storeDailyGoalSet(DailyGoalSet? goalSet) async {
+    final prefs = await SharedPreferences.getInstance();
+    if (goalSet == null) {
+      await prefs.remove("dailyGoalSet");
+    } else {
+      await prefs.setString("dailyGoalSet", jsonEncode(goalSet.toJson()));
+    }
+  }
+
+  Future<Map<String, dynamic>?> getDailyGoalSetJson() async {
+    final prefs = await SharedPreferences.getInstance();
+    final json = prefs.getString("dailyGoalSet");
+    if (json != null) {
+      return Map<String, dynamic>.from(jsonDecode(json));
+    }
+    return null;
   }
 }
 

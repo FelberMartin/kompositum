@@ -3,6 +3,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 class AppVersionProvider {
 
+  static const String noAppVersion = "0.0.0";
+
   final KeyValueStore keyValueStore;
 
   late Future<bool> _didAppVersionChange;
@@ -12,6 +14,7 @@ class AppVersionProvider {
     _didAppVersionChange = _checkAppVersion();
   }
 
+  /// Returns the current app version. Example: "1.0.0"
   Future<String> getAppVersion() async {
     final packageInfo = await PackageInfo.fromPlatform();
     return packageInfo.version;
@@ -23,7 +26,13 @@ class AppVersionProvider {
     if (currentVersion != newVersion) {
       print("App version changed from $currentVersion to $newVersion");
       await keyValueStore.storeAppVersion(newVersion);
-      return true;
+
+      if (currentVersion != noAppVersion) {
+        return true;
+      } else {
+        // First app start
+        return false;
+      }
     }
     return false;
   }

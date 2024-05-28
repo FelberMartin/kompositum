@@ -1,5 +1,5 @@
-import 'package:kompositum/game/level_provider.dart';
-import 'package:kompositum/game/pool_game_level.dart';
+import 'package:kompositum/game/level_setup.dart';
+import 'package:kompositum/game/modi/classic/classic_game_level.dart';
 import 'package:kompositum/util/tutorial_manager.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -9,10 +9,10 @@ class MockTutorialManager extends Mock implements TutorialManager {
   int get showClickIndicatorIndex => -1;
 
   @override
-  void onNewLevelStart(LevelSetup levelSetup, PoolGameLevel poolGameLevel) {}
+  void onNewLevelStart(LevelSetup levelSetup, ClassicGameLevel poolGameLevel) {}
 
   @override
-  void onCombinedInvalidCompound(PoolGameLevel poolGameLevel) {}
+  void onCombinedInvalidCompound(ClassicGameLevel poolGameLevel) {}
 
   @override
   void onComponentClicked() {}

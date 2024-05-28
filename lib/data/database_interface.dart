@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:kompositum/data/database_initializer.dart';
+import 'package:kompositum/util/string_util.dart';
 
 import '../objectbox.g.dart';
 import 'models/compact_frequency_class.dart';
@@ -49,6 +50,18 @@ class DatabaseInterface {
     final query = db.box<Compound>().query(
         Compound_.frequencyClass.lessOrEqual(frequencyClass ?? 28)).build();
     return query.find();
+  }
+
+  /// Get a compound with the given modifier and head.
+  /// This method is case-insensitive. Additionally it deals with the edge case
+  /// of the german umlauts for the [getCompound] method.
+  Future<Compound?> getCompoundSafe(String modifier, String head) async {
+    final result = await getCompound(modifier, head, caseSensitive: false);
+    if (result != null) {
+      return result;
+    }
+    // This may happen due to the problem with the case sensitivity and umlauts.
+    return getCompound(modifier.capitalize(), head.capitalize(), caseSensitive: false);
   }
 
   /// Get a compound with the given modifier and head.

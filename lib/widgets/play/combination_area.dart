@@ -1,9 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kompositum/config/my_icons.dart';
-import 'package:kompositum/game/game_event.dart';
+import 'package:kompositum/game/game_event/game_event.dart';
 import 'package:kompositum/widgets/common/my_icon_button.dart';
 import 'package:kompositum/widgets/common/shake_widget.dart';
 
@@ -387,10 +386,55 @@ class _CompoundMergeRowState extends State<CompoundMergeRow> with SingleTickerPr
       },
       text: componentInfo?.component.text ?? _placeholder,
     );
-    return ComponentWithHint(
+    final withHint = ComponentWithHint(
       hint: componentInfo?.hint?.type,
       size: 32.0,
       button: button,
+    );
+
+    return ComponentWithLockIndicator(
+      button: withHint,
+      isLocked: componentInfo?.isLocked ?? false,
+    );
+  }
+}
+
+class ComponentWithLockIndicator extends StatelessWidget {
+
+  const ComponentWithLockIndicator({
+    super.key,
+    required this.button,
+    required this.isLocked,
+  });
+
+  final Widget button;
+  final bool isLocked;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        button,
+        if (isLocked)
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: Container(
+              decoration: BoxDecoration(
+                color: MyColorPalette.of(context).primaryShade,
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Icon(
+                  MyIcons.lock,
+                  color: MyColorPalette.of(context).onPrimary,
+                  size: 14,
+                ),
+              ),
+            ),
+          ),
+      ],
     );
   }
 }

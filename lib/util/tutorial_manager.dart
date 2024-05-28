@@ -1,15 +1,17 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:kompositum/game/game_event.dart';
+import 'package:kompositum/game/game_event/game_event.dart';
+import 'package:kompositum/game/game_level.dart';
+import 'package:kompositum/game/level_setup.dart';
+import 'package:kompositum/widgets/play/dialogs/tutorials/chain_mode_intro_dialog.dart';
 import 'package:kompositum/widgets/play/dialogs/tutorials/hidden_components_tutorial_dialog.dart';
 import 'package:kompositum/widgets/play/dialogs/tutorials/hints_tutorial_dialog.dart';
 
 import '../config/star_costs_rewards.dart';
 import '../data/key_value_store.dart';
 import '../data/models/unique_component.dart';
-import '../game/level_provider.dart';
-import '../game/pool_game_level.dart';
+import '../game/level_setup_provider.dart';
 import '../widgets/play/dialogs/tutorials/missing_compound_tutorial_dialog.dart';
 
 enum TutorialPart {
@@ -17,6 +19,7 @@ enum TutorialPart {
   MISSING_COMPOUND,
   HINTS,
   HIDDEN_COMPONENTS,
+  CHAIN_GAME_MODE,
 }
 
 
@@ -34,11 +37,11 @@ class TutorialManager {
   void registerGameEventStream(Stream<GameEvent> gameEventStream) {
     _gameEventStreamSubscription = gameEventStream.listen((event) {
       if (event is NewLevelStartGameEvent) {
-        _onNewLevelStart(event.levelSetup, event.poolGameLevel);
+        _onNewLevelStart(event.levelSetup, event.gameLevel);
       } else if (event is ComponentClickedGameEvent) {
         _onComponentClicked();
       } else if (event is CompoundInvalidGameEvent) {
-        _onCombinedInvalidCompound(event.poolGameLevel);
+        _onCombinedInvalidCompound(event.gameLevel);
       }
     });
   }
@@ -48,9 +51,10 @@ class TutorialManager {
     animateDialog = null;
   }
 
-  void _onNewLevelStart(LevelSetup levelSetup, PoolGameLevel poolGameLevel) {
-    _checkClickIndicator(levelSetup.levelIdentifier, poolGameLevel.shownComponents);
-    _checkHiddenComponents(poolGameLevel.hiddenComponents.length);
+  void _onNewLevelStart(LevelSetup levelSetup, GameLevel gameLevel) {
+    _checkClickIndicator(levelSetup.levelIdentifier, gameLevel.shownComponents);
+    _checkHiddenComponents(gameLevel.hiddenComponents.length);
+    _checkChainGameMode(levelSetup.levelType);
   }
 
   void _checkClickIndicator(Object levelIdentifier, List<UniqueComponent> shownComponents) async {
@@ -69,13 +73,21 @@ class TutorialManager {
     }
   }
 
+  void _checkChainGameMode(LevelType levelType) async {
+    final shown = await _keyValueStore.wasTutorialPartShown(TutorialPart.CHAIN_GAME_MODE);
+    if (!shown && levelType == LevelType.secretChain) {
+      animateDialog?.call(ChainModeIntroDialog());
+      await _keyValueStore.storeTutorialPartAsShown(TutorialPart.CHAIN_GAME_MODE);
+    }
+  }
+
   void _onComponentClicked() {
     showClickIndicatorIndex = -1;
   }
 
-  void _onCombinedInvalidCompound(PoolGameLevel poolGameLevel) {
+  void _onCombinedInvalidCompound(GameLevel gameLevel) {
     _checkMissingCompound();
-    _checkHints(poolGameLevel.attemptsWatcher.overAllAttemptsFailed);
+    _checkHints(gameLevel.attemptsWatcher.overAllAttemptsFailed);
   }
 
   void _checkMissingCompound() async {

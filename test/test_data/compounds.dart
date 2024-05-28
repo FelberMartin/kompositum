@@ -69,8 +69,32 @@ class Compounds {
   static var SachSchaden = Compound(
     id: 0,
     name: "Sachschaden",
-    modifier: "Sach",
+    modifier: "Sache",
     head: "Schaden",
+    frequencyClass: 1,
+  );
+
+  static var Schadensbegrenzung = Compound(
+    id: 0,
+    name: "Schadensbegrenzung",
+    modifier: "Schaden",
+    head: "Begrenzung",
+    frequencyClass: 1,
+  );
+
+  static var Begrenzungslinie = Compound(
+    id: 0,
+    name: "Begrenzungslinie",
+    modifier: "Begrenzung",
+    head: "Linie",
+    frequencyClass: 1,
+  );
+
+  static var Linienrichter = Compound(
+    id: 0,
+    name: "Linienrichter",
+    modifier: "Linie",
+    head: "Richter",
     frequencyClass: 1,
   );
 
@@ -103,6 +127,14 @@ class Compounds {
     name: "Maschinenbau",
     modifier: "Maschine",
     head: "Bau",
+    frequencyClass: 1,
+  );
+
+  static var Bauamt = Compound(
+    id: 0,
+    name: "Bauamt",
+    modifier: "Bau",
+    head: "Amt",
     frequencyClass: 1,
   );
 

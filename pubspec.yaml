@@ -63,6 +63,8 @@ dependencies:
   flutter_local_notifications: ^17.1.0
   flutter_timezone: ^1.0.8
   url_launcher: ^6.2.6
+  device_info_plus: ^9.1.2
+  android_id: ^0.3.6
 
 dev_dependencies:
   flutter_test:
@@ -92,10 +94,18 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/app_icon/fg_cropped.png
+    # Data
     - assets/final_compounds.csv
+    - assets/compounds_with_level.csv
     - test/test_data/test_compounds.csv
+
+    # Images
+    - assets/images/app_icon/fg_cropped.png
     - assets/images/background.svg
+    - assets/icons/treasure_chest_closed.svg
+    - assets/icons/treasure_chest_open.svg
+
+    # Sounds
     - assets/sounds/score.wav
     - assets/sounds/levelup.wav
     - assets/sounds/success_02.wav
@@ -105,6 +115,7 @@ flutter:
     - assets/sounds/tap.wav
     - assets/sounds/orangensaft.wav
     - assets/sounds/apfelsaft.wav
+    - assets/sounds/win_02.wav
 
   # To add assets to your application, add an assets section, like this:
   # assets:

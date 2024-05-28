@@ -1,48 +1,22 @@
 import 'package:kompositum/config/locator.dart';
 import 'package:kompositum/data/database_interface.dart';
 import 'package:kompositum/data/models/compact_frequency_class.dart';
-import 'package:kompositum/game/level_provider.dart';
-import 'package:kompositum/game/pool_generator/compound_pool_generator.dart';
-import 'package:kompositum/game/pool_generator/graph_based_pool_generator.dart';
+import 'package:kompositum/game/level_setup_provider.dart';
+import 'package:kompositum/game/modi/classic/classic_level_setup_provider.dart';
+import 'package:kompositum/game/modi/classic/generator/graph_based_classic_level_content_generator.dart';
 import 'package:test/test.dart';
 
-class TestBasicLevelProvider extends BasicLevelProvider {
-  final int i;
-  TestBasicLevelProvider(this.i);
-
-  @override
-  int getSeedForLevel(int level) {
-    return level + i;
-  }
-}
 
 void main() {
 
-  late LevelProvider sut;
+  late LevelSetupProvider sut;
 
-  /// This test is only here to manually find good seeds for the compounds generation.
-  test(skip: true, "find good seeds", () async {
-    final poolGenerator = locator<CompoundPoolGenerator>();
-    for (int i = 0; i < 10; i++) {
-      print("\nSeed addition $i");
-      sut = TestBasicLevelProvider(i);
-
-      for (int level = 1; level < 6; level++) {
-        final levelSetup = sut.generateLevelSetup(level);
-        final compounds = await poolGenerator.generateFromLevelSetup(levelSetup);
-        final compoundNames = compounds.map((compound) => compound.name).toList();
-        print("Level $level: $compoundNames");
-      }
-    }
-
-    expect(true, true);
-  });
 
   /// Findings:
   /// - The chance of having no duplicates at level 6 is only ~30%.
   test(skip: true, "how many duplicates are there within the first 20 levels", () async {
-    final poolGenerator = GraphBasedPoolGenerator(locator<DatabaseInterface>());
-    sut = BasicLevelProvider();
+    final poolGenerator = GraphBasedClassicLevelContentGenerator(locator<DatabaseInterface>());
+    sut = LogarithmicLevelSetupProvider();
 
     // Print the number of compounds in the easy frequency class
     final databaseInterface = locator<DatabaseInterface>();
@@ -53,8 +27,8 @@ void main() {
     final overallCompounds = <String>[];
     for (int level = 1; level < 20; level++) {
       final levelSetup = sut.generateLevelSetup(level);
-      final compounds = await poolGenerator.generateFromLevelSetup(levelSetup);
-      final compoundNames = compounds.map((compound) => compound.name).toList();
+      final content = await poolGenerator.generateFromLevelSetup(levelSetup);
+      final compoundNames = content.getCompounds().map((compound) => compound.name).toList();
       print("Level $level: $compoundNames");
 
       final duplicates = compoundNames.where((name) => overallCompounds.contains(name)).toList();

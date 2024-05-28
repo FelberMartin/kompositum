@@ -2,19 +2,24 @@ import 'compound.dart';
 
 class UniqueComponent {
 
-  final String text;
-  final int id;
+  static int _idCounter = 0;
 
-  UniqueComponent(this.text, this.id);
+  final String text;
+  late final int id;
+
+  UniqueComponent(this.text) {
+    id = _idCounter++;
+  }
+
+  static List<UniqueComponent> fromCompound(Compound compound) {
+    return [
+      UniqueComponent(compound.modifier),
+      UniqueComponent(compound.head),
+    ];
+  }
 
   static List<UniqueComponent> fromCompounds(List<Compound> compounds) {
-    final uniqueComponents = <UniqueComponent>[];
-    var id = 0;
-    for (final compound in compounds) {
-      uniqueComponents.add(UniqueComponent(compound.modifier, id++));
-      uniqueComponents.add(UniqueComponent(compound.head, id++));
-    }
-    return uniqueComponents;
+    return compounds.expand((compound) => fromCompound(compound)).toList();
   }
 
   @override

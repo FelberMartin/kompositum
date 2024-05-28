@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 
 Color getFontColorForBackground(Color background) {
-  // TODO: this was only adjusted from 0.187 for testing the classic theme
+  // This was only adjusted from 0.179 for testing the classic theme
   return (background.computeLuminance() > 0.800)? Colors.black : Colors.white;
 }
 

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../config/my_theme.dart';
 import '../data/key_value_store.dart';
-import '../game/game_event.dart';
+import '../game/game_event/game_event.dart';
 
 class AudioManager {
 
@@ -77,6 +77,10 @@ class AudioManager {
 
   void playCompoundIncorrect() {
     _playAsset("incorrect.wav");
+  }
+
+  void playDailyGoalCompleted() {
+    _playAsset("win_02.wav", volume: 0.2);
   }
 
   void _playAsset(String asset, {double volume = 0.3}) async {
@@ -161,6 +165,12 @@ void main() {
               AudioManager.instance.playHint();
             },
             child: Text("Hint"),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              AudioManager.instance.playDailyGoalCompleted();
+            },
+            child: Text("Daily goal completed"),
           ),
           ElevatedButton(
             onPressed: () {

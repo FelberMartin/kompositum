@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:kompositum/config/my_icons.dart';
-import 'package:kompositum/game/level_provider.dart';
-import 'package:kompositum/screens/game_page_daily.dart';
+import 'package:kompositum/game/modi/classic/daily_classic_game_page_state.dart';
 import 'package:kompositum/util/date_util.dart';
 import 'package:kompositum/util/emoji_provider.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
@@ -15,8 +14,6 @@ import '../config/locator.dart';
 import '../config/my_theme.dart';
 import '../config/star_costs_rewards.dart';
 import '../data/key_value_store.dart';
-import '../game/pool_generator/compound_pool_generator.dart';
-import '../game/swappable_detector.dart';
 import '../util/ads/ad_manager.dart';
 import '../widgets/common/my_app_bar.dart';
 import '../widgets/common/my_background.dart';
@@ -105,7 +102,7 @@ class _DailyOverviewPageState extends State<DailyOverviewPage> {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => GamePage(
-          state: GamePageDailyState.fromLocator(_selectedDay!))
+          state: DailyClassicGamePageState.fromLocator(_selectedDay!))
     )).then((value) {
       _updatePage();
     });
@@ -406,6 +403,7 @@ class DayContainer extends StatelessWidget {
           border: Border.all(
             color: isSelected ? Colors.white : Colors.transparent,
             width: 2.0,
+            strokeAlign: BorderSide.strokeAlignOutside,
           ),
         ),
         margin: const EdgeInsets.all(4.0),
@@ -414,7 +412,7 @@ class DayContainer extends StatelessWidget {
             duration: const Duration(milliseconds: 400),
             child: isCompleted
                 ? Icon(
-              FontAwesomeIcons.check,
+              MyIcons.check,
               color: MyColorPalette.of(context).onSecondary,
               size: 16.0,
             )

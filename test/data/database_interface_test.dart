@@ -136,6 +136,17 @@ void main() {
             expect(result, null);
           });
 
+    test("getCompoundSafe: edgeCase Überflussgesellschaft: should return the compound with umlauts", () async {
+      await sut.close();
+      final compound = Compound(id: 0, name: "Überflussgesellschaft", modifier: "Überfluss", head: "Gesellschaft", frequencyClass: 1);
+      when(() => compoundOrigin.getCompounds()).thenAnswer((_) async => [compound]);
+      databaseInitializer = _createDatabaseInitializer();
+      sut = DatabaseInterface(databaseInitializer);
+
+      final result = await sut.getCompoundSafe("überfluss", "gesellschaft");
+      expect(result, compound);
+    });
+
     test(
         "edgeCase ß: should return the compound with special characters",
             () async {

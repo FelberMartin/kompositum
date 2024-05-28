@@ -43,7 +43,6 @@ class MockDatabaseInterface implements DatabaseInterface {
   }
 
   @override
-  // TODO: implement databaseInitializer
   DatabaseInitializer get databaseInitializer => throw UnimplementedError();
 
   @override
@@ -71,6 +70,11 @@ class MockDatabaseInterface implements DatabaseInterface {
   @override
   Future<void> waitForInitialization() {
     return Future.value();
+  }
+
+  @override
+  Future<Compound?> getCompoundSafe(String modifier, String head) {
+    return getCompound(modifier, head, caseSensitive: false);
   }
 
 }

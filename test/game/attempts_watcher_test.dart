@@ -9,13 +9,33 @@ void main() {
     expect(sut.attemptsLeft, 2);
   });
 
-  test('resetAttempts should reset the number of attempts', () {
+  test('resetLocalAttempts should reset the number of attempts', () {
     final sut = AttemptsWatcher(maxAttempts: 3);
     expect(sut.attemptsLeft, 3);
     sut.attemptUsed("Blau", "Apfel");
     expect(sut.attemptsLeft, 2);
-    sut.resetAttempts();
+    sut.resetLocalAttempts();
     expect(sut.attemptsLeft, 3);
+  });
+
+  test('resetLocalAttempts should not reset the overall attempts failed', () {
+    final sut = AttemptsWatcher(maxAttempts: 3);
+    expect(sut.overAllAttemptsFailed, 0);
+    sut.attemptUsed("Blau", "Apfel");
+    expect(sut.overAllAttemptsFailed, 1);
+    sut.resetLocalAttempts();
+    expect(sut.overAllAttemptsFailed, 1);
+  });
+
+  test('resetAllAttempts should reset the number of attempts', () {
+    final sut = AttemptsWatcher(maxAttempts: 3);
+    expect(sut.attemptsLeft, 3);
+    sut.attemptUsed("Blau", "Apfel");
+    expect(sut.attemptsLeft, 2);
+    expect(sut.overAllAttemptsFailed, 1);
+    sut.resetOverallAttempts();
+    expect(sut.attemptsLeft, 3);
+    expect(sut.overAllAttemptsFailed, 0);
   });
 
   test('anyAttemptsLeft should return true if attempts are left', () {

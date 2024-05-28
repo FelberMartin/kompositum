@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kompositum/config/my_icons.dart';
 import 'package:kompositum/config/my_theme.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 

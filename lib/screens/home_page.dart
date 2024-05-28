@@ -1,33 +1,32 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-import 'package:kompositum/game/level_provider.dart';
-import 'package:kompositum/screens/game_page_classic.dart';
+import 'package:kompositum/game/difficulty.dart';
+import 'package:kompositum/game/level_setup_provider.dart';
+import 'package:kompositum/game/modi/chain/chain_game_page_state.dart';
+import 'package:kompositum/game/modi/classic/daily_classic_game_page_state.dart';
+import 'package:kompositum/game/modi/classic/main_classic_game_page_state.dart';
 import 'package:kompositum/screens/settings_page.dart';
-import 'package:kompositum/util/audio_manager.dart';
+import 'package:kompositum/util/app_lifecycle_reactor.dart';
 import 'package:kompositum/util/date_util.dart';
 import 'package:kompositum/util/notifications/notifictaion_manager.dart';
+import 'package:kompositum/util/update_manager.dart';
 import 'package:kompositum/widgets/common/my_3d_container.dart';
 import 'package:kompositum/widgets/common/my_bottom_navigation_bar.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
+import 'package:kompositum/widgets/common/my_dialog.dart';
 import 'package:kompositum/widgets/common/my_icon_button.dart';
+import 'package:kompositum/widgets/home/daily_goals_container.dart';
 
 import '../config/locator.dart';
 import '../config/my_icons.dart';
 import '../config/my_theme.dart';
 import '../data/key_value_store.dart';
-import '../game/pool_generator/compound_pool_generator.dart';
-import '../game/swappable_detector.dart';
-import '../widgets/common/my_app_bar.dart';
+import '../game/goals/daily_goal_set_manager.dart';
 import '../widgets/common/my_background.dart';
 import '../widgets/common/util/clip_shadow_path.dart';
 import '../widgets/common/util/rounded_edge_clipper.dart';
 import 'game_page.dart';
-import 'game_page_daily.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,40 +46,44 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   late KeyValueStore keyValueStore = locator<KeyValueStore>();
   late NotificationManager notificationManager = locator<NotificationManager>();
+  late DailyGoalSetManager dailyGoalSetManager = locator<DailyGoalSetManager>();
+  late UpdateManager updateManager = locator<UpdateManager>();
 
   int starCount = 0;
   int currentLevel = 0;
   Difficulty currentLevelDifficulty = Difficulty.easy;
   bool isDailyFinished = true;
+  late DailyGoalSetProgression dailyGoalSetProgression;
 
   bool isLoading = true;
+
+  // Note: Only one instance of AppLifecycleReactor is needed. No need to
+  // add one in another app screen.
+  final AppLifecycleReactor _appLifecycleReactor = AppLifecycleReactor();
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+
+    WidgetsBinding.instance.addObserver(_appLifecycleReactor);
 
     _updatePage();
     initializeDateFormatting("de", null);
 
+    updateManager.animateDialog = _launchUpdateDialog;
+    updateManager.checkForUpdates();
+
     keyValueStore.isFirstLaunch().then((value) {
       if (value) {
-        _launchGame();
+        _launchClassicGame();
       }
     });
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(_appLifecycleReactor);
     super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.inactive) {
-      AudioManager.instance.dispose();
-    }
   }
 
   void _updatePage() async {
@@ -90,20 +93,30 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
     starCount = await keyValueStore.getStarCount();
     currentLevel = await keyValueStore.getLevel();
-    currentLevelDifficulty = locator<LevelProvider>()
-        .generateLevelSetup(currentLevel).displayedDifficulty;
+    currentLevelDifficulty = locator<LevelSetupProvider>()
+        .generateLevelSetup(currentLevel).difficulty;
     isDailyFinished = await keyValueStore.getDailiesCompleted()
         .then((value) => value.any((day) => day.isSameDate(DateTime.now())));
+    dailyGoalSetProgression = await dailyGoalSetManager.getProgression();
+    dailyGoalSetManager.resetProgression();
 
     setState(() {
       isLoading = false;
     });
   }
 
-  void _launchGame() {
+  void _launchUpdateDialog(Widget dialog) {
+    Future.delayed(const Duration(milliseconds: 500)).then((value) => animateDialog(
+      context: context,
+      dialog: dialog,
+      barrierDismissible: false,
+    ));
+  }
+
+  void _launchClassicGame() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => GamePage(state: GamePageClassicState.fromLocator())),
+      MaterialPageRoute(builder: (context) => GamePage(state: MainClassicGamePageState.fromLocator())),
     ).then((value) {
       _updatePage();
     });
@@ -113,7 +126,18 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => GamePage(
-        state: GamePageDailyState.fromLocator(DateTime.now()))),
+        state: DailyClassicGamePageState.fromLocator(DateTime.now()))),
+    ).then((value) {
+      _updatePage();
+    });
+  }
+
+  void _launchSecretLevel() {
+    final date = dailyGoalSetProgression.current.date;
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => GamePage(
+        state: ChainGamePageState.fromLocator(date))),
     ).then((value) {
       _updatePage();
     });
@@ -130,6 +154,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final shouldShowDailyGoals = height > 680;
     return Stack(
       children: [
         const Positioned.fill(
@@ -146,16 +172,25 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SettingsRow(onPressed: _launchSettings),
-                Expanded(flex: 1, child: Container()),
                 isLoading ? DailyLevelContainer.loading() : DailyLevelContainer(
                   isDailyFinished: isDailyFinished,
                   onPlayPressed: _launchDailyLevel,
                 ),
-                Expanded(flex: 2, child: Container()),
+                Expanded(flex: 1, child: Container()),
+                isLoading || !shouldShowDailyGoals ? Container() : Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                  child: DailyGoalsContainer(
+                    key: ValueKey(dailyGoalSetProgression.current.progress),
+                    progression: dailyGoalSetProgression,
+                    animationStartDelay: Duration.zero,
+                    onPlaySecretLevel: _launchSecretLevel,
+                  ),
+                ),
+                Expanded(flex: 1, child: Container()),
                 isLoading ? PlayButton.loading() : PlayButton(
                   currentLevel: currentLevel,
                   currentLevelDifficulty: currentLevelDifficulty,
-                  onPressed: _launchGame,
+                  onPressed: () => _launchClassicGame(),
                 ),
                 Expanded(child: Container()),
               ],
@@ -240,25 +275,25 @@ class DailyLevelContainer extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(height: 16),
+              SizedBox(height: 12),
               Text(
                 "Tägliches Rätsel",
                 style: Theme.of(context).textTheme.labelMedium,
               ),
-              SizedBox(height: 16),
+              SizedBox(height: 12),
               Icon(
                 MyIcons.daily,
                 color: Theme.of(context).colorScheme.onSecondary,
                 size: 32,
               ),
-              SizedBox(height: 32),
+              SizedBox(height: 28),
               Text(
                 dateText,
                 style: Theme.of(context).textTheme.labelSmall!.copyWith(
                   color: MyColorPalette.of(context).textSecondary,
                 ),
               ),
-              SizedBox(height: 16),
+              SizedBox(height: 12),
               SizedBox(
                 height: 52,
                 width: 120,
@@ -268,7 +303,7 @@ class DailyLevelContainer extends StatelessWidget {
                           color: MyColorPalette.of(context).textSecondary))
                       : isDailyFinished!
                       ? Icon(
-                        FontAwesomeIcons.check,
+                        MyIcons.check,
                         color: Theme.of(context).colorScheme.onSecondary,
                         size: 32,
                       )
@@ -336,7 +371,7 @@ class PlayButton extends StatelessWidget {
             ),
             SizedBox(height: 4.0),
             Text(
-              currentLevelDifficulty.toUiString(),
+              currentLevelDifficulty.uiText,
               style: Theme.of(context).textTheme.labelSmall,
             )
           ],

@@ -1,7 +1,5 @@
 // Fetch the reported compounds from the Firestore database and save them to /data/reported_compounds.json.
 
-import 'dart:io';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:kompositum/data/remote/firestore.dart';
