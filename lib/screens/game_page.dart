@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
 import 'package:flutter/material.dart';
 import 'package:kompositum/config/my_icons.dart';
+import 'package:kompositum/config/my_theme.dart';
 import 'package:kompositum/config/star_costs_rewards.dart';
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/data/models/compact_frequency_class.dart';
@@ -427,6 +428,15 @@ abstract class GamePageState extends State<GamePage> {
 
   String getLevelTitle();
 
+  Widget getLevelSubtitle() {
+    return Text(
+      levelSetup!.difficulty.uiText.toLowerCase(),
+      style: Theme.of(context).textTheme.labelSmall!.copyWith(
+        color: MyColorPalette.of(context).textSecondary,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -441,8 +451,8 @@ abstract class GamePageState extends State<GamePage> {
                   onBackPressed: () {
                     Navigator.pop(context);
                   },
-                  difficulty: levelSetup!.difficulty,
                   title: getLevelTitle(),
+                  subtitle: getLevelSubtitle(),
                   starCount: starCount,
                 ),
           backgroundColor: Colors.transparent,
@@ -503,6 +513,7 @@ class ComponentInfo {
   final UniqueComponent component;
   final SelectionType? selectionType;
   final Hint? hint;
+  bool isLocked = false;
 
   ComponentInfo(this.component, this.selectionType, this.hint);
 

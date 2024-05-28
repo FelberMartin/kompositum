@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kompositum/config/locator.dart';
+import 'package:kompositum/config/my_icons.dart';
+import 'package:kompositum/config/my_theme.dart';
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/data/models/unique_component.dart';
 import 'package:kompositum/game/game_level.dart';
@@ -78,6 +80,35 @@ class ChainGamePageState extends GamePageState {
   @override
   String getLevelTitle() {
     return "Verstecktes Level";
+  }
+
+  @override
+  Widget getLevelSubtitle() {
+    return FittedBox(
+      child: Row(
+        children: [
+          Icon(
+            MyIcons.chain,
+            color: MyColorPalette.of(context).textSecondary,
+            size: 16,
+          ),
+          SizedBox(width: 8.0),
+          Text(
+            "Wortkette",
+            style: Theme.of(context).textTheme.labelSmall!.copyWith(
+              color: MyColorPalette.of(context).textSecondary,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  ComponentInfo? getSelectedModifierInfo() {
+    final modifier = super.getSelectedModifierInfo();
+    modifier?.isLocked = true;
+    return modifier;
   }
 
   @override

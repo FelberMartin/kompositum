@@ -7,8 +7,6 @@
     - test whether goal on home screen are updated correctly
   - Remove reset button in settings
   - Look for todos in code
-  - Chain Level: title show chain level (only use medium or custom compactFrequencyClass)
-    - Add lock indicator to current modifier
 - Locking?
   - Dailies at lvl 30
   - Daily Goals at lvl 50

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:kompositum/game/difficulty.dart';
 import 'package:kompositum/game/level_setup_provider.dart';
 import 'package:kompositum/game/level_setup.dart';
 
@@ -11,8 +12,8 @@ class ChainLevelSetupProvider extends LevelSetupProvider {
     final seed = date.day + date.month * 100 + date.year * 10000;
 
     // Chains for easy difficulty are very rare / hard to find, therefore use
-    // use only medium and hard frequency classes
-    final difficulty = LevelSetupProvider.getRandomDifficulty(0, 1, 1, seed: seed);
+    // use only medium. Hard is probably too hard for a daily chain.
+    final difficulty = Difficulty.medium;
     final compoundCount = Random(seed).nextInt(11) + 7;
 
     return LevelSetup(

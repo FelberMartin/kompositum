@@ -9,14 +9,14 @@ class TopRow extends StatelessWidget implements PreferredSizeWidget {
   const TopRow({
     super.key,
     required this.onBackPressed,
-    required this.difficulty,
     required this.title,
+    required this.subtitle,
     required this.starCount,
   });
 
   final VoidCallback onBackPressed;
-  final Difficulty difficulty;
   final String title;
+  final Widget subtitle;
   final int starCount;
 
   @override
@@ -46,12 +46,7 @@ class TopRow extends StatelessWidget implements PreferredSizeWidget {
           SizedBox(height: 4.0),
           titleWidget,
           SizedBox(height: 4.0),
-          Text(
-            difficulty.uiText.toLowerCase(),
-            style: Theme.of(context).textTheme.labelSmall!.copyWith(
-              color: MyColorPalette.of(context).textSecondary,
-            ),
-          ),
+          subtitle,
         ],
       ),
       starCount: starCount,

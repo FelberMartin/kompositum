@@ -17,6 +17,7 @@ import 'package:kompositum/util/device_info.dart';
 import 'package:kompositum/util/notifications/daily_notification_scheduler.dart';
 import 'package:kompositum/util/notifications/notifictaion_manager.dart';
 import 'package:kompositum/util/tutorial_manager.dart';
+import 'package:kompositum/util/update_manager.dart';
 
 import '../mocks/mock_apper_version_provider.dart';
 import '../mocks/mock_device_info.dart';
@@ -48,6 +49,10 @@ Future<void> setupTestLocator() async {
   locator.registerSingleton<DailyNotificationScheduler>(
       DailyNotificationScheduler(locator<NotificationManager>(), locator<KeyValueStore>())
   );
+  locator.registerSingleton<UpdateManager>(UpdateManager(
+    appVersionProvider: locator<AppVersionProvider>(),
+    keyValueStore: locator<KeyValueStore>(),
+  ));
 
   locator.registerSingleton<DeviceInfo>(MockDeviceInfo());
   locator.registerSingleton<DailyGoalSetManager>(DailyGoalSetManager(locator<KeyValueStore>(), locator<DeviceInfo>()));

@@ -23,7 +23,7 @@ class MyIcons {
   static const IconData clickIndicator = FontAwesomeIcons.solidHandPointer;
   static const IconData share = FontAwesomeIcons.share;
 
-  static const IconData lock = FontAwesomeIcons.lockOpen;
+  static const IconData lock = FontAwesomeIcons.lock;
   static const IconData check = FontAwesomeIcons.check;
   static const IconData chain = FontAwesomeIcons.link;
 
