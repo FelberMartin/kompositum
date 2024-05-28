@@ -4,17 +4,18 @@
 - Locking?
   - Dailies at lvl 30
   - Daily Goals at lvl 50
+  
+- Ads
+  - Real ads inside the app
+  - Ads for the app
+  
 - Level generation:
   - Probabilistically add compounds before the minSolvableCompoundsInPool are reached
   - Make levels easier?
     - Variables: PoolSize, FrequencyClass, WordCount, GuaranteedCompoundCount
   - Add zigzag level generation? (a few easy ones, then getting harder, and then again dropping to easy and few compounds)
-- Redesign?
-  - Remove oval borders -> rounded corner rectangle
-  - Light / Dark mode
-- Ads
-  - Real ads inside the app
-  - Ads for the app
+
+
 
 ### Later
 - Store adjustments:
@@ -25,6 +26,7 @@
 
 # Bugs
 - B15 When pressing back shortly before the finished dialog opens, the continue button throws an error
+  -> not reproducable
 - B09 App going to blackscreen after pressing "back to overview" button after completing daily from homescreen
   -> not reproducable 
 
@@ -43,10 +45,10 @@
 - English compounds?
 
 
-## After 1.0 Release
-- More game modes
-  - See notion page
-  - Redesign home page
+## Maybe backlog
+- Redesign?
+  - Remove oval borders -> rounded corner rectangle
+  - Light / Dark mode
 - UI Improvements:
   - Keep common UI components on screen, and only change children during navigation
     - BottomTabBar
@@ -54,5 +56,4 @@
     - FlyStarAnimation
   - Animate component move in pool: maybe have to create Wrap widget as stack
 - Tablet compatibility
-- Advanced guide on first launch?
 
