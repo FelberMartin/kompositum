@@ -1,8 +1,5 @@
 # TODOs    
 ## Next up
-- Locking?
-  - Dailies at lvl 30
-  - Daily Goals at lvl 50
   
 - Real ads inside the app
  

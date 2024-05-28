@@ -265,14 +265,14 @@ class _Locked extends StatelessWidget {
         children: [
           Icon(
             MyIcons.lock,
-            color: MyColorPalette.of(context).onPrimary,
+            color: MyColorPalette.of(context).textSecondary,
             size: 24,
           ),
           SizedBox(width: 8),
           Text(
             'ab Level ${FeatureLockManager.dailyGoalsFeatureLockLevel}',
             style: Theme.of(context).textTheme.labelSmall!.copyWith(
-              color: MyColorPalette.of(context).onPrimary,
+              color: MyColorPalette.of(context).textSecondary,
             ),
           ),
         ],

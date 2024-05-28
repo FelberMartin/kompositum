@@ -58,6 +58,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   bool isLoading = true;
   bool _isGoalsLocked = false;
+  bool _isDailyLevelLocked = false;
 
   // Note: Only one instance of AppLifecycleReactor is needed. No need to
   // add one in another app screen.
@@ -102,6 +103,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     dailyGoalSetProgression = await dailyGoalSetManager.getProgression();
     dailyGoalSetManager.resetProgression();
     _isGoalsLocked = featureLockManager.isDailyGoalsFeatureLocked;
+    _isDailyLevelLocked = featureLockManager.isDailyLevelFeatureLocked;
 
     setState(() {
       isLoading = false;
@@ -178,6 +180,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 isLoading ? DailyLevelContainer.loading() : DailyLevelContainer(
                   isDailyFinished: isDailyFinished,
                   onPlayPressed: _launchDailyLevel,
+                  isLocked: _isDailyLevelLocked,
                 ),
                 Expanded(flex: 1, child: Container()),
                 isLoading || !shouldShowDailyGoals ? Container() : Padding(
@@ -239,21 +242,50 @@ class DailyLevelContainer extends StatelessWidget {
     super.key,
     required this.isDailyFinished,
     required this.onPlayPressed,
+    required this.isLocked,
   });
 
   final bool? isDailyFinished;
   final Function onPlayPressed;
+  final bool isLocked;
 
   factory DailyLevelContainer.loading() {
     return DailyLevelContainer(
       isDailyFinished: null,
       onPlayPressed: () {},
+      isLocked: false,
     );
   }
 
   @override
   Widget build(BuildContext context) {
     var dateText = DateFormat("dd. MMM", "de").format(DateTime.now());
+
+    Widget child;
+    if (isLocked) {
+      child = _DailyLevelLocked();
+    } else if (isDailyFinished == null) {
+      child = Center(child: CircularProgressIndicator(
+          color: MyColorPalette.of(context).textSecondary));
+    } else if (isDailyFinished!) {
+      child = Icon(
+        MyIcons.check,
+        color: Theme.of(context).colorScheme.onSecondary,
+        size: 32,
+      );
+    } else {
+      child = Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          MySecondaryTextButton(
+            key: Key("daily_play_button"),
+            text: "Start",
+            onPressed: onPlayPressed,
+          ),
+        ],
+      );
+    }
+
     return ClipShadowPath(
       clipper: RoundedEdgeClipper(edgeCutDepth: 24),
       shadow: Shadow(
@@ -301,32 +333,43 @@ class DailyLevelContainer extends StatelessWidget {
               SizedBox(height: 12),
               SizedBox(
                 height: 52,
-                width: 120,
-                child: Center(
-                  child: isDailyFinished == null
-                      ? Center(child: CircularProgressIndicator(
-                          color: MyColorPalette.of(context).textSecondary))
-                      : isDailyFinished!
-                      ? Icon(
-                        MyIcons.check,
-                        color: Theme.of(context).colorScheme.onSecondary,
-                        size: 32,
-                      )
-                      : Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          MySecondaryTextButton(
-                            key: Key("daily_play_button"),
-                            text: "Start",
-                            onPressed: onPlayPressed,
-                          ),
-                        ],
-                      ),
-                ),
+                width: 150,
+                child: Center(child: child)
               ),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _DailyLevelLocked extends StatelessWidget {
+  const _DailyLevelLocked({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return MySecondaryButton(
+      onPressed: () {},
+      enabled: false,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            MyIcons.lock,
+            color: MyColorPalette.of(context).textSecondary,
+            size: 16,
+          ),
+          SizedBox(width: 8),
+          Text(
+            "ab Level ${FeatureLockManager.dailyLevelFeatureLockLevel}",
+            style: Theme.of(context).textTheme.labelSmall!.copyWith(
+              color: MyColorPalette.of(context).textSecondary,
+            )
+          ),
+        ],
       ),
     );
   }

@@ -5,6 +5,7 @@ import 'package:kompositum/config/my_icons.dart';
 import 'package:kompositum/game/modi/classic/daily_classic_game_page_state.dart';
 import 'package:kompositum/util/extensions/date_util.dart';
 import 'package:kompositum/util/emoji_provider.dart';
+import 'package:kompositum/util/feature_lock_manager.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 import 'package:kompositum/widgets/common/my_dialog.dart';
 import 'package:kompositum/widgets/common/my_icon_button.dart';
@@ -39,12 +40,15 @@ class DailyOverviewPage extends StatefulWidget {
 class _DailyOverviewPageState extends State<DailyOverviewPage> {
   late KeyValueStore keyValueStore = locator<KeyValueStore>();
   late AdManager adManager = locator<AdManager>();
+  late FeatureLockManager featureLockManager = locator<FeatureLockManager>();
 
   DateTime? _selectedDay;
   DateTime _focusedDay = DateTime.now();
 
   int starCount = 0;
   List<DateTime> completedDays = [];
+
+  bool _isDailyLevelFeatureLocked = false;
 
   @override
   void initState() {
@@ -56,6 +60,7 @@ class _DailyOverviewPageState extends State<DailyOverviewPage> {
   void _updatePage() async {
     starCount = await keyValueStore.getStarCount();
     completedDays = await keyValueStore.getDailiesCompleted();
+    _isDailyLevelFeatureLocked = featureLockManager.isDailyLevelFeatureLocked;
     _updateSelectedDay();
   }
 
@@ -163,12 +168,10 @@ class _DailyOverviewPageState extends State<DailyOverviewPage> {
                       completedDays: completedDays,
                     ),
                     Expanded(child: Container()),
-                    MyPrimaryTextButtonLarge(
-                      text: "Start",
-                      enabled: isPlayEnabled(),
-                      onPressed: () {
-                        _onPlayPressed();
-                      },
+                    _StartButton(
+                      enabled: _isPlayEnabled(),
+                      onPressed: _onPlayPressed,
+                      isLocked: _isDailyLevelFeatureLocked,
                     ),
                     Expanded(child: Container()),
                   ],
@@ -180,7 +183,7 @@ class _DailyOverviewPageState extends State<DailyOverviewPage> {
     );
   }
 
-  bool isPlayEnabled() {
+  bool _isPlayEnabled() {
     if (_selectedDay == null) {
       return false;
     }
@@ -191,6 +194,55 @@ class _DailyOverviewPageState extends State<DailyOverviewPage> {
       return false;
     }
     return true;
+  }
+}
+
+class _StartButton extends StatelessWidget {
+  const _StartButton({
+    super.key,
+    required this.onPressed,
+    required this.enabled,
+    required this.isLocked,
+  });
+
+  final Function() onPressed;
+  final bool enabled;
+  final bool isLocked;
+
+  @override
+  Widget build(BuildContext context) {
+    if (!isLocked) {
+      return MyPrimaryTextButtonLarge(
+        text: "Start",
+        enabled: enabled,
+        onPressed: onPressed,
+      );
+    }
+
+    return MyPrimaryButton(
+      onPressed: () {},
+      enabled: false,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              MyIcons.lock,
+              color: MyColorPalette.of(context).textSecondary,
+              size: 24,
+            ),
+            SizedBox(width: 8),
+            Text(
+                "ab Level ${FeatureLockManager.dailyLevelFeatureLockLevel}",
+                style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                  color: MyColorPalette.of(context).textSecondary,
+                )
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
