@@ -45,9 +45,24 @@ class ChainGameLevel extends GameLevel {
   }
 
   @override
-  Hint generateHint() {
-    final dummyHint = Hint(currentModifier, HintComponentType.modifier);
-    return Hint.generate(allCompounds, shownComponents, [dummyHint]);
+  int countNextSolvableCompoundsInPool() {
+    final currentModifierIndex = componentChain.components.indexOf(currentModifier);
+    if (currentModifierIndex == -1) {
+      throw Exception("Current modifier not found in chain.");
+    }
+    return _countConsecutiveChainSteps(currentModifierIndex);
+  }
+
+  int _countConsecutiveChainSteps(int modifierChainIndex) {
+    if (modifierChainIndex == componentChain.components.length - 1) {
+      return 0;
+    }
+
+    final headForModifier = componentChain.components[modifierChainIndex + 1];
+    if (!shownComponents.contains(headForModifier)) {
+      return 0;
+    }
+    return 1 + _countConsecutiveChainSteps(modifierChainIndex + 1);
   }
 
   @override
@@ -72,6 +87,12 @@ class ChainGameLevel extends GameLevel {
       throw Exception("The end of the chain has been reached.");
     }
     return componentChain.components[modifierIndex + 1];
+  }
+
+  @override
+  Hint generateHint() {
+    final dummyHint = Hint(currentModifier, HintComponentType.modifier);
+    return Hint.generate(allCompounds, shownComponents, [dummyHint]);
   }
 
 

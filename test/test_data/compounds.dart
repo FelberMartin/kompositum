@@ -74,6 +74,30 @@ class Compounds {
     frequencyClass: 1,
   );
 
+  static var Schadensbegrenzung = Compound(
+    id: 0,
+    name: "Schadensbegrenzung",
+    modifier: "Schaden",
+    head: "Begrenzung",
+    frequencyClass: 1,
+  );
+
+  static var Begrenzungslinie = Compound(
+    id: 0,
+    name: "Begrenzungslinie",
+    modifier: "Begrenzung",
+    head: "Linie",
+    frequencyClass: 1,
+  );
+
+  static var Linienrichter = Compound(
+    id: 0,
+    name: "Linienrichter",
+    modifier: "Linie",
+    head: "Richter",
+    frequencyClass: 1,
+  );
+
   static var Schneemann = Compound(
     id: 0,
     name: "Schneemann",

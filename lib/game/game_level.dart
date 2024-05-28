@@ -134,7 +134,7 @@ abstract class GameLevel {
   UniqueComponent getNextShownComponent({int? seed}) {
     final random = seed == null ? Random() : Random(seed);
     final refillCount = maxShownComponentCount - shownComponents.length;
-    final solvableCompounds = _compoundCountInShownComponents();
+    final solvableCompounds = countNextSolvableCompoundsInPool();
     if (solvableCompounds < minSolvableCompoundsInPool && refillCount <= minSolvableCompoundsInPool) {
       return findComponentToCreateNewSolvable(random);
     }
@@ -142,25 +142,11 @@ abstract class GameLevel {
     return hiddenComponents[random.nextInt(hiddenComponents.length)];
   }
 
-  int _compoundCountInShownComponents() {
-    return allCompounds
-        .where((compound) => compound.isSolvedBy(shownComponents)).length;
-  }
+  @protected
+  int countNextSolvableCompoundsInPool();
 
   @protected
-  UniqueComponent findComponentToCreateNewSolvable(Random random) {
-    final compoundsCurrentlyCompletable = unsolvedCompounds
-        .where((compound) => compound.isOnlyPartiallySolvedBy(shownComponents))
-        .toList();
-    final compound = compoundsCurrentlyCompletable[
-    random.nextInt(compoundsCurrentlyCompletable.length)];
-
-    final shownComponent = shownComponents.firstWhere((component) =>
-    component.text == compound.modifier || component.text == compound.head);
-    return hiddenComponents.firstWhere((component) =>
-    component.text == compound.modifier ||
-        component.text == compound.head && component != shownComponent);
-  }
+  UniqueComponent findComponentToCreateNewSolvable(Random random);
 
   Hint? requestHint(int starCount) {
     if (canRequestHint(starCount)) {

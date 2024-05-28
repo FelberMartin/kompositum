@@ -20,11 +20,11 @@ void main() {
     return ComponentChain(components, compounds);
   }
 
-  setUp(() {
-    sut = ChainGameLevel(createChain([Compounds.Apfelbaum]));
-  });
-
   group("Hints", () {
+    setUp(() {
+      sut = ChainGameLevel(createChain([Compounds.Apfelbaum]));
+    });
+
     test("should return a hint for the currentModifier", () {
       sut.requestHint(999);
       expect(sut.hints.length, 1);
@@ -90,9 +90,101 @@ void main() {
         sut.shownComponents.removeLast();
       }
     });
+
+    test("should also work with bigger pool sizes", () {
+      final chain = createChain([
+        Compounds.Apfelkuchen,
+        Compounds.Kuchenform,
+        Compounds.Formsache,
+        Compounds.SachSchaden,
+        Compounds.Schadensbegrenzung,
+        Compounds.Begrenzungslinie,
+        Compounds.Linienrichter,
+      ]);
+      sut = ChainGameLevel(chain, maxShownComponentCount: 4, minSolvableCompoundsInPool: 2);
+      sut.currentModifier = chain.components[0];
+      initShownAndHiddenComponents(sut, ["Kuchen", "Sache", "Schaden", "Begrenzung"]);
+
+      for (var i = 0; i < 5; i++) {
+        // Repeat to ensure that the test is not passing by luck
+        final nextComponent = sut.getNextShownComponent();
+        expect(nextComponent.text, "Form");
+      }
+    });
+  });
+
+  group("countNextSolvableCompoundsInPool", () {
+    test("should return 1 if one chain step can be solved", () {
+      final chain = createChain([
+        Compounds.Apfelkuchen,
+        Compounds.Kuchenform,
+      ]);
+      sut = ChainGameLevel(chain, maxShownComponentCount: 1);
+      sut.currentModifier = chain.components[0];    // Apfel
+      initShownAndHiddenComponents(sut, ["Kuchen"]);
+
+      final result = sut.countNextSolvableCompoundsInPool();
+      expect(result, 1);
+    });
+
+    test("should return 2 if two consecutive chain steps can be solved", () {
+      final chain = createChain([
+        Compounds.Apfelkuchen,
+        Compounds.Kuchenform,
+        Compounds.Formsache,
+      ]);
+      sut = ChainGameLevel(chain, maxShownComponentCount: 2);
+      sut.currentModifier = chain.components[0];    // Apfel
+      initShownAndHiddenComponents(sut, ["Kuchen", "Form"]);
+
+      expect(sut.countNextSolvableCompoundsInPool(), 2);
+    });
+
+    test("should return 0 if no consecutive chain steps can be solved", () {
+      final chain = createChain([
+        Compounds.Apfelkuchen,
+        Compounds.Kuchenform,
+        Compounds.Formsache,
+      ]);
+      sut = ChainGameLevel(chain, maxShownComponentCount: 2);
+      sut.currentModifier = chain.components[0];    // Apfel
+      initShownAndHiddenComponents(sut, ["Form", "Sache"]);
+
+      expect(sut.countNextSolvableCompoundsInPool(), 0);
+    });
+
+    test("should return 1 if one chain step is missing", () {
+      final chain = createChain([
+        Compounds.Apfelkuchen,
+        Compounds.Kuchenform,
+        Compounds.Formsache,
+        Compounds.SachSchaden,
+        Compounds.Schadensbegrenzung,
+      ]);
+      sut = ChainGameLevel(chain, maxShownComponentCount: 3);
+      sut.currentModifier = chain.components[0];    // Apfel
+      initShownAndHiddenComponents(sut, ["Kuchen", "Sache", "Schaden"]);    // Missing: "Form"
+
+      expect(sut.countNextSolvableCompoundsInPool(), 1);
+    });
   });
 
   group("removeCompoundFromShown", () {
+    test("removes the head and sets it as the new currentModifier", () {
+      final chain = createChain([
+        Compounds.Apfelkuchen,
+        Compounds.Kuchenform,
+        Compounds.Formsache,
+        Compounds.SachSchaden,
+      ]);
+      sut = ChainGameLevel(chain, maxShownComponentCount: 2);
+      sut.currentModifier = chain.components[0];
+      initShownAndHiddenComponents(sut, ["Kuchen"]);
 
+      sut.removeCompoundFromShown(Compounds.Apfelkuchen, chain.components[0], chain.components[1]);
+      expect(sut.currentModifier.text, "Kuchen");
+      expect(sut.shownComponents, isNotEmpty);
+      expect(sut.shownComponents, isNot(contains(chain.components[0])));
+    });
   });
 }

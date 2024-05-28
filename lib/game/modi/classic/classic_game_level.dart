@@ -31,6 +31,27 @@ class ClassicGameLevel extends GameLevel {
   }
 
   @override
+  int countNextSolvableCompoundsInPool() {
+    return allCompounds
+        .where((compound) => compound.isSolvedBy(shownComponents)).length;
+  }
+
+  @override
+  UniqueComponent findComponentToCreateNewSolvable(Random random) {
+    final compoundsCurrentlyCompletable = unsolvedCompounds
+        .where((compound) => compound.isOnlyPartiallySolvedBy(shownComponents))
+        .toList();
+    final compound = compoundsCurrentlyCompletable[
+    random.nextInt(compoundsCurrentlyCompletable.length)];
+
+    final shownComponent = shownComponents.firstWhere((component) =>
+    component.text == compound.modifier || component.text == compound.head);
+    return hiddenComponents.firstWhere((component) =>
+    component.text == compound.modifier ||
+        component.text == compound.head && component != shownComponent);
+  }
+
+  @override
   Hint generateHint() {
     return Hint.generate(allCompounds, shownComponents, hints);
   }

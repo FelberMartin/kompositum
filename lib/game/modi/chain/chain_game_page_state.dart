@@ -63,6 +63,7 @@ class ChainGamePageState extends GamePageState {
     gameLevel = ChainGameLevel(
       levelContent as ComponentChain,
       maxShownComponentCount: levelSetup.difficulty.maxShownComponentCount,
+      minSolvableCompoundsInPool: 2,
     );
     return gameLevel;
   }
