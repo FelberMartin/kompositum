@@ -5,10 +5,8 @@
   - Dailies at lvl 30
   - Daily Goals at lvl 50
   
-- Ads
-  - Real ads inside the app
-  - Ads for the app
-  
+- Real ads inside the app
+ 
 - Level generation:
   - Probabilistically add compounds before the minSolvableCompoundsInPool are reached
   - Make levels easier?
@@ -18,6 +16,7 @@
 
 
 ### Later
+- Ads for the app
 - Store adjustments:
   - Images on google play: remove debug label (just use gimp?)
   - A/B testing with v0 app icon
