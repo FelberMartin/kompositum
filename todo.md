@@ -5,7 +5,6 @@
   - Dont show on homeScreen? 
     - -> if still, then adapt title color 
     - test whether goal on home screen are updated correctly
-  - Remove reset button in settings
   - Look for todos in code
 - Locking?
   - Dailies at lvl 30
@@ -23,8 +22,6 @@
   - Ads for the app
 
 ### Later
-- LevelFinishedDialog: diamonds for used attempts confusing (remove diamonds for attempts, or
-  write "2/3", 
 - Store adjustments:
   - Images on google play: remove debug label (just use gimp?)
   - A/B testing with v0 app icon

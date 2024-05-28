@@ -17,4 +17,6 @@ class GameEventStream {
   void close() {
     _controller.close();
   }
+
+  bool get isClosed => _controller.isClosed;
 }
