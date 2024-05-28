@@ -1,18 +1,31 @@
 import 'package:kompositum/data/key_value_store.dart';
+import 'package:kompositum/data/models/daily_goal.dart';
+import 'package:kompositum/data/models/daily_goal_set.dart';
+import 'package:kompositum/game/game_event/game_event.dart';
 import 'package:kompositum/game/goals/daily_goal_set_manager.dart';
+import 'package:kompositum/game/level_setup.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
 
 import '../../mocks/mock_device_info.dart';
+import '../../mocks/mock_feature_lock_manager.dart';
+import '../../mocks/mock_level_setup.dart';
+import '../../mocks/mock_pool_game_level.dart';
 
 void main() {
   late DailyGoalSetManager sut;
   final keyValueStore = KeyValueStore();
   final deviceInfo = MockDeviceInfo();
+  final featureLockManager = MockFeatureLockManager();
 
   setUp(() {
     SharedPreferences.setMockInitialValues({});
-    sut = DailyGoalSetManager(keyValueStore, deviceInfo);
+    sut = DailyGoalSetManager(
+      keyValueStore: keyValueStore,
+      deviceInfo: deviceInfo,
+      featureLockManager: featureLockManager,
+    );
   });
 
   test('getProgression, The progression can be seen through the return value', () async {

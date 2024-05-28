@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:kompositum/util/random_util.dart';
+import 'package:kompositum/util/extensions/random_util.dart';
 import 'package:test/test.dart';
 
 void main() {

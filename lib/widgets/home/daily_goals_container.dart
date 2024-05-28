@@ -6,7 +6,8 @@ import 'package:kompositum/config/my_icons.dart';
 import 'package:kompositum/config/my_theme.dart';
 import 'package:kompositum/data/models/daily_goal_set.dart';
 import 'package:kompositum/game/goals/daily_goal_set_manager.dart';
-import 'package:kompositum/util/color_util.dart';
+import 'package:kompositum/util/extensions/color_util.dart';
+import 'package:kompositum/util/feature_lock_manager.dart';
 
 import '../../data/models/daily_goal.dart';
 import '../../util/audio_manager.dart';
@@ -39,6 +40,7 @@ void main() async {
           child: DailyGoalsContainer(
             progression: DailyGoalSetProgression(goalSet, goalSet2),
             onPlaySecretLevel: () {},
+            isLocked: true,
           ),
         )
       ],
@@ -51,6 +53,7 @@ class DailyGoalsContainer extends StatefulWidget {
     super.key,
     required this.progression,
     required this.onPlaySecretLevel,
+    required this.isLocked,
     this.animationStartDelay = const Duration(milliseconds: 2000),
     this.onAnimationEnd,
     this.headerColor,
@@ -61,6 +64,7 @@ class DailyGoalsContainer extends StatefulWidget {
   final Duration animationStartDelay;
   final Function? onAnimationEnd;
   final Color? headerColor;
+  final bool isLocked;
 
   @override
   State<DailyGoalsContainer> createState() => _DailyGoalsContainerState();
@@ -164,7 +168,12 @@ class _DailyGoalsContainerState extends State<DailyGoalsContainer> with SingleTi
             ),
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              gradient: getContainerGradient(_currentProgress, _showAllAchieved, context),
+              gradient: getContainerGradient(
+                progress: _currentProgress,
+                allAchieved: _showAllAchieved,
+                isLocked: widget.isLocked,
+                context: context,
+              ),
               borderRadius: BorderRadius.circular(12),
             ),
             child: fillContainer(context),
@@ -175,6 +184,11 @@ class _DailyGoalsContainerState extends State<DailyGoalsContainer> with SingleTi
   }
 
   Widget fillContainer(BuildContext context) {
+    // Locked
+    if (widget.isLocked) {
+      return _Locked();
+    }
+
     // Secret level completed
     if (dailyGoalSet.isSecretLevelCompleted) {
       return _SecretLevelDone();
@@ -196,7 +210,20 @@ class _DailyGoalsContainerState extends State<DailyGoalsContainer> with SingleTi
 
   }
 
-  static Gradient getContainerGradient(double progress, bool allAchieved, BuildContext context) {
+  static Gradient getContainerGradient({
+    required double progress,
+    required bool allAchieved,
+    required bool isLocked,
+    required BuildContext context,
+  }) {
+    if (isLocked) {
+      // No gradient
+      return LinearGradient(colors: [
+        MyColorPalette.of(context).secondary,
+        MyColorPalette.of(context).secondary,
+      ]);
+    }
+
     if (allAchieved) {
       return RadialGradient(
         colors: [
@@ -220,6 +247,36 @@ class _DailyGoalsContainerState extends State<DailyGoalsContainer> with SingleTi
       stops: [stop1, stop2],
       begin: Alignment.centerLeft,
       end: Alignment.centerRight,
+    );
+  }
+}
+
+class _Locked extends StatelessWidget {
+  const _Locked({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            MyIcons.lock,
+            color: MyColorPalette.of(context).onPrimary,
+            size: 24,
+          ),
+          SizedBox(width: 8),
+          Text(
+            'ab Level ${FeatureLockManager.dailyGoalsFeatureLockLevel}',
+            style: Theme.of(context).textTheme.labelSmall!.copyWith(
+              color: MyColorPalette.of(context).onPrimary,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

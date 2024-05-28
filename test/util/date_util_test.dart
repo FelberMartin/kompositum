@@ -1,4 +1,4 @@
-import 'package:kompositum/util/date_util.dart';
+import 'package:kompositum/util/extensions/date_util.dart';
 import 'package:test/test.dart';
 
 void main() {

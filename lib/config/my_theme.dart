@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kompositum/util/color_util.dart';
+import 'package:kompositum/util/extensions/color_util.dart';
 
 const Color undefined = Color(0xFFED14FF);
 

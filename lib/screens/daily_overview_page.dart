@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:kompositum/config/my_icons.dart';
 import 'package:kompositum/game/modi/classic/daily_classic_game_page_state.dart';
-import 'package:kompositum/util/date_util.dart';
+import 'package:kompositum/util/extensions/date_util.dart';
 import 'package:kompositum/util/emoji_provider.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 import 'package:kompositum/widgets/common/my_dialog.dart';

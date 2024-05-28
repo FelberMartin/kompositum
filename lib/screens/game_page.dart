@@ -15,6 +15,7 @@ import 'package:kompositum/game/modi/chain/generator/chain_generator.dart';
 import 'package:kompositum/game/level_content_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 import 'package:kompositum/util/audio_manager.dart';
+import 'package:kompositum/util/feature_lock_manager.dart';
 import 'package:kompositum/util/tutorial_manager.dart';
 import 'package:kompositum/widgets/common/my_background.dart';
 import 'package:kompositum/widgets/common/my_dialog.dart';
@@ -65,6 +66,7 @@ abstract class GamePageState extends State<GamePage> {
   final TutorialManager tutorialManager;
   late AdManager adManager = locator<AdManager>();
   late DailyGoalSetManager dailyGoalSetManager = locator<DailyGoalSetManager>();
+  late FeatureLockManager featureLockManager = locator<FeatureLockManager>();
 
   late GameLevel gameLevel;
 
@@ -394,6 +396,7 @@ abstract class GamePageState extends State<GamePage> {
     }
     final dailyGoalSetProgression = await dailyGoalSetManager.getProgression();
     dailyGoalSetManager.resetProgression();
+    final isLocked = featureLockManager.isDailyGoalsFeatureLocked;
 
     if (!context.mounted) {
       return;
@@ -408,6 +411,7 @@ abstract class GamePageState extends State<GamePage> {
         failedAttempts: gameLevel.attemptsWatcher.overAllAttemptsFailed,
         nextLevelNumber: nextLevelNumber,
         dailyGoalSetProgression: dailyGoalSetProgression,
+        isDailyGoalsFeatureLocked: isLocked,
         onContinue: (result) {
           Navigator.pop(context);
           _increaseStarCount(result.starCountIncrease, origin: StarIncreaseRequestOrigin.levelCompletion);

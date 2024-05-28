@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:kompositum/game/level_setup.dart';
 
 import '../../game/game_event/game_event.dart';
-import '../../util/random_util.dart';
+import '../../util/extensions/random_util.dart';
 import 'daily_goal.dart';
 
 

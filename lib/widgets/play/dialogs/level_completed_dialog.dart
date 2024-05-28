@@ -38,6 +38,7 @@ void main() async {
         nextLevelNumber: 2,
         onContinue: (result) {},
         dailyGoalSetProgression: DailyGoalSetProgression(goalSet, goalSet),
+        isDailyGoalsFeatureLocked: false,
       )));
 }
 
@@ -91,6 +92,7 @@ class LevelCompletedDialog extends StatefulWidget {
     required this.nextLevelNumber,
     required this.onContinue,
     required this.dailyGoalSetProgression,
+    required this.isDailyGoalsFeatureLocked,
   }) {
     title = titles[Random().nextInt(titles.length)];
   }
@@ -103,6 +105,7 @@ class LevelCompletedDialog extends StatefulWidget {
   late final String title;
 
   final DailyGoalSetProgression? dailyGoalSetProgression;
+  final bool isDailyGoalsFeatureLocked;
 
   @override
   State<LevelCompletedDialog> createState() => _LevelCompletedDialogState();
@@ -184,6 +187,7 @@ class _LevelCompletedDialogState extends State<LevelCompletedDialog> {
                 progression: widget.dailyGoalSetProgression!,
                 onPlaySecretLevel: _launchSecretLevel,
                 onAnimationEnd: _onDailyGoalsAnimationEnd,
+                isLocked: widget.isDailyGoalsFeatureLocked,
               ) : Container(),
               Expanded(child: Container()),
               AnimatedOpacity(

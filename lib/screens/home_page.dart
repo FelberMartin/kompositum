@@ -8,7 +8,8 @@ import 'package:kompositum/game/modi/classic/daily_classic_game_page_state.dart'
 import 'package:kompositum/game/modi/classic/main_classic_game_page_state.dart';
 import 'package:kompositum/screens/settings_page.dart';
 import 'package:kompositum/util/app_lifecycle_reactor.dart';
-import 'package:kompositum/util/date_util.dart';
+import 'package:kompositum/util/extensions/date_util.dart';
+import 'package:kompositum/util/feature_lock_manager.dart';
 import 'package:kompositum/util/notifications/notifictaion_manager.dart';
 import 'package:kompositum/util/update_manager.dart';
 import 'package:kompositum/widgets/common/my_3d_container.dart';
@@ -30,7 +31,7 @@ import 'game_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  setupLocator();
+  await setupLocator();
   runApp(MaterialApp(
       theme: myTheme,
       home: HomePage()
@@ -48,6 +49,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   late NotificationManager notificationManager = locator<NotificationManager>();
   late DailyGoalSetManager dailyGoalSetManager = locator<DailyGoalSetManager>();
   late UpdateManager updateManager = locator<UpdateManager>();
+  late FeatureLockManager featureLockManager = locator<FeatureLockManager>();
 
   int currentLevel = 0;
   Difficulty currentLevelDifficulty = Difficulty.easy;
@@ -55,6 +57,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   late DailyGoalSetProgression dailyGoalSetProgression;
 
   bool isLoading = true;
+  bool _isGoalsLocked = false;
 
   // Note: Only one instance of AppLifecycleReactor is needed. No need to
   // add one in another app screen.
@@ -98,6 +101,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         .then((value) => value.any((day) => day.isSameDate(DateTime.now())));
     dailyGoalSetProgression = await dailyGoalSetManager.getProgression();
     dailyGoalSetManager.resetProgression();
+    _isGoalsLocked = featureLockManager.isDailyGoalsFeatureLocked;
 
     setState(() {
       isLoading = false;
@@ -184,6 +188,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                     animationStartDelay: Duration.zero,
                     onPlaySecretLevel: _launchSecretLevel,
                     headerColor: MyColorPalette.of(context).primary,
+                    isLocked: _isGoalsLocked,
                   ),
                 ),
                 Expanded(flex: 1, child: Container()),

@@ -5,7 +5,7 @@ import 'package:kompositum/data/models/compound.dart';
 import 'package:kompositum/game/modi/classic/generator/classic_level_content.dart';
 import 'package:kompositum/game/modi/classic/generator/compound_graph.dart';
 import 'package:kompositum/game/level_content_generator.dart';
-import 'package:kompositum/util/string_util.dart';
+import 'package:kompositum/util/extensions/string_util.dart';
 
 
 class GraphBasedClassicLevelContentGenerator extends LevelContentGenerator<ClassicLevelContent> {

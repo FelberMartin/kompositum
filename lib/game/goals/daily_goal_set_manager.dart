@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:kompositum/util/date_util.dart';
+import 'package:kompositum/util/extensions/date_util.dart';
+import 'package:kompositum/util/feature_lock_manager.dart';
 
 import '../../data/key_value_store.dart';
 import '../../data/models/daily_goal_set.dart';
@@ -23,11 +24,16 @@ class DailyGoalSetProgression {
 class DailyGoalSetManager {
   final KeyValueStore keyValueStore;
   final DeviceInfo deviceInfo;
+  final FeatureLockManager featureLockManager;
 
   DailyGoalSet? _dailyGoalSet;
   DailyGoalSetProgression? _progression;
 
-  DailyGoalSetManager(this.keyValueStore, this.deviceInfo) {
+  DailyGoalSetManager({
+    required this.keyValueStore,
+    required this.deviceInfo,
+    required this.featureLockManager,
+  }) {
     update();
     registerGameEventStream(GameEventStream.instance.stream);
   }
@@ -74,6 +80,10 @@ class DailyGoalSetManager {
 
   void registerGameEventStream(Stream<GameEvent> stream) {
     stream.listen((event) {
+      if (featureLockManager.isDailyGoalsFeatureLocked) {
+        return;
+      }
+
       final dailyGoalSet = _dailyGoalSet!;
       final progressBefore = dailyGoalSet.progress;
       final secretLevelBefore = dailyGoalSet.isSecretLevelCompleted;

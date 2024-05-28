@@ -1,6 +1,5 @@
 # TODOs    
-## 1.0 Release
-### Next up
+## Next up
 - Locking?
   - Dailies at lvl 30
   - Daily Goals at lvl 50
@@ -15,7 +14,7 @@
 
 
 
-### Later
+## Later
 - Ads for the app
 - Store adjustments:
   - Images on google play: remove debug label (just use gimp?)
@@ -24,13 +23,15 @@
 
 
 # Bugs
+- B16 
+
+## Not Reproducible
 - B15 When pressing back shortly before the finished dialog opens, the continue button throws an error
-  -> not reproducable
 - B09 App going to blackscreen after pressing "back to overview" button after completing daily from homescreen
-  -> not reproducable 
 
 
-### Misc
+# Misc
+## Ideas
 - Look for alternative frequency dataset (not from news)
 - Hint idea: reshuffle components in pool / hidden components
 - Feature idea: watch ad to double level finished rewards

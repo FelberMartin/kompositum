@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:kompositum/data/database_initializer.dart';
-import 'package:kompositum/util/string_util.dart';
+import 'package:kompositum/util/extensions/string_util.dart';
 
 import '../objectbox.g.dart';
 import 'models/compact_frequency_class.dart';

@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:kompositum/data/key_value_store.dart';
-import 'package:kompositum/util/date_util.dart';
+import 'package:kompositum/util/extensions/date_util.dart';
 
 import 'notifictaion_manager.dart';
 

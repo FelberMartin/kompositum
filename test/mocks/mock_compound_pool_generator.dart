@@ -4,7 +4,7 @@ import 'package:kompositum/data/models/compact_frequency_class.dart';
 import 'package:kompositum/data/models/compound.dart';
 import 'package:kompositum/game/level_content_generator.dart';
 import 'package:kompositum/game/modi/classic/generator/classic_level_content.dart';
-import 'package:kompositum/util/random_util.dart';
+import 'package:kompositum/util/extensions/random_util.dart';
 import 'package:mocktail/mocktail.dart';
 
 
