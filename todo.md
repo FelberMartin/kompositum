@@ -1,11 +1,6 @@
 # TODOs    
 ## 1.0 Release
 ### Next up
-- Daily goals:
-  - Dont show on homeScreen? 
-    - -> if still, then adapt title color 
-    - test whether goal on home screen are updated correctly
-  - Look for todos in code
 - Locking?
   - Dailies at lvl 30
   - Daily Goals at lvl 50

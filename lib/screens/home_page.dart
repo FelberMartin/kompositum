@@ -49,7 +49,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   late DailyGoalSetManager dailyGoalSetManager = locator<DailyGoalSetManager>();
   late UpdateManager updateManager = locator<UpdateManager>();
 
-  int starCount = 0;
   int currentLevel = 0;
   Difficulty currentLevelDifficulty = Difficulty.easy;
   bool isDailyFinished = true;
@@ -91,7 +90,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       isLoading = true;
     });
 
-    starCount = await keyValueStore.getStarCount();
+    print("Updating home page");
     currentLevel = await keyValueStore.getLevel();
     currentLevelDifficulty = locator<LevelSetupProvider>()
         .generateLevelSetup(currentLevel).difficulty;
@@ -180,10 +179,11 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 isLoading || !shouldShowDailyGoals ? Container() : Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 32.0),
                   child: DailyGoalsContainer(
-                    key: ValueKey(dailyGoalSetProgression.current.progress),
+                    key: ValueKey(dailyGoalSetProgression),
                     progression: dailyGoalSetProgression,
                     animationStartDelay: Duration.zero,
                     onPlaySecretLevel: _launchSecretLevel,
+                    headerColor: MyColorPalette.of(context).primary,
                   ),
                 ),
                 Expanded(flex: 1, child: Container()),

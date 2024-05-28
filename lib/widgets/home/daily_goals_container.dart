@@ -53,12 +53,14 @@ class DailyGoalsContainer extends StatefulWidget {
     required this.onPlaySecretLevel,
     this.animationStartDelay = const Duration(milliseconds: 2000),
     this.onAnimationEnd,
+    this.headerColor,
   });
 
   final DailyGoalSetProgression progression;
   final Function onPlaySecretLevel;
   final Duration animationStartDelay;
   final Function? onAnimationEnd;
+  final Color? headerColor;
 
   @override
   State<DailyGoalsContainer> createState() => _DailyGoalsContainerState();
@@ -149,7 +151,7 @@ class _DailyGoalsContainerState extends State<DailyGoalsContainer> with SingleTi
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: TitleRow(),
+          child: TitleRow(headerColor: widget.headerColor),
         ),
         Material(
           borderRadius: BorderRadius.circular(12),
@@ -371,7 +373,10 @@ class GoalsRow extends StatelessWidget {
 class TitleRow extends StatelessWidget {
   const TitleRow({
     super.key,
+    this.headerColor,
   });
+
+  final Color? headerColor;
 
   @override
   Widget build(BuildContext context) {
@@ -381,7 +386,7 @@ class TitleRow extends StatelessWidget {
         Text(
           'Tagesziele',
           style: Theme.of(context).textTheme.labelMedium!.copyWith(
-            // color: MyColorPalette.of(context).primary,
+            color: headerColor ?? MyColorPalette.of(context).onSecondary,
           ),
         ),
       ],
