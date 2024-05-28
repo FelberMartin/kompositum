@@ -2,8 +2,6 @@
 ## 1.0 Release
 ### Next up
 - Daily goals:
-  - Tutorial Dialogs:
-    - Integrate dialog logic
   - Dont show on homeScreen? 
     - -> if still, then adapt title color 
     - test whether goal on home screen are updated correctly
@@ -15,6 +13,7 @@
   - Dailies at lvl 30
   - Daily Goals at lvl 50
 - Level generation:
+  - Probabilistically add compounds before the minSolvableCompoundsInPool are reached
   - Make levels easier?
     - Variables: PoolSize, FrequencyClass, WordCount, GuaranteedCompoundCount
   - Add zigzag level generation? (a few easy ones, then getting harder, and then again dropping to easy and few compounds)
@@ -35,7 +34,7 @@
 
 
 # Bugs
-- B15
+- B15 When pressing back shortly before the finished dialog opens, the continue button throws an error
 - B09 App going to blackscreen after pressing "back to overview" button after completing daily from homescreen
   -> not reproducable 
 

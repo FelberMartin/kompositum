@@ -2,6 +2,8 @@
 import 'dart:convert';
 
 import 'package:kompositum/game/modi/classic/classic_game_level.dart';
+import 'package:kompositum/util/app_version_provider.dart';
+import 'package:kompositum/util/update_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../util/tutorial_manager.dart';
@@ -83,18 +85,24 @@ class KeyValueStore {
   }
 
   Future<void> storeTutorialPartAsShown(TutorialPart part) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool("tutorialPartShown_${part.toString()}", true);
+    return storeBooleanSetting(BooleanSetting("tutorialPartShown_${part.toString()}", false), true);
   }
 
   Future<bool> wasTutorialPartShown(TutorialPart part) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getBool("tutorialPartShown_${part.toString()}") ?? false;
+    return getBooleanSetting(BooleanSetting("tutorialPartShown_${part.toString()}", false));
+  }
+
+  Future<void> storeUpdateDialogAsShown(UpdateDialog updateDialog) async {
+    return storeBooleanSetting(BooleanSetting("updateDialogShown_${updateDialog.identifier}", false), true);
+  }
+
+  Future<bool> wasUpdateDialogShown(UpdateDialog updateDialog) async {
+    return getBooleanSetting(BooleanSetting("updateDialogShown_${updateDialog.identifier}", false));
   }
 
   Future<String> getPreviousAppVersion() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString("previousAppVersion") ?? "1.0.0";
+    return prefs.getString("previousAppVersion") ?? AppVersionProvider.noAppVersion;
   }
 
   Future<void> storeAppVersion(String version) async {

@@ -16,6 +16,7 @@ import 'package:kompositum/util/device_info.dart';
 import 'package:kompositum/util/notifications/daily_notification_scheduler.dart';
 import 'package:kompositum/util/notifications/notifictaion_manager.dart';
 import 'package:kompositum/util/tutorial_manager.dart';
+import 'package:kompositum/util/update_manager.dart';
 import 'package:path_provider/path_provider.dart';
 
 
@@ -47,6 +48,10 @@ Future<void> setupLocator() async {
   locator.registerSingleton<DailyNotificationScheduler>(
       DailyNotificationScheduler(locator<NotificationManager>(), locator<KeyValueStore>())
   );
+  locator.registerSingleton<UpdateManager>(UpdateManager(
+      appVersionProvider: locator<AppVersionProvider>(),
+      keyValueStore: locator<KeyValueStore>(),
+  ));
 
   locator.registerSingleton<DeviceInfo>(DeviceInfo());
   locator.registerSingleton<DailyGoalSetManager>(DailyGoalSetManager(locator<KeyValueStore>(), locator<DeviceInfo>()));

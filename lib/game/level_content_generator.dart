@@ -6,6 +6,7 @@ import 'package:kompositum/data/models/compact_frequency_class.dart';
 import 'package:kompositum/data/models/compound.dart';
 import 'package:kompositum/game/level_content.dart';
 import 'package:kompositum/game/level_setup.dart';
+import 'package:kompositum/game/modi/classic/generator/classic_level_content.dart';
 
 
 abstract class LevelContentGenerator<T extends LevelContent> {
@@ -20,8 +21,8 @@ abstract class LevelContentGenerator<T extends LevelContent> {
   Future<T> generateFromLevelSetup(LevelSetup levelSetup) async {
     if (levelSetup.levelType == LevelType.mainClassic && levelSetup.levelIdentifier == 1) {
       final wortschatz = await databaseInterface.getCompoundByName("Wortschatz");
-      assert(T == List<Compound>);
-      return [wortschatz!] as T;
+      assert(T == ClassicLevelContent);
+      return ClassicLevelContent([wortschatz!]) as T;
     }
     return generate(
       compoundCount: levelSetup.compoundCount,

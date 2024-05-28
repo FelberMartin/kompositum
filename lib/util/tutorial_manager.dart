@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:kompositum/game/game_event/game_event.dart';
 import 'package:kompositum/game/game_level.dart';
 import 'package:kompositum/game/level_setup.dart';
+import 'package:kompositum/widgets/play/dialogs/tutorials/chain_mode_intro_dialog.dart';
 import 'package:kompositum/widgets/play/dialogs/tutorials/hidden_components_tutorial_dialog.dart';
 import 'package:kompositum/widgets/play/dialogs/tutorials/hints_tutorial_dialog.dart';
 
@@ -18,6 +19,7 @@ enum TutorialPart {
   MISSING_COMPOUND,
   HINTS,
   HIDDEN_COMPONENTS,
+  CHAIN_GAME_MODE,
 }
 
 
@@ -52,6 +54,7 @@ class TutorialManager {
   void _onNewLevelStart(LevelSetup levelSetup, GameLevel gameLevel) {
     _checkClickIndicator(levelSetup.levelIdentifier, gameLevel.shownComponents);
     _checkHiddenComponents(gameLevel.hiddenComponents.length);
+    _checkChainGameMode(levelSetup.levelType);
   }
 
   void _checkClickIndicator(Object levelIdentifier, List<UniqueComponent> shownComponents) async {
@@ -67,6 +70,14 @@ class TutorialManager {
     if (!shown && hiddenComponentsCount > 0) {
       animateDialog?.call(HiddenComponentsTutorialDialog());
       await _keyValueStore.storeTutorialPartAsShown(TutorialPart.HIDDEN_COMPONENTS);
+    }
+  }
+
+  void _checkChainGameMode(LevelType levelType) async {
+    final shown = await _keyValueStore.wasTutorialPartShown(TutorialPart.CHAIN_GAME_MODE);
+    if (!shown && levelType == LevelType.secretChain) {
+      animateDialog?.call(ChainModeIntroDialog());
+      await _keyValueStore.storeTutorialPartAsShown(TutorialPart.CHAIN_GAME_MODE);
     }
   }
 

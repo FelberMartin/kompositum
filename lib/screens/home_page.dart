@@ -10,9 +10,11 @@ import 'package:kompositum/screens/settings_page.dart';
 import 'package:kompositum/util/app_lifecycle_reactor.dart';
 import 'package:kompositum/util/date_util.dart';
 import 'package:kompositum/util/notifications/notifictaion_manager.dart';
+import 'package:kompositum/util/update_manager.dart';
 import 'package:kompositum/widgets/common/my_3d_container.dart';
 import 'package:kompositum/widgets/common/my_bottom_navigation_bar.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
+import 'package:kompositum/widgets/common/my_dialog.dart';
 import 'package:kompositum/widgets/common/my_icon_button.dart';
 import 'package:kompositum/widgets/home/daily_goals_container.dart';
 
@@ -45,6 +47,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   late KeyValueStore keyValueStore = locator<KeyValueStore>();
   late NotificationManager notificationManager = locator<NotificationManager>();
   late DailyGoalSetManager dailyGoalSetManager = locator<DailyGoalSetManager>();
+  late UpdateManager updateManager = locator<UpdateManager>();
 
   int starCount = 0;
   int currentLevel = 0;
@@ -66,6 +69,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
     _updatePage();
     initializeDateFormatting("de", null);
+
+    updateManager.animateDialog = _launchUpdateDialog;
+    updateManager.checkForUpdates();
 
     keyValueStore.isFirstLaunch().then((value) {
       if (value) {
@@ -97,6 +103,14 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     setState(() {
       isLoading = false;
     });
+  }
+
+  void _launchUpdateDialog(Widget dialog) {
+    Future.delayed(const Duration(milliseconds: 500)).then((value) => animateDialog(
+      context: context,
+      dialog: dialog,
+      barrierDismissible: false,
+    ));
   }
 
   void _launchClassicGame() {
