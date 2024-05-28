@@ -200,8 +200,8 @@ void runGeneralPoolGeneratorTests(
     final poolGenerator = GraphBasedClassicLevelContentGenerator(databaseInterface);
     final levelProvider = LogarithmicLevelSetupProvider();
     final levelSetup = levelProvider.generateLevelSetup(1);
-    final compounds = await poolGenerator.generateFromLevelSetup(levelSetup);
-    expect(compounds, [Compounds.Wortschatz]);
+    final levelContent = await poolGenerator.generateFromLevelSetup(levelSetup);
+    expect(levelContent.compounds, [Compounds.Wortschatz]);
   });
 
 

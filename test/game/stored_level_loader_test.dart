@@ -12,12 +12,13 @@ import '../test_util.dart';
 
 void main() {
 
+  final keyValueStore = KeyValueStore();
+
   StoredLevelLoader createSut(ClassicGameLevel classicGameLevel) {
-    SharedPreferences.setMockInitialValues({
-      "level": 10,
-      "classicClassicGameLevel": jsonEncode(classicGameLevel.toJson()),
-    });
-    return StoredLevelLoader(KeyValueStore());
+    SharedPreferences.setMockInitialValues({});
+    keyValueStore.storeLevel(10);
+    keyValueStore.storeClassicGameLevel(classicGameLevel);
+    return StoredLevelLoader(keyValueStore);
   }
 
   test("should return the loaded level", () async {

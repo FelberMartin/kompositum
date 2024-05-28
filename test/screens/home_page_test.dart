@@ -52,7 +52,7 @@ void main() {
       final DailyClassicGamePageState state = tester.state(find.byType(GamePage)) as DailyClassicGamePageState;
       state.gameLevel = ClassicGameLevelExtension.of([]);
       state.levelCompleted();
-      await nonBlockingPump(tester);
+      await nonBlockingPump(tester, 10);
 
       final MockNotificationManager notificationManager = locator<NotificationManager>() as MockNotificationManager;
       expect(notificationManager.notifications, isNotEmpty);

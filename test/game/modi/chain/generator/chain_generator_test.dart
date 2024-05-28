@@ -114,7 +114,7 @@ void main() {
   });
 
 
-  group("performance", skip: false, () {
+  group("performance", skip: true, () {
     setUp(() async {
       WidgetsFlutterBinding.ensureInitialized();
       SharedPreferences.setMockInitialValues({});

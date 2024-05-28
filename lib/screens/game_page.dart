@@ -134,9 +134,11 @@ abstract class GamePageState extends State<GamePage> {
     _emitGameEvent(NewLevelStartGameEvent(levelSetup!, gameLevel));
     onGameLevelUpdate();
 
-    setState(() {
-      isLoading = false;
-    });
+    if (mounted) {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   Future<void> preLevelUpdate(Object levelIdentifier, isLevelAdvance);
