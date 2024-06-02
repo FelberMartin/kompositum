@@ -375,6 +375,14 @@ class Calendar extends StatelessWidget {
             isCompleted: isCompleted(date),
           );
         },
+        outsideBuilder: (context, date, _) {
+          return DayContainer(
+            date: date,
+            isSelected: selectedDay == date,
+            isInMonth: false,
+            isCompleted: isCompleted(date),
+          );
+        },
         disabledBuilder: (context, date, _) {
           return DayContainer(
             date: date,
@@ -395,7 +403,7 @@ class Calendar extends StatelessWidget {
           return DayContainer(
             date: date,
             isSelected: selectedDay == date,
-            isInMonth: true,
+            isInMonth: date.month == focusedDay.month,
             isCompleted: isCompleted(date),
           );
         },
