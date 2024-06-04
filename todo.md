@@ -3,8 +3,6 @@
   
 - Fix tests
 - Dont send daily notifications if dailies are still locked
-- Real ads inside the app
-  - Create dev website with app-ads.txt file (Use github Pages?)
  
 - Level generation:
   - Probabilistically add compounds before the minSolvableCompoundsInPool are reached
