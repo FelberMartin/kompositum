@@ -7,7 +7,7 @@ abstract class AdSource {
 
   Future<void> loadAd();
 
-  void showAd(BuildContext context, Completer<void> completer);
+  Future<void> showAd(BuildContext context);
 
   void disposeAd();
 }

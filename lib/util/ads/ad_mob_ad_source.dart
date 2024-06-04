@@ -56,13 +56,15 @@ class AdMobAdSource extends AdSource {
   }
 
   @override
-  void showAd(BuildContext context, Completer<void> completer) {
+  Future<void> showAd(BuildContext context) {
     if (_rewardedAd == null) {
-      throw Exception("The rewared Ad has not been loaded");
+      return Future.error('Ad not loaded');
     }
+    final completer = Completer<void>();
     _rewardedAd!.show(onUserEarnedReward: (AdWithoutView ad, RewardItem rewardItem) {
       completer.complete();
     });
+    return completer.future;
   }
 
   @override

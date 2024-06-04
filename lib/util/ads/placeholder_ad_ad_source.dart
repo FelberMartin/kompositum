@@ -23,7 +23,8 @@ class PlaceholderAdAdSource extends AdSource {
   }
 
   @override
-  void showAd(BuildContext context, Completer<void> completer) {
+  Future<void> showAd(BuildContext context) {
+    final Completer<void> completer = Completer<void>();
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) =>
@@ -33,6 +34,7 @@ class PlaceholderAdAdSource extends AdSource {
             ),
       ),
     );
+    return completer.future;
   }
 
   @override
