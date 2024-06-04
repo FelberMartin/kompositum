@@ -27,6 +27,16 @@ We use the information collected through user reported errors solely for the pur
 
 The App utilizes Firebase from Google. Firebase has its own privacy policy that you can access here: [https://firebase.google.com/support/privacy](https://firebase.google.com/support/privacy). We recommend you review their policy to understand how they collect and use data.
 
+**Advertising**
+
+The App uses Google AdMob to display ads. AdMob may collect certain information from your device for ad serving purposes. This information may include:
+
+* **Device identifier:** A unique identifier assigned to your device.
+* **Non-precise location information:** This may include your general geographic location (e.g., city or country) derived from your IP address or GPS.
+* **Non-personal information:** This may include information about your device and app usage, such as device model, operating system version, and browsing activity within the App.
+
+**Please refer to the Google AdMob privacy policy for more details on how they collect and use information:** [https://support.google.com/admob/answer/6128543?hl=en](https://support.google.com/admob/answer/6128543?hl=en)
+
 **Changes to This Policy**
 
 We may update this Policy from time to time to reflect changes in our practices or comply with legal requirements. We will notify you of any changes by posting the new Policy on the App.
