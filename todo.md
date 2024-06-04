@@ -1,7 +1,10 @@
 # TODOs    
 ## Next up
   
+- Fix tests
+- Dont send daily notifications if dailies are still locked
 - Real ads inside the app
+  - Create dev website with app-ads.txt file (Use github Pages?)
  
 - Level generation:
   - Probabilistically add compounds before the minSolvableCompoundsInPool are reached
@@ -40,6 +43,7 @@
   - Or for collecting 100 words one can spin to get a trophy
 - Level completion dialog title depending on performance
 - English compounds?
+- Streak for daily Goals? (May be confusing with daily levels)
 
 
 ## Maybe backlog

@@ -1,29 +1,57 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:kompositum/util/ads/ad_source.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../config/my_icons.dart';
 import '../../config/my_theme.dart';
-import 'my_3d_container.dart';
-import 'my_buttons.dart';
-import 'my_icon_button.dart';
+import '../../widgets/common/my_3d_container.dart';
+import '../../widgets/common/my_buttons.dart';
+import '../../widgets/common/my_icon_button.dart';
 
 void main() {
-  runApp(MaterialApp(theme: myTheme, home: PlaceholderAd(completer: Completer(),),));
+  runApp(MaterialApp(theme: myTheme, home: _PlaceholderAd(completer: Completer(),),));
 }
 
-class PlaceholderAd extends StatefulWidget {
-  final Completer<void> completer;
 
-  const PlaceholderAd({super.key, required this.completer});
+class PlaceholderAdAdSource extends AdSource {
+  @override
+  Future<void> loadAd() {
+    // Nothing to do
+    return Future.value();
+  }
 
   @override
-  State<PlaceholderAd> createState() => _PlaceholderAdState();
+  void showAd(BuildContext context, Completer<void> completer) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) =>
+            PopScope(
+              canPop: false,
+              child: _PlaceholderAd(completer: completer)
+            ),
+      ),
+    );
+  }
+
+  @override
+  void disposeAd() {
+    // Do nothing
+  }
 }
 
-class _PlaceholderAdState extends State<PlaceholderAd> {
-  static const PLAYHOLDER_AD_DURATION_SECONDS = 15;
+class _PlaceholderAd extends StatefulWidget {
+  final Completer<void> completer;
+
+  const _PlaceholderAd({super.key, required this.completer});
+
+  @override
+  State<_PlaceholderAd> createState() => _PlaceholderAdState();
+}
+
+class _PlaceholderAdState extends State<_PlaceholderAd> {
+  static const PLAYHOLDER_AD_DURATION_SECONDS = 12;
   int secondsLeft = PLAYHOLDER_AD_DURATION_SECONDS;
 
   @override
