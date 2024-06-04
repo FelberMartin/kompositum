@@ -3,26 +3,53 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:kompositum/util/ads/ad_manager.dart';
 import 'package:kompositum/util/ads/ad_source.dart';
+import 'package:kompositum/util/app_version_provider.dart';
 
 
 class AdMobAdSource extends AdSource {
 
-  /// The reward ad to show. This is `null` until the ad is actually loaded.
-  RewardedAd? _rewardedAd;
-
-  // TODO: replace this test ad unit with your own ad unit.
-  // TODO: add mechanism to dont show ads in dev mode
-  final adUnitId = Platform.isAndroid
+  /// Test ad unit ID. This should always be used in development.
+  static String testAdUnitId = Platform.isAndroid
       ? 'ca-app-pub-3940256099942544/5224354917'
       : 'ca-app-pub-3940256099942544/1712485313';
 
+  static String restartLevelAdUnitId = Platform.isAndroid
+      ? 'ca-app-pub-7511009658166869/3512159894'
+      : 'TODO'; // TODO
+
+  static String playPastDailyChallengeAdUnitId = Platform.isAndroid
+      ? 'ca-app-pub-7511009658166869/7259833216'
+      : 'TODO'; // TODO
+
+  /// The reward ad to show. This is `null` until the ad is actually loaded.
+  RewardedAd? _rewardedAd;
+
+  late String _adUnitId;
+
+  AdMobAdSource(AdContext adContext) {
+    _adUnitId = _getAdUnitId(adContext);
+  }
+
+  String _getAdUnitId(AdContext adContext) {
+    if (isProduction) {
+      return testAdUnitId;
+    }
+
+    switch (adContext) {
+      case AdContext.restartLevel:
+        return restartLevelAdUnitId;
+      case AdContext.playPastDailyChallenge:
+        return playPastDailyChallengeAdUnitId;
+    }
+  }
 
   @override
   Future<void> loadAd() {
     disposeAd();
     return RewardedAd.load(
-        adUnitId: adUnitId,
+        adUnitId: _adUnitId,
         request: const AdRequest(),
         rewardedAdLoadCallback: RewardedAdLoadCallback(
           // Called when an ad is successfully received.

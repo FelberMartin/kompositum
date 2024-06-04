@@ -347,7 +347,7 @@ abstract class GamePageState extends State<GamePage> {
         onGameLevelUpdate();
         break;
       case NoAttemptsLeftDialogAction.restart:
-        adManager.showAd(context).then((_) {
+        adManager.showAd(context, AdContext.restartLevel).then((_) {
           gameLevel.attemptsWatcher.resetOverallAttempts();
           restartLevel();
         });

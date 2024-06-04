@@ -96,7 +96,7 @@ class _DailyOverviewPageState extends State<DailyOverviewPage> {
         _launchGame();
       }
       if (result == PlayPastDailyDialogResult.playWithAd) {
-        adManager.showAd(context).then((value) {
+        adManager.showAd(context, AdContext.playPastDailyChallenge).then((value) {
           _launchGame();
         });
       }
