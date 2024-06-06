@@ -1,8 +1,6 @@
 # TODOs    
 ## Next up
-  
-- Dont send daily notifications if dailies are still locked
- 
+   
 - Level generation:
   - Probabilistically add compounds before the minSolvableCompoundsInPool are reached
   - Make levels easier?

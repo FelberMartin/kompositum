@@ -8,4 +8,12 @@ class MockFeatureLockManager extends Mock implements FeatureLockManager {
 
   @override
   var isDailyGoalsFeatureLocked = false;
+
+  void setDailyLevelFeatureLocked(bool value) {
+    isDailyLevelFeatureLocked = value;
+  }
+
+  void setDailyGoalsFeatureLocked(bool value) {
+    isDailyGoalsFeatureLocked = value;
+  }
 }

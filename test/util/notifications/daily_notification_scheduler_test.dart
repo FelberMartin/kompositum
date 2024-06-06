@@ -1,21 +1,28 @@
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/util/extensions/date_util.dart';
+import 'package:kompositum/util/feature_lock_manager.dart';
 import 'package:kompositum/util/notifications/daily_notification_scheduler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
 
+import '../../mocks/mock_feature_lock_manager.dart';
 import '../../mocks/mock_notification_manager.dart';
 
 void main() {
 
   final MockNotificationManager notificationManager = MockNotificationManager();
+  final MockFeatureLockManager featureLockManager = MockFeatureLockManager();
   late KeyValueStore keyValueStore;
   late DailyNotificationScheduler sut;
 
   setUp(() {
     SharedPreferences.setMockInitialValues({});
     keyValueStore = KeyValueStore();
-    sut = DailyNotificationScheduler(notificationManager, keyValueStore);
+    sut = DailyNotificationScheduler(
+      notificationManager: notificationManager,
+      keyValueStore: keyValueStore,
+      featureLockManager: featureLockManager,
+    );
   });
 
   test('should schedule notification', () async {
@@ -50,6 +57,12 @@ void main() {
     await sut.tryScheduleNextDailyNotification(now: DateTime(2024, 04, 19, 12));
     await sut.tryScheduleNextDailyNotification(now: DateTime(2024, 04, 19, 14));
     expect(notificationManager.notifications, hasLength(1));
+  });
+
+  test("should not schedule notification if the daily feature is still locked", () async {
+    featureLockManager.setDailyLevelFeatureLocked(true);
+    await sut.tryScheduleNextDailyNotification(now: DateTime(2024, 04, 19));
+    expect(notificationManager.notifications, isEmpty);
   });
 
 

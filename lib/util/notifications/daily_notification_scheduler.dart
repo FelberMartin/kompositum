@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/util/extensions/date_util.dart';
+import 'package:kompositum/util/feature_lock_manager.dart';
 
 import 'notifictaion_manager.dart';
 
@@ -21,8 +22,13 @@ class DailyNotificationScheduler {
 
   final NotificationManager notificationManager;
   final KeyValueStore keyValueStore;
+  final FeatureLockManager featureLockManager;
 
-  DailyNotificationScheduler(this.notificationManager, this.keyValueStore);
+  DailyNotificationScheduler({
+    required this.notificationManager,
+    required this.keyValueStore,
+    required this.featureLockManager,
+  });
 
   void cancelDailyNotification() {
     notificationManager.cancel(notificationId);
@@ -31,7 +37,8 @@ class DailyNotificationScheduler {
   Future<void> tryScheduleNextDailyNotification({required DateTime now}) async {
     cancelDailyNotification();
     final isEnabled = await keyValueStore.getBooleanSetting(BooleanSetting.dailyNotificationsEnabled);
-    if (!isEnabled) {
+
+    if (!isEnabled || featureLockManager.isDailyLevelFeatureLocked) {
       return;
     }
     return _scheduleNextDailyNotification(now);

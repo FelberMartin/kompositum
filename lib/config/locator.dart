@@ -50,16 +50,19 @@ Future<void> setupLocator() async {
     playPastDailyChallengeAdSource: AdMobAdSource(AdContext.playPastDailyChallenge),
   ));
   locator.registerSingleton<TutorialManager>(TutorialManager(locator<KeyValueStore>()));
+  locator.registerSingleton<FeatureLockManager>(FeatureLockManager(
+    gameEventStream: GameEventStream.instance.stream,
+    keyValueStore: locator<KeyValueStore>(),
+  ));
+
   locator.registerSingleton<NotificationManager>(NotificationManager());
-  locator.registerSingleton<DailyNotificationScheduler>(
-      DailyNotificationScheduler(locator<NotificationManager>(), locator<KeyValueStore>())
-  );
+  locator.registerSingleton<DailyNotificationScheduler>(DailyNotificationScheduler(
+      notificationManager: locator<NotificationManager>(),
+      keyValueStore: locator<KeyValueStore>(),
+      featureLockManager: locator<FeatureLockManager>(),
+  ));
   locator.registerSingleton<UpdateManager>(UpdateManager(
       appVersionProvider: locator<AppVersionProvider>(),
-      keyValueStore: locator<KeyValueStore>(),
-  ));
-  locator.registerSingleton<FeatureLockManager>(FeatureLockManager(
-      gameEventStream: GameEventStream.instance.stream,
       keyValueStore: locator<KeyValueStore>(),
   ));
 
