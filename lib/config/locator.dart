@@ -12,6 +12,7 @@ import 'package:kompositum/game/level_content_generator.dart';
 import 'package:kompositum/game/modi/classic/generator/graph_based_classic_level_content_generator.dart';
 import 'package:kompositum/game/swappable_detector.dart';
 import 'package:kompositum/util/ads/ad_manager.dart';
+import 'package:kompositum/util/ads/ad_mob_ad_source.dart';
 import 'package:kompositum/util/app_version_provider.dart';
 import 'package:kompositum/util/device_info.dart';
 import 'package:kompositum/util/feature_lock_manager.dart';
@@ -44,7 +45,10 @@ Future<void> setupLocator() async {
   locator.registerSingleton<LevelSetupProvider>(LogarithmicLevelSetupProvider());
 
   locator.registerSingleton<SwappableDetector>(SwappableDetector(locator<DatabaseInterface>()));
-  locator.registerSingleton<AdManager>(AdManager());
+  locator.registerSingleton<AdManager>(AdManager(
+    restartLevelAdSource: AdMobAdSource(AdContext.restartLevel),
+    playPastDailyChallengeAdSource: AdMobAdSource(AdContext.playPastDailyChallenge),
+  ));
   locator.registerSingleton<TutorialManager>(TutorialManager(locator<KeyValueStore>()));
   locator.registerSingleton<NotificationManager>(NotificationManager());
   locator.registerSingleton<DailyNotificationScheduler>(

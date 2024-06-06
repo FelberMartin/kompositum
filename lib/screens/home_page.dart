@@ -261,18 +261,22 @@ class DailyLevelContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     var dateText = DateFormat("dd. MMM", "de").format(DateTime.now());
 
+    print("############");
     Widget child;
     if (isLocked) {
       child = _DailyLevelLocked();
+      print("locked");
     } else if (isDailyFinished == null) {
       child = Center(child: CircularProgressIndicator(
           color: MyColorPalette.of(context).textSecondary));
+      print("loading");
     } else if (isDailyFinished!) {
       child = Icon(
         MyIcons.check,
         color: Theme.of(context).colorScheme.onSecondary,
         size: 32,
       );
+      print("finished");
     } else {
       child = Row(
         mainAxisSize: MainAxisSize.min,
@@ -284,6 +288,7 @@ class DailyLevelContainer extends StatelessWidget {
           ),
         ],
       );
+      print("play");
     }
 
     return ClipShadowPath(
@@ -333,8 +338,7 @@ class DailyLevelContainer extends StatelessWidget {
               SizedBox(height: 12),
               SizedBox(
                 height: 52,
-                width: 150,
-                child: Center(child: child)
+                child: child,
               ),
             ],
           ),

@@ -15,21 +15,26 @@ enum AdContext {
 
 class AdManager {
 
-  Map<AdContext, AdMobAdSource> adMob = {
-    AdContext.restartLevel: AdMobAdSource(AdContext.restartLevel),
-    AdContext.playPastDailyChallenge: AdMobAdSource(AdContext.playPastDailyChallenge),
-  };
+  late Map<AdContext, AdSource> adSources;
   AdSource placeholderAd = PlaceholderAdAdSource();
 
-  AdManager() {
-    adMob.forEach((_, adSource) {
+  AdManager({
+    required restartLevelAdSource,
+    required playPastDailyChallengeAdSource,
+  }) {
+    adSources = {
+      AdContext.restartLevel: restartLevelAdSource,
+      AdContext.playPastDailyChallenge: playPastDailyChallengeAdSource,
+    };
+
+    adSources.forEach((_, adSource) {
       adSource.loadAd();
     });
   }
 
   Future<void> showAd(BuildContext context, AdContext adContext) async {
     try {
-      await adMob[adContext]!.showAd(context);
+      await adSources[adContext]!.showAd(context);
     } catch (e) {
       print(e);
       // If the AdMob ad failed to show (eg ad not loaded, no internet connection),
@@ -40,11 +45,11 @@ class AdManager {
     }
 
     // Try to load the next ad
-    adMob[adContext]!.loadAd();
+    adSources[adContext]!.loadAd();
   }
 
   void dispose() {
-    adMob.forEach((_, adSource) {
+    adSources.forEach((_, adSource) {
       adSource.disposeAd();
     });
     // Placeholder ad does not need to be disposed

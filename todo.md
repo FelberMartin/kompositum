@@ -1,7 +1,6 @@
 # TODOs    
 ## Next up
   
-- Fix tests
 - Dont send daily notifications if dailies are still locked
  
 - Level generation:

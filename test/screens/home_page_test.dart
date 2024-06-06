@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kompositum/config/my_theme.dart';
-import 'package:kompositum/game/modi/classic/classic_game_level.dart';
 import 'package:kompositum/game/modi/classic/daily_classic_game_page_state.dart';
 import 'package:kompositum/main.dart';
 import 'package:kompositum/screens/daily_overview_page.dart';
 import 'package:kompositum/screens/game_page.dart';
 import 'package:kompositum/screens/home_page.dart';
+import 'package:kompositum/util/feature_lock_manager.dart';
 import 'package:kompositum/util/notifications/daily_notification_scheduler.dart';
 import 'package:kompositum/util/notifications/notifictaion_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -44,7 +44,9 @@ void main() {
     });
 
     testWidgets("after finishing the daily level, the notification is created for the next day", (WidgetTester tester) async {
-      SharedPreferences.setMockInitialValues({"level": 3});
+      SharedPreferences.setMockInitialValues({"level": FeatureLockManager.dailyLevelFeatureLockLevel + 1});
+      locator<FeatureLockManager>().update(); // Otherwise the daily will still be locked
+
       await tester.pumpWidget(MaterialApp(theme: myTheme, home: HomePage()));
       await nonBlockingPump(tester);
       await tester.pumpAndSettle();
