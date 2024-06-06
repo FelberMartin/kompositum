@@ -32,7 +32,12 @@ void main() {
   group("DailyNotifications", () {
     // TODO: these tests currently only work when run before 18:00. Fix this by mocking the DateTime
 
-    testWidgets("when opening the app an todays daily is not finished, create a notification", (WidgetTester tester) async {
+    setUpAll(() async {
+      SharedPreferences.setMockInitialValues({"level": FeatureLockManager.dailyLevelFeatureLockLevel + 1});
+      locator<FeatureLockManager>().update(); // Otherwise the daily will still be locked
+    });
+
+    testWidgets("when opening the app and todays daily is not finished, create a notification", (WidgetTester tester) async {
       initNotifications();
       await tester.pumpWidget(MaterialApp(theme: myTheme, home: HomePage()));
       await nonBlockingPump(tester);
@@ -44,9 +49,6 @@ void main() {
     });
 
     testWidgets("after finishing the daily level, the notification is created for the next day", (WidgetTester tester) async {
-      SharedPreferences.setMockInitialValues({"level": FeatureLockManager.dailyLevelFeatureLockLevel + 1});
-      locator<FeatureLockManager>().update(); // Otherwise the daily will still be locked
-
       await tester.pumpWidget(MaterialApp(theme: myTheme, home: HomePage()));
       await nonBlockingPump(tester);
       await tester.pumpAndSettle();
