@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_runtime_env/flutter_runtime_env.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:kompositum/util/ads/ad_manager.dart';
 import 'package:kompositum/util/ads/ad_source.dart';
@@ -17,23 +18,23 @@ class AdMobAdSource extends AdSource {
 
   static String restartLevelAdUnitId = Platform.isAndroid
       ? 'ca-app-pub-7511009658166869/3512159894'
-      : 'TODO'; // TODO
+      : 'TODO'; // TODO iOS
 
   static String playPastDailyChallengeAdUnitId = Platform.isAndroid
       ? 'ca-app-pub-7511009658166869/7259833216'
-      : 'TODO'; // TODO
+      : 'TODO'; // TODO iOS
 
   /// The reward ad to show. This is `null` until the ad is actually loaded.
   RewardedAd? _rewardedAd;
 
-  late String _adUnitId;
+  late Future<String> _adUnitId;
 
   AdMobAdSource(AdContext adContext) {
     _adUnitId = _getAdUnitId(adContext);
   }
 
-  String _getAdUnitId(AdContext adContext) {
-    if (isProduction) {
+  Future<String> _getAdUnitId(AdContext adContext) async {
+    if (await _shouldShowTestAd()) {
       return testAdUnitId;
     }
 
@@ -45,11 +46,22 @@ class AdMobAdSource extends AdSource {
     }
   }
 
+  Future<bool> _shouldShowTestAd() async {
+    // Show test ad if the app is not built with release mode (development or profile mode)
+    if (!isBuiltWithReleaseMode) {
+      return true;
+    }
+
+    // Show test ad if the app is run in the Prelaunch report in the PlayConsole.
+    return inFirebaseTestLab();
+  }
+
   @override
-  Future<void> loadAd() {
+  Future<void> loadAd() async {
+    final adUnitId = await _adUnitId;
     disposeAd();
     return RewardedAd.load(
-        adUnitId: _adUnitId,
+        adUnitId: adUnitId,
         request: const AdRequest(),
         rewardedAdLoadCallback: RewardedAdLoadCallback(
           // Called when an ad is successfully received.

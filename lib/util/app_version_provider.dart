@@ -2,9 +2,9 @@ import 'package:kompositum/data/key_value_store.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 
-/// Set to `true` if the app is built in production mode and to `false`
+/// Set to `true` if the app is built in release mode and to `false`
 /// otherwise (e.g. in development or profile mode).
-const bool isProduction = bool.fromEnvironment('dart.vm.product');
+const bool isBuiltWithReleaseMode = bool.fromEnvironment('dart.vm.product');
 
 class AppVersionProvider {
 

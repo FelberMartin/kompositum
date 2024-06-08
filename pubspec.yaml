@@ -66,6 +66,7 @@ dependencies:
   device_info_plus: ^9.1.2
   android_id: ^0.3.6
   google_mobile_ads: ^5.1.0
+  flutter_runtime_env: ^0.0.4
 
 dev_dependencies:
   flutter_test:

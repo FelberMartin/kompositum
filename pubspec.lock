@@ -478,6 +478,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.10"
+  flutter_runtime_env:
+    dependency: "direct main"
+    description:
+      name: flutter_runtime_env
+      sha256: a6a36de4bb560cfbf0ea96e7e6e322b7a0557a8da68c2da32766e7df8bf2d6f2
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.4"
   flutter_svg:
     dependency: "direct main"
     description:
