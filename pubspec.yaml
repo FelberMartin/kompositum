@@ -53,7 +53,7 @@ dependencies:
   flutter_svg: ^2.0.9
   intl: ^0.18.1
   table_calendar: ^3.0.9
-  objectbox: ^2.4.0
+  objectbox: 2.4.0      # There have been problems with updating eg to 2.5.1
   objectbox_flutter_libs: any
   flutter_launcher_icons: ^0.13.1
   flutter_native_splash: ^2.3.7
