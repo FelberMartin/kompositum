@@ -1,7 +1,6 @@
 # TODOs    
 ## Next up
    
-- Level completed sound not playing
 - Level generation:
   - Probabilistically add compounds before the minSolvableCompoundsInPool are reached
   - Make levels easier?

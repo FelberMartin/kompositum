@@ -31,19 +31,17 @@ class AudioManager {
   void registerGameEventStream(Stream<GameEvent> gameEventStream) {
     _gameEventStreamSubscription = gameEventStream.listen((event) {
       if (event is CompoundFoundGameEvent) {
-        playCompoundFound();
+        _playCompoundFound();
       } else if (event is CompoundInvalidGameEvent) {
-        playCompoundIncorrect();
+        _playCompoundIncorrect();
       } else if (event is LevelCompletedGameEvent) {
-        playLevelComplete();
+        _playLevelComplete();
       } else if (event is HintBoughtGameEvent) {
-        playHint();
+        _playHint();
+      } else if (event is EasterEggGameEvent) {
+        _playEasterEgg(event.easterEgg);
       }
     });
-  }
-
-  void deregisterGameEventStream() {
-    _gameEventStreamSubscription?.cancel();
   }
 
   void setMute(bool mute) {
@@ -63,19 +61,19 @@ class AudioManager {
     _playAsset("score.wav", volume: 0.4);
   }
 
-  void playLevelComplete() {
+  void _playLevelComplete() {
     _playAsset("success_02.wav");
   }
 
-  void playHint() {
+  void _playHint() {
     _playAsset("hint.wav");
   }
 
-  void playCompoundFound() {
+  void _playCompoundFound() {
     _playAsset("correct.wav", volume: 0.2);
   }
 
-  void playCompoundIncorrect() {
+  void _playCompoundIncorrect() {
     _playAsset("incorrect.wav");
   }
 
@@ -100,7 +98,7 @@ class AudioManager {
     await _playersByAsset[asset]!.resume();
   }
 
-  void playEasterEgg(EasterEgg easterEgg) {
+  void _playEasterEgg(EasterEgg easterEgg) {
     _playAsset(easterEgg.asset);
   }
 
@@ -132,13 +130,13 @@ void main() {
         children: [
           ElevatedButton(
             onPressed: () {
-              AudioManager.instance.playCompoundFound();
+              AudioManager.instance._playCompoundFound();
             },
             child: Text("Compound found"),
           ),
           ElevatedButton(
             onPressed: () {
-              AudioManager.instance.playCompoundIncorrect();
+              AudioManager.instance._playCompoundIncorrect();
             },
             child: Text("Compound incorrect"),
           ),
@@ -156,13 +154,13 @@ void main() {
           ),
           ElevatedButton(
             onPressed: () {
-              AudioManager.instance.playLevelComplete();
+              AudioManager.instance._playLevelComplete();
             },
             child: Text("Level complete"),
           ),
           ElevatedButton(
             onPressed: () {
-              AudioManager.instance.playHint();
+              AudioManager.instance._playHint();
             },
             child: Text("Hint"),
           ),
@@ -174,13 +172,13 @@ void main() {
           ),
           ElevatedButton(
             onPressed: () {
-              AudioManager.instance.playEasterEgg(EasterEgg.Orangensaft);
+              AudioManager.instance._playEasterEgg(EasterEgg.Orangensaft);
             },
             child: Text("Orangensaft"),
           ),
           ElevatedButton(
             onPressed: () {
-              AudioManager.instance.playEasterEgg(EasterEgg.Apfelsaft);
+              AudioManager.instance._playEasterEgg(EasterEgg.Apfelsaft);
             },
             child: Text("Apfelsaft"),
           ),

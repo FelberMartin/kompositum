@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:kompositum/config/my_theme.dart';
+import 'package:kompositum/game/game_event/game_event_stream.dart';
 import 'package:kompositum/screens/home_page.dart';
 import 'package:kompositum/util/audio_manager.dart';
 import 'package:kompositum/util/notifications/daily_notification_scheduler.dart';
@@ -35,6 +36,7 @@ void initNotifications() {
 
 void _initAudioManager() {
   AudioManager.instance.registerKeyValueStore(locator<KeyValueStore>());
+  AudioManager.instance.registerGameEventStream(GameEventStream.instance.stream);
 }
 
 void _initAndRemoveSplashScreen() async {

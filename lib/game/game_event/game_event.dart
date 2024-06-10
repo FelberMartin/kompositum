@@ -1,6 +1,8 @@
+import 'package:kompositum/data/models/daily_goal.dart';
 import 'package:kompositum/game/game_level.dart';
 import 'package:kompositum/game/hints/hint.dart';
 import 'package:kompositum/game/level_setup.dart';
+import 'package:kompositum/util/audio_manager.dart';
 
 import '../../data/models/compound.dart';
 
@@ -64,4 +66,12 @@ class HintBoughtGameEvent extends GameEvent {
 
   const HintBoughtGameEvent(this.hint);
 }
+
+/// When a easter egg is triggered.
+class EasterEggGameEvent extends GameEvent {
+  final EasterEgg easterEgg;
+
+  const EasterEggGameEvent(this.easterEgg);
+}
+
 

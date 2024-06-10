@@ -254,11 +254,11 @@ abstract class GamePageState extends State<GamePage> {
   }
 
   void _checkForEasterEgg(Compound compound) {
-    EasterEgg.values.forEach((easterEgg) {
+    for (var easterEgg in EasterEgg.values) {
       if (compound.name.toLowerCase() == easterEgg.compound.toLowerCase()) {
-        AudioManager.instance.playEasterEgg(easterEgg);
+        _emitGameEvent(EasterEggGameEvent(easterEgg));
       }
-    });
+    }
   }
 
   void _increaseStarCount(int amount,
