@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:kompositum/util/ads/ad_mob_ad_source.dart';
 import 'package:kompositum/util/ads/placeholder_ad_ad_source.dart';
 
 import 'ad_source.dart';

@@ -21,7 +21,7 @@
 
 
 # Bugs
-- B16 
+- B16 Something with the blocked compounds seems to not work correctly (when testing, I had "Heimsieg" twice for some low levels ~8)
 
 ## Not Reproducible
 - B15 When pressing back shortly before the finished dialog opens, the continue button throws an error
