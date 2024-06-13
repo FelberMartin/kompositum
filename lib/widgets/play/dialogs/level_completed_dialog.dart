@@ -190,14 +190,10 @@ class _LevelCompletedDialogState extends State<LevelCompletedDialog> {
                 isLocked: widget.isDailyGoalsFeatureLocked,
               ) : Container(),
               Expanded(child: Container()),
-              AnimatedOpacity(
-                opacity: _rewardAnimationFinished && _dailyGoalsAnimationFinished ? 1 : 0,
-                duration: Duration(milliseconds: 500),
-                child: _BottomContent(
-                  onContinue: onContinue,
-                  type: widget.type,
-                  nextLevelNumber: widget.nextLevelNumber,
-                ),
+              _BottomContent(
+                onContinue: onContinue,
+                type: widget.type,
+                nextLevelNumber: widget.nextLevelNumber,
               ),
               Expanded(child: Container()),
             ],

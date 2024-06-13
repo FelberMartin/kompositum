@@ -1,7 +1,6 @@
 # TODOs    
 ## Next up
    
-- Make continue button available faster after level completion
 - Level generation:
   - Probabilistically add compounds before the minSolvableCompoundsInPool are reached
   - Make levels easier?
