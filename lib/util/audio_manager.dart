@@ -108,7 +108,6 @@ class AudioManager {
       player.dispose();
     }
     _playersByAsset.clear();
-    _gameEventStreamSubscription?.cancel();
   }
 }
 

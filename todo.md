@@ -1,7 +1,6 @@
 # TODOs    
 ## Next up
    
-- Audio not playing again
 - Make continue button available faster after level completion
 - Level generation:
   - Probabilistically add compounds before the minSolvableCompoundsInPool are reached

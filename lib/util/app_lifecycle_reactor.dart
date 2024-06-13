@@ -11,8 +11,6 @@ class AppLifecycleReactor extends WidgetsBindingObserver {
 
     if (state == AppLifecycleState.inactive) {
       AudioManager.instance.dispose();
-    } else if (state == AppLifecycleState.detached) {
-      GameEventStream.instance.close();
     }
   }
 }
