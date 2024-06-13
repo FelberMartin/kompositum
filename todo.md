@@ -1,12 +1,16 @@
 # TODOs    
 ## Next up
    
+- Audio not playing again
+- Make continue button available faster after level completion
 - Level generation:
   - Probabilistically add compounds before the minSolvableCompoundsInPool are reached
   - Make levels easier?
     - Variables: PoolSize, FrequencyClass, WordCount, GuaranteedCompoundCount
   - Add zigzag level generation? (a few easy ones, then getting harder, and then again dropping to easy and few compounds)
 
+- Check out AppRadar
+- Notification icon hardly visible in light mode
 
 
 ## Later

@@ -19,8 +19,8 @@ class AdManager {
   AdSource placeholderAd = PlaceholderAdAdSource();
 
   AdManager({
-    required restartLevelAdSource,
-    required playPastDailyChallengeAdSource,
+    required AdSource restartLevelAdSource,
+    required AdSource playPastDailyChallengeAdSource,
   }) {
     adSources = {
       AdContext.restartLevel: restartLevelAdSource,

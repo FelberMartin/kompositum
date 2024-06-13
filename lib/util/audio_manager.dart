@@ -84,7 +84,7 @@ class AudioManager {
   void _playAsset(String asset, {double volume = 0.3}) async {
     if (_isMuted) return;
 
-    if (_playersByAsset.containsKey(asset)) {
+    if (_playersByAsset.containsKey(asset) && _playersByAsset[asset] != null) {
       await _playersByAsset[asset]!.stop();
     } else {
       final player = AudioPlayer();
@@ -95,6 +95,7 @@ class AudioManager {
       _playersByAsset[asset] = player;
     }
 
+    assert(_playersByAsset[asset] != null, "Player for asset $asset is null");
     await _playersByAsset[asset]!.resume();
   }
 

@@ -46,8 +46,8 @@ Future<void> setupLocator() async {
 
   locator.registerSingleton<SwappableDetector>(SwappableDetector(locator<DatabaseInterface>()));
   locator.registerSingleton<AdManager>(AdManager(
-    restartLevelAdSource: AdMobAdSource(AdContext.restartLevel),
-    playPastDailyChallengeAdSource: AdMobAdSource(AdContext.playPastDailyChallenge),
+    restartLevelAdSource: AdMobAdSource.fromAdContext(AdContext.restartLevel),
+    playPastDailyChallengeAdSource: AdMobAdSource.fromAdContext(AdContext.playPastDailyChallenge),
   ));
   locator.registerSingleton<TutorialManager>(TutorialManager(locator<KeyValueStore>()));
   locator.registerSingleton<FeatureLockManager>(FeatureLockManager(
