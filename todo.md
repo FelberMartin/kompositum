@@ -4,7 +4,9 @@
 
 - Redesign
   - Remove oval borders -> rounded corner rectangle
-  - Replace launcher/app icon
+    - Dialogs
+    - TopAppBar
+    - background
   - Change app name to "Wort + Schatz"
   - Add update dialog for redesign
   - Replace Images in PlayStore
@@ -21,6 +23,7 @@
 
 
 ## Later
+- Fix prelaunchReport warnings/errors
 - Ads for the app
 - Store adjustments:
   - Images on google play: remove debug label (just use gimp?)

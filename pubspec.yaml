@@ -160,9 +160,10 @@ flutter:
       fonts:
         - asset: fonts/NotoColorEmoji-Regular.ttf
 
+# Command: flutter pub get -> flutter pub run flutter_launcher_icons
 flutter_launcher_icons:
-  android: true
+  android: "launcher_icon"
   ios: false
   image_path: "assets/images/app_icon/app_icon.png"
-  adaptive_icon_background: "assets/images/app_icon/app_icon_bg.png"
-  adaptive_icon_foreground: "assets/images/app_icon/app_icon_fg.png"
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "assets/images/app_icon/app_icon_fg.png"    # This extra padded foreground is needed to work properly

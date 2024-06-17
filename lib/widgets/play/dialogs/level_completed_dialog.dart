@@ -128,9 +128,15 @@ class _LevelCompletedDialogState extends State<LevelCompletedDialog> {
     super.initState();
   }
 
-  _onRewardAnimationEnd() => setState(() { _rewardAnimationFinished = true; });
-  _onDailyGoalsAnimationEnd() => setState(() { _dailyGoalsAnimationFinished = true; });
+  void _onRewardAnimationEnd() {
+    if (!mounted) return;
+    setState(() { _rewardAnimationFinished = true; });
+  }
 
+  void _onDailyGoalsAnimationEnd() {
+    if (!mounted) return;
+    setState(() { _dailyGoalsAnimationFinished = true; });
+  }
 
   void _launchSecretLevel() {
     final date = widget.dailyGoalSetProgression!.current.date;
