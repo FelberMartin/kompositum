@@ -1,13 +1,22 @@
 # TODOs    
 ## Next up
+
+
+- Redesign
+  - Remove oval borders -> rounded corner rectangle
+  - Replace launcher/app icon
+  - Change app name to "Wort + Schatz"
+  - Add update dialog for redesign
+  - Replace Images in PlayStore
    
+- Remove Use Hint day Goal
+
 - Level generation:
   - Probabilistically add compounds before the minSolvableCompoundsInPool are reached
   - Make levels easier?
     - Variables: PoolSize, FrequencyClass, WordCount, GuaranteedCompoundCount
   - Add zigzag level generation? (a few easy ones, then getting harder, and then again dropping to easy and few compounds)
 
-- Check out AppRadar
 - Notification icon hardly visible in light mode
 
 
@@ -44,9 +53,7 @@
 
 
 ## Maybe backlog
-- Redesign?
-  - Remove oval borders -> rounded corner rectangle
-  - Light / Dark mode
+- Light / Dark mode
 - UI Improvements:
   - Keep common UI components on screen, and only change children during navigation
     - BottomTabBar
