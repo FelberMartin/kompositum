@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:kompositum/util/ads/ad_source.dart';
+import 'package:kompositum/widgets/common/util/corner_radius.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../config/my_icons.dart';
@@ -87,7 +88,7 @@ class _PlaceholderAdState extends State<_PlaceholderAd> {
                   topColor: Theme.of(context).colorScheme.secondary,
                   sideColor: MyColorPalette.of(context).secondaryShade,
                   clickable: false,
-                  cornerRadius: 24,
+                  cornerRadius: CornerRadius.rounded,
                   child: SizedBox(
                     width: 42,
                     height: 42,

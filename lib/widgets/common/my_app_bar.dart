@@ -1,6 +1,7 @@
 import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
 import 'package:kompositum/widgets/common/util/clip_shadow_path.dart';
+import 'package:kompositum/widgets/common/util/corner_radius.dart';
 import 'package:kompositum/widgets/common/util/rounded_edge_clipper.dart';
 
 import '../../config/my_icons.dart';
@@ -80,22 +81,19 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipShadowPath(
-      clipper: RoundedEdgeClipper(onTop: false),
-      shadow: Shadow(
-        color: Theme.of(context).colorScheme.shadow,
-        blurRadius: 2,
-      ),
-      child: Container(
-        child: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.secondary,
-          clipBehavior: Clip.none,
-          leading: leftContent,
-          title: middleContent,
-          centerTitle: true,
-          actions: [rightContent],
+    return AppBar(
+      shadowColor: Theme.of(context).colorScheme.shadow,
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(CornerRadius.large),
         ),
       ),
+      backgroundColor: Theme.of(context).colorScheme.secondary,
+      leading: leftContent,
+      title: middleContent,
+      centerTitle: true,
+      actions: [rightContent],
     );
   }
 }

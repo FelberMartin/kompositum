@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kompositum/util/extensions/color_util.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 import 'package:kompositum/widgets/common/my_dialog.dart';
+import 'package:kompositum/widgets/common/util/corner_radius.dart';
 
 import '../../../config/my_theme.dart';
 import '../../../data/remote/firestore.dart';
@@ -235,7 +236,7 @@ class InputRow extends StatelessWidget {
               filled: true,
               fillColor: MyColorPalette.of(context).textSecondary,
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(50),
+                borderRadius: BorderRadius.circular(CornerRadius.rounded),
                 borderSide: BorderSide.none,
               ),
               contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
+import 'package:kompositum/widgets/common/util/corner_radius.dart';
 
 import '../../../config/my_icons.dart';
 import '../../../config/my_theme.dart';
@@ -40,14 +41,16 @@ class NoAttemptsLeftDialog extends StatelessWidget {
             actionText: "Mit Tipp fortfahren",
             onActionPressed: () { onActionPressed(NoAttemptsLeftDialogAction.hint); },
             isEnabled: isHintAvailable,
+            roundTop: true,
           ),
-          SizedBox(height: 16),
+          SizedBox(height: 8),
           OptionCard(
             icon: FontAwesomeIcons.redo,
             iconSubtitleText: "Werbung",
             iconSubtitleIcon: MyIcons.ad,
             actionText: "Neustarten",
             onActionPressed: () { onActionPressed(NoAttemptsLeftDialogAction.restart); },
+            roundBottom: true,
           ),
         ],
       ),
@@ -64,6 +67,8 @@ class OptionCard extends StatelessWidget {
     required this.actionText,
     required this.onActionPressed,
     this.isEnabled = true,
+    this.roundTop = false,
+    this.roundBottom = false,
   });
 
   final IconData icon;
@@ -73,13 +78,19 @@ class OptionCard extends StatelessWidget {
   final Function onActionPressed;
   final bool isEnabled;
 
+  final bool roundTop;
+  final bool roundBottom;
+
   @override
   Widget build(BuildContext context) {
     final isHintOption = icon == MyIcons.hint;
     return Card(
-      elevation: 2,
+      elevation: 4,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(roundTop ? CornerRadius.large : 0),
+          bottom: Radius.circular(roundBottom ? CornerRadius.large : 0),
+        ),
       ),
       color: Theme.of(context).colorScheme.secondary,
       child: Padding(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kompositum/config/my_theme.dart';
+import 'package:kompositum/widgets/common/util/corner_radius.dart';
 
 import 'my_3d_container.dart';
 
@@ -64,7 +65,7 @@ class MyIconButton extends StatelessWidget {
       sideColor: MyColorPalette.of(context).secondaryShade,
       clickable: enabled,
       onPressed: onPressed,
-      cornerRadius: size,
+      cornerRadius: CornerRadius.rounded,
       child: Padding(
         padding: EdgeInsets.all(padding) + additionalPadding,
         child: Icon(

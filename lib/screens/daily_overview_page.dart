@@ -9,6 +9,7 @@ import 'package:kompositum/util/feature_lock_manager.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 import 'package:kompositum/widgets/common/my_dialog.dart';
 import 'package:kompositum/widgets/common/my_icon_button.dart';
+import 'package:kompositum/widgets/common/util/corner_radius.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../config/locator.dart';
@@ -223,14 +224,14 @@ class _StartButton extends StatelessWidget {
       onPressed: () {},
       enabled: false,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(2.0),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
               MyIcons.lock,
               color: MyColorPalette.of(context).textSecondary,
-              size: 24,
+              size: 16,
             ),
             SizedBox(width: 8),
             Text(
@@ -459,7 +460,7 @@ class DayContainer extends StatelessWidget {
         duration: const Duration(milliseconds: 100),
         decoration: BoxDecoration(
           gradient: gradient,
-          borderRadius: BorderRadius.circular(12.0),
+          borderRadius: BorderRadius.circular(CornerRadius.small),
           border: Border.all(
             color: isSelected ? Colors.white : Colors.transparent,
             width: 2.0,

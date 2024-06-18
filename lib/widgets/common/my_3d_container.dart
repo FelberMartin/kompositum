@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kompositum/widgets/common/util/corner_radius.dart';
 
 import '../../util/audio_manager.dart';
 
@@ -12,7 +13,7 @@ class My3dContainer extends StatefulWidget {
     this.clickable = false,
     this.onPressed,
     this.animationDuration = const Duration(milliseconds: 100),
-    this.cornerRadius = 1000,    // Make the corners round
+    this.cornerRadius = CornerRadius.rounded,
   });
 
   final Widget child;

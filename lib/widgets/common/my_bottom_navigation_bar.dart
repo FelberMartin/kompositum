@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kompositum/screens/daily_overview_page.dart';
+import 'package:kompositum/widgets/common/util/corner_radius.dart';
 import 'package:kompositum/widgets/common/util/rounded_edge_clipper.dart';
 
 import '../../config/my_icons.dart';
@@ -55,23 +56,25 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
-    return ClipPath(
-      clipper: RoundedEdgeClipper(onBottom: false),
-      child: SizedBox(
-        height: 66,
-        child: BottomNavigationBar(
-          items: items,
-          onTap: (index) {
-            onItemSelected(index);
-          },
-          currentIndex: widget.selectedIndex,
-          backgroundColor: Theme.of(context).colorScheme.secondary,
-          selectedItemColor: Theme.of(context).colorScheme.onSecondary,
-          unselectedItemColor: MyColorPalette.of(context).textSecondary,
-          showUnselectedLabels: false,
-          showSelectedLabels: false,
-          elevation: 0,
+    return Container(
+      height: 66,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(CornerRadius.large),
         ),
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: BottomNavigationBar(
+        items: items,
+        onTap: (index) {
+          onItemSelected(index);
+        },
+        currentIndex: widget.selectedIndex,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
+        selectedItemColor: Theme.of(context).colorScheme.onSecondary,
+        unselectedItemColor: MyColorPalette.of(context).textSecondary,
+        showUnselectedLabels: false,
+        showSelectedLabels: false,
       ),
     );
   }

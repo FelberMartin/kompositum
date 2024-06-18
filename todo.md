@@ -4,8 +4,6 @@
 
 - Redesign
   - Remove oval borders -> rounded corner rectangle
-    - Dialogs
-    - TopAppBar
     - background
   - Change app name to "Wort + Schatz"
   - Add update dialog for redesign

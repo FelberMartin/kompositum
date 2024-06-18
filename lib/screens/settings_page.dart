@@ -3,6 +3,7 @@ import 'package:kompositum/config/my_icons.dart';
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/game/goals/daily_goal_set_manager.dart';
 import 'package:kompositum/util/notifications/daily_notification_scheduler.dart';
+import 'package:kompositum/widgets/common/util/corner_radius.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 
@@ -131,7 +132,7 @@ class SettingsGroup extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8.0),
+        borderRadius: BorderRadius.circular(CornerRadius.small),
         color: MyColorPalette.of(context).secondary,
       ),
       child: Padding(

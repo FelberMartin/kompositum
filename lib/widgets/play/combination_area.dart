@@ -5,6 +5,7 @@ import 'package:kompositum/config/my_icons.dart';
 import 'package:kompositum/game/game_event/game_event.dart';
 import 'package:kompositum/widgets/common/my_icon_button.dart';
 import 'package:kompositum/widgets/common/shake_widget.dart';
+import 'package:kompositum/widgets/common/util/corner_radius.dart';
 
 import '../../config/my_theme.dart';
 import '../../screens/game_page.dart';
@@ -107,46 +108,6 @@ class _CombinationAreaState extends State<CombinationArea> {
     );
   }
 }
-
-class ProgressBar extends StatelessWidget {
-  const ProgressBar({
-    super.key,
-    required this.progress,
-  });
-
-  final double progress;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 120,
-      height: 14,
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondary,
-        borderRadius: BorderRadius.circular(50),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: AnimatedFractionallySizedBox(
-          duration: const Duration(milliseconds: 200),
-          curve: Curves.easeInOut,
-          alignment: Alignment.centerLeft,
-          widthFactor: progress == 0.0 ? 0.07 : progress,
-          child: Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.onSecondary,
-              borderRadius: BorderRadius.circular(50),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-
-
-
 
 class AnimatedTextFadeOut extends StatefulWidget {
   const AnimatedTextFadeOut({super.key, required this.gameEventStream});
@@ -422,7 +383,7 @@ class ComponentWithLockIndicator extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 color: MyColorPalette.of(context).primaryShade,
-                borderRadius: BorderRadius.circular(50),
+                borderRadius: BorderRadius.circular(CornerRadius.rounded),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(5.0),

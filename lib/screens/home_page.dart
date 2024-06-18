@@ -17,6 +17,7 @@ import 'package:kompositum/widgets/common/my_bottom_navigation_bar.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 import 'package:kompositum/widgets/common/my_dialog.dart';
 import 'package:kompositum/widgets/common/my_icon_button.dart';
+import 'package:kompositum/widgets/common/util/corner_radius.dart';
 import 'package:kompositum/widgets/home/daily_goals_container.dart';
 
 import '../config/locator.dart';
@@ -286,57 +287,50 @@ class DailyLevelContainer extends StatelessWidget {
       );
     }
 
-    return ClipShadowPath(
-      clipper: RoundedEdgeClipper(edgeCutDepth: 24),
-      shadow: Shadow(
-        color: Theme.of(context).colorScheme.shadow.withOpacity(0.4),
-        offset: Offset(0, 2),
-        blurRadius: 2,
+    return Container(
+      constraints: const BoxConstraints(
+        minWidth: 200,
       ),
-      child: Container(
-        constraints: const BoxConstraints(
-          minWidth: 200,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(CornerRadius.medium),
+        gradient: LinearGradient(
+          colors: [
+            MyColorPalette.of(context).secondaryShade,
+            MyColorPalette.of(context).secondary,
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
         ),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              MyColorPalette.of(context).secondaryShade,
-              MyColorPalette.of(context).secondary,
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 32.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(height: 12),
-              Text(
-                "Tägliches Rätsel",
-                style: Theme.of(context).textTheme.labelMedium,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 32.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(height: 12),
+            Text(
+              "Tägliches Rätsel",
+              style: Theme.of(context).textTheme.labelMedium,
+            ),
+            SizedBox(height: 12),
+            Icon(
+              MyIcons.daily,
+              color: Theme.of(context).colorScheme.onSecondary,
+              size: 32,
+            ),
+            SizedBox(height: 28),
+            Text(
+              dateText,
+              style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                color: MyColorPalette.of(context).textSecondary,
               ),
-              SizedBox(height: 12),
-              Icon(
-                MyIcons.daily,
-                color: Theme.of(context).colorScheme.onSecondary,
-                size: 32,
-              ),
-              SizedBox(height: 28),
-              Text(
-                dateText,
-                style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                  color: MyColorPalette.of(context).textSecondary,
-                ),
-              ),
-              SizedBox(height: 12),
-              SizedBox(
-                height: 52,
-                child: child,
-              ),
-            ],
-          ),
+            ),
+            SizedBox(height: 12),
+            SizedBox(
+              height: 52,
+              child: child,
+            ),
+          ],
         ),
       ),
     );
@@ -405,27 +399,25 @@ class PlayButton extends StatelessWidget {
       clickable: true,
       onPressed: onPressed,
       child: ConstrainedBox(
-        constraints: const BoxConstraints(minWidth: 260),
+        constraints: const BoxConstraints(minWidth: 260, minHeight: 54),
         child: isLoading ? Center(
-            child: CircularProgressIndicator(
-                color: MyColorPalette.of(context).textSecondary)) : Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Level $currentLevel",
-                                style: Theme.of(context).textTheme.titleSmall,
-                              ),
-                              Text(
-                                currentLevelDifficulty.uiText.toLowerCase(),
-                                style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                  color: MyColorPalette.of(context).textSecondary,
-                                ),
-                              )
-                            ],
-                          ),
-                ),
+          child: CircularProgressIndicator(
+              color: MyColorPalette.of(context).textSecondary)
+          ) : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Level $currentLevel",
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                  Text(
+                    currentLevelDifficulty.uiText.toLowerCase(),
+                    style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                      color: MyColorPalette.of(context).textSecondary,
+                    ),
+                  )
+                ],
+              ),
       )
     );
   }

@@ -8,6 +8,7 @@ import 'package:kompositum/data/models/daily_goal_set.dart';
 import 'package:kompositum/game/goals/daily_goal_set_manager.dart';
 import 'package:kompositum/util/extensions/color_util.dart';
 import 'package:kompositum/util/feature_lock_manager.dart';
+import 'package:kompositum/widgets/common/util/corner_radius.dart';
 
 import '../../data/models/daily_goal.dart';
 import '../../util/audio_manager.dart';
@@ -27,7 +28,7 @@ void main() async {
 
   final goalSet2 = goalSet.copy();
   goalSet2.goals[0].increaseCurrentValue(amount: 8);
-  goalSet2.goals[1].increaseCurrentValue(amount: 20);
+  goalSet2.goals[1].increaseCurrentValue(amount: 0);
   goalSet2.goals[2].increaseCurrentValue(amount: 2);
 
   runApp(MaterialApp(
@@ -40,7 +41,7 @@ void main() async {
           child: DailyGoalsContainer(
             progression: DailyGoalSetProgression(goalSet, goalSet2),
             onPlaySecretLevel: () {},
-            isLocked: true,
+            isLocked: false,
           ),
         )
       ],
@@ -158,7 +159,7 @@ class _DailyGoalsContainerState extends State<DailyGoalsContainer> with SingleTi
           child: TitleRow(headerColor: widget.headerColor),
         ),
         Material(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(CornerRadius.medium),
           elevation: 4,
           child: AnimatedContainer(
             duration: Duration(milliseconds: 500),
@@ -174,7 +175,7 @@ class _DailyGoalsContainerState extends State<DailyGoalsContainer> with SingleTi
                 isLocked: widget.isLocked,
                 context: context,
               ),
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(CornerRadius.medium),
             ),
             child: fillContainer(context),
           ),
@@ -373,7 +374,7 @@ class ProgressRow extends StatelessWidget {
             value: shownProgress,
             valueColor: AlwaysStoppedAnimation(MyColorPalette.of(context).onPrimary),
             backgroundColor: MyColorPalette.of(context).primaryShade,
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(CornerRadius.medium),
             minHeight: 8,
           ),
         ),
@@ -398,7 +399,7 @@ class GoalsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(CornerRadius.large),
       child: IntrinsicHeight(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
