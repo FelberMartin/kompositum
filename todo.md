@@ -3,8 +3,10 @@
 
 
 - Redesign
+  - Notification icon
   - Add update dialog for redesign
   - Replace Images in PlayStore
+  - Update github readme images
    
 - Remove Use Hint day Goal
 
