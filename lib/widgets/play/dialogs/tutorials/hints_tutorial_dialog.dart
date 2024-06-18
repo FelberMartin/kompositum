@@ -20,7 +20,7 @@ class HintsTutorialDialog extends StatelessWidget {
         children: [
           Text(
             "Wenn du Hilfe brauchst und nicht mehr weiter weißt, benutze einen Tipp!",
-            style: Theme.of(context).textTheme.labelSmall,
+            style: Theme.of(context).textTheme.labelLarge,
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 40),
@@ -32,7 +32,7 @@ class HintsTutorialDialog extends StatelessWidget {
           SizedBox(height: 40),
           Text(
             "Probier es einfach aus, der erste Tipp geht aufs Haus!",
-            style: Theme.of(context).textTheme.labelSmall,
+            style: Theme.of(context).textTheme.labelLarge,
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 32),

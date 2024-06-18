@@ -24,7 +24,7 @@ class DailyGoalsUpdateDialog extends StatelessWidget {
           RichText(
             textAlign: TextAlign.center,
             text: new TextSpan(
-              style: Theme.of(context).textTheme.labelSmall,
+              style: Theme.of(context).textTheme.labelLarge,
               children: <TextSpan>[
                 new TextSpan(text: "Absoliviere die Tagesziele um ein "),
                 new TextSpan (

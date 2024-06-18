@@ -19,7 +19,7 @@ class HiddenComponentsTutorialDialog extends StatelessWidget {
         children: [
           Text(
             "Verdeckte Wörter werden erst sichtbar, wenn du andere Wörter richtig kombinierst!",
-            style: Theme.of(context).textTheme.labelSmall,
+            style: Theme.of(context).textTheme.labelLarge,
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 32),
