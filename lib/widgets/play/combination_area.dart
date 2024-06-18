@@ -256,7 +256,7 @@ class CompoundMergeRow extends StatefulWidget {
 }
 
 class _CompoundMergeRowState extends State<CompoundMergeRow> with SingleTickerProviderStateMixin {
-  final _placeholder = "    ";
+  final _placeholder = "     ";
 
   late StreamSubscription<GameEvent> _textStreamSubscription;
 

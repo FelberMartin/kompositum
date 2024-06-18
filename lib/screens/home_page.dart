@@ -404,25 +404,28 @@ class PlayButton extends StatelessWidget {
       sideColor: MyColorPalette.of(context).primaryShade,
       clickable: true,
       onPressed: onPressed,
-      child: SizedBox(
-        width: 260,
-        height: 80,
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(minWidth: 260),
         child: isLoading ? Center(
             child: CircularProgressIndicator(
-                color: MyColorPalette.of(context).textSecondary)) : Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Level $currentLevel",
-              style: Theme.of(context).textTheme.titleSmall,
-            ),
-            SizedBox(height: 4.0),
-            Text(
-              currentLevelDifficulty.uiText,
-              style: Theme.of(context).textTheme.labelSmall,
-            )
-          ],
-        ),
+                color: MyColorPalette.of(context).textSecondary)) : Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Level $currentLevel",
+                                style: Theme.of(context).textTheme.titleSmall,
+                              ),
+                              Text(
+                                currentLevelDifficulty.uiText.toLowerCase(),
+                                style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                  color: MyColorPalette.of(context).textSecondary,
+                                ),
+                              )
+                            ],
+                          ),
+                ),
       )
     );
   }

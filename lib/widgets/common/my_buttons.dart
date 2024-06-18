@@ -25,7 +25,7 @@ class MyPrimaryButton extends StatelessWidget {
       clickable: enabled,
       onPressed: onPressed,
       child: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(12.0) + const EdgeInsets.symmetric(horizontal: 2.0),
         child: child,
       ),
     );
@@ -95,7 +95,7 @@ class MyPrimaryTextButtonLarge extends StatelessWidget {
       enabled: enabled,
       onPressed: onPressed,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(1.0) + const EdgeInsets.symmetric(horizontal: 10.0),
         child: FittedBox(
           child: Text(
             text,
@@ -130,7 +130,7 @@ class MySecondaryButton extends StatelessWidget {
       clickable: enabled,
       onPressed: onPressed,
       child: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(12.0) + const EdgeInsets.symmetric(horizontal: 2.0),
         child: child,
       ),
     );

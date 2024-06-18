@@ -233,7 +233,7 @@ class WordWrapper extends StatelessWidget {
       },
       animationDuration: wordWrapperAnimationDuration,
       child: !isVisible ? const SizedBox(width: 0, height: 40) : Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(12.0) + const EdgeInsets.symmetric(horizontal: 2.0),
         child: Text(
           text,
           style: Theme.of(context).textTheme.labelMedium!.copyWith(

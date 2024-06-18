@@ -12,7 +12,7 @@ class My3dContainer extends StatefulWidget {
     this.clickable = false,
     this.onPressed,
     this.animationDuration = const Duration(milliseconds: 100),
-    this.cornerRadius = 10,
+    this.cornerRadius = 1000,    // Make the corners round
   });
 
   final Widget child;
