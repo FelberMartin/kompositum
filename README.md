@@ -2,9 +2,9 @@
 
 <img src="./assets/images/playstore/feature_graphic.png" height="200" />
 
-# 💎 Wortschatz - Wörter Suche
+# 💎 Wort + Schatz: Wörter Suche
 
-**Wortschatz** is a fun german word building app, where you have to combine words to valid compounds.
+**Wort + Schatz** is a fun german word building app, where you have to combine words to valid compounds.
 The app is written with Flutter (dart) and is currently available for Android on the Google Play Store ([here](https://play.google.com/store/apps/details?id=com.development_felber.compose&pli=1)).
 
 <p float="left">

@@ -123,9 +123,9 @@ class _PlaceholderAdState extends State<_PlaceholderAd> {
                     text: new TextSpan(
                       style: Theme.of(context).textTheme.titleMedium,
                       children: <TextSpan>[
-                        new TextSpan(text: "Dir gefällt "),
+                        new TextSpan(text: "Dir gefällt \n"),
                         new TextSpan(
-                            text: "Wortschatz",
+                            text: "Wort + Schatz",
                             style: new TextStyle(
                                 color: MyColorPalette.of(context).primaryShade,
                             )),
@@ -160,7 +160,7 @@ class _PlaceholderAdState extends State<_PlaceholderAd> {
                         ),
                       ),
                       onPressed: () {
-                        Share.share("Entdecke jetzt meine neue Lieblings-App 'Wortschatz - Wörter Suche': https://play.google.com/store/apps/details?id=com.development_felber.compose");
+                        Share.share("Entdecke jetzt meine neue Lieblings-App 'Wort + Schatz: Wörter Suche': https://play.google.com/store/apps/details?id=com.development_felber.compose");
                       },
                     ),
                   ),

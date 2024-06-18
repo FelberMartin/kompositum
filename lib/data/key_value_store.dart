@@ -13,7 +13,7 @@ import 'models/daily_goal_set.dart';
 class KeyValueStore {
 
   KeyValueStore() {
-    SharedPreferences.setMockInitialValues({"level": 111});
+    // SharedPreferences.setMockInitialValues({"level": 111});
   }
 
   Future<void> storeLevel(int level) async {

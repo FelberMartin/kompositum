@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.development_felber.compose">
     <application
-        android:label="Wortschatz"
+        android:label="Wort + Schatz"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

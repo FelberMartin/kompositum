@@ -3,9 +3,6 @@
 
 
 - Redesign
-  - Remove oval borders -> rounded corner rectangle
-    - background
-  - Change app name to "Wort + Schatz"
   - Add update dialog for redesign
   - Replace Images in PlayStore
    

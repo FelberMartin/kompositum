@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
     return MaterialApp(
-      title: 'Wortschatz',
+      title: 'Wort + Schatz',
       theme: myTheme,
       locale: const Locale('de', 'DE'),
       home: HomePage(),

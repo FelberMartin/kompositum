@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kompositum/util/extensions/color_util.dart';
 
 import '../../config/my_theme.dart';
 
@@ -17,12 +18,17 @@ class MyBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SvgPicture.asset(
-      placeholderBuilder: (context) => Container(
-        color: MyColorPalette.of(context).background,
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            MyColorPalette.of(context).background.lighten(0.07),
+            MyColorPalette.of(context).background.darken(0.02),
+          ],
+        ),
       ),
-      "assets/images/background.svg",
-      fit: BoxFit.cover,
     );
   }
 }

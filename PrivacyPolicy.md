@@ -1,8 +1,8 @@
-## Privacy Policy for Wortschatz
+## Privacy Policy for "Wort + Schatz"
 
 **Effective Date:** 24.05.2024
 
-This privacy policy ("Policy") describes how Felber Development ("we," "us," or "our") collects, uses, and discloses your information in connection with your use of our mobile application, Wortschatz ("App").
+This privacy policy ("Policy") describes how Felber Development ("we," "us," or "our") collects, uses, and discloses your information in connection with your use of our mobile application, "Wort + Schatz" ("App").
 
 **Information We Collect**
 
