@@ -4,7 +4,6 @@
 
 - Redesign
   - Merge preRedesign changes (UpdateManager)
-  - Notification icon
   - Add update dialog for redesign
   - Replace Images in PlayStore
   - Update github readme images
