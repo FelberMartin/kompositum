@@ -102,8 +102,8 @@ flutter:
     - test/test_data/test_compounds.csv
 
     # Images
-    - assets/images/app_icon/fg_cropped.png
-    - assets/images/background.svg
+    - assets/images/app_icon/app_icon_rounded_corners.png
+    - assets/images/app_icon/app_icon_rounded_corners_2x.png
     - assets/icons/treasure_chest_closed.svg
     - assets/icons/treasure_chest_open.svg
 

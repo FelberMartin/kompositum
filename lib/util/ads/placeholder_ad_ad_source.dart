@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:kompositum/util/ads/ad_source.dart';
@@ -74,6 +75,7 @@ class _PlaceholderAdState extends State<_PlaceholderAd> {
 
   @override
   Widget build(BuildContext context) {
+    final imagePath = "assets/images/app_icon/app_icon_rounded_corners.png";
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.secondary,
       body: SafeArea(
@@ -134,9 +136,23 @@ class _PlaceholderAdState extends State<_PlaceholderAd> {
                     ),
                   ),
                   Expanded(child: Container()),
-                  Image(
-                    image: AssetImage('assets/images/app_icon/fg_cropped.png'),
+                  Container(
+                    width: 200,
                     height: 200,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(imagePath),
+                        fit: BoxFit.contain,
+                      ),
+                      borderRadius: BorderRadius.circular(30),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Theme.of(context).colorScheme.shadow.withOpacity(0.5),
+                          offset: Offset(2, 4),
+                          blurRadius: 4,
+                        ),
+                      ],
+                    ),
                   ),
                   Expanded(child: Container()),
                   SizedBox(

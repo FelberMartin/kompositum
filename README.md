@@ -1,6 +1,6 @@
 [![test-my-app](https://github.com/FelberMartin/kompositum/actions/workflows/tests.yml/badge.svg)](https://github.com/FelberMartin/kompositum/actions/workflows/tests.yml)
 
-<img src="./assets/images/playstore/feature_graphic.png" height="200" />
+<img src="assets/images/playstore/v1/feature_graphic.png" height="200" />
 
 # 💎 Wort + Schatz: Wörter Suche
 
@@ -8,10 +8,10 @@
 The app is written with Flutter (dart) and is currently available for Android on the Google Play Store ([here](https://play.google.com/store/apps/details?id=com.development_felber.compose&pli=1)).
 
 <p float="left">
-  <img src="./assets/images/playstore/simple.png" width="200" />
-  <img src="./assets/images/playstore/daily.png" width="200" />
-  <img src="./assets/images/playstore/medium.png" width="200" />
-  <img src="./assets/images/playstore/hint.png" width="200" />
+  <img src="assets/images/playstore/v1/simple.png" width="200" />
+  <img src="assets/images/playstore/v1/daily.png" width="200" />
+  <img src="assets/images/playstore/v1/medium.png" width="200" />
+  <img src="assets/images/playstore/v1/hint.png" width="200" />
 </p>
 
 ## 📩 Feedback
