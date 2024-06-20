@@ -38,12 +38,11 @@ class PreRedesignUpdateDialog extends StatelessWidget {
             ),
           ),
           SizedBox(height: 48),
-          // TODO: insert new app icon
-          SvgPicture.asset(
-            MyIcons.treasureChestClosedSvg,
-            width: 64,
+          Image.asset(
+            "assets/images/app_icon/app_icon_new.png",
+            width: 120,
           ),
-          SizedBox(height: 48),
+          SizedBox(height: 16),
           Text(
             "Halte einfach Ausschau nach dem neuen App-Icon!",
             style: Theme.of(context).textTheme.labelLarge,

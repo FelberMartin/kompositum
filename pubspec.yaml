@@ -103,6 +103,7 @@ flutter:
 
     # Images
     - assets/images/app_icon/fg_cropped.png
+    - assets/images/app_icon/app_icon_new.png
     - assets/images/background.svg
     - assets/icons/treasure_chest_closed.svg
     - assets/icons/treasure_chest_open.svg
