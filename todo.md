@@ -1,10 +1,6 @@
 # TODOs    
 ## Next up
 
-
-- Redesign
-  - Replace Images in PlayStore
-  - Update github readme images
    
 - Remove Use Hint day Goal
 
@@ -18,10 +14,7 @@
 ## Later
 - Fix prelaunchReport warnings/errors
 - Ads for the app
-- Store adjustments:
-  - Images on google play: remove debug label (just use gimp?)
-  - A/B testing with v0 app icon
-  - Create ad video
+  - TikTok videos?
 
 
 # Bugs
@@ -46,6 +39,7 @@
 - Level completion dialog title depending on performance
 - English compounds?
 - Streak for daily Goals? (May be confusing with daily levels)
+- Make daily goal reward 3 levels of chainMode
 
 
 ## Maybe backlog
