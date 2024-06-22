@@ -3,8 +3,6 @@
 
 
 - Redesign
-  - Merge preRedesign changes (UpdateManager)
-  - Add update dialog for redesign
   - Replace Images in PlayStore
   - Update github readme images
    
@@ -15,8 +13,6 @@
   - Make levels easier?
     - Variables: PoolSize, FrequencyClass, WordCount, GuaranteedCompoundCount
   - Add zigzag level generation? (a few easy ones, then getting harder, and then again dropping to easy and few compounds)
-
-- Notification icon hardly visible in light mode
 
 
 ## Later

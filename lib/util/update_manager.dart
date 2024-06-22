@@ -5,6 +5,8 @@ import 'package:kompositum/util/app_version_provider.dart';
 import 'package:kompositum/widgets/home/dialogs/daily_goals_update_dialog.dart';
 import 'package:kompositum/widgets/home/dialogs/pre_redesign_update_dialog.dart';
 
+import '../widgets/home/dialogs/redesign_update_dialog.dart';
+
 class UpdateDialog {
   final Widget dialog;
   final String identifier;
@@ -29,6 +31,11 @@ class UpdateManager {
       dialog: const PreRedesignUpdateDialog(),
       identifier: "preRedesign",
       version: "1.2.2",
+    ),
+    UpdateDialog(   // Inform the user about the redesign
+      dialog: const RedesignUpdateDialog(),
+      identifier: "redesign",
+      version: "1.3.0",
     ),
   ];
 
