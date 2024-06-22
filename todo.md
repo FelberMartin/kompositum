@@ -10,7 +10,6 @@
 
 
 ## Later
-- Fix prelaunchReport warnings/errors
 - Ads for the app
   - TikTok videos?
 

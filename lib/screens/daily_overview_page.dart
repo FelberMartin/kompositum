@@ -343,15 +343,21 @@ class Calendar extends StatelessWidget {
         titleTextStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
           color: Theme.of(context).colorScheme.primary,
         ),
-        leftChevronIcon: MyIconButton(
-          icon: FontAwesomeIcons.chevronLeft,
-          onPressed: () {},
+        leftChevronIcon: Semantics(
+          label: "Vorheriger Monat",
+          child: MyIconButton(
+            icon: FontAwesomeIcons.chevronLeft,
+            onPressed: () {},
+          ),
         ),
         leftChevronPadding: const EdgeInsets.all(0),
         leftChevronMargin: const EdgeInsets.symmetric(horizontal: 16.0),
-        rightChevronIcon: MyIconButton(
-          icon: FontAwesomeIcons.chevronRight,
-          onPressed: () {},
+        rightChevronIcon: Semantics(
+          label: "Nächster Monat",
+          child: MyIconButton(
+            icon: FontAwesomeIcons.chevronRight,
+            onPressed: () {},
+          ),
         ),
         rightChevronPadding: const EdgeInsets.all(0),
         rightChevronMargin: const EdgeInsets.symmetric(horizontal: 16.0),
