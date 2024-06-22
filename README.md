@@ -8,10 +8,10 @@
 The app is written with Flutter (dart) and is currently available for Android on the Google Play Store ([here](https://play.google.com/store/apps/details?id=com.development_felber.compose&pli=1)).
 
 <p float="left">
-  <img src="assets/images/playstore/v3/image1" width="200" />
-  <img src="assets/images/playstore/v3/image2" width="200" />
-  <img src="assets/images/playstore/v3/image3" width="200" />
-  <img src="assets/images/playstore/v3/image4" width="200" />
+  <img src="assets/images/playstore/v2/Image1.png" width="200" />
+  <img src="assets/images/playstore/v2/Image2.png" width="200" />
+  <img src="assets/images/playstore/v2/Image3.png" width="200" />
+  <img src="assets/images/playstore/v2/Image4.png" width="200" />
 </p>
 
 ## 📩 Feedback
