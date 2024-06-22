@@ -20,7 +20,7 @@ class MissingCompoundTutorialDialog extends StatelessWidget {
         children: [
           Text(
             "Hast du ein richtiges Wort kombiniert, aber es wird nicht aktzeptiert?",
-            style: Theme.of(context).textTheme.labelSmall,
+            style: Theme.of(context).textTheme.labelLarge,
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 40),
@@ -32,7 +32,7 @@ class MissingCompoundTutorialDialog extends StatelessWidget {
           SizedBox(height: 40),
           Text(
             "Du kannst diese Wörter melden und wir kümmern uns darum!",
-            style: Theme.of(context).textTheme.labelSmall,
+            style: Theme.of(context).textTheme.labelLarge,
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 32),

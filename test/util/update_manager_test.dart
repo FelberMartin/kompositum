@@ -28,7 +28,14 @@ void main() {
     };
   });
 
-  group("DailyGoals", () {
+  group("general", () {
+
+    final sutUpdateDialog = UpdateDialog(
+      dialog: const DailyGoalsUpdateDialog(),
+      identifier: "dailyGoals",
+      version: "1.2.0",
+    );
+
     test("should not show daily goals dialog when app version did not change", () async {
       appVersionProvider.didAppVersionChange = Future.value(false);
 
@@ -38,7 +45,7 @@ void main() {
 
     test("should not show the dialog if the new app version is other than 1.2.0", () {
       appVersionProvider.didAppVersionChange = Future.value(true);
-      appVersionProvider.appVersion = "1.1.0";
+      appVersionProvider.appVersion = "1.1.0";    // Required version is 1.2.0
 
       sut.checkForUpdates();
       expect(_animateDialogParams, isEmpty);
@@ -46,8 +53,8 @@ void main() {
 
     test("should not show dialog when the dialog was already shown", () async {
       appVersionProvider.didAppVersionChange = Future.value(true);
-      appVersionProvider.appVersion = "1.2.0";
-      await keyValueStore.storeUpdateDialogAsShown(UpdateDialog.dailyGoals);
+      appVersionProvider.appVersion = sutUpdateDialog.version;
+      await keyValueStore.storeUpdateDialogAsShown(sutUpdateDialog);
 
       await sut.checkForUpdates();
       expect(_animateDialogParams, isEmpty);
@@ -55,7 +62,7 @@ void main() {
 
     test("should show daily goals dialog when app version changed to 1.2.0", () async {
       appVersionProvider.didAppVersionChange = Future.value(true);
-      appVersionProvider.appVersion = "1.2.0";
+      appVersionProvider.appVersion = sutUpdateDialog.version;
 
       await sut.checkForUpdates();
       expect(_animateDialogParams, isNotEmpty);

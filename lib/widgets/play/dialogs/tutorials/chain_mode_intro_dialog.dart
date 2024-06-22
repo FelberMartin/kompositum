@@ -23,7 +23,7 @@ class ChainModeIntroDialog extends StatelessWidget {
           Text(
             "Bei diesem Spielmodus ist das erste Wort gegeben und du musst nur das dazugehörige zweite Wort finden. "
                 "Danach geht es immer so weiter und es bildet sich ein lange Wortkette.",
-            style: Theme.of(context).textTheme.labelSmall,
+            style: Theme.of(context).textTheme.labelLarge,
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 32),
@@ -34,7 +34,7 @@ class ChainModeIntroDialog extends StatelessWidget {
           SizedBox(height: 32),
           Text(
             "Probier es einfach aus!",
-            style: Theme.of(context).textTheme.labelSmall,
+            style: Theme.of(context).textTheme.labelLarge,
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 32),
