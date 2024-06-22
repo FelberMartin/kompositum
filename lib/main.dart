@@ -20,7 +20,7 @@ import 'firebase_options.dart';
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  unawaited(MobileAds.instance.initialize());
+  // unawaited(MobileAds.instance.initialize());
 
   await setupLocator();
   initNotifications();

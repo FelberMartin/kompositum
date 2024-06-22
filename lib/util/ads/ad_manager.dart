@@ -26,8 +26,11 @@ class AdManager {
       AdContext.playPastDailyChallenge: playPastDailyChallengeAdSource,
     };
 
-    adSources.forEach((_, adSource) {
-      adSource.loadAd();
+    // Delay the ad loading to prevent the app from freezing on startup
+    Future.delayed(const Duration(seconds: 1), () {
+      adSources.forEach((_, adSource) {
+        adSource.loadAd();
+      });
     });
   }
 
