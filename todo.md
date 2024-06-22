@@ -1,8 +1,6 @@
 # TODOs    
 ## Next up
 
-   
-- Remove Use Hint day Goal
 
 - Level generation:
   - Probabilistically add compounds before the minSolvableCompoundsInPool are reached
@@ -18,7 +16,7 @@
 
 
 # Bugs
-- B16 Something with the blocked compounds seems to not work correctly (when testing, I had "Heimsieg" twice for some low levels ~8)
+- B16 
 
 ## Not Reproducible
 - B15 When pressing back shortly before the finished dialog opens, the continue button throws an error

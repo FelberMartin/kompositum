@@ -53,7 +53,7 @@ class DailyGoalSet {
     final Map<DailyGoal, double> allGoalsWeighted = {
       FindCompoundsDailyGoal.generate(random: random): 2,
       EarnDiamondsDailyGoal.generate(random: random): 2,
-      UseHintsDailyGoal.generate(random: random): 1,
+      UseHintsDailyGoal.generate(random: random): 0,    // Not used anymore (anti-rewarding for the user)
       CompleteDailyLevelDailyGoal.generate(random: random): 0.5,
       CompleteClassicLevelsDailyGoal.generate(random: random): 0.5,
       CompleteAnyLevelsDailyGoal.generate(random: random): 0.5,

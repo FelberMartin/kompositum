@@ -267,6 +267,7 @@ class _LevelRewardCalculationState extends State<LevelRewardCalculation> {
     setState(() {
       _hideFailedAttempts = false;
       Future.delayed(increaseCounterDelay, () {
+        if (!mounted) return;
         setState(() {
           _totalStars += widget.starsForFailedAttempts;
         });
