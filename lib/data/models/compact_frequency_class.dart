@@ -1,7 +1,7 @@
 enum CompactFrequencyClass {
-  easy(13),
-  medium(16),
-  hard(20);
+  easy(12),
+  medium(15),
+  hard(18);
 
   const CompactFrequencyClass(this.maxFrequencyClass);
 

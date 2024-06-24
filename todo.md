@@ -1,6 +1,7 @@
 # TODOs    
 ## Next up
 
+- Look for alternative frequency dataset (not from news)
 
 - Level generation:
   - Probabilistically add compounds before the minSolvableCompoundsInPool are reached
@@ -8,6 +9,8 @@
     - Variables: PoolSize, FrequencyClass, WordCount, GuaranteedCompoundCount
   - Add zigzag level generation? (a few easy ones, then getting harder, and then again dropping to easy and few compounds)
 
+- Daily Notification:
+  - Send also for next days (not only the single next one)
 
 ## Later
 - Ads for the app
@@ -24,7 +27,6 @@
 
 # Misc
 ## Ideas
-- Look for alternative frequency dataset (not from news)
 - Hint idea: reshuffle components in pool / hidden components
 - Feature idea: watch ad to double level finished rewards
 - Spinning wheel after completion / noAttemptsLeft?
