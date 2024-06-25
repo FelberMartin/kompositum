@@ -28,7 +28,7 @@ void main() async {
 
   final goalSet2 = goalSet.copy();
   goalSet2.goals[0].increaseCurrentValue(amount: 8);
-  goalSet2.goals[1].increaseCurrentValue(amount: 0);
+  goalSet2.goals[1].increaseCurrentValue(amount: 20);
   goalSet2.goals[2].increaseCurrentValue(amount: 2);
 
   runApp(MaterialApp(
@@ -330,13 +330,14 @@ class _PlaySecretLevel extends StatelessWidget {
             width: 32,
           ),
           SizedBox(width: 12),
-          Text(
-            'Verstecktes Level',
-            style: Theme.of(context).textTheme.labelSmall!.copyWith(
-              color: MyColorPalette.of(context).onPrimary,
+          Expanded(
+            child: Text(
+              'Verstecktes Level',
+              style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                color: MyColorPalette.of(context).onPrimary,
+              ),
             ),
           ),
-          Expanded(child: Container()),
           MySecondaryTextButton(
             onPressed: onSecretLevelPlay,
             text: 'Spielen',

@@ -2,6 +2,7 @@
 ## Next up
 
 - Look for alternative frequency dataset (not from news)
+  - Daily 25.6 not solvable ?!
 
 - Level generation:
   - Probabilistically add compounds before the minSolvableCompoundsInPool are reached
@@ -15,6 +16,8 @@
 ## Later
 - Ads for the app
   - TikTok videos?
+  - Reddit forums
+    - r/de, r/playmygame
 
 
 # Bugs
