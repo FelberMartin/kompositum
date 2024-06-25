@@ -187,4 +187,33 @@ void main() {
       expect(sut.shownComponents, isNot(contains(chain.components[0])));
     });
   });
+
+  group("edgecase Heizkosten", () {
+    test("should accept 'heizen' + 'kosten' as a compoound", () {
+      final chain = createChain([
+        Compounds.Heizkosten,
+        Compounds.Kostprobe,
+      ]);
+      sut = ChainGameLevel(chain, maxShownComponentCount: 2);
+      sut.currentModifier = chain.components[0];
+
+      final compound = sut.getCompoundIfExisting(sut.currentModifier.text, chain.components[1].text);
+      expect(compound, isNotNull);
+      expect(compound, equals(Compounds.Heizkosten));
+    });
+
+    test("should be able to create a hint for 'heizen'", () {
+      final chain = createChain([
+        Compounds.Heizkosten,
+        Compounds.Kostprobe,
+      ]);
+      sut = ChainGameLevel(chain, maxShownComponentCount: 2);
+      sut.currentModifier = chain.components[0];
+
+      final hint = sut.requestHint(999);
+      expect(hint, isNotNull);
+      expect(hint!.type, HintComponentType.head);
+      expect(hint.hintedComponent.text, "kosten");
+    });
+  });
 }

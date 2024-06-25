@@ -73,7 +73,7 @@ abstract class GameLevel {
       return;
     }
     // There was weird bug where 3 components were removed, to potentially fix it, I added this check
-    if (compound.modifier != modifier.text || compound.head != head.text) {
+    if (!modifier.matches(compound.modifier) || !head.matches(compound.head)) {
       return;
     }
     _removeHintsForCompound(compoundToRemove);
@@ -96,10 +96,11 @@ abstract class GameLevel {
 
   void _removeHintsForCompound(Compound compound) {
     hints.removeWhere((hint) =>
-    (hint.type == HintComponentType.modifier &&
-        hint.hintedComponent.text == compound.modifier) ||
-        (hint.type == HintComponentType.head &&
-            hint.hintedComponent.text == compound.head));
+      (hint.type == HintComponentType.modifier &&
+          hint.hintedComponent.matches(compound.modifier)) ||
+      (hint.type == HintComponentType.head &&
+          hint.hintedComponent.matches(compound.head))
+    );
   }
 
   Compound? checkForCompound(String modifier, String head) {
@@ -114,13 +115,12 @@ abstract class GameLevel {
 
   Compound? getCompoundIfExisting(String modifier, String head) {
     final originalCompound = allCompounds.firstWhereOrNull(
-            (compound) => compound.modifier == modifier && compound.head == head);
+              (compound) => compound.matches(modifier, head));
     if (originalCompound != null) {
       return originalCompound;
     }
     final swappedCompound = swappableCompounds.firstWhereOrNull((swappable) =>
-    swappable.swapped.modifier == modifier &&
-        swappable.swapped.head == head);
+            swappable.swapped.matches(modifier, head));
     if (swappedCompound != null) {
       return swappedCompound.swapped;
     }

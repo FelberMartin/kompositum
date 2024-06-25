@@ -44,21 +44,28 @@ class Compound {
     return [modifier, head];
   }
 
+  bool matches(String modifier, String head) {
+    return UniqueComponent.textMatches(this.modifier, modifier) &&
+        UniqueComponent.textMatches(this.head, head);
+  }
+
   bool isSolvedBy(List<UniqueComponent> components) {
-    final modifiers = components.where((component) => component.text == modifier).toList();
-    final heads = components.where((component) => component.text == head).toList();
-    final combined = (modifiers + heads).toSet();
-    if (combined.length == 2) {
+    final matching = _getMatchingModifiersAndHeads(components);
+    if (matching.length == 2) {
       return true;
     }
     return false;
   }
 
+  Set<UniqueComponent> _getMatchingModifiersAndHeads(List<UniqueComponent> components) {
+    final modifiers = components.where((component) => component.matches(modifier)).toList();
+    final heads = components.where((component) => component.matches(head)).toList();
+    return (modifiers + heads).toSet();
+  }
+
   bool isOnlyPartiallySolvedBy(List<UniqueComponent> components) {
-    final modifiers = components.where((component) => component.text == modifier).toList();
-    final heads = components.where((component) => component.text == head).toList();
-    final combined = (modifiers + heads).toSet();
-    if (combined.length == 1) {
+    final matching = _getMatchingModifiersAndHeads(components);
+    if (matching.length == 1) {
       return true;
     }
     return false;

@@ -162,6 +162,22 @@ class Compounds {
     frequencyClass: 16,
   );
 
+  static var Heizkosten = Compound(
+    id: 0,
+    name: "Heizkosten",
+    modifier: "Heiz",
+    head: "Kosten",
+    frequencyClass: 1,
+  );
+
+  static var Kostprobe = Compound(
+    id: 0,
+    name: "Kostprobe",
+    modifier: "kosten",
+    head: "Probe",
+    frequencyClass: 1,
+  );
+
   static var all = [
     Krankenhaus,
     Spielplatz,

@@ -22,6 +22,16 @@ class UniqueComponent {
     return compounds.expand((compound) => fromCompound(compound)).toList();
   }
 
+  static bool textMatches(String text1, String text2) {
+    return text1.toLowerCase() == text2.toLowerCase();
+  }
+
+  /// Returns whether the given text matches the text of this component.
+  /// Ignores case.
+  bool matches(String text) {
+    return textMatches(this.text, text);
+  }
+
   @override
   bool operator ==(Object other) {
     return other is UniqueComponent && other.id == id;

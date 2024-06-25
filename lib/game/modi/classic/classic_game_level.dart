@@ -45,10 +45,10 @@ class ClassicGameLevel extends GameLevel {
     random.nextInt(compoundsCurrentlyCompletable.length)];
 
     final shownComponent = shownComponents.firstWhere((component) =>
-    component.text == compound.modifier || component.text == compound.head);
+      component.matches(compound.modifier) || component.matches(compound.head));
     return hiddenComponents.firstWhere((component) =>
-    component.text == compound.modifier ||
-        component.text == compound.head && component != shownComponent);
+      component.matches(compound.modifier) ||
+        component.matches(compound.head) && component != shownComponent);
   }
 
   @override

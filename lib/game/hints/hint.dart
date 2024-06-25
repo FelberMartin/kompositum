@@ -30,9 +30,9 @@ class Hint {
     assert(previousHint.type == HintComponentType.modifier);
 
     final hintedCompound = compounds.firstWhere(
-        (compound) => compound.modifier == previousHint.hintedComponent.text);
+        (compound) => previousHint.hintedComponent.matches(compound.modifier));
     final hintedComponent = shownComponents.firstWhere(
-        (component) => component.text == hintedCompound.head);
+        (component) => component.matches(hintedCompound.head));
     return Hint(hintedComponent, HintComponentType.head);
   }
 
@@ -51,7 +51,7 @@ class Hint {
     final hintedCompound =
         possibleHintCompounds[random.nextInt(possibleHintCompounds.length)];
     final hintedComponent = shownComponents.firstWhere(
-        (component) => component.text == hintedCompound.modifier);
+        (component) => component.matches(hintedCompound.modifier));
     return Hint(hintedComponent, HintComponentType.modifier);
   }
 
