@@ -8,6 +8,5 @@
 
 # How to run the pipeline
 
-1. compound_cleansing.ipynb     -> Removing compounds with hyphens, spaces, duplicates, etc.
-2. compound_filtering.ipynb     -> Adding the frequency data
-3. include_reported_and_remove_blocked_compounds.ipynb      -> 
+1. cleansing_and_ad_freq.ipynb
+2. include_reported_and_remove_blocked_compounds.ipynb
