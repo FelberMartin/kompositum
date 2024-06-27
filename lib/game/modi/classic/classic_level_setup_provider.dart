@@ -48,8 +48,8 @@ class LogarithmicLevelSetupProvider extends ClassicLevelSetupProvider {
 
   Difficulty _getDifficulty(int x, {int? seed}) {
     final weightEasy = 10.0;
-    final weightMedium = 2 * log(0.3 * x * x);
-    final weightHard = min(0.2 * x, 25.0);
+    final weightMedium = 2 * log(0.1 * x * x);
+    final weightHard = min(0.15 * x, weightMedium + 5);
     return LevelSetupProvider.getRandomDifficulty(weightEasy, weightMedium, weightHard, seed: seed);
   }
 

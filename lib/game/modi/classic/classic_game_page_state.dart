@@ -20,6 +20,7 @@ abstract class ClassicGamePageState extends GamePageState {
     return ClassicGameLevel(
       levelContent as ClassicLevelContent,
       maxShownComponentCount: levelSetup.difficulty.maxShownComponentCount,
+      minSolvableCompoundsInPool: levelSetup.difficulty.minSolvableCompoundsInPool,
       swappableCompounds: swappables,
     );
   }
