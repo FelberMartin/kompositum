@@ -1,6 +1,10 @@
 # TODOs    
 ## Next up
 
+- Reduce pool word distance
+- Remove compounds with components having illegal characters
+- After chain level completion, then going to classic level, last chain word completion animation plays
+
 - Level generation:
   - Make levels easier?
     - Variables: PoolSize, FrequencyClass, WordCount, GuaranteedCompoundCount
