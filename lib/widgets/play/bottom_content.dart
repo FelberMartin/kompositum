@@ -247,7 +247,7 @@ class WordWrapper extends StatelessWidget {
 
     final componentWithAnimation = AnimatedPadding(
       duration: wordWrapperAnimationDuration,
-      padding: EdgeInsets.symmetric(horizontal: !isVisible ? 0.0 : 4.0),
+      padding: EdgeInsets.symmetric(horizontal: isVisible ? 2.0 : 0.0),
       child: AnimatedOpacity(
         opacity: isVisible ? 1.0 : 0.0,
         duration: wordWrapperAnimationDuration * 1.0,

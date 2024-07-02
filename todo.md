@@ -1,17 +1,8 @@
 # TODOs    
 ## Next up
 
-- Reduce pool word distance
-- After chain level completion, then going to classic level, last chain word completion animation plays
-
-- Level generation:
-  - Make levels easier?
-    - Variables: PoolSize, FrequencyClass, WordCount, GuaranteedCompoundCount
-  - Add zigzag level generation? (a few easy ones, then getting harder, and then again dropping to easy and few compounds)
-
 - Daily Notification:
   - Send also for next days (not only the single next one)
-- Level completion: purple text is still fading out in the new level
 
 ## Later
 - Ads for the app
@@ -32,16 +23,12 @@
 ## Ideas
 - Hint idea: reshuffle components in pool / hidden components
 - Feature idea: watch ad to double level finished rewards
-- Spinning wheel after completion / noAttemptsLeft?
 - Feature idea: Catalogues of collected words (for easy/medium/hard)
-- Feature idea: instead of simple level progress, divide into sections. Each section could reward
-  eg a trophy (emoji) 
-  - Maybe spinning wheel for which trophy to get?
-  - Or for collecting 100 words one can spin to get a trophy
-- Level completion dialog title depending on performance
 - English compounds?
 - Streak for daily Goals? (May be confusing with daily levels)
-- Make daily goal reward 3 levels of chainMode
+- Make daily goal reward 3 levels of chainMode 
+- Add zigzag level generation? (a few easy ones, then getting harder, and then again dropping to easy and few compounds)
+
 
 
 ## Maybe backlog

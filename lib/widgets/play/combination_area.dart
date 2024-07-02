@@ -10,6 +10,7 @@ import 'package:kompositum/widgets/common/util/corner_radius.dart';
 import '../../config/my_theme.dart';
 import '../../screens/game_page.dart';
 import '../../util/audio_manager.dart';
+import '../../util/observer_utils.dart';
 import '../common/my_buttons.dart';
 import '../common/util/icon_styled_text.dart';
 import 'bottom_content.dart';
@@ -119,7 +120,7 @@ class AnimatedTextFadeOut extends StatefulWidget {
 }
 
 class AnimatedTextFadeOutState extends State<AnimatedTextFadeOut>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, RouteAware {
 
   late AnimationController _controller;
   late Animation<AlignmentGeometry> _alignAnimation;
@@ -127,6 +128,9 @@ class AnimatedTextFadeOutState extends State<AnimatedTextFadeOut>
   late StreamSubscription<GameEvent> _gameEventStreamSubscription;
 
   String _displayText = "";
+
+  /// Whether the widget's page is currently visible. Eg if another page gets pushed on top of it, it's not visible.
+  bool isVisible = true;
 
   @override
   void initState() {
@@ -153,7 +157,7 @@ class AnimatedTextFadeOutState extends State<AnimatedTextFadeOut>
     ));
 
     _gameEventStreamSubscription = widget.gameEventStream.listen((gameEvent) {
-      if (gameEvent is CompoundFoundGameEvent) {
+      if (gameEvent is CompoundFoundGameEvent && isVisible) {
         _displayText = gameEvent.compound.name;
         _controller.forward(from: 0.0);
       }
@@ -161,7 +165,24 @@ class AnimatedTextFadeOutState extends State<AnimatedTextFadeOut>
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    ObserverUtils.routeObserver.subscribe(this, ModalRoute.of(context)!);
+  }
+
+  @override
+  void didPushNext() {
+    isVisible = false;
+  }
+
+  @override
+  void didPopNext() {
+    isVisible = true;
+  }
+
+  @override
   void dispose() {
+    isVisible = false;
     _gameEventStreamSubscription.cancel();
     _controller.dispose();
     super.dispose();

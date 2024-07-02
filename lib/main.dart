@@ -10,6 +10,7 @@ import 'package:kompositum/game/game_event/game_event_stream.dart';
 import 'package:kompositum/screens/home_page.dart';
 import 'package:kompositum/util/audio_manager.dart';
 import 'package:kompositum/util/notifications/daily_notification_scheduler.dart';
+import 'package:kompositum/util/observer_utils.dart';
 
 import 'config/locator.dart';
 import 'data/database_interface.dart';
@@ -62,6 +63,7 @@ class MyApp extends StatelessWidget {
       title: 'Wort + Schatz',
       theme: myTheme,
       locale: const Locale('de', 'DE'),
+      navigatorObservers: [ObserverUtils.routeObserver],
       home: HomePage(),
     );
   }
