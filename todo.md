@@ -4,6 +4,14 @@
 - Daily Notification:
   - Send also for next days (not only the single next one)
 
+- iOS Implementation
+  - Apple dev account
+  - Create adMob ids for iOS
+  - Change name from "Wort + Schatz: Wörter Suche" to "Wörter Suche: Wort + Schatz" on AppStore?
+  - Add AppStore link to share message + github
+  - Test notifications
+  - Test app icon
+
 ## Later
 - Ads for the app
   - TikTok videos?
