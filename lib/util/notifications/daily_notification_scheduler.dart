@@ -9,7 +9,9 @@ import 'notifictaion_manager.dart';
 
 class DailyNotificationScheduler {
 
-  static const notificationId = 0;
+  static const notificationCount = 7;
+  static const notificationIdOffset = 1000;
+
   static const notificationDetails = NotificationDetails(
       android: AndroidNotificationDetails(
         '01',
@@ -30,23 +32,37 @@ class DailyNotificationScheduler {
     required this.featureLockManager,
   });
 
-  void cancelDailyNotification() {
-    notificationManager.cancel(notificationId);
+  Future<void> cancelDailyNotifications() async {
+    for (var i = 0; i < notificationCount; i++) {
+      await notificationManager.cancel(notificationIdOffset + i);
+    }
   }
 
-  Future<void> tryScheduleNextDailyNotification({required DateTime now}) async {
-    cancelDailyNotification();
+  Future<void> tryScheduleNextDailyNotifications({required DateTime now}) async {
+    await cancelDailyNotifications();
     final isEnabled = await keyValueStore.getBooleanSetting(BooleanSetting.dailyNotificationsEnabled);
 
     if (!isEnabled || featureLockManager.isDailyLevelFeatureLocked) {
       return;
     }
-    return _scheduleNextDailyNotification(now);
+    return _scheduleNextDailyNotifications(now);
   }
 
-  Future<void> _scheduleNextDailyNotification(DateTime now) async {
+  Future<void> _scheduleNextDailyNotifications(DateTime now) async {
     final nextNotificationDate = await _getNextNotificationDateTime(now);
 
+    for (var i = 0; i < notificationCount; i++) {
+      await _scheduleDailyNotification(
+        notificationId: notificationIdOffset + i,
+        notificationDate: nextNotificationDate.add(Duration(days: i)),
+      );
+    }
+  }
+
+  Future<void> _scheduleDailyNotification({
+    required int notificationId,
+    required DateTime notificationDate
+  }) {
     var title = "Tägliches Rätsel";
     if (Random().nextDouble() < 0.2) {
       if (Random().nextBool()) {
@@ -56,11 +72,11 @@ class DailyNotificationScheduler {
       }
     }
 
-    notificationManager.scheduleNotification(
+    return notificationManager.scheduleNotification(
       id: notificationId,
       title: title,
       description: "Dein tägliches Rätsel wartet noch darauf gelöst zu werden!",
-      dateTime: nextNotificationDate,
+      dateTime: notificationDate,
       notificationDetails: notificationDetails,
     );
   }

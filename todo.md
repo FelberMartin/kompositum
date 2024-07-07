@@ -1,9 +1,6 @@
 # TODOs    
 ## Next up
 
-- Daily Notification:
-  - Send also for next days (not only the single next one)
-
 - iOS Implementation
   - Apple dev account
   - Create adMob ids for iOS

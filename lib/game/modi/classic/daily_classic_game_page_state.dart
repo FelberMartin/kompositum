@@ -66,7 +66,7 @@ class DailyClassicGamePageState extends ClassicGamePageState {
 
   void _updateDailyNotification() {
     final dailyScheduler = locator<DailyNotificationScheduler>();
-    dailyScheduler.tryScheduleNextDailyNotification(now: DateTime.now());
+    dailyScheduler.tryScheduleNextDailyNotifications(now: DateTime.now());
   }
 
   @override

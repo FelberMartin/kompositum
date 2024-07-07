@@ -32,7 +32,7 @@ void main() async {
 
 void initNotifications() {
   final dailyScheduler = locator<DailyNotificationScheduler>();
-  dailyScheduler.tryScheduleNextDailyNotification(now: DateTime.now());
+  dailyScheduler.tryScheduleNextDailyNotifications(now: DateTime.now());
 }
 
 void _initAudioManager() {

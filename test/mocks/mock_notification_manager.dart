@@ -16,8 +16,9 @@ class MockNotificationManager extends Mock implements NotificationManager {
   final notifications = <MockNotification>[];
 
   @override
-  void scheduleNotification({required int id, required String title, required String description, required DateTime dateTime, required NotificationDetails notificationDetails, String payload = ""}) {
+  Future<void> scheduleNotification({required int id, required String title, required String description, required DateTime dateTime, required NotificationDetails notificationDetails, String payload = ""}) {
     notifications.add(MockNotification(id, title, description, dateTime));
+    return Future.value();
   }
 
   @override

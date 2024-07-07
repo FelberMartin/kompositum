@@ -43,21 +43,21 @@ class NotificationManager {
   //   );
   // }
 
-  void scheduleNotification({
+  Future<void> scheduleNotification({
     required int id,
     required String title,
     required String description,
     required DateTime dateTime,
     required NotificationDetails notificationDetails,
     String payload = ""
-  }) async {
-    await flutterLocalNotificationsPlugin.zonedSchedule(
+  }) {
+    return flutterLocalNotificationsPlugin.zonedSchedule(
       id,
       title,
       description,
       tz.TZDateTime.from(dateTime, tz.local),
       notificationDetails,
-      androidAllowWhileIdle: true,
+      androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
       uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation
           .absoluteTime,
       matchDateTimeComponents: DateTimeComponents.dateAndTime,

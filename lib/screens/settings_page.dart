@@ -49,7 +49,7 @@ class _SettingsPageState extends State<SettingsPage> {
     });
     await keyValueStore.storeBooleanSetting(BooleanSetting.dailyNotificationsEnabled, newValue);
     final dailyNotificationScheduler = locator<DailyNotificationScheduler>();
-    dailyNotificationScheduler.tryScheduleNextDailyNotification(now: DateTime.now());
+    dailyNotificationScheduler.tryScheduleNextDailyNotifications(now: DateTime.now());
   }
 
   @override
