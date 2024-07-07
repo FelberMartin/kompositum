@@ -43,7 +43,7 @@ void main() {
       await nonBlockingPump(tester);
       final MockNotificationManager notificationManager = locator<NotificationManager>() as MockNotificationManager;
       expect(notificationManager.notifications, isNotEmpty);
-      expect(notificationManager.notifications[0].id, DailyNotificationScheduler.notificationId);
+      expect(notificationManager.notifications[0].id, DailyNotificationScheduler.notificationIdOffset + 0);
       final delta = notificationManager.notifications[0].dateTime.difference(DateTime.now());
       expect(delta.inHours, lessThanOrEqualTo(24));
     });
@@ -61,7 +61,7 @@ void main() {
 
       final MockNotificationManager notificationManager = locator<NotificationManager>() as MockNotificationManager;
       expect(notificationManager.notifications, isNotEmpty);
-      expect(notificationManager.notifications[0].id, DailyNotificationScheduler.notificationId);
+      expect(notificationManager.notifications[0].id, DailyNotificationScheduler.notificationIdOffset + 0);
       expect(notificationManager.notifications[0].dateTime.day, isNot(DateTime.now().day));
     });
   });
