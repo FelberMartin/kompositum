@@ -1,0 +1,1 @@
+Use the image files used in the playstore, and scale them to be 1290 by 2796 (eg using Paint).
