@@ -17,12 +17,12 @@ abstract class AdMobAdSource extends AdSource {
   /// This is a interstitial ad
   static String restartLevelAdUnitId = Platform.isAndroid
       ? 'ca-app-pub-7511009658166869/8610435720'
-      : 'TODO'; // TODO iOS
+      : 'ca-app-pub-7511009658166869/8711463337';
 
   /// This is a rewarded ad
   static String playPastDailyChallengeAdUnitId = Platform.isAndroid
       ? 'ca-app-pub-7511009658166869/7259833216'
-      : 'TODO'; // TODO iOS
+      : 'ca-app-pub-7511009658166869/2205231907';
 
   factory AdMobAdSource.fromAdContext(AdContext adContext) {
     switch (adContext) {
