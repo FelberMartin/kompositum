@@ -2,12 +2,10 @@
 ## Next up
 
 - iOS Implementation
-  - Apple dev account
   - Create adMob ids for iOS
   - Change name from "Wort + Schatz: Wörter Suche" to "Wörter Suche: Wort + Schatz" on AppStore?
   - Add AppStore link to share message + github
   - Test notifications
-  - Test app icon
   - Update dialog for android
 
 ## Later
