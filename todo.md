@@ -8,6 +8,7 @@
   - Add AppStore link to share message + github
   - Test notifications
   - Test app icon
+  - Update dialog for android
 
 ## Later
 - Ads for the app
