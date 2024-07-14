@@ -2,10 +2,10 @@
 ## Next up
 
 - iOS Implementation
-  - Change name from "Wort + Schatz: Wörter Suche" to "Wörter Suche: Wort + Schatz" on AppStore?
-  - Add AppStore link to share message + github
   - Test notifications
   - Fix overflow in bottomNavigationBar
+  - Change name from "Wort + Schatz: Wörter Suche" to "Wörter Suche: Wort + Schatz" on AppStore?
+  - Add AppStore link to share message + github
   - Update dialog for android
 
 ## Later
@@ -13,7 +13,7 @@
   - TikTok videos?
   - Reddit forums
     - r/de, r/playmygame
-
+#
 
 # Bugs
 - B16 
