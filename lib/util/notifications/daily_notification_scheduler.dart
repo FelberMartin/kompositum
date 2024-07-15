@@ -30,15 +30,7 @@ class DailyNotificationScheduler {
     required this.notificationManager,
     required this.keyValueStore,
     required this.featureLockManager,
-  }) {
-    notificationManager.scheduleNotification(
-      id: 0,
-      title: "Test",
-      description: "Test",
-      dateTime: DateTime.now().add(Duration(seconds: 30)),
-      notificationDetails: notificationDetails,
-    );
-  }
+  });
 
   Future<void> cancelDailyNotifications() async {
     for (var i = 0; i < notificationCount; i++) {

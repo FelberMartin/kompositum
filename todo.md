@@ -2,7 +2,6 @@
 ## Next up
 
 - iOS Implementation
-  - Test notifications
   - Fix overflow in bottomNavigationBar
   - Change name from "Wort + Schatz: Wörter Suche" to "Wörter Suche: Wort + Schatz" on AppStore?
   - Add AppStore link to share message + github
