@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:kompositum/util/ads/ad_source.dart';
+import 'package:kompositum/util/my_share.dart';
 import 'package:kompositum/widgets/common/util/corner_radius.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -176,7 +177,7 @@ class _PlaceholderAdState extends State<_PlaceholderAd> {
                         ),
                       ),
                       onPressed: () {
-                        Share.share("Entdecke jetzt meine neue Lieblings-App 'Wort + Schatz: Wörter Suche': https://play.google.com/store/apps/details?id=com.development_felber.compose");
+                        MyShare.shareApp();
                       },
                     ),
                   ),

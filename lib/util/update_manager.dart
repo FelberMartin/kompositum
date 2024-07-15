@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/util/app_version_provider.dart';
 import 'package:kompositum/widgets/home/dialogs/daily_goals_update_dialog.dart';
+import 'package:kompositum/widgets/home/dialogs/ios_update_dialog.dart';
 import 'package:kompositum/widgets/home/dialogs/pre_redesign_update_dialog.dart';
 
 import '../widgets/home/dialogs/redesign_update_dialog.dart';
@@ -36,6 +37,11 @@ class UpdateManager {
       dialog: const RedesignUpdateDialog(),
       identifier: "redesign",
       version: "1.3.0",
+    ),
+    UpdateDialog(
+      dialog: const IOSUpdateDialog(),
+      identifier: "iosApp",
+      version: "1.5.0",
     ),
   ];
 
