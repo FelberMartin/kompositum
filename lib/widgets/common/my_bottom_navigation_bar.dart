@@ -64,17 +64,20 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
         ),
       ),
       clipBehavior: Clip.antiAlias,
-      child: BottomNavigationBar(
-        items: items,
-        onTap: (index) {
-          onItemSelected(index);
-        },
-        currentIndex: widget.selectedIndex,
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-        selectedItemColor: Theme.of(context).colorScheme.onSecondary,
-        unselectedItemColor: MyColorPalette.of(context).textSecondary,
-        showUnselectedLabels: false,
-        showSelectedLabels: false,
+      child: Wrap(
+        children: [BottomNavigationBar(
+          items: items,
+          onTap: (index) {
+            onItemSelected(index);
+          },
+          currentIndex: widget.selectedIndex,
+          backgroundColor: Theme.of(context).colorScheme.secondary,
+          selectedItemColor: Theme.of(context).colorScheme.onSecondary,
+          unselectedItemColor: MyColorPalette.of(context).textSecondary,
+          showUnselectedLabels: false,
+          showSelectedLabels: false,
+        ),
+      ],
       ),
     );
   }
