@@ -15,13 +15,15 @@ class NotificationManager {
   /// Initialize notification
   void _initializeNotification() async {
     _configureLocalTimeZone();
-    // const IOSInitializationSettings initializationSettingsIOS = IOSInitializationSettings();
+    const DarwinInitializationSettings initializationSettingsDarwin =
+      DarwinInitializationSettings();
 
     const AndroidInitializationSettings initializationSettingsAndroid =
-    AndroidInitializationSettings("outline");
+      AndroidInitializationSettings("outline");
 
     const InitializationSettings initializationSettings = InitializationSettings(
       android: initializationSettingsAndroid,
+      iOS: initializationSettingsDarwin,
     );
     await flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
@@ -31,17 +33,6 @@ class NotificationManager {
     final String currentTimeZone = await FlutterTimezone.getLocalTimezone();
     tz.setLocalLocation(tz.getLocation(currentTimeZone));
   }
-
-  // /// Request IOS permissions
-  // void requestIOSPermissions() {
-  //   flutterLocalNotificationsPlugin
-  //       .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()
-  //       ?.requestPermissions(
-  //     alert: true,
-  //     badge: true,
-  //     sound: true,
-  //   );
-  // }
 
   Future<void> scheduleNotification({
     required int id,

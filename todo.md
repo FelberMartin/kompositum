@@ -2,19 +2,16 @@
 ## Next up
 
 - iOS Implementation
-  - Apple dev account
-  - Create adMob ids for iOS
-  - Change name from "Wort + Schatz: Wörter Suche" to "Wörter Suche: Wort + Schatz" on AppStore?
-  - Add AppStore link to share message + github
-  - Test notifications
-  - Test app icon
+  - Merge ios branch
+  - Build android + new ios version
+    -> Wait for ios to be available, then publish android update 
 
 ## Later
 - Ads for the app
   - TikTok videos?
   - Reddit forums
     - r/de, r/playmygame
-
+#
 
 # Bugs
 - B16 

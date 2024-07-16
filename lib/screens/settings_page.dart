@@ -1,14 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:kompositum/config/my_icons.dart';
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/game/goals/daily_goal_set_manager.dart';
 import 'package:kompositum/util/notifications/daily_notification_scheduler.dart';
+import 'package:kompositum/util/notifications/notifictaion_manager.dart';
 import 'package:kompositum/widgets/common/util/corner_radius.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 
 import '../config/locator.dart';
 import '../config/my_theme.dart';
+import '../util/app_version_provider.dart';
 import '../widgets/common/my_app_bar.dart';
 import '../widgets/common/my_background.dart';
 import '../widgets/common/my_icon_button.dart';
@@ -100,6 +104,8 @@ class _SettingsPageState extends State<SettingsPage> {
                         PrivacyPolicy()
                       ],
                     ),
+                    SizedBox(height: 32.0),
+                    isBuiltWithReleaseMode ? Container() : DevTools()
                   ],
                 ),
               ),
@@ -200,5 +206,38 @@ class PrivacyPolicy extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+
+class DevTools extends StatelessWidget {
+  const DevTools({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SettingsGroup(
+        title: "Dev tools",
+        children: [
+          MyPrimaryTextButton(
+            text: "Send notification (10 sec delay)",
+            onPressed: () async {
+              final notificationManager = locator<NotificationManager>();
+              await notificationManager.scheduleNotification(
+                id: 0,
+                title: "Test Notification",
+                description: "This is a test notification",
+                dateTime: DateTime.now().add(Duration(seconds: 10)),
+                notificationDetails: NotificationDetails(
+                  android: AndroidNotificationDetails(
+                    '420',
+                    'Test Notification channel',
+                  ),
+                ),
+              );
+            },
+          ),
+        ]);
   }
 }

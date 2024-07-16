@@ -63,6 +63,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '171973007696',
     projectId: 'kompositum-3014e',
     storageBucket: 'kompositum-3014e.appspot.com',
-    iosBundleId: 'com.development_felber.compose',
+    iosBundleId: 'com.development-felber.wortschatz',
   );
 }
