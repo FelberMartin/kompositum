@@ -2,8 +2,6 @@
 ## Next up
 
 - iOS Implementation
-  - Change name from "Wort + Schatz: Wörter Suche" to "Wörter Suche: Wort + Schatz" on AppStore?
-  - Add AppStore link to share message + github
   - Merge ios branch
   - Build android + new ios version
     -> Wait for ios to be available, then publish android update 
