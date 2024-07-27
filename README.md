@@ -7,7 +7,7 @@
 **Wort + Schatz** is a fun german word building app, where you have to combine words to valid compounds.
 The app is written with Flutter (dart) and is available on 
 the Google Play Store ([here](https://play.google.com/store/apps/details?id=com.development_felber.compose&pli=1)) 
-and on the Apple AppStore ([here](https://apps.apple.com/app/wort-schatz-w%C3%B6rter-suche/id6526461190)).
+and on the Apple AppStore ([here](https://apps.apple.com/de/app/wort-schatz-w%C3%B6rter-suche/id6526461190)).
 
 <p float="left">
   <img src="assets/images/playstore/v2/Image1.png" width="200" />
