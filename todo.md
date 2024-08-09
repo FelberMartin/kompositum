@@ -1,10 +1,19 @@
 # TODOs    
 ## Next up
 
-- iOS Implementation
-  - Merge ios branch
-  - Build android + new ios version
-    -> Wait for ios to be available, then publish android update 
+- English
+  - Try out with english words
+  - Create localization logic
+    - UiStrings
+    - Compounds, compactFrequencyClass
+    - Links
+  - Create blocked compounds
+  - Reporting functionality
+  - AppName
+  - AppIcon
+  - AppStore/PlayStore Images
+  - Two branches for german and english release
+    - With checks that language specific localizations (Strings, AppName, Icon) are set correctly
 
 ## Later
 - Ads for the app
