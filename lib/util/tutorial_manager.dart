@@ -61,7 +61,8 @@ class TutorialManager {
     // Always show the click indicator for the first level. Regardless of whether it was already shown.
     if (levelIdentifier == 1) {
       // The first level is always "Wort" + "Schatz".
-      showClickIndicatorIndex = shownComponents.indexWhere((component) => component.matches("Wort"));
+      // showClickIndicatorIndex = shownComponents.indexWhere((component) => component.matches("Wort"));
+      showClickIndicatorIndex = shownComponents.indexWhere((component) => component.matches("word"));
     }
   }
 

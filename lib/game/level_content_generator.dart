@@ -20,7 +20,8 @@ abstract class LevelContentGenerator<T extends LevelContent> {
 
   Future<T> generateFromLevelSetup(LevelSetup levelSetup) async {
     if (levelSetup.levelType == LevelType.mainClassic && levelSetup.levelIdentifier == 1) {
-      final wortschatz = await databaseInterface.getCompoundByName("Wortschatz");
+      // final wortschatz = await databaseInterface.getCompoundByName("Wortschatz");
+      final wortschatz = await databaseInterface.getCompoundByName("word salad");
       assert(T == ClassicLevelContent);
       return ClassicLevelContent([wortschatz!]) as T;
     }

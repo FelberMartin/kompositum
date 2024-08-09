@@ -7,12 +7,14 @@
     - UiStrings
     - Compounds, compactFrequencyClass
     - Links
+    - First level
   - Create blocked compounds
   - Reporting functionality
   - AppName
   - AppIcon
   - AppStore/PlayStore Images
   - Two branches for german and english release
+    - Different package names
     - With checks that language specific localizations (Strings, AppName, Icon) are set correctly
 
 ## Later

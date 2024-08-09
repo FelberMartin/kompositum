@@ -1,12 +1,36 @@
 enum CompactFrequencyClass {
-  easy(28),
-  medium(33),
-  hard(37);
+  // easy(28),
+  // medium(33),
+  // hard(37);
+
+  easy(12),
+  medium(17),
+  hard(20);
 
   const CompactFrequencyClass(this.maxFrequencyClass);
 
   final int? maxFrequencyClass;
 }
+
+/* Stats for english:
+6.0         1
+7.0         2
+8.0         6
+9.0        24
+10.0       47
+11.0       99
+12.0      216
+13.0      461
+14.0      918
+15.0     1854
+16.0     3371
+17.0     5344
+18.0     7698
+19.0     9580
+20.0    11115
+21.0    13884
+NaN     28983
+ */
 
 /*
   Statistics on the frequency classes:

@@ -26,7 +26,7 @@ import 'package:path_provider/path_provider.dart';
 final locator = GetIt.instance;
 
 Future<void> setupLocator() async {
-  locator.registerSingleton<CompoundOrigin>(CompoundOrigin("assets/final_compounds.csv"));
+  locator.registerSingleton<CompoundOrigin>(CompoundOrigin("assets/final_compounds_eng.csv"));
 
   final docsDir = await getApplicationDocumentsDirectory();
 
