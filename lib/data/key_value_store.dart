@@ -70,6 +70,11 @@ class KeyValueStore {
     await prefs.setString("classicPoolGameLevel", jsonEncode(level.toJson()));
   }
 
+  Future<void> deleteClassicGameLevel() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove("classicPoolGameLevel");
+  }
+
   Future<ClassicGameLevel?> getClassicGameLevel() async {
     final prefs = await SharedPreferences.getInstance();
     final json = prefs.getString("classicPoolGameLevel");

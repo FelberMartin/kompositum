@@ -9,7 +9,8 @@ abstract class LevelSetupProvider {
   LevelSetup generateLevelSetup(Object levelIdentifier);
 
   int getSeedForLevel(int level) {
-    return level + 8;
+    // return level + 8;
+    return level + 8 + Random().nextInt(1000);
   }
 
   static Difficulty getRandomDifficulty(double weightEasy, double weightMedium,

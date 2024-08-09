@@ -16,6 +16,7 @@ import '../util/app_version_provider.dart';
 import '../widgets/common/my_app_bar.dart';
 import '../widgets/common/my_background.dart';
 import '../widgets/common/my_icon_button.dart';
+import '../widgets/common/numeric_step_button.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -211,9 +212,7 @@ class PrivacyPolicy extends StatelessWidget {
 
 
 class DevTools extends StatelessWidget {
-  const DevTools({
-    super.key,
-  });
+  const DevTools({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -238,6 +237,58 @@ class DevTools extends StatelessWidget {
               );
             },
           ),
+          SizedBox(height: 16),
+          LevelManipulator(),
         ]);
+  }
+}
+
+class LevelManipulator extends StatefulWidget {
+  const LevelManipulator({
+    super.key,
+  });
+
+  @override
+  State<LevelManipulator> createState() => _LevelManipulatorState();
+}
+
+class _LevelManipulatorState extends State<LevelManipulator> {
+  late KeyValueStore keyValueStore = locator<KeyValueStore>();
+  int? level;
+
+  @override
+  void initState() {
+    super.initState();
+    keyValueStore.getLevel().then((value) {
+      setState(() {
+        level = value;
+      });
+    });
+  }
+
+  void _changeLevel(int value) {
+    print('Level changed to $value');
+    keyValueStore.storeLevel(value);
+    keyValueStore.deleteClassicGameLevel();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Text(
+          "Level: ",
+          style: Theme.of(context).textTheme.labelLarge,
+        ),
+        SizedBox(width: 16),
+        level == null ? CircularProgressIndicator() : Expanded(
+          child: NumericStepButton(
+            initialValue: level!,
+            minValue: 1,
+            maxValue: 1000,
+            onChanged: _changeLevel),
+        ),
+      ],
+    );
   }
 }
