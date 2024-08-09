@@ -51,3 +51,4 @@ app.*.map.json
 
 # Firestore
 /lib/firebase_options.dart
+/data/eng/frequency_data/SubtlexUS/Subtlex.US.txt

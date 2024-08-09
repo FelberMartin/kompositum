@@ -1,10 +1,9 @@
 # TODOs    
 ## Next up
 
-- iOS Implementation
-  - Merge ios branch
-  - Build android + new ios version
-    -> Wait for ios to be available, then publish android update 
+- Decrement feature unlock level requirements
+- Floating bottomAppBar in android
+- Add Regensburger to blocked compounds (does not make much sense)
 
 ## Later
 - Ads for the app
