@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:kompositum/config/flavors/flavor.dart';
 import 'package:kompositum/config/my_theme.dart';
 import 'package:kompositum/game/game_event/game_event_stream.dart';
 import 'package:kompositum/screens/home_page.dart';
@@ -27,6 +28,7 @@ void main() async {
   initNotifications();
   _initAudioManager();
   _initAndRemoveSplashScreen();
+  Flavor.init();
   runApp(const MyApp());
 }
 
@@ -60,9 +62,9 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
     return MaterialApp(
-      title: 'Wort + Schatz',
+      title: Flavor.instance.appTitle,
       theme: myTheme,
-      locale: const Locale('de', 'DE'),
+      locale: Flavor.instance.locale,
       navigatorObservers: [ObserverUtils.routeObserver],
       home: HomePage(),
     );

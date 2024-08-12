@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:collection/collection.dart'; // You have to add this manually, for some reason it cannot be added automatically
 import 'package:flutter/material.dart';
+import 'package:kompositum/config/flavors/flavor.dart';
 import 'package:kompositum/config/my_icons.dart';
 import 'package:kompositum/config/my_theme.dart';
 import 'package:kompositum/config/star_costs_rewards.dart';
@@ -439,7 +440,7 @@ abstract class GamePageState extends State<GamePage> {
 
   Widget getLevelSubtitle() {
     return Text(
-      levelSetup!.difficulty.uiText.toLowerCase(),
+      Flavor.instance.uiString.getDifficultyText(levelSetup!.difficulty).toLowerCase(),
       style: Theme.of(context).textTheme.labelSmall!.copyWith(
         color: MyColorPalette.of(context).textSecondary,
       ),

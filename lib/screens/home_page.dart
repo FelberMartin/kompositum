@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import 'package:kompositum/config/flavors/flavor.dart';
+import 'package:kompositum/config/flavors/ui_string.dart';
 import 'package:kompositum/game/difficulty.dart';
 import 'package:kompositum/game/level_setup_provider.dart';
 import 'package:kompositum/game/modi/chain/chain_game_page_state.dart';
@@ -26,8 +28,6 @@ import '../config/my_theme.dart';
 import '../data/key_value_store.dart';
 import '../game/goals/daily_goal_set_manager.dart';
 import '../widgets/common/my_background.dart';
-import '../widgets/common/util/clip_shadow_path.dart';
-import '../widgets/common/util/rounded_edge_clipper.dart';
 import 'game_page.dart';
 
 void main() async {
@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(_appLifecycleReactor);
 
     _updatePage();
-    initializeDateFormatting("de", null);
+    initializeDateFormatting(Flavor.instance.locale.languageCode, null);
 
     updateManager.animateDialog = _launchUpdateDialog;
     updateManager.checkForUpdates();
@@ -239,7 +239,7 @@ class SettingsRow extends StatelessWidget {
 }
 
 class DailyLevelContainer extends StatelessWidget {
-  const DailyLevelContainer({
+  DailyLevelContainer({
     super.key,
     required this.isDailyFinished,
     required this.onPlayPressed,
@@ -249,6 +249,8 @@ class DailyLevelContainer extends StatelessWidget {
   final bool? isDailyFinished;
   final Function onPlayPressed;
   final bool isLocked;
+
+  final dateFormat = DateFormat("dd. MMM", Flavor.instance.locale.languageCode);
 
   factory DailyLevelContainer.loading() {
     return DailyLevelContainer(
@@ -260,7 +262,7 @@ class DailyLevelContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var dateText = DateFormat("dd. MMM", "de").format(DateTime.now());
+    var dateText = dateFormat.format(DateTime.now());
 
     Widget child;
     if (isLocked) {
@@ -280,7 +282,7 @@ class DailyLevelContainer extends StatelessWidget {
         children: [
           MySecondaryTextButton(
             key: Key("daily_play_button"),
-            text: "Start",
+            text: Flavor.instance.uiString.btnPlayDailyLevel,
             onPressed: onPlayPressed,
           ),
         ],
@@ -309,7 +311,7 @@ class DailyLevelContainer extends StatelessWidget {
           children: [
             SizedBox(height: 12),
             Text(
-              "Tägliches Rätsel",
+              Flavor.instance.uiString.ttlDailyLevelContainer,
               style: Theme.of(context).textTheme.labelMedium,
             ),
             SizedBox(height: 12),
@@ -344,6 +346,9 @@ class _DailyLevelLocked extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String text = Flavor.instance.uiString.lblFeatureLockedTillLevel;
+    text = text.replaceFirst(UiString.placeholder, FeatureLockManager.dailyLevelFeatureLockLevel.toString());
+
     return MySecondaryButton(
       onPressed: () {},
       enabled: false,
@@ -357,7 +362,7 @@ class _DailyLevelLocked extends StatelessWidget {
           ),
           SizedBox(width: 8),
           Text(
-            "ab Level ${FeatureLockManager.dailyLevelFeatureLockLevel}",
+            text,
             style: Theme.of(context).textTheme.labelSmall!.copyWith(
               color: MyColorPalette.of(context).textSecondary,
             )
@@ -407,11 +412,11 @@ class PlayButton extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Level $currentLevel",
+                    Flavor.instance.uiString.lblLevelIndicator + " $currentLevel",
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
                   Text(
-                    currentLevelDifficulty.uiText.toLowerCase(),
+                    Flavor.instance.uiString.getDifficultyText(currentLevelDifficulty).toLowerCase(),
                     style: Theme.of(context).textTheme.labelSmall!.copyWith(
                       color: MyColorPalette.of(context).textSecondary,
                     ),
