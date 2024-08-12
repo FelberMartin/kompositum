@@ -240,7 +240,6 @@ aftermath,after,math,15.0
 afternoon,after,noon,9.0
 afternoon tea,afternoon,tea,17.0
 aftershock,after,shock,17.0
-aftershock,afters,hock,17.0
 aftertaste,after,taste,17.0
 afterthought,after,thought,17.0
 afterworld,after,world,18.0
@@ -293,6 +292,7 @@ air embolism,air,embolism,19.0
 air filter,air,filter,18.0
 air gas,air,gas,20.0
 air group,air,group,18.0
+air gun,air,gun,17.0
 air hammer,air,hammer,21.0
 air hole,air,hole,19.0
 air horn,air,horn,18.0
@@ -318,7 +318,6 @@ air reconnaissance,air,reconnaissance,19.0
 air rifle,air,rifle,19.0
 air sac,air,sac,
 air shaft,air,shaft,17.0
-air sickness,air,sickness,20.0
 air sock,air,sock,
 air spring,air,spring,
 air station,air,station,18.0
@@ -345,8 +344,8 @@ aircraft landing,aircraft,landing,
 aircraftman,aircraft,man,
 aircraftsman,air,craftsman,21.0
 aircrew,air,crew,19.0
-aircrewman,aircrew,man,
 aircrewman,air,crewman,
+aircrewman,aircrew,man,
 airdock,air,dock,
 airdrome,air,drome,20.0
 airdrop,air,drop,20.0
@@ -356,7 +355,6 @@ airflow,air,flow,18.0
 airfoil,air,foil,21.0
 airforce,air,force,12.0
 airframe,air,frame,
-airgun,air,gun,17.0
 airhead,air,head,16.0
 airing cupboard,airing,cupboard,21.0
 airlift,air,lift,17.0
@@ -379,17 +377,12 @@ airplane ticket,airplane,ticket,18.0
 airport,air,port,10.0
 airport terminal,airport,terminal,21.0
 airpost,air,post,
-airscrew,airs,crew,
 airscrew,air,screw,20.0
 airship,air,ship,16.0
-airship,airs,hip,16.0
-airsickness,airsick,ness,20.0
+airsickness,air,sickness,20.0
 airspace,air,space,14.0
-airspace,airs,pace,14.0
-airspeed,airs,peed,16.0
 airspeed,air,speed,16.0
 airstream,air,stream,18.0
-airstrip,airs,trip,15.0
 airstrip,air,strip,15.0
 airwave,air,wave,21.0
 airway,air,way,14.0
@@ -818,7 +811,6 @@ arctiid moth,arctiid,moth,
 area bombing,area,bombing,
 area code,area,code,15.0
 area unit,area,unit,21.0
-areaway,are,away,16.0
 areaway,area,way,
 areca nut,areca,nut,
 arena theater,arena,theater,
@@ -1012,6 +1004,7 @@ auto company,auto,company,
 auto factory,auto,factory,
 auto limitation,auto,limitation,
 auto loan,auto,loan,
+auto maker,auto,maker,21.0
 auto manufacturer,auto,manufacturer,
 auto mechanics,auto,mechanics,18.0
 auto part,auto,part,
@@ -1022,7 +1015,6 @@ auto-changer,auto,changer,
 auto-mechanic,auto,mechanic,17.0
 auto-suggestion,auto,suggestion,21.0
 autograph album,autograph,album,21.0
-automaker,auto,maker,21.0
 automatic choke,automatic,choke,
 automatic drive,automatic,drive,21.0
 automatic firearm,automatic,firearm,
@@ -1104,7 +1096,6 @@ baby tooth,baby,tooth,20.0
 baby-walker,baby,walker,
 babysitter,baby,sitter,13.0
 babysitting,baby,sitting,14.0
-babysitting,babysit,ting,14.0
 bachelor girl,bachelor,girl,
 bachelor party,bachelor,party,13.0
 back brace,back,brace,18.0
@@ -1171,7 +1162,6 @@ backrest,back,rest,20.0
 backroom boy,backroom,boy,
 backsaw,back,saw,20.0
 backscratcher,back,scratcher,18.0
-backseat,backs,eat,14.0
 backseat,back,seat,13.0
 backseat driver,backseat,driver,20.0
 backside,back,side,15.0
@@ -1179,29 +1169,22 @@ backslapper,back,slapper,21.0
 backslider,back,slider,
 backsliding,back,sliding,19.0
 backspace,back,space,20.0
-backspace,backs,pace,
 backspace character,backspace,character,
 backspace key,backspace,key,
 backspacer,back,spacer,
-backspacer,backs,pacer,
 backspin,back,spin,18.0
-backspin,backs,pin,18.0
 backstage,back,stage,13.0
 backstay,back,stay,14.0
-backstitch,backs,titch,
 backstitch,back,stitch,
-backstop,backs,top,17.0
 backstop,back,stop,15.0
 backstroke,back,stroke,17.0
 backswimmer,back,swimmer,
 backsword,back,sword,
-backsword,backs,word,
 backup file,backup,file,21.0
 backup man,backup,man,19.0
 backup system,backup,system,18.0
 backwash,back,wash,17.0
 backwater,back,water,16.0
-backwoodsman,back,woodsman,
 backwoodsman,backwoods,man,
 backyard,back,yard,12.0
 bacon rind,bacon,rind,
@@ -1243,7 +1226,6 @@ bail bond,bail,bond,18.0
 bait casting,bait,casting,21.0
 bakeapple,bake,apple,21.0
 bakehouse,bake,house,
-bakeshop,bakes,hop,20.0
 bakeshop,bake,shop,19.0
 baking chocolate,baking,chocolate,
 baking powder,baking,powder,17.0
@@ -1403,13 +1385,11 @@ bar printer,bar,printer,
 bar soap,bar,soap,21.0
 barbecue pit,barbecue,pit,20.0
 barbecue sauce,barbecue,sauce,17.0
-barbell,barb,ell,17.0
 barbell,bar,bell,17.0
 barber chair,barber,chair,18.0
 barberry,bar,berry,
 barberry family,barberry,family,
 barbershop,barber,shop,14.0
-barbershop,barbers,hop,14.0
 barbershop quartet,barbershop,quartet,17.0
 barbette carriage,barbette,carriage,
 barbwire,barb,wire,19.0
@@ -1439,7 +1419,6 @@ barley grass,barley,grass,
 barley water,barley,water,
 barley-sugar,barley,sugar,
 barleycorn,barley,corn,
-barmaid,barm,aid,16.0
 barmaid,bar,maid,16.0
 barman,bar,man,16.0
 barn dance,barn,dance,20.0
@@ -1632,7 +1611,6 @@ battledore,battled,ore,
 battlefield,battle,field,14.0
 battlefront,battle,front,19.0
 battleground,battle,ground,16.0
-battleship,battles,hip,14.0
 battleship,battle,ship,14.0
 battlewagon,battle,wagon,20.0
 batwing,bat,wing,18.0
@@ -1701,7 +1679,6 @@ bean weevil,bean,weevil,
 beanbag,bean,bag,16.0
 beanball,bean,ball,
 beanfeast,bean,feast,
-beanstalk,beans,talk,17.0
 beanstalk,bean,stalk,17.0
 bear claw,bear,claw,17.0
 bear cub,bear,cub,19.0
@@ -1722,7 +1699,6 @@ bearing metal,bearing,metal,
 bearing rein,bearing,rein,
 bearing wall,bearing,wall,18.0
 bearskin,bear,skin,17.0
-bearskin,bears,kin,17.0
 bearwood,bear,wood,
 beat generation,beat,generation,21.0
 beau ideal,beau,ideal,19.0
@@ -1774,7 +1750,6 @@ bedside manner,bedside,manner,16.0
 bedsit,bed,sit,19.0
 bedsitter,bed,sitter,
 bedsore,bed,sore,19.0
-bedsore,beds,ore,19.0
 bedspread,bed,spread,16.0
 bedspring,bed,spring,21.0
 bedstead,bed,stead,18.0
@@ -1817,7 +1792,6 @@ beef tongue,beef,tongue,20.0
 beefburger,beef,burger,20.0
 beefcake,beef,cake,18.0
 beefeater,beef,eater,20.0
-beefsteak,beefs,teak,16.0
 beefsteak,beef,steak,16.0
 beefsteak begonia,beefsteak,begonia,
 beefsteak fungus,beefsteak,fungus,
@@ -1983,8 +1957,8 @@ bile salt,bile,salt,
 bilestone,bile,stone,
 bilge keel,bilge,keel,
 bilge pump,bilge,pump,17.0
-bilge water,bilge,water,18.0
 bilge well,bilge,well,20.0
+bilgewater,bilge,water,18.0
 bilingual dictionary,bilingual,dictionary,
 bill poster,bill,poster,
 bill sticker,bill,sticker,
@@ -2018,18 +1992,19 @@ biology laboratory,biology,laboratory,
 biosafety level,biosafety,level,
 biquadratic equation,biquadratic,equation,
 biquadratic polynomial,biquadratic,polynomial,
-birch bark,birch,bark,21.0
 birch beer,birch,beer,19.0
 birch family,birch,family,
 birch oil,birch,oil,
 birch rod,birch,rod,
 birch tree,birch,tree,19.0
+birchbark,birch,bark,21.0
 birchbark canoe,birchbark,canoe,
 bird cherry,bird,cherry,
 bird dog,bird,dog,16.0
 bird family,bird,family,21.0
 bird fancier,bird,fancier,
 bird feed,bird,feed,21.0
+bird feeder,bird,feeder,18.0
 bird food,bird,food,20.0
 bird genus,bird,genus,
 bird louse,bird,louse,
@@ -2044,7 +2019,6 @@ birdbrain,bird,brain,17.0
 birdcage,bird,cage,16.0
 birdcage mask,birdcage,mask,
 birdcall,bird,call,19.0
-birdfeeder,bird,feeder,18.0
 birdhouse,bird,house,17.0
 birdlime,bird,lime,
 birdnest,bird,nest,21.0
@@ -2057,7 +2031,6 @@ birth certificate,birth,certificate,14.0
 birth control,birth,control,14.0
 birth defect,birth,defect,17.0
 birth prevention,birth,prevention,
-birth rate,birth,rate,19.0
 birth trauma,birth,trauma,21.0
 birthday,birth,day,9.0
 birthday cake,birthday,cake,15.0
@@ -2069,6 +2042,7 @@ birthday suit,birthday,suit,17.0
 birthing coach,birthing,coach,
 birthmark,birth,mark,14.0
 birthplace,birth,place,16.0
+birthrate,birth,rate,19.0
 birthright,birth,right,15.0
 birthroot,birth,root,
 birthwort,birth,wort,
@@ -2129,7 +2103,6 @@ black box,black,box,15.0
 black bread,black,bread,21.0
 black bream,black,bream,
 black bryony,black,bryony,
-black buck,black,buck,19.0
 black buffalo,black,buffalo,
 black calla,black,calla,
 black caraway,black,caraway,
@@ -2244,6 +2217,7 @@ blackboard,black,board,15.0
 blackboard eraser,blackboard,eraser,
 blackbody,black,body,20.0
 blackbody radiation,blackbody,radiation,
+blackbuck,black,buck,19.0
 blackcap,black,cap,20.0
 blackcap raspberry,blackcap,raspberry,
 blackdamp,black,damp,
@@ -2270,7 +2244,6 @@ blacktail jackrabbit,blacktail,jackrabbit,
 blackthorn,black,thorn,17.0
 blacktop,black,top,17.0
 blacktopping,black,topping,
-blacktopping,blacktop,ping,
 blackwash,black,wash,
 blackwater,black,water,19.0
 blackwater fever,blackwater,fever,
@@ -2416,7 +2389,6 @@ bloodshed,blood,shed,14.0
 bloodstain,blood,stain,17.0
 bloodstock,blood,stock,20.0
 bloodstone,blood,stone,21.0
-bloodstone,bloods,tone,21.0
 bloodstream,blood,stream,14.0
 bloodsucker,blood,sucker,17.0
 bloodworm,blood,worm,21.0
@@ -2538,8 +2510,6 @@ blueprint paper,blueprint,paper,
 bluestem wheatgrass,bluestem,wheatgrass,
 bluestocking,blue,stocking,
 bluestone,blue,stone,19.0
-bluestone,bluest,one,19.0
-bluestone,blues,tone,19.0
 bluethroat,blue,throat,
 bluethroat pikeblenny,bluethroat,pikeblenny,
 bluetick,blue,tick,21.0
@@ -2577,7 +2547,6 @@ boatbuilder,boat,builder,21.0
 boathouse,boat,house,16.0
 boatload,boat,load,16.0
 boatman,boat,man,16.0
-boatswain,boats,wain,16.0
 boatswain,boat,swain,16.0
 boatswain bird,boatswain,bird,
 boatyard,boat,yard,17.0
@@ -2587,9 +2556,7 @@ bobbysock,bobby,sock,
 bobcat,bob,cat,16.0
 bobfloat,bob,float,
 bobsled,bob,sled,15.0
-bobsled,bobs,led,15.0
 bobsledding,bob,sledding,18.0
-bobsledding,bobsled,ding,18.0
 bobsleigh,bob,sleigh,17.0
 bobtail,bob,tail,18.0
 bobwhite,bob,white,18.0
@@ -2673,7 +2640,6 @@ bomber crew,bomber,crew,
 bomber jacket,bomber,jacket,21.0
 bombing run,bombing,run,19.0
 bombproof,bomb,proof,18.0
-bombshell,bombs,hell,15.0
 bombshell,bomb,shell,15.0
 bombsight,bomb,sight,17.0
 bombycid moth,bombycid,moth,
@@ -2721,8 +2687,10 @@ booby trap,booby,trap,16.0
 book agent,book,agent,19.0
 book bag,book,bag,16.0
 book binding,book,binding,
+book fair,book,fair,18.0
 book jacket,book,jacket,19.0
 book louse,book,louse,
+book lover,book,lover,21.0
 book lung,book,lung,
 book review,book,review,18.0
 book scorpion,book,scorpion,
@@ -2734,12 +2702,10 @@ bookcase,book,case,15.0
 bookclub,book,club,15.0
 bookdealer,book,dealer,20.0
 bookend,book,end,20.0
-bookfair,book,fair,18.0
 booking agent,booking,agent,18.0
 booking clerk,booking,clerk,20.0
 bookkeeper,book,keeper,15.0
 bookkeeping,book,keeping,16.0
-booklover,book,lover,21.0
 bookmaker,book,maker,16.0
 bookman,book,man,17.0
 bookmark,book,mark,16.0
@@ -2749,11 +2715,8 @@ bookplate,book,plate,
 bookseller,book,seller,18.0
 bookshelf,book,shelf,17.0
 bookshop,book,shop,15.0
-bookshop,books,hop,15.0
-bookstall,books,tall,
 bookstall,book,stall,21.0
 bookstore,book,store,13.0
-bookstore,books,tore,13.0
 bookworm,book,worm,16.0
 boom box,boom,box,17.0
 boom town,boom,town,18.0
@@ -2774,7 +2737,6 @@ bootleg,boot,leg,15.0
 bootlegging,boot,legging,17.0
 bootlicker,boot,licker,19.0
 bootstrap,boot,strap,19.0
-bootstrap,boots,trap,19.0
 borage family,borage,family,
 border district,border,district,
 border patrol,border,patrol,16.0
@@ -2838,9 +2800,9 @@ bounty hunter,bounty,hunter,14.0
 bourguignon sauce,bourguignon,sauce,
 bow leg,bow,leg,
 bow legs,bow,legs,21.0
+bow tie,bow,tie,15.0
 bow window,bow,window,
 bow wood,bow,wood,
-bow-tie,bow,tie,15.0
 bow-wow,bow,wow,17.0
 bowel movement,bowel,movement,16.0
 bowerbird,bower,bird,
@@ -2918,7 +2880,6 @@ brain trust,brain,trust,17.0
 brain truster,brain,truster,
 brain tumor,brain,tumor,15.0
 brain tumour,brain,tumour,17.0
-brain wave,brain,wave,17.0
 brain-fag,brain,fag,
 brain-teaser,brain,teaser,20.0
 brain-worker,brain,worker,
@@ -2930,6 +2891,7 @@ brainstem,brain,stem,16.0
 brainstorm,brain,storm,15.0
 brainstorming,brain,storming,16.0
 brainwashing,brain,washing,16.0
+brainwave,brain,wave,17.0
 brake band,brake,band,
 brake cylinder,brake,cylinder,
 brake disk,brake,disk,
@@ -2971,22 +2933,20 @@ brazil nut,brazil,nut,
 brazilwood,brazil,wood,
 bread dough,bread,dough,21.0
 bread knife,bread,knife,19.0
-bread line,bread,line,19.0
 bread maker,bread,maker,19.0
 bread mold,bread,mold,21.0
 bread sauce,bread,sauce,21.0
 bread-bin,bread,bin,19.0
+bread-stick,bread,stick,18.0
 breadbasket,bread,basket,17.0
 breadboard,bread,board,21.0
 breadbox,bread,box,18.0
 breadcrumb,bread,crumb,19.0
 breadfruit,bread,fruit,18.0
 breadfruit tree,breadfruit,tree,
+breadline,bread,line,19.0
 breadroot,bread,root,
-breadstick,breads,tick,18.0
-breadstick,bread,stick,18.0
 breadstuff,bread,stuff,
-breadstuff,breads,tuff,
 breadth index,breadth,index,
 breadwinner,bread,winner,17.0
 break dance,break,dance,18.0
@@ -3007,7 +2967,6 @@ breaking ball,breaking,ball,18.0
 breaking point,breaking,point,16.0
 breaking wind,breaking,wind,19.0
 breakout,break,out,13.0
-breakstone,breaks,tone,
 breakstone,break,stone,21.0
 breakthrough,break,through,13.0
 breakwater,break,water,18.0
@@ -3117,7 +3076,6 @@ broadloom,broad,loom,21.0
 broadsheet,broad,sheet,
 broadside,broad,side,16.0
 broadsword,broad,sword,16.0
-broadsword,broads,word,16.0
 broadtail,broad,tail,
 broker-dealer,broker,dealer,
 brokerage account,brokerage,account,18.0
@@ -3147,7 +3105,6 @@ broom tree,broom,tree,
 broom-weed,broom,weed,
 broomcorn,broom,corn,
 broomcorn millet,broomcorn,millet,
-broomstick,brooms,tick,15.0
 broomstick,broom,stick,15.0
 brothel keeper,brothel,keeper,21.0
 brow ptosis,brow,ptosis,
@@ -3179,7 +3136,6 @@ brown thrasher,brown,thrasher,
 brown thrush,brown,thrush,
 brown trout,brown,trout,
 brownie mix,brownie,mix,21.0
-brownstone,browns,tone,17.0
 brownstone,brown,stone,17.0
 browntail,brown,tail,
 brunch coat,brunch,coat,
@@ -3210,9 +3166,7 @@ buckeye,buck,eye,17.0
 buckler fern,buckler,fern,
 buckler mustard,buckler,mustard,
 bucksaw,buck,saw,
-buckshot,bucks,hot,15.0
 buckshot,buck,shot,15.0
-buckskin,bucks,kin,18.0
 buckskin,buck,skin,18.0
 buckthorn,buck,thorn,
 buckthorn berry,buckthorn,berry,
@@ -3274,7 +3228,6 @@ bull pine,bull,pine,
 bull session,bull,session,20.0
 bull shark,bull,shark,19.0
 bull snake,bull,snake,
-bull terrier,bull,terrier,21.0
 bull thistle,bull,thistle,
 bull tongue,bull,tongue,21.0
 bullace grape,bullace,grape,
@@ -3304,9 +3257,8 @@ bullpen,bull,pen,16.0
 bullring,bull,ring,17.0
 bullrush,bull,rush,
 bullshit,bull,shit,9.0
-bullshit,bulls,hit,9.0
-bullshot,bulls,hot,19.0
 bullshot,bull,shot,19.0
+bullterrier,bull,terrier,21.0
 bully beef,bully,beef,
 bully pulpit,bully,pulpit,21.0
 bully tree,bully,tree,
@@ -3665,10 +3617,8 @@ camping ground,camping,ground,21.0
 camping site,camping,site,
 campmate,camp,mate,
 campsite,camp,site,16.0
-campstool,camps,tool,
 campstool,camp,stool,
 camshaft,cam,shaft,18.0
-camshaft,cams,haft,18.0
 camwood,cam,wood,
 can buoy,can,buoy,
 can opener,can,opener,15.0
@@ -3697,7 +3647,6 @@ candlepower,candle,power,21.0
 candlepower unit,candlepower,unit,
 candlesnuffer,candle,snuffer,
 candlestick,candle,stick,16.0
-candlestick,candles,tick,16.0
 candlestick tulip,candlestick,tulip,
 candlewick,candle,wick,
 candlewood,candle,wood,
@@ -3796,7 +3745,6 @@ capitalist economy,capitalist,economy,20.0
 capitate bone,capitate,bone,
 cappuccino coffee,cappuccino,coffee,21.0
 capstone,cap,stone,19.0
-capstone,caps,tone,19.0
 capulin tree,capulin,tree,
 car battery,car,battery,17.0
 car bomb,car,bomb,18.0
@@ -3876,9 +3824,7 @@ cardinal virtue,cardinal,virtue,
 cardinalfish,cardinal,fish,
 cardioid microphone,cardioid,microphone,
 cardroom,card,room,19.0
-cardsharp,cards,harp,19.0
 cardsharper,card,sharper,21.0
-cardsharper,cards,harper,21.0
 care delivery,care,delivery,
 career counseling,career,counseling,19.0
 career girl,career,girl,19.0
@@ -4149,14 +4095,14 @@ cellulose xanthate,cellulose,xanthate,
 cement mixer,cement,mixer,17.0
 census taker,census,taker,19.0
 center bit,center,bit,
+center fielder,center,fielder,18.0
+center line,center,line,18.0
 center punch,center,punch,
 center spread,center,spread,21.0
 center stage,center,stage,17.0
 centerboard,center,board,18.0
 centerfield,center,field,16.0
-centerfielder,center,fielder,18.0
 centerfold,center,fold,16.0
-centerline,center,line,18.0
 centerpiece,center,piece,16.0
 central bank,central,bank,21.0
 central body,central,body,
@@ -4174,7 +4120,6 @@ centre spread,centre,spread,
 centre stage,centre,stage,19.0
 centreboard,centre,board,
 centrefold,centre,fold,
-centrefold,cent,refold,
 centrepiece,centre,piece,19.0
 century plant,century,plant,19.0
 cephalopod mollusk,cephalopod,mollusk,
@@ -4229,7 +4174,6 @@ chalk line,chalk,line,18.0
 chalk talk,chalk,talk,21.0
 chalkboard,chalk,board,17.0
 chalkpit,chalk,pit,21.0
-chalkstone,chalks,tone,
 chalkstone,chalk,stone,
 chamber music,chamber,music,17.0
 chamber orchestra,chamber,orchestra,19.0
@@ -4456,7 +4400,6 @@ chicken yard,chicken,yard,
 chickenfeed,chicken,feed,16.0
 chickenpox,chicken,pox,16.0
 chickenshit,chicken,shit,14.0
-chickenshit,chickens,hit,14.0
 chickpea,chick,pea,
 chickpea plant,chickpea,plant,
 chickweed,chick,weed,21.0
@@ -4498,11 +4441,8 @@ chimney swift,chimney,swift,
 chimneypiece,chimney,piece,
 chimneypot,chimney,pot,21.0
 chimneystack,chimney,stack,20.0
-chimneystack,chimneys,tack,
 chimneysweep,chimney,sweep,18.0
-chimneysweep,chimneys,weep,
 chimneysweeper,chimney,sweeper,
-chimneysweeper,chimneys,weeper,
 chin music,chin,music,18.0
 chin rest,chin,rest,
 chin strap,chin,strap,18.0
@@ -4515,7 +4455,6 @@ china stone,china,stone,
 chinaberry,china,berry,
 chinaberry tree,chinaberry,tree,
 chinaware,china,ware,20.0
-chinaware,chin,aware,20.0
 chinch bug,chinch,bug,
 chinchilla rat,chinchilla,rat,
 chinkapin oak,chinkapin,oak,
@@ -4559,7 +4498,6 @@ choirmaster,choir,master,20.0
 choke coil,choke,coil,
 chokecherry,choke,cherry,21.0
 chokecherry tree,chokecherry,tree,
-chokedamp,choked,amp,
 chokedamp,choke,damp,
 chokehold,choke,hold,17.0
 chokepoint,choke,point,19.0
@@ -4568,8 +4506,6 @@ chop shop,chop,shop,16.0
 chop shot,chop,shot,
 chop steak,chop,steak,
 chophouse,chop,house,19.0
-chopsteak,chops,teak,
-chopstick,chops,tick,17.0
 chopstick,chop,stick,17.0
 choral ode,choral,ode,
 chorale prelude,chorale,prelude,
@@ -4716,7 +4652,6 @@ clam chowder,clam,chowder,16.0
 clam dip,clam,dip,21.0
 clambake,clam,bake,16.0
 clampdown,clamp,down,18.0
-clamshell,clams,hell,19.0
 clamshell,clam,shell,19.0
 clan member,clan,member,
 clansman,clans,man,19.0
@@ -4767,7 +4702,6 @@ clay pipe,clay,pipe,
 clay sculpture,clay,sculpture,
 claymore mine,claymore,mine,20.0
 claystone,clay,stone,
-claystone,clays,tone,
 clayware,clay,ware,
 clean bomb,clean,bomb,
 clean room,clean,room,17.0
@@ -4821,7 +4755,6 @@ climbing perch,climbing,perch,
 climbing salamander,climbing,salamander,
 cling film,cling,film,
 clingfish,cling,fish,
-clingstone,clings,tone,
 clingstone,cling,stone,
 clinid fish,clinid,fish,
 clinker block,clinker,block,
@@ -4859,7 +4792,6 @@ close order,close,order,19.0
 close quarters,close,quarters,16.0
 close shave,close,shave,17.0
 close support,close,support,21.0
-closedown,closed,own,
 closedown,close,down,15.0
 closeout,close,out,16.0
 closet auger,closet,auger,20.0
@@ -4887,7 +4819,6 @@ clothesbrush,clothes,brush,
 clotheshorse,clothes,horse,20.0
 clothesline,clothes,line,16.0
 clothespin,clothes,pin,17.0
-clothespin,clothe,spin,17.0
 clothespress,clothes,press,
 clothing store,clothing,store,17.0
 clotting factor,clotting,factor,
@@ -4912,6 +4843,7 @@ cloveroot,clove,root,
 club car,club,car,16.0
 club drug,club,drug,
 club fungus,club,fungus,
+club head,club,head,20.0
 club member,club,member,18.0
 club moss,club,moss,
 club sandwich,club,sandwich,17.0
@@ -4919,7 +4851,6 @@ club soda,club,soda,14.0
 club steak,club,steak,
 clubfeet,club,feet,20.0
 clubfoot,club,foot,18.0
-clubhead,club,head,20.0
 clubhouse,club,house,14.0
 clubroom,club,room,19.0
 clumber spaniel,clumber,spaniel,
@@ -4974,10 +4905,10 @@ coastline,coast,line,16.0
 coat button,coat,button,
 coat closet,coat,closet,21.0
 coat hanger,coat,hanger,17.0
-coat rack,coat,rack,17.0
 coat stand,coat,stand,21.0
 coat tree,coat,tree,
 coatdress,coat,dress,
+coatrack,coat,rack,17.0
 coatroom,coat,room,17.0
 coattail,coat,tail,19.0
 coax cable,coax,cable,21.0
@@ -4985,7 +4916,6 @@ cobalt bloom,cobalt,bloom,
 cobalt blue,cobalt,blue,20.0
 cobalt ultramarine,cobalt,ultramarine,
 cobblestone,cobble,stone,18.0
-cobblestone,cobbles,tone,18.0
 cobnut,cob,nut,
 cobweb,cob,web,17.0
 coca plant,coca,plant,20.0
@@ -5002,7 +4932,6 @@ cockfighting,cock,fighting,18.0
 cockhorse,cock,horse,20.0
 cockle-bur,cockle,bur,
 cockle-burr,cockle,burr,
-cockleshell,cockles,hell,
 cockleshell,cockle,shell,
 cockloft,cock,loft,
 cockpit,cock,pit,13.0
@@ -5729,7 +5658,6 @@ coon bear,coon,bear,
 coon cat,coon,cat,
 coondog,coon,dog,21.0
 coonhound,coon,hound,19.0
-coonskin,coons,kin,18.0
 coonskin,coon,skin,18.0
 coonskin cap,coonskin,cap,20.0
 coordinate axis,coordinate,axis,
@@ -5741,7 +5669,6 @@ coordination compound,coordination,compound,
 copaiba balsam,copaiba,balsam,
 copepod crustacean,copepod,crustacean,
 copestone,cope,stone,
-copestone,copes,tone,
 coping saw,coping,saw,21.0
 coping stone,coping,stone,
 copout,cop,out,17.0
@@ -5806,7 +5733,6 @@ cork jacket,cork,jacket,
 cork oak,cork,oak,
 cork tree,cork,tree,
 corkboard,cork,board,19.0
-corkscrew,corks,crew,15.0
 corkscrew,cork,screw,15.0
 corkscrew flower,corkscrew,flower,
 corkwood,cork,wood,
@@ -5857,7 +5783,6 @@ corner pocket,corner,pocket,16.0
 corner post,corner,post,21.0
 cornerback,corner,back,18.0
 cornerstone,corner,stone,16.0
-cornerstone,corners,tone,16.0
 cornetfish,cornet,fish,
 cornfield,corn,field,16.0
 cornflour,corn,flour,
@@ -5869,8 +5794,6 @@ cornhusking,corn,husking,
 cornmeal,corn,meal,17.0
 cornmeal mush,cornmeal,mush,21.0
 cornpone,corn,pone,19.0
-cornsilk,corns,ilk,
-cornstalk,corns,talk,20.0
 cornstalk,corn,stalk,20.0
 cornstarch,corn,starch,18.0
 corona discharge,corona,discharge,
@@ -6027,7 +5950,6 @@ cow parsley,cow,parsley,
 cow parsnip,cow,parsnip,
 cow pasture,cow,pasture,20.0
 cow pen,cow,pen,
-cow pie,cow,pie,19.0
 cow pony,cow,pony,
 cow shark,cow,shark,
 cow town,cow,town,18.0
@@ -6050,13 +5972,12 @@ cowlick,cow,lick,19.0
 cowman,cow,man,19.0
 cowpea,cow,pea,
 cowpea plant,cowpea,plant,
+cowpie,cow,pie,19.0
 cowpoke,cow,poke,20.0
 cowpox,cow,pox,18.0
 cowpuncher,cow,puncher,20.0
 cowshed,cow,shed,20.0
-cowskin,cows,kin,21.0
 cowskin,cow,skin,21.0
-cowslip,cows,lip,
 cowslip,cow,slip,
 coxcomb,cox,comb,19.0
 coxswain,cox,swain,18.0
@@ -6106,15 +6027,12 @@ crank handle,crank,handle,21.0
 crank letter,crank,letter,20.0
 crankcase,crank,case,18.0
 crankshaft,crank,shaft,18.0
-crankshaft,cranks,haft,18.0
 crap game,crap,game,16.0
 crap shooting,crap,shooting,21.0
 crape fern,crape,fern,
 crape jasmine,crape,jasmine,
 crape myrtle,crape,myrtle,
 crapshoot,crap,shoot,18.0
-crapshoot,craps,hoot,18.0
-crapshooter,craps,hooter,21.0
 crapshooter,crap,shooter,20.0
 crash barrier,crash,barrier,
 crash course,crash,course,17.0
@@ -6126,7 +6044,6 @@ crash programme,crash,programme,21.0
 crawdad,craw,dad,18.0
 crawdaddy,craw,daddy,
 crawfish,craw,fish,17.0
-crawlspace,crawls,pace,17.0
 crawlspace,crawl,space,16.0
 crazy bone,crazy,bone,
 crazy house,crazy,house,17.0
@@ -6390,7 +6307,6 @@ curb roof,curb,roof,
 curb service,curb,service,21.0
 curbside,curb,side,18.0
 curbstone,curb,stone,19.0
-curbstone,curbs,tone,19.0
 curlew sandpiper,curlew,sandpiper,
 curling iron,curling,iron,17.0
 currant bush,currant,bush,
@@ -6496,8 +6412,6 @@ dammar pine,dammar,pine,
 dammar resin,dammar,resin,
 damp course,damp,course,
 damper block,damper,block,
-damselfish,dam,selfish,
-damselfish,dams,elfish,
 damselfish,damsel,fish,
 damselfly,damsel,fly,
 damson plum,damson,plum,
@@ -6528,7 +6442,6 @@ daphne family,daphne,family,
 dapple-gray,dapple,gray,20.0
 dapple-grey,dapple,grey,
 daredevil,dare,devil,16.0
-daredevil,dared,evil,16.0
 daredevilry,dare,devilry,
 dark adaptation,dark,adaptation,21.0
 dark blue,dark,blue,16.0
@@ -6585,6 +6498,7 @@ day blindness,day,blindness,
 day boarder,day,boarder,
 day book,day,book,19.0
 day camp,day,camp,18.0
+day care,day,care,14.0
 day game,day,game,19.0
 day jessamine,day,jessamine,
 day laborer,day,laborer,19.0
@@ -6598,7 +6512,6 @@ day watch,day,watch,18.0
 daybed,day,bed,18.0
 dayboy,day,boy,17.0
 daybreak,day,break,15.0
-daycare,day,care,14.0
 daydream,day,dream,15.0
 daydreamer,day,dreamer,19.0
 daydreaming,day,dreaming,15.0
@@ -6610,7 +6523,6 @@ daylight saving,daylight,saving,21.0
 daylight savings,daylight,savings,18.0
 daylight vision,daylight,vision,
 dayspring,day,spring,19.0
-daystar,days,tar,21.0
 daystar,day,star,21.0
 daytime,day,time,13.0
 dead air,dead,air,17.0
@@ -6667,7 +6579,6 @@ death instinct,death,instinct,
 death knell,death,knell,18.0
 death mask,death,mask,18.0
 death penalty,death,penalty,13.0
-death rate,death,rate,19.0
 death row,death,row,14.0
 death seat,death,seat,18.0
 death squad,death,squad,17.0
@@ -6678,6 +6589,7 @@ death wish,death,wish,14.0
 death-roll,death,roll,20.0
 deathbed,death,bed,15.0
 deathblow,death,blow,19.0
+deathrate,death,rate,19.0
 deathtrap,death,trap,17.0
 deathwatch,death,watch,17.0
 deathwatch beetle,deathwatch,beetle,21.0
@@ -6733,11 +6645,8 @@ deer tick,deer,tick,20.0
 deer trail,deer,trail,21.0
 deerberry,deer,berry,
 deerhound,deer,hound,
-deerskin,deers,kin,21.0
 deerskin,deer,skin,21.0
 deerstalker,deer,stalker,20.0
-deerstalker,deers,talker,20.0
-deerstalking,deers,talking,
 deerstalking,deer,stalking,
 default judgement,default,judgement,
 default judgment,default,judgment,
@@ -6887,7 +6796,6 @@ dessert apple,dessert,apple,
 dessert plate,dessert,plate,21.0
 dessert spoon,dessert,spoon,
 dessert wine,dessert,wine,21.0
-dessertspoon,desserts,poon,
 dessertspoonful,dessert,spoonful,
 destroyer escort,destroyer,escort,
 destruction fire,destruction,fire,
@@ -7016,9 +6924,9 @@ dining area,dining,area,18.0
 dining car,dining,car,16.0
 dining companion,dining,companion,21.0
 dining compartment,dining,compartment,
-dining room,dining,room,12.0
 dining table,dining,table,17.0
 dining-hall,dining,hall,16.0
+dining-room,dining,room,12.0
 dinner bell,dinner,bell,18.0
 dinner bucket,dinner,bucket,
 dinner dress,dinner,dress,21.0
@@ -7040,7 +6948,6 @@ dipole antenna,dipole,antenna,
 dipole molecule,dipole,molecule,
 dipole moment,dipole,moment,
 dipstick,dip,stick,16.0
-dipstick,dips,tick,16.0
 direction finder,direction,finder,20.0
 dirt ball,dirt,ball,21.0
 dirt bike,dirt,bike,17.0
@@ -7168,11 +7075,9 @@ dockside,dock,side,19.0
 dockworker,dock,worker,19.0
 dockyard,dock,yard,19.0
 doctor-fish,doctor,fish,
-doctorspeak,doctors,peak,
 doctorspeak,doctor,speak,19.0
 documentary film,documentary,film,18.0
 doeskin,doe,skin,
-doeskin,does,kin,
 dog bent,dog,bent,
 dog biscuit,dog,biscuit,20.0
 dog bite,dog,bite,17.0
@@ -7195,6 +7100,7 @@ dog racing,dog,racing,19.0
 dog rose,dog,rose,
 dog shit,dog,shit,15.0
 dog show,dog,show,16.0
+dog sled,dog,sled,18.0
 dog sleigh,dog,sleigh,
 dog stinkhorn,dog,stinkhorn,
 dog tag,dog,tag,19.0
@@ -7216,9 +7122,6 @@ doggy do,doggy,do,19.0
 doghouse,dog,house,15.0
 dogleg,dog,leg,18.0
 dogsbody,dogs,body,
-dogshit,dogs,hit,16.0
-dogsled,dogs,led,20.0
-dogsled,dog,sled,18.0
 dogtooth,dog,tooth,21.0
 dogtooth violet,dogtooth,violet,
 dogtrot,dog,trot,
@@ -7288,12 +7191,8 @@ doornail,door,nail,16.0
 doorplate,door,plate,
 doorpost,door,post,21.0
 doorsill,door,sill,
-doorsill,doors,ill,
 doorstep,door,step,13.0
-doorstop,doors,top,17.0
 doorstop,door,stop,17.0
-doorstopper,doorstop,per,
-doorstopper,doors,topper,
 doorstopper,door,stopper,
 doorway,door,way,13.0
 dooryard,door,yard,
@@ -7369,7 +7268,6 @@ double-prop,double,prop,
 double-spacing,double,spacing,
 double-u,double,u,21.0
 doubleheader,double,header,18.0
-doublespeak,doubles,peak,20.0
 doublespeak,double,speak,20.0
 doublethink,double,think,
 doubletree,double,tree,21.0
@@ -7395,13 +7293,10 @@ downpour,down,pour,18.0
 downshift,down,shift,19.0
 downside,down,side,15.0
 downsizing,down,sizing,17.0
-downslope,downs,lope,21.0
 downslope,down,slope,21.0
 downspin,down,spin,
-downspin,downs,pin,
 downstage,down,stage,18.0
 downstroke,down,stroke,19.0
-downswing,downs,wing,21.0
 downswing,down,swing,21.0
 downtick,down,tick,21.0
 downtime,down,time,16.0
@@ -7457,7 +7352,6 @@ drawing string,drawing,string,
 drawing table,drawing,table,21.0
 drawknife,draw,knife,
 drawnwork,drawn,work,
-drawshave,draws,have,
 drawshave,draw,shave,
 drawstring,draw,string,19.0
 drawstring bag,drawstring,bag,
@@ -7526,13 +7420,11 @@ drip mould,drip,mould,
 drip pan,drip,pan,21.0
 drip pot,drip,pot,
 dripping pan,dripping,pan,
-dripstone,drips,tone,
 dripstone,drip,stone,
 drive line,drive,line,
 drive-in,drive,in,14.0
 driver ant,driver,ant,21.0
 driveshaft,drive,shaft,16.0
-driveshaft,drives,haft,16.0
 driveway,drive,way,12.0
 driving axle,driving,axle,
 driving belt,driving,belt,
@@ -7581,7 +7473,6 @@ drug trafficker,drug,trafficker,19.0
 drug user,drug,user,17.0
 drug war,drug,war,18.0
 drug withdrawal,drug,withdrawal,21.0
-drugstore,drugs,tore,13.0
 drugstore,drug,store,13.0
 drum brake,drum,brake,
 drum major,drum,major,17.0
@@ -7594,7 +7485,6 @@ drumbeater,drum,beater,
 drumfire,drum,fire,
 drumfish,drum,fish,
 drumhead,drum,head,
-drumstick,drums,tick,17.0
 drumstick,drum,stick,17.0
 drumstick tree,drumstick,tree,
 dry battery,dry,battery,
@@ -7690,7 +7580,6 @@ dust contamination,dust,contamination,
 dust cover,dust,cover,19.0
 dust devil,dust,devil,20.0
 dust jacket,dust,jacket,18.0
-dust mop,dust,mop,19.0
 dust sheet,dust,sheet,
 dust storm,dust,storm,18.0
 dust wrapper,dust,wrapper,
@@ -7698,6 +7587,7 @@ dustbin,dust,bin,18.0
 dustcart,dust,cart,
 dustcloth,dust,cloth,
 dustman,dust,man,19.0
+dustmop,dust,mop,19.0
 dustpan,dust,pan,17.0
 dustrag,dust,rag,20.0
 duty assignment,duty,assignment,19.0
@@ -7729,7 +7619,6 @@ dwarf tulip,dwarf,tulip,
 dwarf willow,dwarf,willow,
 dwelling house,dwelling,house,
 dye-works,dye,works,
-dyestuff,dyes,tuff,
 dyestuff,dye,stuff,
 dyeweed,dye,weed,
 dyewood,dye,wood,
@@ -7764,7 +7653,6 @@ earplug,ear,plug,19.0
 earreach,ear,reach,
 earring,ear,ring,14.0
 earshot,ear,shot,17.0
-earshot,ears,hot,17.0
 earth almond,earth,almond,
 earth color,earth,color,
 earth god,earth,god,21.0
@@ -7782,7 +7670,6 @@ earthman,earth,man,17.0
 earthnut,earth,nut,
 earthnut pea,earthnut,pea,
 earthquake,earth,quake,12.0
-earthstar,earths,tar,
 earthstar,earth,star,21.0
 earthwork,earth,work,21.0
 earthworm,earth,worm,18.0
@@ -7797,7 +7684,6 @@ eating disorder,eating,disorder,17.0
 eating house,eating,house,
 eating place,eating,place,19.0
 eating utensil,eating,utensil,
-eavesdropper,eavesdrop,per,19.0
 eavesdropper,eaves,dropper,19.0
 ebbtide,ebb,tide,21.0
 ebony family,ebony,family,
@@ -7842,7 +7728,6 @@ efficiency engineer,efficiency,engineer,
 efficiency expert,efficiency,expert,18.0
 egg cell,egg,cell,
 egg cream,egg,cream,17.0
-egg cup,egg,cup,20.0
 egg laying,egg,laying,
 egg noodle,egg,noodle,
 egg roll,egg,roll,16.0
@@ -7850,15 +7735,14 @@ egg timer,egg,timer,17.0
 egg white,egg,white,18.0
 egg yolk,egg,yolk,19.0
 eggbeater,egg,beater,17.0
+eggcup,egg,cup,20.0
 eggfruit,egg,fruit,
 egghead,egg,head,15.0
 eggnog,egg,nog,15.0
 eggplant,egg,plant,15.0
 eggplant bush,eggplant,bush,
-eggshake,eggs,hake,
 eggshake,egg,shake,
 eggshell,egg,shell,16.0
-eggshell,eggs,hell,16.0
 eggwhisk,egg,whisk,21.0
 ego ideal,ego,ideal,
 ego trip,ego,trip,19.0
@@ -8358,13 +8242,9 @@ eyepiece,eye,piece,20.0
 eyeshade,eye,shade,
 eyeshadow,eye,shadow,16.0
 eyeshot,eye,shot,19.0
-eyeshot,eyes,hot,19.0
 eyesight,eye,sight,14.0
-eyesore,eyes,ore,17.0
 eyesore,eye,sore,17.0
-eyespot,eyes,pot,
 eyespot,eye,spot,
-eyestrain,eyes,train,20.0
 eyestrain,eye,strain,20.0
 eyewash,eye,wash,18.0
 eyewitness,eye,witness,13.0
@@ -8442,9 +8322,9 @@ fairy ring,fairy,ring,19.0
 fairy shrimp,fairy,shrimp,
 fairy story,fairy,story,17.0
 fairy swallow,fairy,swallow,
+fairy tale,fairy,tale,13.0
 fairy-slipper,fairy,slipper,
 fairyland,fairy,land,18.0
-fairytale,fairy,tale,13.0
 faith cure,faith,cure,21.0
 faith healing,faith,healing,
 fake book,fake,book,21.0
@@ -8573,7 +8453,6 @@ feather palm,feather,palm,
 feather star,feather,star,21.0
 feather-foil,feather,foil,
 featherbed,feather,bed,18.0
-featherbedding,featherbed,ding,
 featherbedding,feather,bedding,
 featheredge,feather,edge,
 feathertop,feather,top,
@@ -8667,7 +8546,6 @@ fiber optics,fiber,optics,17.0
 fiberboard,fiber,board,
 fiberglass,fiber,glass,16.0
 fiberscope,fiber,scope,
-fiberscope,fibers,cope,
 fibre bundle,fibre,bundle,
 fibre optics,fibre,optics,20.0
 fibreboard,fibre,board,
@@ -8677,7 +8555,6 @@ fiddlehead,fiddle,head,21.0
 fiddlehead fern,fiddlehead,fern,
 fiddleneck,fiddle,neck,
 fiddler crab,fiddler,crab,21.0
-fiddlestick,fiddles,tick,21.0
 fiddlestick,fiddle,stick,21.0
 fiduciary duty,fiduciary,duty,21.0
 fiduciary relation,fiduciary,relation,
@@ -8704,6 +8581,7 @@ field glasses,field,glasses,18.0
 field goal,field,goal,16.0
 field guide,field,guide,
 field gun,field,gun,
+field hand,field,hand,18.0
 field hockey,field,hockey,16.0
 field horsetail,field,horsetail,
 field hospital,field,hospital,17.0
@@ -8745,12 +8623,10 @@ field trip,field,trip,14.0
 field winding,field,winding,
 field wormwood,field,wormwood,
 fieldfare,field,fare,
-fieldhand,field,hand,18.0
 fielding average,fielding,average,
 fieldmouse,field,mouse,17.0
 fieldsman,fields,man,
 fieldstone,field,stone,18.0
-fieldstone,fields,tone,18.0
 fieldwork,field,work,17.0
 fieldworker,field,worker,
 fiesta flower,fiesta,flower,
@@ -8860,7 +8736,6 @@ fingerprint expert,fingerprint,expert,20.0
 fingerprint man,fingerprint,man,
 fingerprint specialist,fingerprint,specialist,
 fingerprinting,finger,printing,17.0
-fingerstall,fingers,tall,
 fingerstall,finger,stall,
 fingertip,finger,tip,17.0
 finish coat,finish,coat,
@@ -8935,10 +8810,8 @@ firebrick,fire,brick,
 firebug,fire,bug,17.0
 fireclay,fire,clay,
 firecracker,fire,cracker,15.0
-firedamp,fired,amp,
 firedamp,fire,damp,
 firedog,fire,dog,21.0
-firedrake,fired,rake,
 firedrake,fire,drake,
 firefighter,fire,fighter,15.0
 firefly,fire,fly,16.0
@@ -8953,7 +8826,6 @@ fireplug,fire,plug,17.0
 firepower,fire,power,14.0
 fireroom,fire,room,19.0
 fireside,fire,side,17.0
-firestone,fires,tone,17.0
 firestone,fire,stone,17.0
 firestorm,fire,storm,18.0
 firetrap,fire,trap,18.0
@@ -9098,9 +8970,7 @@ flagfish,flag,fish,
 flagpole,flag,pole,16.0
 flagroot,flag,root,
 flagship,flag,ship,15.0
-flagship,flags,hip,15.0
 flagstaff,flag,staff,15.0
-flagstone,flags,tone,18.0
 flagstone,flag,stone,18.0
 flak catcher,flak,catcher,
 flamboyant tree,flamboyant,tree,
@@ -9129,9 +8999,9 @@ flare pass,flare,pass,
 flare path,flare,path,
 flare star,flare,star,
 flash camera,flash,camera,
+flash flood,flash,flood,18.0
 flash lamp,flash,lamp,
 flash memory,flash,memory,20.0
-flash point,flash,point,19.0
 flash welding,flash,welding,
 flash-forward,flash,forward,20.0
 flashback,flash,back,15.0
@@ -9139,12 +9009,12 @@ flashboard,flash,board,
 flashboarding,flash,boarding,
 flashbulb,flash,bulb,19.0
 flashcard,flash,card,20.0
-flashflood,flash,flood,18.0
 flashgun,flash,gun,21.0
 flashlight,flash,light,13.0
 flashlight battery,flashlight,battery,
 flashlight fish,flashlight,fish,
 flashover,flash,over,19.0
+flashpoint,flash,point,19.0
 flat arch,flat,arch,
 flat bench,flat,bench,
 flat bone,flat,bone,
@@ -9206,7 +9076,6 @@ flint maize,flint,maize,
 flinthead,flint,head,
 flintlock,flint,lock,18.0
 flintstone,flint,stone,18.0
-flintstone,flints,tone,18.0
 flip chart,flip,chart,
 flip side,flip,side,16.0
 flip-flop,flip,flop,16.0
@@ -9234,7 +9103,6 @@ floor plan,floor,plan,16.0
 floor show,floor,show,16.0
 floor wax,floor,wax,19.0
 floorboard,floor,board,17.0
-floorshow,floors,how,17.0
 floorwalker,floor,walker,18.0
 flophouse,flop,house,17.0
 floppy disk,floppy,disk,20.0
@@ -9250,6 +9118,7 @@ flow rate,flow,rate,
 flow sheet,flow,sheet,
 flowchart,flow,chart,19.0
 flower arrangement,flower,arrangement,20.0
+flower bed,flower,bed,18.0
 flower bud,flower,bud,
 flower chain,flower,chain,
 flower child,flower,child,19.0
@@ -9263,7 +9132,6 @@ flower petal,flower,petal,
 flower power,flower,power,19.0
 flower stalk,flower,stalk,21.0
 flower store,flower,store,19.0
-flowerbed,flower,bed,18.0
 flowering almond,flowering,almond,
 flowering ash,flowering,ash,
 flowering cherry,flowering,cherry,
@@ -9387,10 +9255,10 @@ folk etymology,folk,etymology,
 folk music,folk,music,16.0
 folk poet,folk,poet,
 folk singer,folk,singer,17.0
+folk song,folk,song,20.0
+folk tale,folk,tale,18.0
 folk writer,folk,writer,
 folklore,folk,lore,15.0
-folksong,folk,song,20.0
-folktale,folk,tale,18.0
 font cartridge,font,cartridge,
 food additive,food,additive,21.0
 food allergy,food,allergy,20.0
@@ -9421,7 +9289,6 @@ food turner,food,turner,
 food waste,food,waste,21.0
 food web,food,web,
 foodstuff,food,stuff,20.0
-foodstuff,foods,tuff,20.0
 foolhardiness,fool,hardiness,
 foolscap,fools,cap,21.0
 foot brake,foot,brake,21.0
@@ -9471,13 +9338,10 @@ footprint,foot,print,15.0
 footprint evidence,footprint,evidence,21.0
 footrace,foot,race,19.0
 footrest,foot,rest,18.0
-footslogger,foots,logger,21.0
 footslogger,foot,slogger,21.0
-footstall,foots,tall,
 footstall,foot,stall,
 footstep,foot,step,17.0
 footstool,foot,stool,18.0
-footstool,foots,tool,18.0
 footwall,foot,wall,
 footwear,foot,wear,16.0
 footwork,foot,work,15.0
@@ -9522,8 +9386,8 @@ formative cell,formative,cell,
 forte-piano,forte,piano,
 fortune cookie,fortune,cookie,15.0
 fortune hunter,fortune,hunter,17.0
+fortune telling,fortune,telling,18.0
 fortuneteller,fortune,teller,16.0
-fortunetelling,fortune,telling,18.0
 forty-five,forty,five,14.0
 forty-niner,forty,niner,18.0
 forward market,forward,market,
@@ -9554,7 +9418,6 @@ four-pounder,four,pounder,
 four-spot,four,spot,21.0
 four-wheeler,four,wheeler,18.0
 fourpence,four,pence,20.0
-fourscore,fours,core,17.0
 fourscore,four,score,17.0
 foursome,four,some,16.0
 foursquare,four,square,19.0
@@ -9648,8 +9511,6 @@ freemail,free,mail,
 freeman,free,man,13.0
 freemasonry,free,masonry,19.0
 freestone,free,stone,16.0
-freestone,frees,tone,16.0
-freestone,freest,one,16.0
 freestyle,free,style,15.0
 freetail,free,tail,
 freethinker,free,thinker,19.0
@@ -9738,7 +9599,6 @@ frontal suture,frontal,suture,
 frontier settlement,frontier,settlement,
 frontiersman,frontiers,man,21.0
 frontierswoman,frontiers,woman,
-frontstall,fronts,tall,
 frost fish,frost,fish,
 frost heave,frost,heave,
 frost heaving,frost,heaving,
@@ -9808,7 +9668,6 @@ fulmar petrel,fulmar,petrel,
 fumeroot,fume,root,
 fumewort,fume,wort,
 fumitory family,fumitory,family,
-fun run,fun,run,19.0
 function call,function,call,21.0
 function word,function,word,
 fundamental analysis,fundamental,analysis,
@@ -9847,6 +9706,7 @@ funny house,funny,house,
 funny remark,funny,remark,
 funny story,funny,story,15.0
 funny wagon,funny,wagon,
+funrun,fun,run,19.0
 fur coat,fur,coat,15.0
 fur hat,fur,hat,21.0
 fur seal,fur,seal,
@@ -9875,7 +9735,6 @@ gadabout,gad,about,19.0
 gadfly,gad,fly,19.0
 gadoid fish,gadoid,fish,
 gaff topsail,gaff,topsail,
-gaffsail,gaffs,ail,
 gaffsail,gaff,sail,21.0
 gag law,gag,law,
 gag line,gag,line,
@@ -9897,7 +9756,6 @@ gallop rhythm,gallop,rhythm,
 gallows bird,gallows,bird,
 gallows-tree,gallows,tree,19.0
 gallstone,gall,stone,18.0
-gallstone,galls,tone,18.0
 gambling casino,gambling,casino,17.0
 gambling contract,gambling,contract,
 gambling den,gambling,den,18.0
@@ -10097,7 +9955,6 @@ gear wheel,gear,wheel,
 gearbox,gear,box,18.0
 gearset,gear,set,21.0
 gearshift,gear,shift,17.0
-gearstick,gears,tick,
 gearstick,gear,stick,20.0
 geartrain,gear,train,
 gee-gee,gee,gee,20.0
@@ -10107,7 +9964,6 @@ gelechiid moth,gelechiid,moth,
 gem clip,gem,clip,
 gem cutter,gem,cutter,
 gemsbuck,gems,buck,
-gemstone,gems,tone,19.0
 gemstone,gem,stone,19.0
 gender agreement,gender,agreement,
 gender identity,gender,identity,19.0
@@ -10169,7 +10025,6 @@ gesneria family,gesneria,family,
 gestation period,gestation,period,18.0
 get-go,get,go,16.0
 getaway,get,away,9.0
-getaway,geta,way,13.0
 getting even,getting,even,15.0
 ghatti gum,ghatti,gum,
 ghetto blaster,ghetto,blaster,18.0
@@ -10248,7 +10103,6 @@ gingerbread,ginger,bread,16.0
 gingerbread man,gingerbread,man,20.0
 gingerroot,ginger,root,20.0
 gingersnap,ginger,snap,21.0
-gingersnap,gingers,nap,21.0
 ginkgo family,ginkgo,family,
 ginmill,gin,mill,17.0
 gipsy moth,gipsy,moth,
@@ -10340,7 +10194,6 @@ goatfish,goat,fish,
 goatherd,goat,herd,19.0
 goatsbeard,goats,beard,
 goatsfoot,goats,foot,
-goatskin,goats,kin,19.0
 goatskin,goat,skin,19.0
 goatsucker,goat,sucker,20.0
 goblet cell,goblet,cell,
@@ -10350,7 +10203,6 @@ godfather,god,father,13.0
 godmother,god,mother,14.0
 godparent,god,parent,19.0
 godsend,god,send,15.0
-godsend,gods,end,15.0
 godson,god,son,15.0
 going-over,going,over,12.0
 gold braid,gold,braid,18.0
@@ -10362,6 +10214,7 @@ gold fever,gold,fever,16.0
 gold foil,gold,foil,21.0
 gold leaf,gold,leaf,18.0
 gold medal,gold,medal,16.0
+gold mine,gold,mine,14.0
 gold miner,gold,miner,21.0
 gold plate,gold,plate,19.0
 gold rush,gold,rush,16.0
@@ -10381,15 +10234,14 @@ goldfinch,gold,finch,20.0
 goldfish,gold,fish,14.0
 goldfish bowl,goldfish,bowl,17.0
 goldilocks aster,goldilocks,aster,
-goldmine,gold,mine,14.0
 goldsmith,gold,smith,17.0
-goldstone,golds,tone,21.0
 goldstone,gold,stone,21.0
 goldthread,gold,thread,18.0
 golf bag,golf,bag,17.0
 golf ball,golf,ball,16.0
 golf caddie,golf,caddie,
 golf cap,golf,cap,20.0
+golf cart,golf,cart,17.0
 golf course,golf,course,13.0
 golf equipment,golf,equipment,
 golf game,golf,game,16.0
@@ -10405,7 +10257,6 @@ golf stroke,golf,stroke,
 golf tee,golf,tee,20.0
 golf widow,golf,widow,
 golf-club,golf,club,15.0
-golfcart,golf,cart,17.0
 goliath frog,goliath,frog,
 gomuti palm,gomuti,palm,
 gondola car,gondola,car,
@@ -10440,11 +10291,11 @@ good temper,good,temper,19.0
 good time,good,time,10.0
 good turn,good,turn,16.0
 good weather,good,weather,16.0
-good will,good,will,14.0
 good word,good,word,14.0
 good-neighborliness,good,neighborliness,
 good-neighbourliness,good,neighbourliness,
 goodbye,good,bye,8.0
+goodwill,good,will,14.0
 goody-goody,goody,goody,17.0
 goofball,goof,ball,16.0
 gooney bird,gooney,bird,18.0
@@ -10523,10 +10374,10 @@ graham bread,graham,bread,
 graham cracker,graham,cracker,17.0
 graham flour,graham,flour,
 grain alcohol,grain,alcohol,18.0
+grain field,grain,field,21.0
 grain merchant,grain,merchant,21.0
 grain moth,grain,moth,
 grain sorghum,grain,sorghum,
-grainfield,grain,field,21.0
 gram atom,gram,atom,
 gram calorie,gram,calorie,
 gram molecule,gram,molecule,
@@ -10551,7 +10402,6 @@ grand theft,grand,theft,15.0
 grand total,grand,total,17.0
 grand tour,grand,tour,16.0
 grandad,gran,dad,17.0
-grandaunt,gran,daunt,
 grandaunt,grand,aunt,21.0
 grandchild,grand,child,15.0
 granddad,grand,dad,14.0
@@ -10564,7 +10414,6 @@ grandmaster,grand,master,16.0
 grandmother,grand,mother,11.0
 grandnephew,grand,nephew,20.0
 grandniece,grand,niece,21.0
-grandparent,grandpa,rent,18.0
 grandparent,grand,parent,18.0
 grandson,grand,son,12.0
 grandstand,grand,stand,16.0
@@ -10586,7 +10435,6 @@ grape sugar,grape,sugar,
 grapefruit,grape,fruit,14.0
 grapefruit juice,grapefruit,juice,17.0
 grapefruit peel,grapefruit,peel,
-grapeshot,grapes,hot,20.0
 grapeshot,grape,shot,20.0
 grapevine,grape,vine,15.0
 grapevine family,grapevine,family,
@@ -10627,8 +10475,6 @@ gravedigger,grave,digger,16.0
 gravel pit,gravel,pit,19.0
 gravelweed,gravel,weed,
 graverobber,grave,robber,17.0
-gravestone,graves,tone,17.0
-gravestone,gravest,one,17.0
 gravestone,grave,stone,17.0
 graveyard,grave,yard,13.0
 graveyard shift,graveyard,shift,16.0
@@ -10782,12 +10628,9 @@ greenhouse whitefly,greenhouse,whitefly,
 greenmail,green,mail,21.0
 greenroom,green,room,16.0
 greensand,green,sand,
-greensand,greens,and,17.0
 greenshank,green,shank,
-greenshank,greens,hank,
 greensickness,green,sickness,
 greenskeeper,greens,keeper,17.0
-greensward,greens,ward,
 greensward,green,sward,
 greenway,green,way,17.0
 greenweed,green,weed,
@@ -10835,12 +10678,10 @@ grillroom,grill,room,20.0
 grillwork,grill,work,20.0
 grind organ,grind,organ,
 grinding wheel,grinding,wheel,19.0
-grindstone,grinds,tone,16.0
 grindstone,grind,stone,16.0
 gripsack,grip,sack,
 gristmill,grist,mill,20.0
 gritrock,grit,rock,
-gritstone,grits,tone,
 gritstone,grit,stone,
 grizzly bear,grizzly,bear,17.0
 grocery bag,grocery,bag,20.0
@@ -10859,7 +10700,6 @@ grossbeak,gross,beak,
 ground almond,ground,almond,
 ground attack,ground,attack,19.0
 ground bait,ground,bait,
-ground ball,ground,ball,17.0
 ground bass,ground,bass,
 ground beef,ground,beef,17.0
 ground beetle,ground,beetle,
@@ -10899,6 +10739,7 @@ ground wave,ground,wave,
 ground zero,ground,zero,15.0
 ground-berry,ground,berry,
 ground-shaker,ground,shaker,21.0
+groundball,ground,ball,17.0
 groundbreaker,ground,breaker,
 groundbreaking,ground,breaking,16.0
 groundbreaking ceremony,groundbreaking,ceremony,19.0
@@ -10916,7 +10757,6 @@ groundsheet,ground,sheet,21.0
 groundskeeper,grounds,keeper,17.0
 groundsman,grounds,man,20.0
 groundspeed,ground,speed,19.0
-groundspeed,grounds,peed,
 groundwork,ground,work,16.0
 group action,group,action,
 group captain,group,captain,18.0
@@ -10943,7 +10783,6 @@ growth regulator,growth,regulator,21.0
 growth ring,growth,ring,
 growth stock,growth,stock,
 grubstake,grub,stake,18.0
-grubstake,grubs,take,18.0
 grugru nut,grugru,nut,
 grugru palm,grugru,palm,
 guaiac wood,guaiac,wood,
@@ -11023,7 +10862,6 @@ gumboil,gum,boil,20.0
 gumdrop,gum,drop,18.0
 gumshield,gum,shield,
 gumshoe,gum,shoe,17.0
-gumshoe,gums,hoe,17.0
 gumweed,gum,weed,
 gumwood,gum,wood,
 gun barrel,gun,barrel,18.0
@@ -11043,7 +10881,6 @@ gun room,gun,room,21.0
 gun smoke,gun,smoke,20.0
 gun trigger,gun,trigger,
 gun turret,gun,turret,18.0
-gun-sight,gun,sight,19.0
 gunboat,gun,boat,16.0
 gunboat diplomacy,gunboat,diplomacy,
 guncotton,gun,cotton,21.0
@@ -11060,9 +10897,8 @@ gunpoint,gun,point,15.0
 gunpowder,gun,powder,14.0
 gunrunner,gun,runner,18.0
 gunrunning,gun,running,18.0
-gunshot,guns,hot,12.0
 gunshot,gun,shot,12.0
-gunslinger,guns,linger,16.0
+gunsight,gun,sight,19.0
 gunslinger,gun,slinger,16.0
 gunsmith,gun,smith,17.0
 gunstock,gun,stock,21.0
@@ -11081,7 +10917,6 @@ gym shoe,gym,shoe,21.0
 gym suit,gym,suit,
 gymnosperm family,gymnosperm,family,
 gymnosperm genus,gymnosperm,genus,
-gymslip,gyms,lip,
 gymslip,gym,slip,
 gypsum board,gypsum,board,
 gypsy cab,gypsy,cab,19.0
@@ -11101,7 +10936,6 @@ hackwork,hack,work,21.0
 hagberry,hag,berry,
 hagberry tree,hagberry,tree,
 hagfish,hag,fish,
-hailstone,hails,tone,20.0
 hailstone,hail,stone,20.0
 hailstorm,hail,storm,17.0
 hair cell,hair,cell,
@@ -11197,7 +11031,6 @@ half-wit,half,wit,15.0
 halfback,half,back,16.0
 halfbeak,half,beak,
 halfpenny,half,penny,19.0
-halfpennyworth,half,pennyworth,
 halfpennyworth,halfpenny,worth,
 halftime,half,time,15.0
 halftone,half,tone,
@@ -11291,12 +11124,9 @@ handsaw fish,handsaw,fish,
 handsbreadth,hands,breadth,
 handset,hand,set,17.0
 handshake,hand,shake,14.0
-handshake,hands,hake,14.0
 handshaking,hand,shaking,19.0
 handspike,hand,spike,21.0
-handspike,hands,pike,
 handspring,hand,spring,18.0
-handstamp,hands,tamp,
 handstamp,hand,stamp,19.0
 handstand,hand,stand,18.0
 handwheel,hand,wheel,
@@ -11365,7 +11195,7 @@ harvestfish,harvest,fish,
 harvestman,harvest,man,
 hash head,hash,head,21.0
 hash house,hash,house,20.0
-hash mark,hash,mark,21.0
+hashmark,hash,mark,21.0
 hat shop,hat,shop,17.0
 hat trick,hat,trick,17.0
 hatband,hat,band,21.0
@@ -11387,7 +11217,6 @@ hawk nose,hawk,nose,
 hawk owl,hawk,owl,
 hawkbill,hawk,bill,
 hawkbit,hawk,bit,
-hawkbit,haw,kbit,
 hawksbill,hawks,bill,
 hawksbill turtle,hawksbill,turtle,
 hawkweed,hawk,weed,
@@ -11410,7 +11239,6 @@ hayrack,hay,rack,
 hayrick,hay,rick,
 hayrig,hay,rig,
 hayseed,hay,seed,17.0
-haystack,hays,tack,15.0
 haystack,hay,stack,15.0
 haywire,hay,wire,15.0
 hazard insurance,hazard,insurance,
@@ -11467,7 +11295,6 @@ headliner,head,liner,16.0
 headlock,head,lock,17.0
 headman,head,man,15.0
 headmaster,head,master,14.0
-headmastership,headmaster,ship,21.0
 headmastership,head,mastership,21.0
 headmistress,head,mistress,17.0
 headphone,head,phone,18.0
@@ -11478,23 +11305,17 @@ headrace,head,race,
 headrest,head,rest,18.0
 headroom,head,room,19.0
 headsail,head,sail,21.0
-headsail,heads,ail,21.0
 headscarf,head,scarf,21.0
 headset,head,set,15.0
 headshake,head,shake,20.0
-headshake,heads,hake,
 headshaking,head,shaking,
 headshot,head,shot,16.0
-headshot,heads,hot,17.0
 headsman,heads,man,19.0
 headspace,head,space,18.0
-headspace,heads,pace,21.0
 headspring,head,spring,21.0
-headstall,heads,tall,
 headstall,head,stall,
 headstand,head,stand,18.0
 headstock,head,stock,20.0
-headstone,heads,tone,15.0
 headstone,head,stone,15.0
 headstream,head,stream,
 headwaiter,head,waiter,17.0
@@ -11555,17 +11376,14 @@ heartburn,heart,burn,16.0
 heartburning,heart,burning,
 hearth money,hearth,money,
 hearthrug,hearth,rug,
-hearthstone,hearths,tone,
 hearthstone,hearth,stone,
 heartland,heart,land,16.0
 heartleaf arnica,heartleaf,arnica,
 heartleaf manzanita,heartleaf,manzanita,
 heartrot,heart,rot,
-heartrot,hear,trot,
 heartsease,hearts,ease,
 heartseed,heart,seed,
 heartsickness,heart,sickness,
-heartsickness,heartsick,ness,
 heartthrob,heart,throb,17.0
 heartwood,heart,wood,
 heat barrier,heat,barrier,
@@ -11613,7 +11431,6 @@ heavy water,heavy,water,19.0
 heavy weapon,heavy,weapon,19.0
 heavyweight,heavy,weight,13.0
 hedge bindweed,hedge,bindweed,
-hedge fund,hedge,fund,19.0
 hedge garlic,hedge,garlic,
 hedge maple,hedge,maple,
 hedge mustard,hedge,mustard,
@@ -11623,6 +11440,7 @@ hedge sparrow,hedge,sparrow,
 hedge thorn,hedge,thorn,
 hedge trimmer,hedge,trimmer,19.0
 hedge violet,hedge,violet,
+hedgefund,hedge,fund,19.0
 hedgehog,hedge,hog,18.0
 hedgehog cactus,hedgehog,cactus,
 hedgerow,hedge,row,19.0
@@ -11655,7 +11473,6 @@ hemp agrimony,hemp,agrimony,
 hemp family,hemp,family,
 hemp nettle,hemp,nettle,
 hemp willow,hemp,willow,
-hemstitch,hems,titch,
 hemstitch,hem,stitch,
 hemstitching,hem,stitching,20.0
 hen harrier,hen,harrier,
@@ -11747,6 +11564,7 @@ high horse,high,horse,16.0
 high jinks,high,jinks,17.0
 high jinx,high,jinx,
 high jump,high,jump,19.0
+high life,high,life,17.0
 high mallow,high,mallow,
 high noon,high,noon,16.0
 high pitch,high,pitch,
@@ -11756,7 +11574,6 @@ high profile,high,profile,16.0
 high quality,high,quality,17.0
 high relief,high,relief,
 high roller,high,roller,16.0
-high school,high,school,9.0
 high sea,high,sea,
 high season,high,season,19.0
 high sign,high,sign,17.0
@@ -11796,11 +11613,11 @@ highjack,high,jack,20.0
 highjacking,high,jacking,
 highland,high,land,15.0
 highland fling,highland,fling,19.0
-highlife,high,life,17.0
 highlight,high,light,15.0
 highlighter,high,lighter,18.0
 highlighting,high,lighting,17.0
 highroad,high,road,15.0
+highschool,high,school,9.0
 highway,high,way,11.0
 highway engineer,highway,engineer,
 highway robbery,highway,robbery,17.0
@@ -11818,7 +11635,6 @@ hindbrain,hind,brain,
 hindfoot,hind,foot,
 hindgut,hind,gut,
 hindquarter,hind,quarter,
-hindshank,hinds,hank,
 hindshank,hind,shank,
 hindsight,hind,sight,15.0
 hinge joint,hinge,joint,
@@ -11966,10 +11782,8 @@ homeobox gene,homeobox,gene,
 homeowner,home,owner,15.0
 homepage,home,page,19.0
 homeroom,home,room,15.0
-homesickness,homesick,ness,18.0
 homesickness,home,sickness,18.0
 homespun,home,spun,17.0
-homespun,homes,pun,17.0
 homestead,home,stead,15.0
 homestead law,homestead,law,
 homestretch,home,stretch,17.0
@@ -12060,7 +11874,6 @@ hornbook,horn,book,
 hornpipe,horn,pipe,19.0
 hornpout,horn,pout,
 hornstone,horn,stone,
-hornstone,horns,tone,
 hornwort,horn,wort,
 horse balm,horse,balm,
 horse barn,horse,barn,21.0
@@ -12094,6 +11907,7 @@ horse trading,horse,trading,
 horse wrangler,horse,wrangler,
 horse-brier,horse,brier,
 horse-cart,horse,cart,
+horse-head,horse,head,20.0
 horse-pistol,horse,pistol,21.0
 horse-trail,horse,trail,
 horseback,horse,back,14.0
@@ -12109,7 +11923,6 @@ horsefly weed,horsefly,weed,
 horsehair,horse,hair,18.0
 horsehair lichen,horsehair,lichen,
 horsehair wig,horsehair,wig,21.0
-horsehead,horse,head,20.0
 horsehide,horse,hide,20.0
 horselaugh,horse,laugh,19.0
 horseleech,horse,leech,
@@ -12126,16 +11939,13 @@ horseradish peroxidase,horseradish,peroxidase,
 horseradish root,horseradish,root,
 horseradish sauce,horseradish,sauce,21.0
 horseshit,horse,shit,14.0
-horseshit,horses,hit,14.0
 horseshoe,horse,shoe,15.0
-horseshoe,horses,hoe,15.0
 horseshoe arch,horseshoe,arch,
 horseshoe bat,horseshoe,bat,
 horseshoe crab,horseshoe,crab,
 horseshoe vetch,horseshoe,vetch,
 horseshoe whipsnake,horseshoe,whipsnake,
 horseshoer,horses,hoer,
-horseshow,horses,how,17.0
 horseshow,horse,show,17.0
 horsetail,horse,tail,
 horsetail family,horsetail,family,
@@ -12143,7 +11953,6 @@ horsetail lichen,horsetail,lichen,
 horsetail milkweed,horsetail,milkweed,
 horseweed,horse,weed,21.0
 horsewhip,horse,whip,17.0
-horsewhipping,horsewhip,ping,20.0
 horsewhipping,horse,whipping,20.0
 horsewoman,horse,woman,21.0
 hosepipe,hose,pipe,20.0
@@ -12181,10 +11990,8 @@ hothead,hot,head,16.0
 hothouse,hot,house,17.0
 hotplate,hot,plate,16.0
 hotpot,hot,pot,19.0
-hotshot,hots,hot,13.0
 hotshot,hot,shot,13.0
 hotspot,hot,spot,16.0
-hotspot,hots,pot,20.0
 hotspur,hot,spur,20.0
 hound dog,hound,dog,16.0
 hour angle,hour,angle,
@@ -12199,10 +12006,10 @@ house decorator,house,decorator,
 house detective,house,detective,16.0
 house dick,house,dick,18.0
 house finch,house,finch,
+house husband,house,husband,20.0
 house martin,house,martin,21.0
 house mouse,house,mouse,21.0
 house organ,house,organ,21.0
-house paint,house,paint,18.0
 house painter,house,painter,18.0
 house painting,house,painting,18.0
 house party,house,party,16.0
@@ -12230,7 +12037,6 @@ household appliance,household,appliance,18.0
 household arts,household,arts,
 household linen,household,linen,21.0
 householder,house,holder,17.0
-househusband,house,husband,20.0
 housekeeper,house,keeper,13.0
 housekeeping,house,keeping,14.0
 housemaid,house,maid,17.0
@@ -12238,6 +12044,7 @@ houseman,house,man,16.0
 housemaster,house,master,19.0
 housemate,house,mate,19.0
 housemother,house,mother,18.0
+housepaint,house,paint,18.0
 houseplant,house,plant,18.0
 houseroom,house,room,21.0
 housetop,house,top,20.0
@@ -12607,7 +12414,6 @@ inkpot,ink,pot,21.0
 inkstand,ink,stand,
 inkwell,ink,well,17.0
 inlet manifold,inlet,manifold,
-innersole,inners,ole,
 innersole,inner,sole,
 innkeeper,inn,keeper,16.0
 input data,input,data,
@@ -12630,7 +12436,6 @@ inside loop,inside,loop,
 inside track,inside,track,17.0
 insider information,insider,information,
 insider trading,insider,trading,18.0
-insole,ins,ole,20.0
 inspector general,inspector,general,17.0
 installation charge,installation,charge,
 installment buying,installment,buying,
@@ -12820,15 +12625,12 @@ jacklight,jack,light,21.0
 jackpot,jack,pot,13.0
 jackrabbit,jack,rabbit,16.0
 jackscrew,jack,screw,19.0
-jackscrew,jacks,crew,
 jacksmelt,jack,smelt,
-jacksmelt,jacks,melt,
 jacksnipe,jack,snipe,
 jackstraw,jack,straw,
 jade green,jade,green,21.0
 jade vine,jade,vine,
 jadestone,jade,stone,
-jadestone,jades,tone,
 jaggery palm,jaggery,palm,
 jaguarundi cat,jaguarundi,cat,
 jail cell,jail,cell,15.0
@@ -12895,7 +12697,6 @@ jobholder,job,holder,
 jock itch,jock,itch,18.0
 jockey cap,jockey,cap,
 jockey club,jockey,club,18.0
-jockstrap,jocks,trap,16.0
 jockstrap,jock,strap,16.0
 jodhpur boot,jodhpur,boot,
 jodhpur breeches,jodhpur,breeches,
@@ -12923,7 +12724,6 @@ journey cake,journey,cake,
 journeyman,journey,man,20.0
 joyride,joy,ride,15.0
 joystick,joy,stick,17.0
-joystick,joys,tick,17.0
 judge advocate,judge,advocate,17.0
 judgment lien,judgment,lien,
 jug band,jug,band,
@@ -12952,7 +12752,6 @@ jumping jack,jumping,jack,18.0
 jumping mouse,jumping,mouse,
 jumping orchid,jumping,orchid,
 jumping seed,jumping,seed,
-jumpstart,jumps,tart,18.0
 jumpsuit,jump,suit,16.0
 junction barrier,junction,barrier,
 junction rectifier,junction,rectifier,
@@ -13054,7 +12853,6 @@ keynote address,keynote,address,18.0
 keynote speech,keynote,speech,18.0
 keypad,key,pad,16.0
 keystone,key,stone,17.0
-keystone,keys,tone,17.0
 keystroke,key,stroke,17.0
 kick pleat,kick,pleat,
 kick start,kick,start,19.0
@@ -13066,9 +12864,7 @@ kicksorter,kick,sorter,
 kickstand,kick,stand,20.0
 kid glove,kid,glove,
 kiddy porn,kiddy,porn,20.0
-kidnapper,kidnap,per,13.0
 kidnapper,kid,napper,13.0
-kidnapping,kidnap,ping,12.0
 kidnapping,kid,napping,12.0
 kidney bean,kidney,bean,
 kidney begonia,kidney,begonia,
@@ -13079,7 +12875,6 @@ kidney pie,kidney,pie,17.0
 kidney stone,kidney,stone,17.0
 kidney vetch,kidney,vetch,
 kidney wort,kidney,wort,
-kidskin,kids,kin,20.0
 kidskin,kid,skin,20.0
 kill zone,kill,zone,16.0
 killdeer plover,killdeer,plover,
@@ -13133,8 +12928,8 @@ kissing bug,kissing,bug,18.0
 kissing cousin,kissing,cousin,
 kissing disease,kissing,disease,21.0
 kissing kin,kissing,kin,21.0
+kit bag,kit,bag,18.0
 kit fox,kit,fox,21.0
-kitbag,kit,bag,18.0
 kitchen appliance,kitchen,appliance,19.0
 kitchen cabinet,kitchen,cabinet,19.0
 kitchen garden,kitchen,garden,20.0
@@ -13285,15 +13080,14 @@ lakefront,lake,front,18.0
 lakeshore,lake,shore,18.0
 lakeside,lake,side,16.0
 lally column,lally,column,21.0
-lamb chop,lamb,chop,16.0
 lamb curry,lamb,curry,18.0
 lamb roast,lamb,roast,
 lamb succory,lamb,succory,
+lamb-chop,lamb,chop,16.0
 lambda hyperon,lambda,hyperon,
 lambda particle,lambda,particle,
 lambkill,lamb,kill,
 lambskin,lamb,skin,19.0
-lambskin,lambs,kin,19.0
 lame duck,lame,duck,18.0
 lamp chimney,lamp,chimney,21.0
 lamp house,lamp,house,
@@ -13302,13 +13096,11 @@ lamp oil,lamp,oil,21.0
 lamp shell,lamp,shell,
 lampblack,lamp,black,
 lamplight,lamp,light,18.0
-lamplight,lam,plight,18.0
 lamplighter,lamp,lighter,19.0
 lampoon artist,lampoon,artist,
 lamppost,lamp,post,16.0
 lamprey eel,lamprey,eel,
 lampshade,lamp,shade,17.0
-lampshell,lamps,hell,
 lance corporal,lance,corporal,18.0
 lancet arch,lancet,arch,
 lancet fish,lancet,fish,
@@ -13354,7 +13146,6 @@ landman,land,man,19.0
 landmark,land,mark,15.0
 landowner,land,owner,17.0
 landrover,land,rover,18.0
-landscape,lands,cape,14.0
 landscape,land,scape,14.0
 landscape architect,landscape,architect,18.0
 landscape architecture,landscape,architecture,
@@ -13365,7 +13156,6 @@ landscaper,lands,caper,17.0
 landside,land,side,
 landslide,land,slide,15.0
 landslip,land,slip,21.0
-landslip,lands,lip,21.0
 landsman,lands,man,18.0
 language area,language,area,
 language barrier,language,barrier,18.0
@@ -13564,7 +13354,6 @@ leaf-miner,leaf,miner,
 leaf-roller,leaf,roller,
 leafhopper,leaf,hopper,
 leafstalk,leaf,stalk,
-leafstalk,leafs,talk,
 leak fungus,leak,fungus,
 leap day,leap,day,
 leap second,leap,second,
@@ -13643,6 +13432,7 @@ lemon curd,lemon,curd,21.0
 lemon drop,lemon,drop,20.0
 lemon extract,lemon,extract,21.0
 lemon geranium,lemon,geranium,
+lemon grass,lemon,grass,20.0
 lemon grove,lemon,grove,18.0
 lemon juice,lemon,juice,16.0
 lemon lily,lemon,lily,
@@ -13658,7 +13448,6 @@ lemon yellow,lemon,yellow,
 lemon zest,lemon,zest,20.0
 lemon-wood,lemon,wood,
 lemonade mix,lemonade,mix,
-lemongrass,lemon,grass,20.0
 lemongrass oil,lemongrass,oil,
 lemonwood tree,lemonwood,tree,
 lending institution,lending,institution,
@@ -13827,7 +13616,6 @@ lightning arrester,lightning,arrester,
 lightning bug,lightning,bug,21.0
 lightning conductor,lightning,conductor,
 lightning rod,lightning,rod,16.0
-lightship,lights,hip,
 lightship,light,ship,
 lightweight,light,weight,15.0
 lightwood,light,wood,
@@ -13842,7 +13630,6 @@ lime juice,lime,juice,18.0
 lime tree,lime,tree,21.0
 limekiln,lime,kiln,
 limelight,lime,light,16.0
-limestone,limes,tone,16.0
 limestone,lime,stone,16.0
 limestone fern,limestone,fern,
 limestone salamander,limestone,salamander,
@@ -13920,7 +13707,6 @@ lip synchronization,lip,synchronization,
 lip-gloss,lip,gloss,15.0
 lipreading,lip,reading,21.0
 lipstick,lip,stick,12.0
-lipstick,lips,tick,12.0
 lipstick plant,lipstick,plant,
 liqueur glass,liqueur,glass,
 liquid air,liquid,air,
@@ -14025,8 +13811,6 @@ loading area,loading,area,
 loading dock,loading,dock,16.0
 loading zone,loading,zone,19.0
 loadstar,load,star,
-loadstar,loads,tar,
-loadstone,loads,tone,
 loadstone,load,stone,
 loaf sugar,loaf,sugar,
 loan application,loan,application,18.0
@@ -14068,7 +13852,6 @@ localisation principle,localisation,principle,
 localization principle,localization,principle,
 locative role,locative,role,
 lock chamber,lock,chamber,
-lock ring,lock,ring,21.0
 lock washer,lock,washer,
 lock-gate,lock,gate,
 lockbox,lock,box,17.0
@@ -14081,19 +13864,17 @@ lockman,lock,man,21.0
 lockmaster,lock,master,
 locknut,lock,nut,19.0
 lockout,lock,out,17.0
+lockring,lock,ring,21.0
 locksmith,lock,smith,15.0
 lockstep,lock,step,21.0
 lockstitch,lock,stitch,
-lockstitch,locks,titch,
 locomotive engine,locomotive,engine,
 locomotive engineer,locomotive,engineer,21.0
 locoweed,loco,weed,20.0
 locust bean,locust,bean,
 locust pod,locust,pod,
 locust tree,locust,tree,
-lodestar,lodes,tar,
 lodestar,lode,star,
-lodestone,lodes,tone,18.0
 lodestone,lode,stone,18.0
 lodgepole,lodge,pole,18.0
 lodgepole pine,lodgepole,pine,
@@ -14124,13 +13905,11 @@ longbeard,long,beard,19.0
 longboat,long,boat,16.0
 longbow,long,bow,18.0
 longbowman,longbow,man,21.0
-longbowman,long,bowman,21.0
 longhand,long,hand,19.0
 longhorn,long,horn,17.0
 longicorn beetle,longicorn,beetle,
 longroot,long,root,
 longshoreman,longshore,man,17.0
-longshot,longs,hot,19.0
 longshot,long,shot,13.0
 longways dance,longways,dance,
 longwool,long,wool,
@@ -14149,8 +13928,8 @@ loop topology,loop,topology,
 loop-line,loop,line,
 loophole,loop,hole,15.0
 looping ill,looping,ill,
-loosestrife,loose,strife,
 loosestrife,loosest,rife,
+loosestrife,loose,strife,
 loosestrife family,loosestrife,family,
 loquat tree,loquat,tree,
 loss leader,loss,leader,20.0
@@ -14193,10 +13972,8 @@ love-song,love,song,15.0
 love-token,love,token,20.0
 lovebird,love,bird,18.0
 lovemaking,love,making,15.0
-loveseat,loves,eat,19.0
 loveseat,love,seat,16.0
 lovesickness,love,sickness,19.0
-lovesickness,lovesick,ness,19.0
 low beam,low,beam,
 low blow,low,blow,16.0
 low blueberry,low,blueberry,
@@ -14244,7 +14021,6 @@ luggage carrousel,luggage,carrousel,
 luggage compartment,luggage,compartment,21.0
 luggage rack,luggage,rack,18.0
 luggage van,luggage,van,18.0
-lugsail,lugs,ail,
 lugsail,lug,sail,
 lugworm,lug,worm,
 lumber jacket,lumber,jacket,
@@ -14357,7 +14133,6 @@ maidenhair spleenwort,maidenhair,spleenwort,
 maidenhair tree,maidenhair,tree,
 maidenhead,maiden,head,17.0
 maidservant,maid,servant,18.0
-mail boat,mail,boat,19.0
 mail call,mail,call,16.0
 mail car,mail,car,
 mail carrier,mail,carrier,17.0
@@ -14369,6 +14144,7 @@ mail service,mail,service,19.0
 mail slot,mail,slot,17.0
 mail train,mail,train,19.0
 mailbag,mail,bag,18.0
+mailboat,mail,boat,19.0
 mailbox,mail,box,13.0
 maildrop,mail,drop,21.0
 mailing address,mailing,address,18.0
@@ -14395,7 +14171,6 @@ mainframe computer,mainframe,computer,18.0
 mainland,main,land,14.0
 mainmast,main,mast,20.0
 mainsail,main,sail,16.0
-mainsail,mains,ail,16.0
 mainsheet,main,sheet,21.0
 mainspring,main,spring,21.0
 mainstay,main,stay,18.0
@@ -14516,9 +14291,7 @@ mansard roof,mansard,roof,
 manservant,man,servant,17.0
 mansion house,mansion,house,19.0
 manslaughter,man,slaughter,14.0
-manslaughter,mans,laughter,14.0
 manslayer,man,slayer,20.0
-manslayer,mans,layer,20.0
 manta ray,manta,ray,21.0
 mantelpiece,mantel,piece,17.0
 mantiger,man,tiger,21.0
@@ -14603,9 +14376,7 @@ markup language,markup,language,
 markweed,mark,weed,
 marlberry,marl,berry,
 marlinespike,marline,spike,
-marlinspike,marlins,pike,
 marlinspike,marlin,spike,20.0
-marlstone,marls,tone,
 marlstone,marl,stone,
 marmalade box,marmalade,box,
 marmalade bush,marmalade,bush,
@@ -14757,7 +14528,6 @@ matzo meal,matzo,meal,
 matzoh ball,matzoh,ball,
 matzoh meal,matzoh,meal,
 maul oak,maul,oak,
-maulstick,mauls,tick,
 maulstick,maul,stick,
 maxillary artery,maxillary,artery,
 maxillary sinus,maxillary,sinus,
@@ -14778,6 +14548,7 @@ meadow fern,meadow,fern,
 meadow fescue,meadow,fescue,
 meadow foxtail,meadow,foxtail,
 meadow goldenrod,meadow,goldenrod,
+meadow grass,meadow,grass,21.0
 meadow leek,meadow,leek,
 meadow lily,meadow,lily,
 meadow mouse,meadow,mouse,
@@ -14791,7 +14562,6 @@ meadow saxifrage,meadow,saxifrage,
 meadow spikemoss,meadow,spikemoss,
 meadow spittlebug,meadow,spittlebug,
 meadow vole,meadow,vole,
-meadowgrass,meadow,grass,21.0
 meadowlark,meadow,lark,17.0
 meal plan,meal,plan,18.0
 meal ticket,meal,ticket,16.0
@@ -14822,13 +14592,13 @@ meat grinder,meat,grinder,17.0
 meat hook,meat,hook,16.0
 meat hooks,meat,hooks,19.0
 meat house,meat,house,20.0
+meat loaf,meat,loaf,14.0
 meat market,meat,market,17.0
 meat packer,meat,packer,21.0
 meat pie,meat,pie,18.0
 meat safe,meat,safe,20.0
 meat thermometer,meat,thermometer,19.0
 meatball,meat,ball,14.0
-meatloaf,meat,loaf,14.0
 meatman,meat,man,18.0
 meatpacking,meat,packing,17.0
 meclizine hydrochloride,meclizine,hydrochloride,
@@ -14880,8 +14650,8 @@ medium frequency,medium,frequency,
 medium steel,medium,steel,
 medium wave,medium,wave,
 medlar tree,medlar,tree,
+meeting house,meeting,house,18.0
 meeting place,meeting,place,16.0
-meetinghouse,meeting,house,18.0
 mefloquine hydrochloride,mefloquine,hydrochloride,
 megatherian mammal,megatherian,mammal,
 megaton bomb,megaton,bomb,
@@ -14926,8 +14696,6 @@ mercury thermometer,mercury,thermometer,
 mercy killing,mercy,killing,17.0
 mercy seat,mercy,seat,
 merestone,mere,stone,
-merestone,meres,tone,
-merestone,merest,one,
 merger agreement,merger,agreement,21.0
 meringue kiss,meringue,kiss,
 merino sheep,merino,sheep,
@@ -14977,7 +14745,6 @@ meteor swarm,meteor,swarm,21.0
 meter maid,meter,maid,17.0
 meter reading,meter,reading,21.0
 meterstick,meter,stick,
-meterstick,meters,tick,
 methadone hydrochloride,methadone,hydrochloride,
 methamphetamine hydrochloride,methamphetamine,hydrochloride,
 methane series,methane,series,
@@ -15053,8 +14820,6 @@ midpoint,mid,point,20.0
 midrib,mid,rib,
 midsection,mid,section,17.0
 midshipman,midship,man,16.0
-midshipman,mid,shipman,16.0
-midstream,midst,ream,20.0
 midstream,mid,stream,20.0
 midsummer,mid,summer,16.0
 midsummer-men,midsummer,men,
@@ -15073,7 +14838,6 @@ migrant shrike,migrant,shrike,
 migration route,migration,route,
 milepost,mile,post,21.0
 milestone,mile,stone,16.0
-milestone,miles,tone,16.0
 military academy,military,academy,16.0
 military action,military,action,16.0
 military adviser,military,adviser,20.0
@@ -15153,15 +14917,14 @@ milk snake,milk,snake,21.0
 milk sugar,milk,sugar,20.0
 milk thistle,milk,thistle,21.0
 milk tooth,milk,tooth,
+milk wagon,milk,wagon,21.0
 milk whey,milk,whey,
 milk-vetch,milk,vetch,
 milkcap,milk,cap,
 milkmaid,milk,maid,17.0
 milkman,milk,man,15.0
 milkshake,milk,shake,15.0
-milkshake,milks,hake,15.0
 milksop,milk,sop,19.0
-milkwagon,milk,wagon,21.0
 milkweed,milk,weed,21.0
 milkweed butterfly,milkweed,butterfly,
 milkweed family,milkweed,family,
@@ -15178,7 +14941,6 @@ milling machinery,milling,machinery,
 millpond,mill,pond,20.0
 millrace,mill,race,
 millrun,mill,run,21.0
-millstone,mills,tone,16.0
 millstone,mill,stone,16.0
 millwork,mill,work,20.0
 millwright,mill,wright,20.0
@@ -15189,7 +14951,7 @@ mince pie,mince,pie,18.0
 mincemeat,mince,meat,17.0
 mind game,mind,game,18.0
 mind reader,mind,reader,15.0
-mindset,mind,set,17.0
+mind-set,mind,set,17.0
 mine detector,mine,detector,21.0
 mine disposal,mine,disposal,
 mine pig,mine,pig,
@@ -15209,12 +14971,9 @@ mineral vein,mineral,vein,
 mineral water,mineral,water,16.0
 mineral wax,mineral,wax,
 mineral wool,mineral,wool,
-mineshaft,mines,haft,18.0
 mineshaft,mine,shaft,17.0
-minesweeper,mines,weeper,18.0
 minesweeper,mine,sweeper,18.0
 minesweeping,mine,sweeping,20.0
-minesweeping,mines,weeping,21.0
 mineworker,mine,worker,21.0
 miniature golf,miniature,golf,15.0
 miniature pinscher,miniature,pinscher,
@@ -15334,7 +15093,6 @@ mole rat,mole,rat,21.0
 mole salamander,mole,salamander,
 molehill,mole,hill,17.0
 moleskin,mole,skin,21.0
-moleskin,moles,kin,21.0
 mollusk family,mollusk,family,
 mollusk genus,mollusk,genus,
 mollycoddle,molly,coddle,
@@ -15407,10 +15165,8 @@ moonlight,moon,light,13.0
 moonlighter,moon,lighter,19.0
 moonseed,moon,seed,
 moonseed family,moonseed,family,
-moonshell,moons,hell,
 moonshine,moon,shine,15.0
 moonshiner,moon,shiner,19.0
-moonstone,moons,tone,18.0
 moonstone,moon,stone,18.0
 moonwalk,moon,walk,16.0
 moonwort,moon,wort,
@@ -15638,12 +15394,12 @@ movie film,movie,film,20.0
 movie house,movie,house,16.0
 movie industry,movie,industry,19.0
 movie maker,movie,maker,
+movie making,movie,making,18.0
 movie projector,movie,projector,20.0
 movie star,movie,star,13.0
 movie theater,movie,theater,15.0
 movie theatre,movie,theatre,16.0
 moviegoer,movie,goer,21.0
-moviemaking,movie,making,18.0
 moxie plum,moxie,plum,
 mu-meson,mu,meson,
 muckheap,muck,heap,
@@ -15671,7 +15427,6 @@ mudspringer,mud,springer,
 muffin man,muffin,man,16.0
 mug book,mug,book,19.0
 mug file,mug,file,
-mugshot,mugs,hot,19.0
 mugshot,mug,shot,16.0
 mugwort,mug,wort,21.0
 mulberry family,mulberry,family,
@@ -16109,11 +15864,9 @@ newspaper publisher,newspaper,publisher,21.0
 newspapering,news,papering,
 newspaperman,newspaper,man,15.0
 newspaperwoman,newspaper,woman,18.0
-newspeak,news,peak,
 newspeak,new,speak,21.0
 newsperson,news,person,21.0
 newsprint,news,print,18.0
-newsprint,new,sprint,18.0
 newsreader,news,reader,17.0
 newsreel,news,reel,16.0
 newsroom,news,room,16.0
@@ -16134,7 +15887,6 @@ nickname,nick,name,12.0
 nicotine addiction,nicotine,addiction,
 nicotine poisoning,nicotine,poisoning,
 night bell,night,bell,18.0
-night bird,night,bird,19.0
 night blindness,night,blindness,19.0
 night court,night,court,16.0
 night game,night,game,17.0
@@ -16147,7 +15899,6 @@ night lizard,night,lizard,21.0
 night owl,night,owl,17.0
 night porter,night,porter,20.0
 night raven,night,raven,21.0
-night rider,night,rider,19.0
 night school,night,school,15.0
 night shift,night,shift,14.0
 night snake,night,snake,
@@ -16161,6 +15912,7 @@ night-line,night,line,
 night-robe,night,robe,
 night-sight,night,sight,
 night-stop,night,stop,16.0
+nightbird,night,bird,19.0
 nightcap,night,cap,14.0
 nightclub,night,club,13.0
 nightcrawler,night,crawler,18.0
@@ -16171,12 +15923,11 @@ nighthawk,night,hawk,16.0
 nightjar,night,jar,
 nightlife,night,life,16.0
 nightmare,night,mare,11.0
+nightrider,night,rider,19.0
 nightshade,night,shade,16.0
 nightshirt,night,shirt,17.0
-nightspot,nights,pot,18.0
 nightspot,night,spot,18.0
 nightstick,night,stick,16.0
-nightstick,nights,tick,16.0
 nighttime,night,time,14.0
 nightwalker,night,walker,19.0
 nightwear,night,wear,20.0
@@ -16276,7 +16027,6 @@ notice board,notice,board,19.0
 nougat bar,nougat,bar,
 noun phrase,noun,phrase,
 novelty shop,novelty,shop,20.0
-nowhere,now,here,10.0
 nucleolus organiser,nucleolus,organiser,
 nucleolus organizer,nucleolus,organizer,
 nucleon number,nucleon,number,
@@ -16337,7 +16087,6 @@ nutmeg tree,nutmeg,tree,
 nutmeg-yew,nutmeg,yew,
 nutrient agar,nutrient,agar,
 nutrient artery,nutrient,artery,
-nutshell,nuts,hell,15.0
 nutshell,nut,shell,15.0
 nylon stocking,nylon,stocking,
 nymphalid butterfly,nymphalid,butterfly,
@@ -16464,10 +16213,8 @@ oilman,oil,man,17.0
 oilpaper,oil,paper,20.0
 oilrig,oil,rig,17.0
 oilseed,oil,seed,
-oilskin,oils,kin,21.0
 oilskin,oil,skin,21.0
 oilstone,oil,stone,
-oilstone,oils,tone,
 oilstove,oil,stove,
 okra plant,okra,plant,
 old age,old,age,13.0
@@ -16508,10 +16255,10 @@ olive branch,olive,branch,16.0
 olive brown,olive,brown,
 olive drab,olive,drab,18.0
 olive family,olive,family,
-olive green,olive,green,19.0
 olive oil,olive,oil,14.0
 olive ridley,olive,ridley,
 olive tree,olive,tree,19.0
+olive-green,olive,green,19.0
 omelet pan,omelet,pan,21.0
 omelette pan,omelette,pan,
 one iron,one,iron,21.0
@@ -16556,7 +16303,6 @@ onion smut,onion,smut,
 onion stem,onion,stem,
 onion thrips,onion,thrips,
 onionskin,onion,skin,
-onionskin,onions,kin,
 onyx marble,onyx,marble,
 ooze leather,ooze,leather,
 opal glass,opal,glass,
@@ -16787,7 +16533,6 @@ overemphasis,over,emphasis,21.0
 overestimate,over,estimate,16.0
 overestimation,over,estimation,21.0
 overexertion,over,exertion,
-overexertion,overexert,ion,
 overexposure,over,exposure,19.0
 overfeeding,over,feeding,18.0
 overflight,over,flight,20.0
@@ -16804,7 +16549,6 @@ overheating,over,heating,17.0
 overindulgence,over,indulgence,21.0
 overkill,over,kill,16.0
 overlap,over,lap,16.0
-overlapping,overlap,ping,15.0
 overlapping,over,lapping,15.0
 overlay,over,lay,16.0
 overlayer,over,layer,
@@ -16815,7 +16559,6 @@ overlord,over,lord,16.0
 overmantel,over,mantel,
 overmuch,over,much,18.0
 overmuchness,over,muchness,
-overmuchness,overmuch,ness,
 overpass,over,pass,16.0
 overpayment,over,payment,21.0
 overplus,over,plus,21.0
@@ -16825,7 +16568,6 @@ overprint,over,print,21.0
 overproduction,over,production,19.0
 overprotection,over,protection,
 overrating,over,rating,
-overreaction,overreact,ion,17.0
 overreaction,over,reaction,17.0
 overreckoning,over,reckoning,
 overrefinement,over,refinement,
@@ -16833,17 +16575,13 @@ override,over,ride,13.0
 overrun,over,run,14.0
 overseer,over,seer,17.0
 overshielding,over,shielding,
-overshoe,overs,hoe,
 overshoe,over,shoe,
-overshoot,overs,hoot,18.0
 overshoot,over,shoot,18.0
 oversight,over,sight,15.0
 overskirt,over,skirt,
-overspill,overs,pill,
 overspill,over,spill,
 overstatement,over,statement,19.0
 overstrain,over,strain,
-overstrain,overs,train,
 oversupply,over,supply,
 overtaking,over,taking,18.0
 overthrow,over,throw,15.0
@@ -16851,8 +16589,6 @@ overtime,over,time,13.0
 overtime period,overtime,period,
 overtolerance,over,tolerance,
 overtone,over,tone,19.0
-overtone,overt,one,19.0
-overturn,overt,urn,17.0
 overturn,over,turn,17.0
 overuse,over,use,18.0
 overvaluation,over,valuation,
@@ -16905,7 +16641,6 @@ pacemaker,pace,maker,16.0
 pacesetter,pace,setter,
 pack animal,pack,animal,
 pack ice,pack,ice,19.0
-pack rat,pack,rat,18.0
 pack riding,pack,riding,
 pack tent,pack,tent,
 package bomb,package,bomb,
@@ -16924,8 +16659,8 @@ packing nut,packing,nut,
 packing plant,packing,plant,18.0
 packinghouse,packing,house,20.0
 packman,pack,man,19.0
+packrat,pack,rat,18.0
 packsack,pack,sack,
-packsaddle,packs,addle,
 packsaddle,pack,saddle,
 packthread,pack,thread,
 paddle box,paddle,box,
@@ -17087,10 +16822,8 @@ paramilitary organization,paramilitary,organization,
 paramilitary unit,paramilitary,unit,21.0
 paranoid schizophrenia,paranoid,schizophrenia,19.0
 paraquat poisoning,paraquat,poisoning,
-parasail,paras,ail,20.0
 parasail,para,sail,20.0
 parasailing,para,sailing,18.0
-parasailing,paras,ailing,18.0
 parasite yew,parasite,yew,
 parasol mushroom,parasol,mushroom,
 parathion poisoning,parathion,poisoning,
@@ -17212,7 +16945,6 @@ passive trust,passive,trust,
 passive voice,passive,voice,21.0
 passkey,pass,key,16.0
 password,pass,word,12.0
-password,pas,sword,12.0
 past master,past,master,21.0
 past participle,past,participle,21.0
 past perfect,past,perfect,20.0
@@ -17262,7 +16994,6 @@ paving stone,paving,stone,
 pawn ticket,pawn,ticket,18.0
 pawnbroker,pawn,broker,18.0
 pawnshop,pawn,shop,15.0
-pawnshop,pawns,hop,15.0
 pay claim,pay,claim,
 pay cut,pay,cut,17.0
 pay dirt,pay,dirt,16.0
@@ -17284,7 +17015,6 @@ payroll check,payroll,check,19.0
 payroll department,payroll,department,20.0
 paysheet,pay,sheet,21.0
 payslip,pay,slip,
-payslip,pays,lip,21.0
 pea bean,pea,bean,
 pea crab,pea,crab,
 pea family,pea,family,
@@ -17381,7 +17111,6 @@ pediculosis pubis,pediculosis,pubis,
 peep sight,peep,sight,21.0
 peephole,peep,hole,16.0
 peepshow,peep,show,17.0
-peepshow,peeps,how,19.0
 peer group,peer,group,18.0
 peg top,peg,top,
 pegboard,peg,board,21.0
@@ -17425,7 +17154,6 @@ pension account,pension,account,
 pension fund,pension,fund,17.0
 pension plan,pension,plan,18.0
 penstock,pen,stock,
-pentail,pent,ail,
 pentobarbital sodium,pentobarbital,sodium,
 peony family,peony,family,
 pep pill,pep,pill,
@@ -17533,17 +17261,16 @@ personnel casualty,personnel,casualty,
 personnel department,personnel,department,19.0
 personnel office,personnel,office,17.0
 personnel pouch,personnel,pouch,
-pesthole,pes,thole,20.0
 pesthole,pest,hole,20.0
 pesthouse,pest,house,21.0
 pesticide poisoning,pesticide,poisoning,
+pet food,pet,food,18.0
 pet name,pet,name,17.0
 pet peeve,pet,peeve,18.0
 pet shop,pet,shop,16.0
 pet sitter,pet,sitter,
 pet sitting,pet,sitting,
 petcock,pet,cock,
-petfood,pet,food,18.0
 petite bourgeoisie,petite,bourgeoisie,21.0
 petite marmite,petite,marmite,21.0
 petrol bomb,petrol,bomb,
@@ -17605,7 +17332,6 @@ phlox family,phlox,family,
 phoebe bird,phoebe,bird,
 phoenix tree,phoenix,tree,
 phone bill,phone,bill,15.0
-phone book,phone,book,13.0
 phone booth,phone,booth,14.0
 phone call,phone,call,11.0
 phone card,phone,card,17.0
@@ -17620,6 +17346,7 @@ phone service,phone,service,17.0
 phone system,phone,system,17.0
 phone tapper,phone,tapper,
 phone-in,phone,in,13.0
+phonebook,phone,book,13.0
 phonograph album,phonograph,album,
 phonograph needle,phonograph,needle,
 phonograph record,phonograph,record,18.0
@@ -17725,12 +17452,9 @@ pignut,pig,nut,
 pignut hickory,pignut,hickory,
 pigpen,pig,pen,16.0
 pigskin,pig,skin,16.0
-pigskin,pigs,kin,16.0
-pigsticking,pigs,ticking,
 pigsticking,pig,sticking,21.0
 pigsty,pig,sty,15.0
 pigswill,pig,swill,20.0
-pigswill,pigs,will,19.0
 pigtail,pig,tail,18.0
 pigwash,pig,wash,
 pigweed,pig,weed,
@@ -17844,10 +17568,8 @@ pinon nut,pinon,nut,
 pinon pine,pinon,pine,
 pinpoint,pin,point,14.0
 pinprick,pin,prick,18.0
-pinstripe,pins,tripe,17.0
 pinstripe,pin,stripe,17.0
 pintail,pin,tail,
-pintail,pint,ail,
 pinto bean,pinto,bean,
 pinwheel,pin,wheel,18.0
 pinwheel flower,pinwheel,flower,
@@ -18092,14 +17814,12 @@ plough horse,plough,horse,21.0
 ploughboy,plough,boy,
 ploughland,plough,land,
 ploughman,plough,man,
-ploughshare,ploughs,hare,
 ploughshare,plough,share,
 ploughwright,plough,wright,
 plow horse,plow,horse,18.0
 plowboy,plow,boy,21.0
 plowland,plow,land,
 plowman,plow,man,19.0
-plowshare,plows,hare,
 plowshare,plow,share,
 plowwright,plow,wright,
 plug fuse,plug,fuse,
@@ -18143,7 +17863,6 @@ pocket edition,pocket,edition,
 pocket flap,pocket,flap,
 pocket flask,pocket,flask,
 pocket gopher,pocket,gopher,
-pocket knife,pocket,knife,17.0
 pocket lighter,pocket,lighter,
 pocket money,pocket,money,16.0
 pocket mouse,pocket,mouse,
@@ -18153,6 +17872,7 @@ pocket watch,pocket,watch,17.0
 pocket-handkerchief,pocket,handkerchief,20.0
 pocketbook,pocket,book,15.0
 pocketbook issue,pocketbook,issue,
+pocketknife,pocket,knife,17.0
 pockmark,pock,mark,21.0
 podsol soil,podsol,soil,
 podzol soil,podzol,soil,
@@ -18207,7 +17927,6 @@ poleaxe,pole,axe,
 polecat,pole,cat,17.0
 polecat weed,polecat,weed,
 polestar,pole,star,19.0
-polestar,poles,tar,19.0
 police academy,police,academy,16.0
 police action,police,action,16.0
 police blotter,police,blotter,17.0
@@ -18236,7 +17955,6 @@ police station,police,station,12.0
 police van,police,van,19.0
 police wagon,police,wagon,
 police work,police,work,14.0
-policeman,pol,iceman,12.0
 policeman,police,man,12.0
 policeman bird,policeman,bird,
 policewoman,police,woman,16.0
@@ -18277,8 +17995,8 @@ pondweed,pond,weed,
 pondweed family,pondweed,family,
 pontoon bridge,pontoon,bridge,
 pontoon plane,pontoon,plane,
+pony cart,pony,cart,21.0
 pony express,pony,express,17.0
-ponycart,pony,cart,21.0
 ponytail,pony,tail,15.0
 poodle dog,poodle,dog,21.0
 pool ball,pool,ball,21.0
@@ -18300,11 +18018,11 @@ poor speller,poor,speller,
 poorhouse,poor,house,17.0
 poorwill,poor,will,19.0
 pop bottle,pop,bottle,20.0
+pop fly,pop,fly,18.0
 pop group,pop,group,21.0
 pop music,pop,music,16.0
 pop quiz,pop,quiz,15.0
 pop tent,pop,tent,
-pop-fly,pop,fly,18.0
 popcorn,pop,corn,12.0
 popcorn ball,popcorn,ball,20.0
 popgun,pop,gun,17.0
@@ -18478,10 +18196,8 @@ potlatch,pot,latch,21.0
 potluck,pot,luck,16.0
 potman,pot,man,21.0
 potpie,pot,pie,17.0
-potsherd,pots,herd,
 potsherd,pot,sherd,
 potshot,pot,shot,18.0
-potshot,pots,hot,18.0
 potter bee,potter,bee,
 potter wasp,potter,wasp,
 potty chair,potty,chair,
@@ -18513,7 +18229,6 @@ powder technique,powder,technique,
 powderpuff,powder,puff,16.0
 power brake,power,brake,
 power breakfast,power,breakfast,
-power broker,power,broker,18.0
 power cable,power,cable,19.0
 power company,power,company,16.0
 power cord,power,cord,
@@ -18555,6 +18270,7 @@ power user,power,user,
 power walking,power,walking,18.0
 power worker,power,worker,
 powerboat,power,boat,18.0
+powerbroker,power,broker,18.0
 powerhouse,power,house,16.0
 poxvirus,pox,virus,
 practice game,practice,game,21.0
@@ -18980,9 +18696,9 @@ publishing firm,publishing,firm,19.0
 publishing house,publishing,house,17.0
 puckerbush,pucker,bush,
 pudding berry,pudding,berry,
+pudding face,pudding,face,21.0
 pudding head,pudding,head,
 pudding stone,pudding,stone,
-pudding-face,pudding,face,21.0
 pudding-wife,pudding,wife,
 puff adder,puff,adder,20.0
 puff batter,puff,batter,
@@ -18999,7 +18715,6 @@ pullback,pull,back,13.0
 pulley block,pulley,block,
 pulling out,pulling,out,14.0
 pullover,pull,over,11.0
-pullover,pul,lover,17.0
 pulp cavity,pulp,cavity,
 pulp magazine,pulp,magazine,
 pulpwood,pulp,wood,
@@ -19092,7 +18807,6 @@ pushball,push,ball,
 pushcart,push,cart,17.0
 pushchair,push,chair,
 pushover,push,over,15.0
-pushover,pus,hover,15.0
 pushpin,push,pin,
 pussy willow,pussy,willow,20.0
 pussy-paw,pussy,paw,
@@ -19234,7 +18948,6 @@ rabbit-weed,rabbit,weed,
 rabbiteye,rabbit,eye,
 rabbiteye blueberry,rabbiteye,blueberry,
 rabbitfish,rabbit,fish,
-rabbitweed,rabbi,tweed,
 rabbitwood,rabbit,wood,
 rabble-rouser,rabble,rouser,19.0
 raccoon dog,raccoon,dog,
@@ -19332,7 +19045,6 @@ radio-phonograph,radio,phonograph,
 radioactivity unit,radioactivity,unit,
 radiocarbon dating,radiocarbon,dating,21.0
 radiochlorine,radio,chlorine,
-radiophotograph,radiophoto,graph,
 radiophotograph,radio,photograph,
 radiotelephone,radio,telephone,20.0
 radiotherapist,radio,therapist,21.0
@@ -19444,7 +19156,6 @@ range hood,range,hood,
 range pole,range,pole,
 rangefinder,range,finder,20.0
 rangeland,range,land,20.0
-rangeland,rang,eland,20.0
 rangpur lime,rangpur,lime,
 rank order,rank,order,
 ransom money,ransom,money,16.0
@@ -19737,10 +19448,8 @@ redhorse,red,horse,21.0
 redhorse sucker,redhorse,sucker,
 redneck,red,neck,14.0
 redroot,red,root,
-redshank,reds,hank,
 redshank,red,shank,
 redstart,red,start,19.0
-redstart,reds,tart,
 redtail,red,tail,
 reducing agent,reducing,agent,
 reducing diet,reducing,diet,
@@ -19885,8 +19594,6 @@ rental income,rental,income,
 repair shed,repair,shed,
 repair shop,repair,shop,17.0
 repairman,repair,man,15.0
-repairman,rep,airman,15.0
-repairmen,rep,airmen,18.0
 repayment rate,repayment,rate,
 repeating decimal,repeating,decimal,
 repeating firearm,repeating,firearm,
@@ -20156,6 +19863,7 @@ road builder,road,builder,21.0
 road construction,road,construction,21.0
 road game,road,game,19.0
 road gang,road,gang,16.0
+road hog,road,hog,18.0
 road map,road,map,16.0
 road mender,road,mender,
 road metal,road,metal,
@@ -20168,7 +19876,6 @@ road test,road,test,17.0
 roadbed,road,bed,21.0
 roadblock,road,block,14.0
 roadbook,road,book,
-roadhog,road,hog,18.0
 roadhouse,road,house,16.0
 roadkill,road,kill,16.0
 roadman,road,man,18.0
@@ -20337,7 +20044,6 @@ root word,root,word,21.0
 rooter skunk,rooter,skunk,
 rooting reflex,rooting,reflex,
 rootstalk,root,stalk,
-rootstalk,roots,talk,
 rootstock,root,stock,
 rope bridge,rope,bridge,20.0
 rope burn,rope,burn,18.0
@@ -20399,7 +20105,6 @@ rotor coil,rotor,coil,
 rotor head,rotor,head,
 rotor shaft,rotor,shaft,
 rottenstone,rotten,stone,
-rottenstone,rottens,tone,
 rouge plant,rouge,plant,
 rougeberry,rouge,berry,
 rough bindweed,rough,bindweed,
@@ -20764,6 +20469,7 @@ sand dropseed,sand,dropseed,
 sand dune,sand,dune,20.0
 sand eel,sand,eel,
 sand flea,sand,flea,
+sand fly,sand,fly,21.0
 sand grouse,sand,grouse,
 sand hopper,sand,hopper,
 sand lance,sand,lance,
@@ -20803,7 +20509,6 @@ sandbox,sand,box,15.0
 sandboy,sand,boy,
 sandbur,sand,bur,
 sandfish,sand,fish,
-sandfly,sand,fly,21.0
 sandfly fever,sandfly,fever,
 sandglass,sand,glass,19.0
 sandlot,sand,lot,17.0
@@ -20813,7 +20518,6 @@ sandpile,sand,pile,21.0
 sandpiper,sand,piper,18.0
 sandpit,sand,pit,19.0
 sandspur,sand,spur,
-sandstone,sands,tone,17.0
 sandstone,sand,stone,17.0
 sandstorm,sand,storm,15.0
 sandwich board,sandwich,board,21.0
@@ -20892,7 +20596,6 @@ sawfish,saw,fish,21.0
 sawfly,saw,fly,20.0
 sawhorse,saw,horse,21.0
 sawmill,saw,mill,16.0
-sawmill,sawm,ill,16.0
 sawpit,saw,pit,
 sawtooth,saw,tooth,17.0
 sawwort,saw,wort,
@@ -21039,11 +20742,11 @@ scrapbook,scrap,book,15.0
 scrapheap,scrap,heap,18.0
 scratch awl,scratch,awl,
 scratch line,scratch,line,
-scratch pad,scratch,pad,19.0
 scratch paper,scratch,paper,
 scratch race,scratch,race,
 scratch sheet,scratch,sheet,18.0
 scratch test,scratch,test,20.0
+scratchpad,scratch,pad,19.0
 screech owl,screech,owl,20.0
 screen actor,screen,actor,
 screen background,screen,background,
@@ -21101,7 +20804,6 @@ sea ash,sea,ash,
 sea aster,sea,aster,
 sea bass,sea,bass,16.0
 sea bathing,sea,bathing,
-sea bird,sea,bird,18.0
 sea biscuit,sea,biscuit,20.0
 sea boat,sea,boat,
 sea bottom,sea,bottom,19.0
@@ -21133,6 +20835,7 @@ sea gooseberry,sea,gooseberry,
 sea green,sea,green,
 sea hare,sea,hare,
 sea holly,sea,holly,
+sea horse,sea,horse,18.0
 sea kale,sea,kale,
 sea king,sea,king,18.0
 sea ladder,sea,ladder,
@@ -21199,6 +20902,7 @@ sea-ear,sea,ear,
 sea-rocket,sea,rocket,
 seabag,sea,bag,21.0
 seabed,sea,bed,19.0
+seabird,sea,bird,18.0
 seaboard,sea,board,15.0
 seafaring,sea,faring,17.0
 seafood,sea,food,14.0
@@ -21207,13 +20911,11 @@ seafowl,sea,fowl,21.0
 seafront,sea,front,19.0
 seagrass,sea,grass,17.0
 seagull,sea,gull,15.0
-seahorse,sea,horse,18.0
 seal bomb,seal,bomb,
 seal oil,seal,oil,
 seal ring,seal,ring,
 sealing material,sealing,material,
 sealing wax,sealing,wax,19.0
-sealskin,seals,kin,18.0
 sealskin,seal,skin,18.0
 sealskin tent,sealskin,tent,
 seaman,sea,man,15.0
@@ -21229,12 +20931,9 @@ search warrant,search,warrant,14.0
 searcher beetle,searcher,beetle,
 searchlight,search,light,16.0
 seascape,sea,scape,19.0
-seascape,seas,cape,19.0
-seashell,seas,hell,17.0
 seashell,sea,shell,17.0
 seashore,sea,shore,16.0
 seashore mallow,seashore,mallow,
-seasickness,seasick,ness,18.0
 seasickness,sea,sickness,18.0
 seaside,sea,side,16.0
 seaside alder,seaside,alder,
@@ -21242,7 +20941,6 @@ seaside centaury,seaside,centaury,
 seaside daisy,seaside,daisy,
 seaside goldenrod,seaside,goldenrod,
 seaside mahoe,seaside,mahoe,
-seasnail,seas,nail,
 season ticket,season,ticket,19.0
 seasonal adjustment,seasonal,adjustment,
 seasonal worker,seasonal,worker,
@@ -21559,6 +21257,7 @@ service fee,service,fee,19.0
 service firm,service,firm,
 service industry,service,industry,16.0
 service line,service,line,21.0
+service man,service,man,18.0
 service program,service,program,
 service road,service,road,17.0
 service routine,service,routine,
@@ -21567,7 +21266,6 @@ service station,service,station,16.0
 service stripe,service,stripe,
 service tree,service,tree,
 serviceberry,service,berry,
-serviceman,service,man,18.0
 serving cart,serving,cart,21.0
 serving dish,serving,dish,
 serving girl,serving,girl,20.0
@@ -21589,7 +21287,6 @@ setback,set,back,15.0
 setline,set,line,
 setoff,set,off,13.0
 setscrew,set,screw,
-setscrew,sets,crew,
 setting hen,setting,hen,21.0
 settlement house,settlement,house,17.0
 seven iron,seven,iron,21.0
@@ -21670,7 +21367,6 @@ shaping machine,shaping,machine,
 shaping tool,shaping,tool,
 share-out,share,out,19.0
 sharecropper,share,cropper,19.0
-sharecropper,sharecrop,per,19.0
 shareholder,share,holder,16.0
 shareholding,share,holding,
 shareowner,share,owner,
@@ -21680,11 +21376,9 @@ shariah law,shariah,law,
 shark oil,shark,oil,
 shark repellent,shark,repellent,
 sharkskin,shark,skin,19.0
-sharkskin,sharks,kin,19.0
 sharksucker,shark,sucker,
 sharp tongue,sharp,tongue,19.0
 sharp-sightedness,sharp,sightedness,
-sharpshooter,sharps,hooter,16.0
 sharpshooter,sharp,shooter,16.0
 shaving brush,shaving,brush,21.0
 shaving cream,shaving,cream,15.0
@@ -21820,8 +21514,8 @@ shoe collar,shoe,collar,
 shoe industry,shoe,industry,
 shoe leather,shoe,leather,16.0
 shoe polish,shoe,polish,16.0
+shoe shop,shoe,shop,18.0
 shoe store,shoe,store,14.0
-shoe-shop,shoe,shop,18.0
 shoebill,shoe,bill,
 shoebird,shoe,bird,
 shoeblack plant,shoeblack,plant,
@@ -21849,7 +21543,6 @@ shooting script,shooting,script,18.0
 shooting star,shooting,star,16.0
 shooting stick,shooting,stick,
 shootout,shoot,out,15.0
-shootout,shoo,tout,15.0
 shop assistant,shop,assistant,19.0
 shop bell,shop,bell,21.0
 shop boy,shop,boy,21.0
@@ -21860,7 +21553,6 @@ shop girl,shop,girl,18.0
 shop mechanic,shop,mechanic,
 shop steward,shop,steward,19.0
 shop talk,shop,talk,18.0
-shop window,shop,window,18.0
 shopfront,shop,front,
 shopkeeper,shop,keeper,17.0
 shoplifter,shop,lifter,16.0
@@ -21873,6 +21565,7 @@ shopping centre,shopping,centre,18.0
 shopping list,shopping,list,16.0
 shopping mall,shopping,mall,15.0
 shopwalker,shop,walker,
+shopwindow,shop,window,18.0
 shore bird,shore,bird,
 shore boulder,shore,boulder,
 shore duty,shore,duty,
@@ -21915,7 +21608,6 @@ shortfall,short,fall,19.0
 shorthand,short,hand,15.0
 shorthand typist,shorthand,typist,
 shorthorn,short,horn,21.0
-shortstop,shorts,top,15.0
 shortstop,short,stop,15.0
 shot glass,shot,glass,17.0
 shot hole,shot,hole,
@@ -21964,7 +21656,6 @@ showmanship,showman,ship,17.0
 showpiece,show,piece,19.0
 showplace,show,place,19.0
 showroom,show,room,16.0
-showstopper,shows,topper,17.0
 showstopper,show,stopper,17.0
 showtime,show,time,13.0
 shrew mole,shrew,mole,
@@ -22039,17 +21730,13 @@ sidekick,side,kick,14.0
 sidelight,side,light,21.0
 sideline,side,line,16.0
 sidesaddle,side,saddle,18.0
-sidesaddle,sides,addle,18.0
-sideshow,sides,how,15.0
 sideshow,side,show,15.0
 sideslip,side,slip,
-sideslip,sides,lip,
 sidesman,sides,man,
 sidesplitter,side,splitter,
 sidestep,side,step,18.0
 sidestroke,side,stroke,20.0
 sideswipe,side,swipe,20.0
-sideswipe,sides,wipe,20.0
 sidetrack,side,track,19.0
 sidewalk,side,walk,13.0
 sidewall,side,wall,19.0
@@ -22059,7 +21746,6 @@ sight bill,sight,bill,
 sight draft,sight,draft,
 sight gag,sight,gag,21.0
 sight setting,sight,setting,
-sightreader,sigh,treader,
 sightreader,sight,reader,
 sightseeing,sight,seeing,15.0
 sightseer,sight,seer,21.0
@@ -22108,7 +21794,6 @@ silkworm moth,silkworm,moth,
 silkworm seed,silkworm,seed,
 silly season,silly,season,
 siltstone,silt,stone,
-siltstone,silts,tone,
 silurid fish,silurid,fish,
 silver age,silver,age,
 silver ash,silver,ash,
@@ -22170,7 +21855,6 @@ silverrod,silver,rod,
 silverside,silver,side,
 silversmith,silver,smith,20.0
 silverspot,silver,spot,
-silverspot,silvers,pot,
 silversword,silver,sword,20.0
 silversword,silvers,word,
 silvertip,silver,tip,19.0
@@ -22215,7 +21899,6 @@ single-foot,single,foot,21.0
 single-leaf,single,leaf,
 single-spacing,single,spacing,
 singlestick,single,stick,20.0
-singlestick,singles,tick,
 singsong,sing,song,18.0
 singular form,singular,form,
 singular matrix,singular,matrix,
@@ -22301,7 +21984,6 @@ skillet cake,skillet,cake,
 skillet fish,skillet,fish,
 skim milk,skim,milk,17.0
 skin cancer,skin,cancer,17.0
-skin care,skin,care,18.0
 skin cell,skin,cell,21.0
 skin color,skin,color,16.0
 skin colour,skin,colour,21.0
@@ -22321,6 +22003,7 @@ skin test,skin,test,19.0
 skin tumor,skin,tumor,
 skin-dive,skin,dive,21.0
 skin-diver,skin,diver,
+skincare,skin,care,18.0
 skinflint,skin,flint,18.0
 skinhead,skin,head,17.0
 skinny-dip,skinny,dip,19.0
@@ -22338,8 +22021,8 @@ skull session,skull,session,20.0
 skullcap,skull,cap,18.0
 skunk bear,skunk,bear,
 skunk cabbage,skunk,cabbage,
+skunk-weed,skunk,weed,20.0
 skunkbush,skunk,bush,21.0
-skunkweed,skunk,weed,20.0
 sky burial,sky,burial,
 sky glow,sky,glow,
 sky marshal,sky,marshal,17.0
@@ -22371,9 +22054,7 @@ slam dunk,slam,dunk,15.0
 slang expression,slang,expression,
 slang term,slang,term,
 slant-eye,slant,eye,
-slapshot,slaps,hot,21.0
 slapshot,slap,shot,19.0
-slapstick,slaps,tick,17.0
 slapstick,slap,stick,17.0
 slash pocket,slash,pocket,
 slate club,slate,club,
@@ -22440,7 +22121,6 @@ slime mushroom,slime,mushroom,
 slingback,sling,back,20.0
 slinger ring,slinger,ring,
 slingshot,sling,shot,15.0
-slingshot,slings,hot,15.0
 slip carriage,slip,carriage,
 slip clutch,slip,clutch,
 slip coach,slip,coach,
@@ -22456,7 +22136,6 @@ slipper plant,slipper,plant,
 slipper spurge,slipper,spurge,
 slipperwort,slipper,wort,
 slipstick,slip,stick,
-slipstick,slips,tick,
 slipstream,slip,stream,14.0
 slipway,slip,way,20.0
 slit lamp,slit,lamp,21.0
@@ -22468,7 +22147,6 @@ slop chest,slop,chest,21.0
 slop jar,slop,jar,
 slop pail,slop,pail,
 slop-seller,slop,seller,
-slopshop,slops,hop,
 slopshop,slop,shop,
 slot machine,slot,machine,15.0
 sloth bear,sloth,bear,
@@ -22534,7 +22212,6 @@ smoke hole,smoke,hole,
 smoke tree,smoke,tree,
 smokehouse,smoke,house,17.0
 smokescreen,smoke,screen,16.0
-smokestack,smokes,tack,18.0
 smokestack,smoke,stack,18.0
 smoking car,smoking,car,20.0
 smoking carriage,smoking,carriage,
@@ -22605,7 +22282,6 @@ snap roll,snap,roll,
 snap willow,snap,willow,
 snapdragon,snap,dragon,21.0
 snapshot,snap,shot,15.0
-snapshot,snaps,hot,15.0
 snapshot program,snapshot,program,
 snare drum,snare,drum,18.0
 snatch block,snatch,block,
@@ -22621,7 +22297,6 @@ snooker table,snooker,table,
 snorkel breather,snorkel,breather,
 snorkel diving,snorkel,diving,
 snout beetle,snout,beetle,
-snow bank,snow,bank,19.0
 snow blower,snow,blower,21.0
 snow bunting,snow,bunting,
 snow chain,snow,chain,
@@ -22641,12 +22316,12 @@ snow plant,snow,plant,
 snow thrower,snow,thrower,
 snow tire,snow,tire,
 snow trillium,snow,trillium,
-snow-blindness,snow,blindness,21.0
 snowball,snow,ball,15.0
+snowbank,snow,bank,19.0
 snowbell,snow,bell,16.0
 snowberry,snow,berry,21.0
 snowbird,snow,bird,21.0
-snowblindness,snowblind,ness,
+snowblindness,snow,blindness,21.0
 snowboard,snow,board,16.0
 snowboarder,snow,boarder,16.0
 snowboarding,snow,boarding,14.0
@@ -22663,7 +22338,6 @@ snowman,snow,man,14.0
 snowmobile,snow,mobile,17.0
 snowplough,snow,plough,
 snowplow,snow,plow,17.0
-snowshoe,snows,hoe,20.0
 snowshoe,snow,shoe,20.0
 snowshoe hare,snowshoe,hare,
 snowshoe rabbit,snowshoe,rabbit,
@@ -22691,7 +22365,6 @@ soapberry vine,soapberry,vine,
 soapbox,soap,box,16.0
 soapfish,soap,fish,
 soapstone,soap,stone,20.0
-soapstone,soaps,tone,20.0
 soapwort,soap,wort,21.0
 soapwort gentian,soapwort,gentian,
 sob sister,sob,sister,19.0
@@ -22901,11 +22574,10 @@ soup bowl,soup,bowl,19.0
 soup kitchen,soup,kitchen,16.0
 soup ladle,soup,ladle,20.0
 soup plate,soup,plate,20.0
+soup spoon,soup,spoon,20.0
 soup-fin,soup,fin,
 soup-strainer,soup,strainer,20.0
 soupfin shark,soupfin,shark,
-soupspoon,soup,spoon,20.0
-soupspoon,soups,poon,
 sour bread,sour,bread,
 sour cherry,sour,cherry,
 sour cream,sour,cream,16.0
@@ -22984,7 +22656,6 @@ spacefaring,space,faring,19.0
 spaceflight,space,flight,18.0
 spaceman,space,man,15.0
 spaceship,space,ship,13.0
-spaceship,spaces,hip,13.0
 spacesuit,space,suit,18.0
 spacewalker,space,walker,
 spade bit,spade,bit,
@@ -23238,8 +22909,6 @@ splitsaw,split,saw,
 splitsville,splits,ville,19.0
 splitworm,split,worm,
 spoilsport,spoil,sport,17.0
-spoilsport,spoils,port,17.0
-spokeshave,spokes,have,
 spokeshave,spoke,shave,
 spokesman,spokes,man,15.0
 spokesperson,spokes,person,15.0
@@ -23274,7 +22943,6 @@ sportfishing,sport,fishing,21.0
 sportscast,sports,cast,20.0
 sportscaster,sports,caster,18.0
 sportsman,sports,man,16.0
-sportswear,sport,swear,17.0
 sportswear,sports,wear,17.0
 sportswoman,sports,woman,20.0
 sportswriter,sports,writer,16.0
@@ -23283,9 +22951,9 @@ spot jamming,spot,jamming,
 spot market,spot,market,
 spot pass,spot,pass,
 spot price,spot,price,
+spot welder,spot,welder,20.0
+spot welding,spot,welding,21.0
 spot-weld,spot,weld,
-spot-welder,spot,welder,20.0
-spot-welding,spot,welding,21.0
 spotlight,spot,light,14.0
 spouse equivalent,spouse,equivalent,
 spray can,spray,can,18.0
@@ -23491,11 +23159,10 @@ standing wave,standing,wave,
 standoff,stand,off,16.0
 standpipe,stand,pipe,19.0
 standpoint,stand,point,15.0
-standstill,stands,till,16.0
 standstill,stand,still,13.0
 staple fiber,staple,fiber,
 staple fibre,staple,fibre,
-staplegun,staple,gun,18.0
+staple gun,staple,gun,18.0
 star anise,star,anise,
 star aniseed,star,aniseed,
 star apple,star,apple,
@@ -23526,7 +23193,6 @@ starflower,star,flower,21.0
 stargazer,star,gazer,20.0
 stargazing,star,gazing,17.0
 starlight,star,light,15.0
-starship,stars,hip,14.0
 starship,star,ship,14.0
 starter motor,starter,motor,19.0
 starting block,starting,block,19.0
@@ -23587,7 +23253,6 @@ statute mile,statute,mile,
 statute title,statute,title,
 stave wood,stave,wood,
 staysail,stay,sail,20.0
-staysail,stays,ail,20.0
 steak knife,steak,knife,18.0
 steak sauce,steak,sauce,16.0
 steakhouse,steak,house,16.0
@@ -23616,7 +23281,6 @@ steamer clam,steamer,clam,
 steamfitter,steam,fitter,21.0
 steamroller,steam,roller,17.0
 steamship,steam,ship,17.0
-steamship,steams,hip,17.0
 steamship company,steamship,company,19.0
 steamship line,steamship,line,
 steel band,steel,band,
@@ -23703,8 +23367,8 @@ stiff gentian,stiff,gentian,
 stiletto heel,stiletto,heel,21.0
 still hunt,still,hunt,19.0
 still life,still,life,17.0
-still room,still,room,18.0
 stillbirth,still,birth,21.0
+stillroom,still,room,18.0
 stilt plover,stilt,plover,
 stiltbird,stilt,bird,
 stimulant drug,stimulant,drug,
@@ -23901,7 +23565,6 @@ stratus cloud,stratus,cloud,
 straw boss,straw,boss,
 straw foxglove,straw,foxglove,
 straw hat,straw,hat,17.0
-straw man,straw,man,19.0
 straw mushroom,straw,mushroom,
 straw poll,straw,poll,21.0
 straw vote,straw,vote,21.0
@@ -23923,6 +23586,7 @@ strawberry tomato,strawberry,tomato,
 strawberry tree,strawberry,tree,
 strawboard,straw,board,
 strawflower,straw,flower,
+strawman,straw,man,19.0
 strawworm,straw,worm,
 stream orchid,stream,orchid,
 streambed,stream,bed,
@@ -24178,7 +23842,6 @@ sun parlor,sun,parlor,20.0
 sun parlour,sun,parlour,
 sun pitcher,sun,pitcher,
 sun plant,sun,plant,
-sun porch,sun,porch,18.0
 sun spurge,sun,spurge,
 sun tea,sun,tea,
 sun visor,sun,visor,19.0
@@ -24208,9 +23871,9 @@ sunflower,sun,flower,16.0
 sunflower oil,sunflower,oil,
 sunflower seed,sunflower,seed,20.0
 sunglass,sun,glass,18.0
-sunglass,sung,lass,18.0
 sunlamp,sun,lamp,18.0
 sunlight,sun,light,13.0
+sunporch,sun,porch,18.0
 sunray,sun,ray,19.0
 sunray lamp,sunray,lamp,
 sunray pleat,sunray,pleat,
@@ -24224,9 +23887,7 @@ sunset,sun,set,12.0
 sunshade,sun,shade,
 sunshine,sun,shine,12.0
 sunshine-roof,sunshine,roof,
-sunspot,suns,pot,17.0
 sunspot,sun,spot,17.0
-sunstone,suns,tone,
 sunstone,sun,stone,
 sunstroke,sun,stroke,17.0
 sunsuit,sun,suit,21.0
@@ -24252,8 +23913,6 @@ superordinate word,superordinate,word,
 superoxide anion,superoxide,anion,
 superposition principle,superposition,principle,
 superslasher,super,slasher,
-superslasher,supers,lasher,
-superstar,supers,tar,13.0
 superstar,super,star,13.0
 supper club,supper,club,19.0
 suppertime,supper,time,16.0
@@ -24372,14 +24031,13 @@ sweat gland,sweat,gland,20.0
 sweat pants,sweat,pants,19.0
 sweat room,sweat,room,
 sweat sock,sweat,sock,
-sweat suit,sweat,suit,17.0
 sweatband,sweat,band,19.0
 sweatbox,sweat,box,18.0
 sweater girl,sweater,girl,
 sweating sickness,sweating,sickness,21.0
 sweatshirt,sweat,shirt,14.0
-sweatshop,sweats,hop,16.0
 sweatshop,sweat,shop,16.0
+sweatsuit,sweat,suit,17.0
 sweep hand,sweep,hand,20.0
 sweep oar,sweep,oar,
 sweep-second,sweep,second,
@@ -24548,7 +24206,6 @@ tablefork,table,fork,
 tableland,table,land,
 tablemate,table,mate,
 tablespoon,table,spoon,18.0
-tablespoon,tables,poon,18.0
 tablespoonful,table,spoonful,21.0
 tabletop,table,top,18.0
 tableware,table,ware,20.0
@@ -24582,7 +24239,6 @@ tailpipe,tail,pipe,16.0
 tailplane,tail,plane,
 tailrace,tail,race,
 tailspin,tail,spin,17.0
-tailspin,tails,pin,17.0
 tailstock,tail,stock,
 tailwind,tail,wind,18.0
 tailwort,tail,wort,
@@ -24627,8 +24283,8 @@ tall oil,tall,oil,
 tall order,tall,order,16.0
 tall sunflower,tall,sunflower,
 tall tale,tall,tale,19.0
+tall-grass,tall,grass,17.0
 tallboy,tall,boy,19.0
-tallgrass,tall,grass,17.0
 tallow oil,tallow,oil,
 tally clerk,tally,clerk,
 tallyman,tally,man,21.0
@@ -24832,10 +24488,8 @@ teardrop,tear,drop,17.0
 tearing down,tearing,down,16.0
 tearjerker,tear,jerker,18.0
 tearoom,tea,room,18.0
-teashop,teas,hop,19.0
 teashop,tea,shop,19.0
 teaspoon,tea,spoon,16.0
-teaspoon,teas,poon,16.0
 teaspoonful,tea,spoonful,18.0
 teatime,tea,time,16.0
 technical analysis,technical,analysis,
@@ -25157,7 +24811,6 @@ three-hitter,three,hitter,
 three-quarters,three,quarters,15.0
 threepence,three,pence,19.0
 threescore,three,score,19.0
-threescore,threes,core,19.0
 thresher shark,thresher,shark,21.0
 threshing floor,threshing,floor,
 threshing machine,threshing,machine,21.0
@@ -25168,7 +24821,6 @@ threshold level,threshold,level,
 threshold operation,threshold,operation,
 thrift institution,thrift,institution,
 thriftshop,thrift,shop,19.0
-thriftshop,thrifts,hop,
 throat infection,throat,infection,20.0
 throat protector,throat,protector,
 throat sweetbread,throat,sweetbread,
@@ -25196,9 +24848,7 @@ thumbnail,thumb,nail,18.0
 thumbnut,thumb,nut,
 thumbprint,thumb,print,16.0
 thumbscrew,thumb,screw,19.0
-thumbscrew,thumbs,crew,19.0
 thumbstall,thumb,stall,
-thumbstall,thumbs,tall,
 thumbtack,thumb,tack,18.0
 thunder lizard,thunder,lizard,21.0
 thunder mug,thunder,mug,
@@ -25382,7 +25032,6 @@ toadfish,toad,fish,
 toadflax,toad,flax,19.0
 toadshade,toad,shade,
 toadstool,toad,stool,17.0
-toadstool,toads,tool,17.0
 toast mistress,toast,mistress,
 toaster oven,toaster,oven,17.0
 toasting fork,toasting,fork,
@@ -25463,7 +25112,6 @@ tomato streak,tomato,streak,
 tomato worm,tomato,worm,
 tomboy,tom,boy,17.0
 tombstone,tomb,stone,14.0
-tombstone,tombs,tone,14.0
 tomcat,tom,cat,16.0
 tomfool,tom,fool,19.0
 tomtit,tom,tit,20.0
@@ -25537,12 +25185,9 @@ topknot,top,knot,18.0
 topmast,top,mast,
 topminnow,top,minnow,
 topsail,top,sail,18.0
-topsail,tops,ail,18.0
 topside,top,side,15.0
-topsoil,tops,oil,18.0
 topsoil,top,soil,18.0
 topspin,top,spin,20.0
-topspin,tops,pin,20.0
 torch race,torch,race,
 torch singer,torch,singer,
 torch song,torch,song,21.0
@@ -25558,7 +25203,6 @@ torque wrench,torque,wrench,19.0
 torsion balance,torsion,balance,
 tortilla chip,tortilla,chip,
 tortoise plant,tortoise,plant,
-tortoiseshell,tortoises,hell,19.0
 tortoiseshell,tortoise,shell,19.0
 tortoiseshell butterfly,tortoiseshell,butterfly,
 tortoiseshell turtle,tortoiseshell,turtle,
@@ -25630,7 +25274,6 @@ toy soldier,toy,soldier,19.0
 toy spaniel,toy,spaniel,
 toy terrier,toy,terrier,
 toyshop,toy,shop,19.0
-toyshop,toys,hop,
 trace detector,trace,detector,
 trace element,trace,element,
 trace program,trace,program,20.0
@@ -25760,8 +25403,6 @@ trapezium bone,trapezium,bone,
 trapezius muscle,trapezius,muscle,
 trapezoid bone,trapezoid,bone,
 trapshooter,trap,shooter,
-trapshooter,traps,hooter,
-trapshooting,traps,hooting,
 trapshooting,trap,shooting,20.0
 trash barrel,trash,barrel,20.0
 trash bin,trash,bin,17.0
@@ -25900,7 +25541,6 @@ triple time,triple,time,18.0
 triple-decker,triple,decker,19.0
 triple-spacing,triple,spacing,
 triplet code,triplet,code,
-tripletail,triplet,ail,
 tripletail,triple,tail,
 triquetral bone,triquetral,bone,
 trochlear nerve,trochlear,nerve,
@@ -25914,14 +25554,12 @@ troop carrier,troop,carrier,21.0
 troop movement,troop,movement,19.0
 troop transport,troop,transport,20.0
 troopship,troop,ship,19.0
-troopship,troops,hip,21.0
 trophy case,trophy,case,17.0
 trophy wife,trophy,wife,17.0
 tropic bird,tropic,bird,
 trotline,trot,line,
 troublemaker,trouble,maker,14.0
 troubleshooter,trouble,shooter,18.0
-troubleshooter,troubles,hooter,18.0
 trouser clip,trouser,clip,
 trouser cuff,trouser,cuff,
 trouser leg,trouser,leg,20.0
@@ -26096,12 +25734,9 @@ turnover,turn,over,13.0
 turnover rate,turnover,rate,21.0
 turnpike,turn,pike,15.0
 turnround,turn,round,16.0
-turnspit,turns,pit,
 turnspit,turn,spit,
 turnstile,turn,stile,17.0
-turnstile,turns,tile,17.0
 turnstone,turn,stone,
-turnstone,turns,tone,
 turntable,turn,table,17.0
 turpentine weed,turpentine,weed,
 turret clock,turret,clock,
@@ -26222,7 +25857,6 @@ underbrush,under,brush,18.0
 undercarriage,under,carriage,16.0
 undercharge,under,charge,
 underclass,under,class,19.0
-underclassman,underclass,man,21.0
 underclothing,under,clothing,21.0
 undercoat,under,coat,21.0
 undercurrent,under,current,18.0
@@ -26664,8 +26298,8 @@ waiting game,waiting,game,19.0
 waiting line,waiting,line,
 waiting list,waiting,list,15.0
 waiting room,waiting,room,14.0
-wake board,wake,board,21.0
 wake-robin,wake,robin,
+wakeboard,wake,board,21.0
 walk-in,walk,in,11.0
 walkabout,walk,about,17.0
 walkaway,walk,away,11.0
@@ -26738,7 +26372,6 @@ war zone,war,zone,15.0
 warble fly,warble,fly,
 wardroom,ward,room,17.0
 warehouse,ware,house,12.0
-warehouseman,ware,houseman,
 warehouseman,warehouse,man,21.0
 warehousing,ware,housing,19.0
 warfare,war,fare,14.0
@@ -26754,15 +26387,12 @@ warning device,warning,device,21.0
 warning light,warning,light,17.0
 warning signal,warning,signal,19.0
 warpath,war,path,15.0
-warplane,warp,lane,18.0
 warplane,war,plane,18.0
 warrant officer,warrant,officer,18.0
 warship,war,ship,15.0
-warship,wars,hip,15.0
 warthog,wart,hog,17.0
 wartime,war,time,15.0
 wartweed,wart,weed,
-wartweed,war,tweed,
 wartwort,wart,wort,
 wash drawing,wash,drawing,
 wash leather,wash,leather,
@@ -26793,7 +26423,6 @@ waste product,waste,product,20.0
 waste-yard,waste,yard,
 wastebasket,waste,basket,16.0
 wastebin,waste,bin,
-wasteland,wast,eland,15.0
 wasteland,waste,land,15.0
 wastewater,waste,water,21.0
 wasteweir,waste,weir,21.0
@@ -26888,7 +26517,6 @@ water lemon,water,lemon,
 water lettuce,water,lettuce,
 water level,water,level,17.0
 water lily,water,lily,18.0
-water line,water,line,17.0
 water lobelia,water,lobelia,
 water locust,water,locust,
 water main,water,main,16.0
@@ -26953,6 +26581,7 @@ water violet,water,violet,
 water vole,water,vole,
 water waggon,water,waggon,
 water wagon,water,wagon,19.0
+water wheel,water,wheel,20.0
 water wings,water,wings,17.0
 water witch,water,witch,20.0
 water yam,water,yam,
@@ -26979,6 +26608,7 @@ watering place,watering,place,20.0
 watering pot,watering,pot,21.0
 waterleaf,water,leaf,
 waterleaf family,waterleaf,family,
+waterline,water,line,17.0
 waterman,water,man,16.0
 watermark,water,mark,17.0
 watermeal,water,meal,
@@ -26988,22 +26618,19 @@ watermelon vine,watermelon,vine,
 waterpower,water,power,19.0
 waterproof,water,proof,15.0
 waterproofing,water,proofing,19.0
-waterscape,waters,cape,
 waterscape,water,scape,
 watershed,water,shed,18.0
 waterside,water,side,21.0
-waterskin,waters,kin,20.0
 waterskin,water,skin,20.0
 waterspout,water,spout,18.0
-waterspout,waters,pout,18.0
 waterway,water,way,18.0
 waterweed,water,weed,
-waterwheel,water,wheel,20.0
 waterwheel plant,waterwheel,plant,
 watt second,watt,second,
 watt-hour,watt,hour,
 wave angle,wave,angle,
 wave equation,wave,equation,
+wave form,wave,form,20.0
 wave front,wave,front,
 wave guide,wave,guide,
 wave mechanics,wave,mechanics,
@@ -27012,7 +26639,6 @@ wave shape,wave,shape,
 wave theory,wave,theory,21.0
 wave train,wave,train,
 waveband,wave,band,
-waveform,wave,form,20.0
 wavelength,wave,length,16.0
 wax bean,wax,bean,
 wax begonia,wax,begonia,
@@ -27064,8 +26690,6 @@ weatherboarding,weather,boarding,
 weathercock,weather,cock,21.0
 weatherglass,weather,glass,
 weatherman,weather,man,14.0
-weatherstrip,weathers,trip,
-weatherstripping,weathers,tripping,
 weatherstripping,weather,stripping,21.0
 weathervane,weather,vane,20.0
 weaver finch,weaver,finch,
@@ -27104,13 +26728,12 @@ wedge bone,wedge,bone,
 wedge heel,wedge,heel,
 wedge shape,wedge,shape,
 wedlock,wed,lock,15.0
+weed killer,weed,killer,18.0
 weed-whacker,weed,whacker,17.0
-weedkiller,weed,killer,18.0
 weekday,week,day,16.0
 weekend,week,end,9.0
 weekend warrior,weekend,warrior,20.0
 weeknight,week,night,18.0
-weeknight,wee,knight,18.0
 weenie roast,weenie,roast,18.0
 weeping beech,weeping,beech,
 weeping spruce,weeping,spruce,
@@ -27128,11 +26751,11 @@ welfare case,welfare,case,
 welfare state,welfare,state,19.0
 welfare work,welfare,work,21.0
 welfare worker,welfare,worker,21.0
-well point,well,point,18.0
 well water,well,water,18.0
 well-being,well,being,14.0
 well-wishing,well,wishing,
 wellhead,well,head,18.0
+wellpoint,well,point,18.0
 wellspring,well,spring,18.0
 welterweight,welter,weight,17.0
 werewolf,were,wolf,13.0
@@ -27173,10 +26796,10 @@ wet cell,wet,cell,
 wet dream,wet,dream,16.0
 wet fly,wet,fly,
 wet lung,wet,lung,
-wet nurse,wet,nurse,17.0
 wet suit,wet,suit,17.0
 wetback,wet,back,16.0
 wetland,wet,land,18.0
+wetnurse,wet,nurse,17.0
 wetting agent,wetting,agent,
 whale louse,whale,louse,
 whale oil,whale,oil,19.0
@@ -27191,6 +26814,7 @@ wheat beer,wheat,beer,
 wheat berry,wheat,berry,
 wheat eel,wheat,eel,
 wheat eelworm,wheat,eelworm,
+wheat field,wheat,field,18.0
 wheat flour,wheat,flour,21.0
 wheat future,wheat,future,
 wheat germ,wheat,germ,17.0
@@ -27198,7 +26822,6 @@ wheat gluten,wheat,gluten,21.0
 wheat rust,wheat,rust,
 wheat scab,wheat,scab,
 wheatear,wheat,ear,
-wheatfield,wheat,field,18.0
 wheatflake,wheat,flake,
 wheatgrass,wheat,grass,17.0
 wheatworm,wheat,worm,
@@ -27216,7 +26839,6 @@ wheelwork,wheel,work,21.0
 wheelwright,wheel,wright,20.0
 wherefore,where,fore,16.0
 wherewithal,where,withal,18.0
-whetstone,whets,tone,18.0
 whetstone,whet,stone,18.0
 whinberry,whin,berry,
 whinchat,whin,chat,
@@ -27231,13 +26853,11 @@ whiplash,whip,lash,14.0
 whiplash injury,whiplash,injury,
 whipper-in,whipper,in,20.0
 whippersnapper,whipper,snapper,18.0
-whippersnapper,whippers,napper,18.0
 whipping boy,whipping,boy,18.0
 whipping cream,whipping,cream,19.0
 whipping post,whipping,post,21.0
 whipping top,whipping,top,
 whipsaw,whip,saw,
-whipstitch,whips,titch,
 whipstitch,whip,stitch,
 whipstitching,whip,stitching,
 whiptail,whip,tail,
@@ -27433,14 +27053,11 @@ whole snipe,whole,snipe,
 whole step,whole,step,
 whole tone,whole,tone,21.0
 whole works,whole,works,16.0
-wholesale,wholes,ale,14.0
 wholesale,whole,sale,14.0
 wholesale house,wholesale,house,
 whooper swan,whooper,swan,
 whorehouse,whore,house,14.0
-whorehouse,who,rehouse,14.0
 whoremaster,whore,master,19.0
-whoremaster,who,remaster,19.0
 whoremonger,whore,monger,19.0
 whoreson,whore,son,20.0
 wicker basket,wicker,basket,21.0
@@ -27484,7 +27101,6 @@ wild dog,wild,dog,17.0
 wild duck,wild,duck,19.0
 wild emmer,wild,emmer,
 wild fig,wild,fig,
-wild flower,wild,flower,19.0
 wild garlic,wild,garlic,
 wild geranium,wild,geranium,
 wild ginger,wild,ginger,
@@ -27548,6 +27164,7 @@ wildcat,wild,cat,15.0
 wildcat strike,wildcat,strike,21.0
 wildcat well,wildcat,well,
 wildfire,wild,fire,15.0
+wildflower,wild,flower,19.0
 wildfowl,wild,fowl,
 wildlife,wild,life,14.0
 willow aster,willow,aster,
@@ -27617,7 +27234,6 @@ window washer,window,washer,17.0
 window-washing,window,washing,20.0
 windowpane oyster,windowpane,oyster,
 windowsill,window,sill,16.0
-windowsill,windows,ill,16.0
 windpipe,wind,pipe,15.0
 windscreen,wind,screen,17.0
 windscreen wiper,windscreen,wiper,19.0
@@ -27649,7 +27265,6 @@ wineglass heel,wineglass,heel,
 winemaker,wine,maker,18.0
 winemaking,wine,making,21.0
 winepress,wine,press,21.0
-wineskin,wines,kin,
 wineskin,wine,skin,21.0
 wing case,wing,case,
 wing chair,wing,chair,
@@ -27663,7 +27278,6 @@ wing tip,wing,tip,19.0
 wing-nut,wing,nut,18.0
 wingback,wing,back,18.0
 wingman,wing,man,15.0
-wingspan,wings,pan,17.0
 wingspan,wing,span,17.0
 wingspread,wing,spread,20.0
 winning post,winning,post,18.0
@@ -27719,7 +27333,6 @@ wireless telephone,wireless,telephone,
 wireman,wire,man,19.0
 wiretap,wire,tap,16.0
 wiretapper,wire,tapper,
-wiretapper,wiretap,per,
 wirework,wire,work,
 wireworm,wire,worm,
 wiring diagram,wiring,diagram,
@@ -27791,6 +27404,7 @@ wood drake,wood,drake,21.0
 wood duck,wood,duck,
 wood engraving,wood,engraving,
 wood file,wood,file,
+wood frog,wood,frog,20.0
 wood garlic,wood,garlic,
 wood grain,wood,grain,
 wood hen,wood,hen,
@@ -27829,7 +27443,6 @@ wood warbler,wood,warbler,
 wood widgeon,wood,widgeon,
 wood-creeper,wood,creeper,
 wood-fern,wood,fern,
-wood-frog,wood,frog,20.0
 wood-rat,wood,rat,
 woodborer,wood,borer,
 woodcarver,wood,carver,20.0
@@ -27852,7 +27465,6 @@ woodman,wood,man,17.0
 woodpecker,wood,pecker,15.0
 woodpile,wood,pile,17.0
 woodscrew,wood,screw,21.0
-woodscrew,woods,crew,
 woodshed,wood,shed,16.0
 woodsman,woods,man,16.0
 woodwaxen,wood,waxen,
@@ -27957,8 +27569,6 @@ works council,works,council,
 works program,works,program,
 worksheet,work,sheet,18.0
 workshop,work,shop,14.0
-workshop,works,hop,14.0
-workspace,works,pace,17.0
 workspace,work,space,17.0
 workstation,work,station,17.0
 worktable,work,table,21.0
@@ -28051,7 +27661,6 @@ yardbird,yard,bird,18.0
 yardman,yard,man,18.0
 yardmaster,yard,master,18.0
 yardstick,yard,stick,17.0
-yardstick,yards,tick,17.0
 year dot,year,dot,20.0
 year-end,year,end,17.0
 yearbook,year,book,13.0
@@ -28200,7 +27809,6 @@ zoo keeper,zoo,keeper,
 zoom lens,zoom,lens,18.0
 zoophobia,zoo,phobia,
 zooplankton,zoo,plankton,
-zoospore,zoos,pore,
 zoospore,zoo,spore,
 zootoxin,zoo,toxin,
 zygomatic arch,zygomatic,arch,19.0
