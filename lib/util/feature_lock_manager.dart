@@ -8,11 +8,11 @@ class FeatureLockManager {
 
   bool _isDailyLevelFeatureLocked = false;
   bool get isDailyLevelFeatureLocked => _isDailyLevelFeatureLocked;
-  static const int dailyLevelFeatureLockLevel = 20;
+  static const int dailyLevelFeatureLockLevel = 10;
 
   bool _isDailyGoalsFeatureLocked = false;
   bool get isDailyGoalsFeatureLocked => _isDailyGoalsFeatureLocked;
-  static const int dailyGoalsFeatureLockLevel = 50;
+  static const int dailyGoalsFeatureLockLevel = 20;
 
   FeatureLockManager({
     required this.gameEventStream,

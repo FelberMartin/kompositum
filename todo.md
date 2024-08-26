@@ -1,7 +1,6 @@
 # TODOs    
 ## Next up
 
-- Decrement feature unlock level requirements
 - Floating bottomAppBar in android
 - Show app version in settings
 
