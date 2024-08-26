@@ -3,7 +3,7 @@
 
 - Decrement feature unlock level requirements
 - Floating bottomAppBar in android
-- Add Regensburger to blocked compounds (does not make much sense)
+- Show app version in settings
 
 ## Later
 - Ads for the app
