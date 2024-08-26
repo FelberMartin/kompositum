@@ -64,8 +64,8 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
         ),
       ),
       clipBehavior: Clip.antiAlias,
-      child: Wrap(
-        children: [BottomNavigationBar(
+      child: SafeArea(
+        child: BottomNavigationBar(
           items: items,
           onTap: (index) {
             onItemSelected(index);
@@ -77,7 +77,6 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
           showUnselectedLabels: false,
           showSelectedLabels: false,
         ),
-      ],
       ),
     );
   }

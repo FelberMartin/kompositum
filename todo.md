@@ -1,7 +1,6 @@
 # TODOs    
 ## Next up
 
-- Floating bottomAppBar in android
 - Edwin: Level difficulty is cut off?
 
 ## Later
