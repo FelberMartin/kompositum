@@ -34,8 +34,10 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
 
   final keyValueStore = locator<KeyValueStore>();
+  final appVersionProvider = locator<AppVersionProvider>();
 
   bool isDailyNotificationActive = true;
+  String? appVersion;
 
   @override
   void initState() {
@@ -43,6 +45,11 @@ class _SettingsPageState extends State<SettingsPage> {
     keyValueStore.getBooleanSetting(BooleanSetting.dailyNotificationsEnabled).then((value) {
       setState(() {
         isDailyNotificationActive = value;
+      });
+    });
+    appVersionProvider.getAppVersion().then((value) {
+      setState(() {
+        appVersion = value;
       });
     });
   }
@@ -85,6 +92,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     SizedBox(height: 32.0),
                     SettingsGroup(
@@ -102,6 +110,18 @@ class _SettingsPageState extends State<SettingsPage> {
                       title: "Datenschutzerklärung",
                       children: [
                         PrivacyPolicy()
+                      ],
+                    ),
+                    SizedBox(height: 32.0),
+                    SettingsGroup(
+                      title: "App Info",
+                      children: [
+                        Text(
+                          "Version: ${appVersion ?? "unbekannt"}",
+                          style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                            color: MyColorPalette.of(context).textSecondary,
+                          ),
+                        )
                       ],
                     ),
                     SizedBox(height: 32.0),

@@ -2,14 +2,15 @@
 ## Next up
 
 - Floating bottomAppBar in android
-- Show app version in settings
+- Edwin: Level difficulty is cut off?
+- Ordnung + Samt
 
 ## Later
 - Ads for the app
   - TikTok videos?
   - Reddit forums
     - r/de, r/playmygame
-#
+
 
 # Bugs
 - B16 
