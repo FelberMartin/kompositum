@@ -3,7 +3,6 @@
 
 - Floating bottomAppBar in android
 - Edwin: Level difficulty is cut off?
-- Ordnung + Samt
 
 ## Later
 - Ads for the app
