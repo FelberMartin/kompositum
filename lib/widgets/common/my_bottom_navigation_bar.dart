@@ -56,15 +56,16 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 66,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(CornerRadius.large),
+    return SafeArea(
+      bottom: false,
+      child: Container(
+        height: 66 + MediaQuery.of(context).padding.bottom,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(CornerRadius.large),
+          ),
         ),
-      ),
-      clipBehavior: Clip.antiAlias,
-      child: SafeArea(
+        clipBehavior: Clip.antiAlias,
         child: BottomNavigationBar(
           items: items,
           onTap: (index) {
