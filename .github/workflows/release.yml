@@ -1,0 +1,91 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'  # Triggers on version tags like v1.0.0
+  workflow_dispatch:  # Allows manual triggering of the workflow
+
+jobs:
+  build_android:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 'stable'
+
+      - name: Decode keystore
+        run: echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > release-keystore.jks
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Build Android APK
+        run: |
+          flutter build apk --release --no-tree-shake-icons \
+            --build-name=${{ github.ref_name }} \
+            --build-number=${{ github.run_number }}
+
+      - name: Build Android App Bundle
+        run: |
+          flutter build appbundle --release --no-tree-shake-icons \
+            --build-name=${{ github.ref_name }} \
+            --build-number=${{ github.run_number }}
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-release.apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+
+      - name: Upload AAB
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-release.aab
+          path: build/app/outputs/bundle/release/app-release.aab
+
+  build_ios:
+    runs-on: macos-latest
+    needs: build_android
+    
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 'stable'
+
+      - name: Set up CocoaPods
+        run: pod install --project-directory=ios/
+
+      - name: Decode certificates and profiles
+        run: |
+          echo "${{ secrets.IOS_CERTIFICATE }}" | base64 --decode > ios_certificate.p12
+          echo "${{ secrets.IOS_PROFILE }}" | base64 --decode > ios_profile.mobileprovision
+
+      - name: Install Fastlane
+        run: gem install fastlane
+
+      - name: Build iOS App
+        env:
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          APP_STORE_CONNECT_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
+          IOS_CERTIFICATE_PASSWORD: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
+        run: |
+          fastlane run unlock_keychain
+          flutter build ipa --release --no-tree-shake-icons \
+            --build-name=${{ github.ref_name }} \
+            --build-number=${{ github.run_number }}
+
+      - name: Upload IPA
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-release.ipa
+          path: build/ios/ipa/*.ipa
