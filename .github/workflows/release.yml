@@ -7,6 +7,20 @@ on:
   workflow_dispatch:  # Allows manual triggering of the workflow
 
 jobs:
+  sync_version:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Sync version in pubspec.yaml
+        run: |
+          sed -i "s/^version:.*/version: ${GITHUB_REF#refs/tags\/}/" pubspec.yaml
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git commit -am "Update version to match tag ${GITHUB_REF#refs/tags\/}"
+          git push
+
   build_android:
     runs-on: ubuntu-latest
     
