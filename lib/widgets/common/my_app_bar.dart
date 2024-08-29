@@ -92,6 +92,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Theme.of(context).colorScheme.secondary,
       leading: leftContent,
       title: middleContent,
+      toolbarHeight: AppBarHeight,
       centerTitle: true,
       actions: [rightContent],
     );

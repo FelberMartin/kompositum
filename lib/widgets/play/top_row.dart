@@ -43,9 +43,7 @@ class TopRow extends StatelessWidget implements PreferredSizeWidget {
       onNavigationPressed: onBackPressed,
       middleContent: Column(
         children: [
-          SizedBox(height: 4.0),
           titleWidget,
-          SizedBox(height: 4.0),
           subtitle,
         ],
       ),

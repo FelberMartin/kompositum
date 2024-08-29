@@ -1,8 +1,6 @@
 # TODOs    
 ## Next up
 
-- Edwin: Level difficulty is cut off?
-
 ## Later
 - Ads for the app
   - TikTok videos?
