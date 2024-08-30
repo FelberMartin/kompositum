@@ -7,38 +7,29 @@ on:
   workflow_dispatch:  # Allows manual triggering of the workflow
 
 jobs:
-  check_version:
+  extract_version:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
 
-      - name: Extract Version from pubspec.yaml
+      - name: Extract version from pubspec.yaml
         id: extract_version
         run: |
-          # Extract version from pubspec.yaml
+          # Extract version string from pubspec.yaml
           VERSION=$(grep '^version:' pubspec.yaml | sed 's/version: //')
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-
-      - name: Check if Tag Version Matches pubspec.yaml Version
-        run: |
-          TAG_VERSION=${GITHUB_REF#refs/tags/}
-          PUBSPEC_VERSION=$VERSION
           
-          echo "Tag version: $TAG_VERSION"
-          echo "pubspec.yaml version: $PUBSPEC_VERSION"
-
-          # Compare the tag version with the pubspec.yaml version
-          if [ "$TAG_VERSION" != "$PUBSPEC_VERSION" ]; then
-            echo "Error: Tag version ($TAG_VERSION) does not match pubspec.yaml version ($PUBSPEC_VERSION)"
-            exit 1
-          fi
-        env:
-          VERSION: ${{ env.VERSION }}
+          # Split VERSION into version name and build number
+          BUILD_NAME=$(echo $VERSION | cut -d "+" -f 1)
+          BUILD_NUMBER=$(echo $VERSION | cut -d "+" -f 2)
+          
+          # Set the extracted values as environment variables
+          echo "BUILD_NAME=$BUILD_NAME" >> $GITHUB_ENV
+          echo "BUILD_NUMBER=$BUILD_NUMBER" >> $GITHUB_ENV
 
   build_android:
     runs-on: ubuntu-latest
-    needs: check_version
+    needs: extract_version
     
     steps:
       - uses: actions/checkout@v3
@@ -59,14 +50,14 @@ jobs:
       - name: Build Android APK
         run: |
           flutter build apk --release --no-tree-shake-icons \
-            --build-name=${{ github.ref_name }} \
-            --build-number=${{ github.run_number }}
+            --build-name=${{ env.BUILD_NAME }} \
+            --build-number=${{ env.BUILD_NUMBER }}
 
       - name: Build Android App Bundle
         run: |
           flutter build appbundle --release --no-tree-shake-icons \
-            --build-name=${{ github.ref_name }} \
-            --build-number=${{ github.run_number }}
+            --build-name=${{ env.BUILD_NAME }} \
+            --build-number=${{ env.BUILD_NUMBER }}
 
       - name: Upload APK
         uses: actions/upload-artifact@v3
@@ -111,8 +102,8 @@ jobs:
         run: |
           fastlane run unlock_keychain
           flutter build ipa --release --no-tree-shake-icons \
-            --build-name=${{ github.ref_name }} \
-            --build-number=${{ github.run_number }}
+            --build-name=${{ env.BUILD_NAME }} \
+            --build-number=${{ env.BUILD_NUMBER }}
 
       - name: Upload IPA
         uses: actions/upload-artifact@v3
