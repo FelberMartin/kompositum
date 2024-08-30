@@ -18,6 +18,7 @@ jobs:
         run: |
           # Extract version string from pubspec.yaml
           VERSION=$(grep '^version:' pubspec.yaml | sed 's/version: //')
+          echo "Pubspec.yml version: $VERSION"
           
           # Split VERSION into version name and build number
           BUILD_NAME=$(echo $VERSION | cut -d "+" -f 1)
