@@ -36,7 +36,8 @@ jobs:
 
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: 'stable'
+          channel: 'stable'
+          flutter-version: '3.16.9' # Specify the Flutter version explicitly
 
       - name: Decode keystore
         run: echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > release-keystore.jks
@@ -80,7 +81,8 @@ jobs:
 
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: 'stable'
+          channel: 'stable'
+          flutter-version: '3.16.9' # Specify the Flutter version explicitly
 
       - name: Set up CocoaPods
         run: pod install --project-directory=ios/
