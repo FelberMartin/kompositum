@@ -22,6 +22,9 @@ jobs:
           # Split VERSION into version name and build number
           BUILD_NAME=$(echo $VERSION | cut -d "+" -f 1)
           BUILD_NUMBER=$(echo $VERSION | cut -d "+" -f 2)
+
+          echo "Build-Name: $BUILD_NAME"
+          echo "Build-Number: $BUILD_NUMBER"
           
           # Set the extracted values as environment variables
           echo "BUILD_NAME=$BUILD_NAME" >> $GITHUB_ENV
