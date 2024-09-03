@@ -1,18 +1,10 @@
 name: Build and Release
 
-
-
 on:
   push:
-    branches:
-      - "gh-actions"
-  pull_request:
-    branches:
-      - "main"
-    paths:
-      - ".github/workflows/release.yaml"
-
-
+    tags:
+      - 'v*'  # Trigger on version tags like v1.0.0
+  workflow_dispatch:  # Allows manual triggering of the workflow
 
 jobs:
   extract_version:
@@ -60,23 +52,11 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Build Android APK
-        run: |
-          flutter build apk --release --no-tree-shake-icons \
-            --build-name $BUILD_NAME \
-            --build-number $BUILD_NUMBER
-
       - name: Build Android App Bundle
         run: |
           flutter build appbundle --release --no-tree-shake-icons \
-            --build-name=$BUILD_NAME \
-            --build-number=$BUILD_NUMBER
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v3
-        with:
-          name: app-release.apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+            --build-name $BUILD_NAME \
+            --build-number $BUILD_NUMBER
 
       - name: Upload AAB
         uses: actions/upload-artifact@v3
@@ -116,8 +96,8 @@ jobs:
         run: |
           fastlane run unlock_keychain
           flutter build ipa --release --no-tree-shake-icons \
-            --build-name=${{ env.BUILD_NAME }} \
-            --build-number=${{ env.BUILD_NUMBER }}
+            --build-name $BUILD_NAME \
+            --build-number $BUILD_NUMBER
 
       - name: Upload IPA
         uses: actions/upload-artifact@v3
