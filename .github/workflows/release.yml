@@ -63,8 +63,8 @@ jobs:
       - name: Build Android APK
         run: |
           flutter build apk --release --no-tree-shake-icons \
-            --build-name=$BUILD_NAME \
-            --build-number=$BUILD_NUMBER
+            --build-name $BUILD_NAME \
+            --build-number $BUILD_NUMBER
 
       - name: Build Android App Bundle
         run: |
