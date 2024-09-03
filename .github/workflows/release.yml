@@ -2,9 +2,13 @@ name: Build and Release
 
 on:
   push:
-    tags:
-      - 'v*'  # Trigger on version tags like v1.0.0
-  workflow_dispatch:  # Allows manual triggering of the workflow
+    branches:
+      - "gh-actions"
+  pull_request:
+    branches:
+      - "main"
+    paths:
+      - ".github/workflows/release.yaml"
 
 jobs:
   extract_version:
@@ -53,6 +57,10 @@ jobs:
           java-version: '17'
 
       - name: Build Android App Bundle
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: |
           flutter build appbundle --release --no-tree-shake-icons \
             --build-name $BUILD_NAME \
