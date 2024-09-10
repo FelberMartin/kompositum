@@ -1,3 +1,4 @@
+import 'package:kompositum/config/flavors/flavor.dart';
 import 'package:kompositum/game/difficulty.dart';
 
 /// Abstract class for UI strings. Implementations should provide the strings for the app in a specific language.
@@ -8,6 +9,10 @@ import 'package:kompositum/game/difficulty.dart';
 /// - Use `smt` for semantic texts (toolstips, screen reader texts)
 ///
 abstract class UiString {
+
+  final Flavor flavor;
+
+  UiString(this.flavor);
 
   static final String placeholder = "####";
 
@@ -29,10 +34,29 @@ abstract class UiString {
   abstract String smtPreviousMonth;
   abstract String smtNextMonth;
 
+  // Game
+  abstract String ttlHiddenLevel;
+  abstract String lblChainGameLevel;
+
+  // Ads
+  abstract String lblDoYouEnjoy;
+  abstract String lblThenTellYourFriends;
+  abstract String btnShare;
+
+  // Notification
+  abstract String ttlDefaultNotificationTitle;
+  abstract List<String> ttlNotificationVariants;
+  abstract String lblNotificationDescription;
+
+  // Misc
+  abstract String shareText;
+
   String getDifficultyText(Difficulty difficulty);
 }
 
 class UiStringDe extends UiString {
+  UiStringDe(super.flavor);
+
   String btnPlayDailyLevel = "Start";
   String ttlDailyLevelContainer = "Tägliches Rätsel";
   String lblFeatureLockedTillLevel = "ab Level ${UiString.placeholder}";
@@ -48,6 +72,19 @@ class UiStringDe extends UiString {
   String smtPreviousMonth = "Vorheriger Monat";
   String smtNextMonth = "Nächster Monat";
 
+  String ttlHiddenLevel = "Verstecktes Level";
+  String lblChainGameLevel = "Wortkette";
+
+  String lblDoYouEnjoy = "Gefällt dir";
+  String lblThenTellYourFriends = "Dann empfehle es deinen Freunden!";
+  String btnShare = "Teilen";
+
+  String ttlDefaultNotificationTitle = "Tägliches Rätsel";
+  List<String> ttlNotificationVariants = ["Wer rastet, der rostet", "Täglich grüßt das Murmeltier"];
+  String lblNotificationDescription = "Dein tägliches Rätsel wartet noch darauf gelöst zu werden!";
+
+  late String shareText = "Entdecke jetzt meine neue Lieblings-App '${flavor.storeAppName}'!\n\n"
+      "Android: ${flavor.playStoreLink}\niOS: ${flavor.appStoreLink}";
 
   @override
   String getDifficultyText(Difficulty difficulty) {
@@ -65,6 +102,8 @@ class UiStringDe extends UiString {
 }
 
 class UiStringEn extends UiString {
+  UiStringEn(super.flavor);
+
   String btnPlayDailyLevel = "Play";
   String ttlDailyLevelContainer = "Daily Level";
   String lblFeatureLockedTillLevel = "from level ${UiString.placeholder}";
@@ -80,6 +119,19 @@ class UiStringEn extends UiString {
   String smtPreviousMonth = "Previous Month";
   String smtNextMonth = "Next Month";
 
+  String ttlHiddenLevel = "Hidden Level";
+  String lblChainGameLevel = "Chain";
+
+  String lblDoYouEnjoy = "Do you enjoy";
+  String lblThenTellYourFriends = "Then tell your friends!";
+  String btnShare = "Share";
+
+  String ttlDefaultNotificationTitle = "Daily Level";
+  List<String> ttlNotificationVariants = ["Who rests, rusts", "Every day is Groundhog Day"];
+  String lblNotificationDescription = "Your daily level is waiting to be solved!";
+
+  late String shareText = "Discover my new favorite app '${flavor.storeAppName}'!\n\n"
+      "Android: ${flavor.playStoreLink}\niOS: ${flavor.appStoreLink}";
 
   @override
   String getDifficultyText(Difficulty difficulty) {

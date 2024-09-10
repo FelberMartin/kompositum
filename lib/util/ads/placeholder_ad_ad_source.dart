@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:kompositum/config/flavors/flavor.dart';
 import 'package:kompositum/util/ads/ad_source.dart';
 import 'package:kompositum/util/my_share.dart';
 import 'package:kompositum/widgets/common/util/corner_radius.dart';
@@ -126,9 +127,9 @@ class _PlaceholderAdState extends State<_PlaceholderAd> {
                     text: new TextSpan(
                       style: Theme.of(context).textTheme.titleMedium,
                       children: <TextSpan>[
-                        new TextSpan(text: "Dir gefällt \n"),
+                        new TextSpan(text: Flavor.instance.uiString.lblDoYouEnjoy + "\n"),
                         new TextSpan(
-                            text: "Wort + Schatz",
+                            text: Flavor.instance.appTitle,
                             style: new TextStyle(
                                 color: MyColorPalette.of(context).primaryShade,
                             )),
@@ -159,7 +160,7 @@ class _PlaceholderAdState extends State<_PlaceholderAd> {
                   SizedBox(
                       width: 200,
                       child: Text(
-                        "Dann empfehle es deinen Freunden!",
+                        Flavor.instance.uiString.lblThenTellYourFriends,
                         style: Theme.of(context).textTheme.titleMedium,
                         textAlign: TextAlign.center,
                       )
@@ -167,7 +168,7 @@ class _PlaceholderAdState extends State<_PlaceholderAd> {
                   Expanded(child: Container()),
                   FittedBox(
                     child: MyPrimaryTextButton(
-                      text: "Teilen",
+                      text: Flavor.instance.uiString.btnShare,
                       leadingIcon: Padding(
                         padding: const EdgeInsets.only(right: 8.0),
                         child: Icon(

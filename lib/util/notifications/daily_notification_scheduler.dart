@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:kompositum/config/flavors/flavor.dart';
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/util/extensions/date_util.dart';
 import 'package:kompositum/util/feature_lock_manager.dart';
@@ -63,19 +64,17 @@ class DailyNotificationScheduler {
     required int notificationId,
     required DateTime notificationDate
   }) {
-    var title = "Tägliches Rätsel";
+    var title = Flavor.instance.uiString.ttlDefaultNotificationTitle;
+    // With a chance of 20%, choose one of the variant titles
     if (Random().nextDouble() < 0.2) {
-      if (Random().nextBool()) {
-        title = "Wer rastet, der rostet";
-      } else {
-        title = "Täglich grüßt das Murmeltier";
-      }
+      final index = Random().nextInt(Flavor.instance.uiString.ttlNotificationVariants.length);
+      title = Flavor.instance.uiString.ttlNotificationVariants[index];
     }
 
     return notificationManager.scheduleNotification(
       id: notificationId,
       title: title,
-      description: "Dein tägliches Rätsel wartet noch darauf gelöst zu werden!",
+      description: Flavor.instance.uiString.lblNotificationDescription,
       dateTime: notificationDate,
       notificationDetails: notificationDetails,
     );

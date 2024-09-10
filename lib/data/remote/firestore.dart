@@ -1,6 +1,7 @@
 
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:kompositum/config/flavors/flavor.dart';
 import 'package:kompositum/util/app_version_provider.dart';
 
 import '../../config/locator.dart';
@@ -17,6 +18,7 @@ Future<void> sendDataToFirestore(String compound, String modifier, String head, 
       'time': DateTime.now(),
       'level': level,
       'app_version': appVersion,
+      'flavor': Flavor.instance.locale.toString(),
     });
 
     print('Data added to Firestore successfully');

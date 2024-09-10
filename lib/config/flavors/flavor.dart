@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kompositum/config/flavors/ui_string.dart';
+import 'package:kompositum/util/my_share.dart';
 
 
 abstract class Flavor {
@@ -25,20 +26,32 @@ abstract class Flavor {
 
   abstract String appTitle;
   abstract Locale locale;
+
+  abstract String storeAppName;
+  abstract String playStoreLink;
+  abstract String appStoreLink;
 }
 
 class _FlavorDe extends Flavor {
 
+  UiString get uiString => UiStringDe(this);
   String appTitle = "Wort + Schatz";
   Locale locale = const Locale('de', 'DE');
 
-  UiString get uiString => UiStringDe();
+  String storeAppName = MyShare.deStoreAppName;
+  String playStoreLink = MyShare.dePlayStoreUrl;
+  String appStoreLink = MyShare.deAppStoreUrl;
 
 }
 
 class _FlavorEn extends Flavor {
+
+    UiString get uiString => UiStringEn(this);
     String appTitle = "Word + Treasure";
     Locale locale = const Locale('en', 'US');
 
-    UiString get uiString => UiStringEn();
+    String storeAppName = MyShare.enStoreAppName;
+    String playStoreLink = MyShare.enPlayStoreUrl;
+    String appStoreLink = MyShare.enAppStoreUrl;
+
 }

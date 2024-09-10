@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kompositum/config/flavors/flavor.dart';
 import 'package:kompositum/config/locator.dart';
 import 'package:kompositum/config/my_icons.dart';
 import 'package:kompositum/config/my_theme.dart';
@@ -80,7 +81,7 @@ class ChainGamePageState extends GamePageState {
 
   @override
   String getLevelTitle() {
-    return "Verstecktes Level";
+    return Flavor.instance.uiString.ttlHiddenLevel;
   }
 
   @override
@@ -95,7 +96,7 @@ class ChainGamePageState extends GamePageState {
           ),
           SizedBox(width: 8.0),
           Text(
-            "Wortkette",
+            Flavor.instance.uiString.lblChainGameLevel,
             style: Theme.of(context).textTheme.labelSmall!.copyWith(
               color: MyColorPalette.of(context).textSecondary,
             ),

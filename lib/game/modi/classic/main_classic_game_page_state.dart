@@ -1,3 +1,4 @@
+import 'package:kompositum/config/flavors/flavor.dart';
 import 'package:kompositum/game/modi/classic/classic_game_level.dart';
 import 'package:kompositum/game/modi/classic/classic_game_page_state.dart';
 
@@ -86,7 +87,7 @@ class MainClassicGamePageState extends ClassicGamePageState {
 
   @override
   String getLevelTitle() {
-    return "Level $currentLevel";
+    return Flavor.instance.uiString.lblLevelIndicator + " $currentLevel";
   }
 
   @override
