@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:kompositum/config/flavors/flavor.dart';
+import 'package:kompositum/config/flavors/ui_string.dart';
 import 'package:kompositum/config/my_icons.dart';
 import 'package:kompositum/game/modi/classic/daily_classic_game_page_state.dart';
 import 'package:kompositum/util/extensions/date_util.dart';
@@ -55,7 +57,7 @@ class _DailyOverviewPageState extends State<DailyOverviewPage> {
   void initState() {
     super.initState();
     _updatePage();
-    initializeDateFormatting('de_DE', null);
+    initializeDateFormatting(Flavor.instance.locale.languageCode, null);
   }
 
   void _updatePage() async {
@@ -135,7 +137,7 @@ class _DailyOverviewPageState extends State<DailyOverviewPage> {
                 Navigator.pop(context);
               },
               middleContent: Text(
-                "Tägliche Rätsel",
+                Flavor.instance.uiString.ttlDailyLevels,
                 style: Theme
                     .of(context)
                     .textTheme
@@ -214,11 +216,14 @@ class _StartButton extends StatelessWidget {
   Widget build(BuildContext context) {
     if (!isLocked) {
       return MyPrimaryTextButtonLarge(
-        text: "Start",
+        text: Flavor.instance.uiString.btnPlayDailyLevel,
         enabled: enabled,
         onPressed: onPressed,
       );
     }
+
+    String text = Flavor.instance.uiString.lblFeatureLockedTillLevel;
+    text = text.replaceFirst(UiString.placeholder, FeatureLockManager.dailyLevelFeatureLockLevel.toString());
 
     return MyPrimaryButton(
       onPressed: () {},
@@ -235,7 +240,7 @@ class _StartButton extends StatelessWidget {
             ),
             SizedBox(width: 8),
             Text(
-                "ab Level ${FeatureLockManager.dailyLevelFeatureLockLevel}",
+                text,
                 style: Theme.of(context).textTheme.labelMedium!.copyWith(
                   color: MyColorPalette.of(context).textSecondary,
                 )
@@ -334,7 +339,7 @@ class Calendar extends StatelessWidget {
       firstDay: DateTime.utc(2023, 1, 1),
       lastDay: DateTime.now(),
       currentDay: DateTime.now(),
-      locale: "de_DE",
+      locale: Flavor.instance.locale,
       rowHeight: height > 650 ? 48 : 32,
       startingDayOfWeek: StartingDayOfWeek.monday,
       headerStyle: HeaderStyle(
@@ -344,7 +349,7 @@ class Calendar extends StatelessWidget {
           color: Theme.of(context).colorScheme.primary,
         ),
         leftChevronIcon: Semantics(
-          label: "Vorheriger Monat",
+          label: Flavor.instance.uiString.smtPreviousMonth,
           child: MyIconButton(
             icon: FontAwesomeIcons.chevronLeft,
             onPressed: () {},
@@ -353,7 +358,7 @@ class Calendar extends StatelessWidget {
         leftChevronPadding: const EdgeInsets.all(0),
         leftChevronMargin: const EdgeInsets.symmetric(horizontal: 16.0),
         rightChevronIcon: Semantics(
-          label: "Nächster Monat",
+          label: Flavor.instance.uiString.smtNextMonth,
           child: MyIconButton(
             icon: FontAwesomeIcons.chevronRight,
             onPressed: () {},
