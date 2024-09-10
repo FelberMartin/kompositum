@@ -51,7 +51,7 @@ dependencies:
   cloud_firestore: ^4.13.3
   animated_flip_counter: ^0.2.6
   flutter_svg: ^2.0.9
-  intl: ^0.18.1
+  intl: ^0.19.0
   table_calendar: ^3.0.9
   objectbox: 2.4.0      # There have been problems with updating eg to 2.5.1
   objectbox_flutter_libs: any

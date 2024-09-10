@@ -2,6 +2,8 @@ import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kompositum/config/flavors/flavor.dart';
+import 'package:kompositum/config/flavors/ui_string.dart';
 import 'package:kompositum/config/my_icons.dart';
 import 'package:kompositum/config/my_theme.dart';
 import 'package:kompositum/data/models/daily_goal_set.dart';
@@ -243,7 +245,6 @@ class _DailyGoalsContainerState extends State<DailyGoalsContainer> with SingleTi
       colors: [
         MyColorPalette.of(context).primary,
         MyColorPalette.of(context).secondary,
-        // Color.lerp(MyColorPalette.of(context).secondary, MyColorPalette.of(context).primary, progress)!,
       ],
       stops: [stop1, stop2],
       begin: Alignment.centerLeft,
@@ -259,6 +260,12 @@ class _Locked extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String text = Flavor.instance.uiString.lblFeatureLockedTillLevel;
+    text = text.replaceFirst(
+      UiString.placeholder,
+      FeatureLockManager.dailyGoalsFeatureLockLevel.toString()
+    );
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -271,7 +278,7 @@ class _Locked extends StatelessWidget {
           ),
           SizedBox(width: 8),
           Text(
-            'ab Level ${FeatureLockManager.dailyGoalsFeatureLockLevel}',
+            text,
             style: Theme.of(context).textTheme.labelSmall!.copyWith(
               color: MyColorPalette.of(context).textSecondary,
             ),
@@ -295,7 +302,7 @@ class _SecretLevelDone extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'Verstecktes Level absolviert!',
+            Flavor.instance.uiString.lblHiddenLevelDone,
             style: Theme.of(context).textTheme.labelSmall!.copyWith(
               color: MyColorPalette.of(context).onPrimary,
             ),
@@ -332,7 +339,7 @@ class _PlaySecretLevel extends StatelessWidget {
           SizedBox(width: 12),
           Expanded(
             child: Text(
-              'Verstecktes Level',
+              Flavor.instance.uiString.lblHiddenLevel,
               style: Theme.of(context).textTheme.labelSmall!.copyWith(
                 color: MyColorPalette.of(context).onPrimary,
               ),
@@ -340,7 +347,7 @@ class _PlaySecretLevel extends StatelessWidget {
           ),
           MySecondaryTextButton(
             onPressed: onSecretLevelPlay,
-            text: 'Spielen',
+            text: Flavor.instance.uiString.btnPlayHiddenLevel,
           ),
         ],
       ),

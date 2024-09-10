@@ -30,13 +30,11 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
           key: Key("tabBarHome"),
           MyIcons.home
       ),
-      label: "Home",
     ),
     BottomNavigationBarItem(
       icon: Icon(
           key: Key("tabBarDaily"),
           MyIcons.daily),
-      label: "Daily",
     ),
   ];
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kompositum/config/flavors/flavor.dart';
 import 'package:kompositum/config/star_costs_rewards.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 import 'package:kompositum/widgets/common/my_dialog.dart';
@@ -35,8 +36,8 @@ class PlayPastDailyDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MyDialog(
-        title: "Vergangenes tägliches Rätsel!",
-        subtitle: "Aber keine Sorge, du kannst es noch nachholen!",
+        title: Flavor.instance.uiString.ttlDialogPlayPastDaily,
+        subtitle: Flavor.instance.uiString.lblDialogPlayPastDailySubtitle,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -61,7 +62,7 @@ class PlayPastDailyDialog extends StatelessWidget {
                 onPressed: () {
                   _close(context, PlayPastDailyDialogResult.playWithAd);
                 },
-                text: "Werbung",
+                text: Flavor.instance.uiString.lblAd,
                 trailingIcon: Padding(
                   padding: const EdgeInsets.only(left: 8.0),
                   child: Icon(

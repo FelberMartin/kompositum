@@ -1,5 +1,7 @@
 import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
+import 'package:kompositum/config/flavors/flavor.dart';
+import 'package:kompositum/util/extensions/format_util.dart';
 import 'package:kompositum/widgets/common/util/clip_shadow_path.dart';
 import 'package:kompositum/widgets/common/util/corner_radius.dart';
 import 'package:kompositum/widgets/common/util/rounded_edge_clipper.dart';
@@ -47,7 +49,7 @@ class MyDefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
           AnimatedFlipCounter(
             duration: Duration(milliseconds: animateStarCount ? 300 : 0),
             value: starCount,
-            thousandSeparator: ".",
+            thousandSeparator: getThousandSeparator(Flavor.instance.locale.languageCode),
             textStyle: Theme.of(context).textTheme.labelLarge,
           ),
           SizedBox(width: 4.0),

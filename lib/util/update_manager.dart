@@ -2,11 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/util/app_version_provider.dart';
-import 'package:kompositum/widgets/home/dialogs/daily_goals_update_dialog.dart';
-import 'package:kompositum/widgets/home/dialogs/ios_update_dialog.dart';
-import 'package:kompositum/widgets/home/dialogs/pre_redesign_update_dialog.dart';
+import 'package:kompositum/widgets/home/update_dialogs/ios_update_dialog.dart';
+import 'package:kompositum/widgets/home/update_dialogs/pre_redesign_update_dialog.dart';
+import 'package:kompositum/widgets/home/update_dialogs/redesign_update_dialog.dart';
 
-import '../widgets/home/dialogs/redesign_update_dialog.dart';
+import '../widgets/home/update_dialogs/daily_goals_update_dialog.dart';
 
 class UpdateDialog {
   final Widget dialog;
