@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:kompositum/config/flavors/flavor.dart';
 import 'package:kompositum/config/my_icons.dart';
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/game/goals/daily_goal_set_manager.dart';
@@ -17,6 +18,7 @@ import '../widgets/common/my_app_bar.dart';
 import '../widgets/common/my_background.dart';
 import '../widgets/common/my_icon_button.dart';
 import '../widgets/common/numeric_step_button.dart';
+import '../widgets/settings/dev_tools.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -76,7 +78,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ),
               middleContent: Text(
-                "Einstellungen",
+                Flavor.instance.uiString.ttlSettings,
                 style: Theme.of(context).textTheme.titleSmall,
               ),
               rightContent: Container(),
@@ -89,10 +91,10 @@ class _SettingsPageState extends State<SettingsPage> {
                   children: [
                     SizedBox(height: 32.0),
                     SettingsGroup(
-                      title: "Benachrichtigungen",
+                      title: Flavor.instance.uiString.ttlNotifications,
                       children: [
                         BooleanSettingsRow(
-                          description: "für Tägliche Rätsel",
+                          description: Flavor.instance.uiString.lblNotificationForDailies,
                           isActive: isDailyNotificationActive,
                           onChange: setIsDailyNotificationActive,
                         )
@@ -100,7 +102,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                     SizedBox(height: 32.0),
                     SettingsGroup(
-                      title: "Datenschutzerklärung",
+                      title: Flavor.instance.uiString.ttlPrivacyPolicy,
                       children: [
                         PrivacyPolicy()
                       ],
@@ -200,95 +202,12 @@ class PrivacyPolicy extends StatelessWidget {
     return GestureDetector(
       onTap: _launchPrivacyPolicy,
       child: Text(
-        "Klicke hier, um unsere Datenschutzerklärung zu lesen (Englisch).",
+        Flavor.instance.uiString.lblClickForPrivacyPolicy,
         style: Theme.of(context).textTheme.labelSmall!.copyWith(
           color: MyColorPalette.of(context).textSecondary,
           decoration: TextDecoration.underline,
         ),
       ),
-    );
-  }
-}
-
-
-class DevTools extends StatelessWidget {
-  const DevTools({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SettingsGroup(
-        title: "Dev tools",
-        children: [
-          MyPrimaryTextButton(
-            text: "Send notification (10 sec delay)",
-            onPressed: () async {
-              final notificationManager = locator<NotificationManager>();
-              await notificationManager.scheduleNotification(
-                id: 0,
-                title: "Test Notification",
-                description: "This is a test notification",
-                dateTime: DateTime.now().add(Duration(seconds: 10)),
-                notificationDetails: NotificationDetails(
-                  android: AndroidNotificationDetails(
-                    '420',
-                    'Test Notification channel',
-                  ),
-                ),
-              );
-            },
-          ),
-          SizedBox(height: 16),
-          LevelManipulator(),
-        ]);
-  }
-}
-
-class LevelManipulator extends StatefulWidget {
-  const LevelManipulator({
-    super.key,
-  });
-
-  @override
-  State<LevelManipulator> createState() => _LevelManipulatorState();
-}
-
-class _LevelManipulatorState extends State<LevelManipulator> {
-  late KeyValueStore keyValueStore = locator<KeyValueStore>();
-  int? level;
-
-  @override
-  void initState() {
-    super.initState();
-    keyValueStore.getLevel().then((value) {
-      setState(() {
-        level = value;
-      });
-    });
-  }
-
-  void _changeLevel(int value) {
-    print('Level changed to $value');
-    keyValueStore.storeLevel(value);
-    keyValueStore.deleteClassicGameLevel();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(
-          "Level: ",
-          style: Theme.of(context).textTheme.labelLarge,
-        ),
-        SizedBox(width: 16),
-        level == null ? CircularProgressIndicator() : Expanded(
-          child: NumericStepButton(
-            initialValue: level!,
-            minValue: 1,
-            maxValue: 1000,
-            onChanged: _changeLevel),
-        ),
-      ],
     );
   }
 }
