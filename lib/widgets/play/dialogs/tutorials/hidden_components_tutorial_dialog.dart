@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kompositum/config/flavors/flavor.dart';
 import 'package:kompositum/config/my_theme.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 
@@ -14,18 +15,18 @@ class HiddenComponentsTutorialDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MyDialog(
-      title: "💡 Verdeckte Wörter",
+      title: Flavor.instance.uiString.ttlHiddenComponents,
       child: Column(
         children: [
           Text(
-            "Verdeckte Wörter werden erst sichtbar, wenn du andere Wörter richtig kombinierst!",
+            Flavor.instance.uiString.lblHiddenComponentsDescription,
             style: Theme.of(context).textTheme.labelLarge,
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 32),
           FittedBox(
             child: MyPrimaryTextButton(
-                text: "Alles klar",
+                text: Flavor.instance.uiString.btnGotIt,
                 onPressed: () {
                   Navigator.of(context).pop();
                 }

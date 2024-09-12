@@ -44,6 +44,44 @@ abstract class UiString {
   // Game
   abstract String ttlHiddenLevel;
   abstract String lblChainGameLevel;
+  abstract String lblHiddenWords;
+  abstract String lblSnackbarMuted;
+  abstract String lblSnackbarUnmuted;
+
+  // Game - Dialogs
+  abstract String ttlChainNewGameMode;
+  abstract String lblChainNewGameModeDescription;
+  abstract String lblChainNewGameModeTryIt;
+  abstract String btnGotIt;
+
+  abstract String ttlHiddenComponents;
+  abstract String lblHiddenComponentsDescription;
+
+  abstract String ttlHints;
+  abstract String lblHintsDescription;
+  abstract String lblHintsTryIt;
+
+  abstract String ttlMissingCompounds;
+  abstract String lblMissingCompoundsDescription;
+  abstract String lblMissingCompoundsDescription2;
+
+  abstract List<String> ttlLevelCompletedVariants;
+  abstract String lblLevelCompleted;
+  abstract String lblDifficulty;
+  abstract String lblMistakes;
+  abstract String btnContinue;
+  abstract String btnBackToOverview;
+
+  abstract String ttlNoAttemptsLeft;
+  abstract String btnContinueWithHint;
+  abstract String btnRestartGame;
+
+  abstract String ttlReport;
+  abstract String lblReportDescription;
+  abstract String btnCancel;
+  abstract String btnSend;
+  abstract String lblEnterWordHint;
+
 
   // Ads
   abstract String lblDoYouEnjoy;
@@ -92,6 +130,60 @@ class UiStringDe extends UiString {
   // Game
   String ttlHiddenLevel = "Verstecktes Level";
   String lblChainGameLevel = "Wortkette";
+  String lblHiddenWords = "Versteckte Wörter";
+  String lblSnackbarMuted = "Lautlos";
+  String lblSnackbarUnmuted = "Ton an";
+
+  // Game - Dialogs
+  String ttlChainNewGameMode = "💡 Neuer Spielmodus: Wortkette!";
+  String lblChainNewGameModeDescription = "Bei diesem Spielmodus ist das erste Wort gegeben und du musst nur das dazugehörige zweite Wort finden. "
+      "Danach geht es immer so weiter und es bildet sich ein lange Wortkette.";
+  String lblChainNewGameModeTryIt = "Probier es einfach aus!";
+  String btnGotIt = "Alles klar";
+
+  String ttlHiddenComponents = "💡 Verdeckte Wörter";
+  String lblHiddenComponentsDescription = "Verdeckte Wörter werden erst sichtbar, wenn du andere Wörter richtig kombinierst!";
+
+  String ttlHints = "💡 Tipps";
+  String lblHintsDescription = "Wenn du Hilfe brauchst und nicht mehr weiter weißt, benutze einen Tipp!";
+  String lblHintsTryIt = "Probier es einfach aus, der erste Tipp geht aufs Haus!";
+
+  String ttlMissingCompounds = "💡 Fehlende Wörter";
+  String lblMissingCompoundsDescription = "Hast du ein richtiges Wort kombiniert, aber es wird nicht aktzeptiert? "
+      "Du kannst diese Wörter melden und wir kümmern uns darum!";
+  String lblMissingCompoundsDescription2 = "Du kannst diese Wörter melden und wir kümmern uns darum!";
+
+  List<String> ttlLevelCompletedVariants = [
+    "Glückwunsch!",
+    "Super!",
+    "Fantastisch!",
+    "Perfekt!",
+    "Gut gemacht!",
+    "Bravo!",
+    "Genial!",
+    "Sensationell!",
+    "Klasse!",
+    "Wow!",
+    "Ausgezeichnet!",
+    "Großartig!",
+    "Einfach stark!"
+  ];
+  String lblLevelCompleted = "Level geschaft!";
+  String lblDifficulty = "Schwierigkeit";
+  String lblMistakes = "Fehler";
+  String btnContinue = "Weiter";
+  String btnBackToOverview = "Zurück zur Übersicht";
+
+  String ttlNoAttemptsLeft = "Du hast alle Versuche aufgebraucht!";
+  String btnContinueWithHint = "Mit Tipp fortfahren";
+  String btnRestartGame = "Neustarten";
+
+  String ttlReport = "Du hast ein fehlendes Wort gefunden?";
+  String lblReportDescription = "Danke, dass du uns hilfst das Spiel noch besser zu machen!";
+  String btnCancel = "Abbrechen";
+  String btnSend = "Senden";
+  String lblEnterWordHint = "Wort eingeben";
+
 
   // Ads
   String lblDoYouEnjoy = "Gefällt dir";
@@ -153,6 +245,58 @@ class UiStringEn extends UiString {
   // Game
   String ttlHiddenLevel = "Hidden Level";
   String lblChainGameLevel = "Chain";
+  String lblHiddenWords = "Hidden Words";
+  String lblSnackbarMuted = "Muted";
+  String lblSnackbarUnmuted = "Unmuted";
+
+  // Game - Dialogs
+  String ttlChainNewGameMode = "💡 New Game Mode: Chain!";
+  String lblChainNewGameModeDescription = "In this game mode, the first word is given and you only have to find the corresponding second word. "
+      "After that, it continues like this and a long chain of words is formed.";
+  String lblChainNewGameModeTryIt = "Just try it out!";
+  String btnGotIt = "Got it";
+
+  String ttlHiddenComponents = "💡 Hidden Words";
+  String lblHiddenComponentsDescription = "Hidden words only become visible when you combine other words correctly!";
+
+  String ttlHints = "💡 Hints";
+  String lblHintsDescription = "If you need help and don't know what to do next, use a hint!";
+  String lblHintsTryIt = "Just try it out, the first hint is on the house!";
+
+  String ttlMissingCompounds = "💡 Missing Words";
+  String lblMissingCompoundsDescription = "Have you combined a correct word, but it is not accepted? "
+      "You can report these words and we will take care of it!";
+  String lblMissingCompoundsDescription2 = "You can report these words and we will take care of it!";
+
+  List<String> ttlLevelCompletedVariants = [
+    "Congratulations!",
+    "Great!",
+    "Fantastic!",
+    "Perfect!",
+    "Well done!",
+    "Bravo!",
+    "Genius!",
+    "Wow!",
+    "Excellent!",
+    "Great!",
+    "Simply great!"
+  ];
+  String lblLevelCompleted = "Level completed!";
+  String lblDifficulty = "Difficulty";
+  String lblMistakes = "Mistakes";
+  String btnContinue = "Continue";
+  String btnBackToOverview = "Back to Overview";
+
+  String ttlNoAttemptsLeft = "You have used all attempts!";
+  String btnContinueWithHint = "Continue with Hint";
+  String btnRestartGame = "Restart";
+
+  String ttlReport = "Did you find a missing word?";
+  String lblReportDescription = "Thank you for helping us make the game even better!";
+  String btnCancel = "Cancel";
+  String btnSend = "Send";
+  String lblEnterWordHint = "Enter word";
+
 
   // Ads
   String lblDoYouEnjoy = "Do you enjoy";

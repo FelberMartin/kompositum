@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kompositum/config/flavors/flavor.dart';
 import 'package:kompositum/config/my_icons.dart';
 import 'package:kompositum/config/my_theme.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
@@ -17,12 +18,11 @@ class ChainModeIntroDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MyDialog(
-      title: "💡 Neuer Spielmodus: Wortkette!",
+      title: Flavor.instance.uiString.ttlChainNewGameMode,
       child: Column(
         children: [
           Text(
-            "Bei diesem Spielmodus ist das erste Wort gegeben und du musst nur das dazugehörige zweite Wort finden. "
-                "Danach geht es immer so weiter und es bildet sich ein lange Wortkette.",
+            Flavor.instance.uiString.lblChainNewGameModeDescription,
             style: Theme.of(context).textTheme.labelLarge,
             textAlign: TextAlign.center,
           ),
@@ -33,14 +33,14 @@ class ChainModeIntroDialog extends StatelessWidget {
           ),
           SizedBox(height: 32),
           Text(
-            "Probier es einfach aus!",
+            Flavor.instance.uiString.lblChainNewGameModeTryIt,
             style: Theme.of(context).textTheme.labelLarge,
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 32),
           FittedBox(
             child: MyPrimaryTextButton(
-                text: "Alles klar",
+                text: Flavor.instance.uiString.btnGotIt,
                 onPressed: () {
                   Navigator.of(context).pop();
                 }

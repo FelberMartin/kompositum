@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:kompositum/config/flavors/flavor.dart';
 import 'package:kompositum/config/my_icons.dart';
 import 'package:kompositum/game/game_event/game_event.dart';
 import 'package:kompositum/widgets/common/my_icon_button.dart';
@@ -94,8 +95,9 @@ class _CombinationAreaState extends State<CombinationArea> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(AudioManager.instance.isMuted
-                        ? "Lautlos"
-                        : "Ton an"),
+                        ? Flavor.instance.uiString.lblSnackbarMuted
+                        : Flavor.instance.uiString.lblSnackbarUnmuted
+                    ),
                     behavior: SnackBarBehavior.floating,
                     duration: const Duration(milliseconds: 1500),
                   ),

@@ -1,5 +1,6 @@
 import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
+import 'package:kompositum/config/flavors/flavor.dart';
 import 'package:kompositum/config/star_costs_rewards.dart';
 import 'package:kompositum/widgets/common/my_3d_container.dart';
 
@@ -189,10 +190,12 @@ class HiddenComponentsIndicator extends StatelessWidget {
                 textStyle: Theme.of(context).textTheme.titleSmall,
                 padding: const EdgeInsets.only(top: 0.0),
               ),
-              Text("verdeckte Wörter",
-                  style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                        color: MyColorPalette.of(context).textSecondary,
-                      ))
+              Text(
+                Flavor.instance.uiString.lblHiddenWords,
+                style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                  color: MyColorPalette.of(context).textSecondary,
+                )
+              ),
             ],
           )),
     );

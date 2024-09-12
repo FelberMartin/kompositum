@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kompositum/config/flavors/flavor.dart';
 import 'package:kompositum/config/my_icons.dart';
 import 'package:kompositum/config/my_theme.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
@@ -15,11 +16,11 @@ class MissingCompoundTutorialDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MyDialog(
-      title: "💡 Fehlende Wörter",
+      title: Flavor.instance.uiString.ttlMissingCompounds,
       child: Column(
         children: [
           Text(
-            "Hast du ein richtiges Wort kombiniert, aber es wird nicht aktzeptiert?",
+            Flavor.instance.uiString.lblMissingCompoundsDescription,
             style: Theme.of(context).textTheme.labelLarge,
             textAlign: TextAlign.center,
           ),
@@ -31,14 +32,14 @@ class MissingCompoundTutorialDialog extends StatelessWidget {
           ),
           SizedBox(height: 40),
           Text(
-            "Du kannst diese Wörter melden und wir kümmern uns darum!",
+            Flavor.instance.uiString.lblMissingCompoundsDescription2,
             style: Theme.of(context).textTheme.labelLarge,
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 32),
           FittedBox(
             child: MyPrimaryTextButton(
-                text: "Alles klar",
+                text: Flavor.instance.uiString.btnGotIt,
                 onPressed: () {
                   Navigator.of(context).pop();
                 }

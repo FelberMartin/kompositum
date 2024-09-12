@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kompositum/config/flavors/flavor.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 import 'package:kompositum/widgets/common/util/corner_radius.dart';
 
@@ -31,14 +32,14 @@ class NoAttemptsLeftDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MyDialog(
-      title: "Du hast alle Versuche aufgebraucht!",
+      title: Flavor.instance.uiString.ttlNoAttemptsLeft,
       child: Column(
         children: [
           OptionCard(
             icon: MyIcons.hint,
             iconSubtitleText: "$hintCost",
             iconSubtitleIcon: MyIcons.star,
-            actionText: "Mit Tipp fortfahren",
+            actionText: Flavor.instance.uiString.btnContinueWithHint,
             onActionPressed: () { onActionPressed(NoAttemptsLeftDialogAction.hint); },
             isEnabled: isHintAvailable,
             roundTop: true,
@@ -46,9 +47,9 @@ class NoAttemptsLeftDialog extends StatelessWidget {
           SizedBox(height: 8),
           OptionCard(
             icon: FontAwesomeIcons.redo,
-            iconSubtitleText: "Werbung",
+            iconSubtitleText: Flavor.instance.uiString.lblAd,
             iconSubtitleIcon: MyIcons.ad,
-            actionText: "Neustarten",
+            actionText: Flavor.instance.uiString.btnRestartGame,
             onActionPressed: () { onActionPressed(NoAttemptsLeftDialogAction.restart); },
             roundBottom: true,
           ),

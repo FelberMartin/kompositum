@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kompositum/config/flavors/flavor.dart';
 import 'package:kompositum/config/my_icons.dart';
 import 'package:kompositum/config/my_theme.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
@@ -15,11 +16,11 @@ class HintsTutorialDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MyDialog(
-      title: "💡 Tipps",
+      title: Flavor.instance.uiString.ttlHints,
       child: Column(
         children: [
           Text(
-            "Wenn du Hilfe brauchst und nicht mehr weiter weißt, benutze einen Tipp!",
+            Flavor.instance.uiString.lblHintsDescription,
             style: Theme.of(context).textTheme.labelLarge,
             textAlign: TextAlign.center,
           ),
@@ -31,14 +32,14 @@ class HintsTutorialDialog extends StatelessWidget {
           ),
           SizedBox(height: 40),
           Text(
-            "Probier es einfach aus, der erste Tipp geht aufs Haus!",
+            Flavor.instance.uiString.lblHintsTryIt,
             style: Theme.of(context).textTheme.labelLarge,
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 32),
           FittedBox(
             child: MyPrimaryTextButton(
-                text: "Alles klar",
+                text: Flavor.instance.uiString.btnGotIt,
                 onPressed: () {
                   Navigator.of(context).pop();
                 }

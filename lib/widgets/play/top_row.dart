@@ -1,5 +1,6 @@
 import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
+import 'package:kompositum/config/flavors/flavor.dart';
 import 'package:kompositum/game/difficulty.dart';
 
 import '../../config/my_theme.dart';
@@ -28,8 +29,11 @@ class TopRow extends StatelessWidget implements PreferredSizeWidget {
       title,
       style: Theme.of(context).textTheme.titleMedium,
     );
-    if (title.startsWith("Level ")) {
-      final prefix = "Level ";
+
+    // If the title is a level count, display it as an animated flip counter
+    final levelCountPrefix = Flavor.instance.uiString.lblLevelIndicator + " ";
+    if (title.startsWith(levelCountPrefix)) {
+      final prefix = levelCountPrefix;
       final value = int.parse(title.split(" ")[1]);
       titleWidget = AnimatedFlipCounter(
         duration: const Duration(milliseconds: 600),

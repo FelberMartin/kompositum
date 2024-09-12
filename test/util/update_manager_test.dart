@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kompositum/data/key_value_store.dart';
 import 'package:kompositum/util/update_manager.dart';
-import 'package:kompositum/widgets/home/dialogs/daily_goals_update_dialog.dart';
+import 'package:kompositum/widgets/home/update_dialogs/daily_goals_update_dialog.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';

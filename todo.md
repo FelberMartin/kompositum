@@ -4,7 +4,6 @@
 - English
   - Try out with english words
   - Create localization logic
-    - UiStrings
     - Compounds, compactFrequencyClass
     - First level
   - Create blocked compounds

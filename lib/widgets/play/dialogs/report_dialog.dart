@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kompositum/config/flavors/flavor.dart';
 import 'package:kompositum/util/extensions/color_util.dart';
 import 'package:kompositum/widgets/common/my_buttons.dart';
 import 'package:kompositum/widgets/common/my_dialog.dart';
@@ -62,7 +63,7 @@ class _ReportDialogState extends State<ReportDialog> {
   @override
   Widget build(BuildContext context) {
     return MyDialog(
-        title: "Du hast ein fehlendes Wort gefunden?",
+        title: Flavor.instance.uiString.ttlReport,
         child: Column(
           children: [
             SizedBox(height: 16),
@@ -88,7 +89,7 @@ class _ReportDialogState extends State<ReportDialog> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
-                "Danke, dass du uns hilfst das Spiel noch besser zu machen!",
+                Flavor.instance.uiString.lblReportDescription,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.labelSmall!.copyWith(
                       color: Theme.of(context).colorScheme.onSecondary,
@@ -129,7 +130,7 @@ class ActionButtonRow extends StatelessWidget {
     return Row(
       children: [
         MySecondaryTextButton(
-          text: "Abbrechen",
+          text: Flavor.instance.uiString.btnCancel,
           onPressed: onCancelPressed,
         ),
         SizedBox(width: 8),
@@ -160,7 +161,7 @@ class ActionButtonRow extends StatelessWidget {
                 );
               } else {
                 content = Text(
-                  "Senden",
+                  Flavor.instance.uiString.btnSend,
                   style: Theme.of(context).textTheme.labelMedium!.copyWith(
                     color: isSendEnabled
                         ? Theme.of(context).colorScheme.onPrimary
@@ -228,7 +229,7 @@ class InputRow extends StatelessWidget {
         Expanded(
           child: TextField(
             decoration: InputDecoration(
-              hintText: "Wort eingeben",
+              hintText: Flavor.instance.uiString.lblEnterWordHint,
               hintStyle: Theme.of(context).textTheme.labelLarge!.copyWith(
                 color: MyColorPalette.of(context).primary,
                 fontStyle: FontStyle.italic,

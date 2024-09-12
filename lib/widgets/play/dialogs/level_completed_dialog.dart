@@ -69,21 +69,7 @@ class LevelCompletedDialogResult {
 
 class LevelCompletedDialog extends StatefulWidget {
 
-  static const List<String> titles = [
-    "Glückwunsch!",
-    "Super!",
-    "Fantastisch!",
-    "Perfekt!",
-    "Gut gemacht!",
-    "Bravo!",
-    "Genial!",
-    "Sensationell!",
-    "Klasse!",
-    "Wow!",
-    "Ausgezeichnet!",
-    "Großartig!",
-    "Einfach stark!"
-  ];
+  static List<String> titles = Flavor.instance.uiString.ttlLevelCompletedVariants;
 
   LevelCompletedDialog({
     super.key,
@@ -178,7 +164,7 @@ class _LevelCompletedDialogState extends State<LevelCompletedDialog> {
               ),
               SizedBox(height: 12),
               Text(
-                "Level geschaft!",
+                Flavor.instance.uiString.lblLevelCompleted,
                 style: Theme.of(context).textTheme.labelSmall,
               ),
               Expanded(child: Container()),
@@ -302,13 +288,13 @@ class _LevelRewardCalculationState extends State<LevelRewardCalculation> {
         ),
         SizedBox(height: 16.0),
         LevelInfo(
-          infoName: "Schwierigkeit",
+          infoName: Flavor.instance.uiString.lblDifficulty,
           infoValue: Flavor.instance.uiString.getDifficultyText(widget.difficulty),
           hidden: _hideDifficulty,
         ),
         SizedBox(height: 4.0),
         LevelInfo(
-          infoName: "Fehler",
+          infoName: Flavor.instance.uiString.lblMistakes,
           infoValue: widget.failedAttempts.toString(),
           hidden: _hideFailedAttempts,
         ),
@@ -369,7 +355,7 @@ class _BottomContent extends StatelessWidget {
   Widget build(BuildContext context) {
     if (type == LevelCompletedDialogType.classic) {
       return MyPrimaryTextButtonLarge(
-        text: "Weiter",
+        text: Flavor.instance.uiString.btnContinue,
         onPressed: () {
           onContinue(LevelCompletedDialogResultType.classic_continue);
         },
@@ -378,14 +364,14 @@ class _BottomContent extends StatelessWidget {
       return Column(
         children: [
           MySecondaryTextButton(
-            text: "Zurück zur Übersicht",
+            text: Flavor.instance.uiString.btnBackToOverview,
             onPressed: () {
               onContinue(LevelCompletedDialogResultType.daily_backToOverview);
             },
           ),
           SizedBox(height: 8),
           MyPrimaryTextButton(
-            text: "Level $nextLevelNumber",
+            text: Flavor.instance.uiString.lblLevelIndicator + " $nextLevelNumber",
             onPressed: () {
               onContinue(LevelCompletedDialogResultType.daily_continueWithClassic);
             },
@@ -394,7 +380,7 @@ class _BottomContent extends StatelessWidget {
       );
     } else if (type == LevelCompletedDialogType.secretLevel) {
       return MyPrimaryTextButtonLarge(
-        text: "Weiter",
+        text: Flavor.instance.uiString.btnContinue,
         onPressed: () {
           onContinue(LevelCompletedDialogResultType.secretLevel_continue);
         },
