@@ -143,23 +143,28 @@ class _BottomContentState extends State<BottomContent> {
       ],
     );
 
+    final bottomPadding = MediaQuery.of(context).padding.bottom;
+
     return ClipPath(
       clipper: RoundedEdgeClipper(onBottom: false),
       child: Container(
-        height: 400,
+        height: 400 + bottomPadding,
         width: double.infinity,
         color: Theme.of(context).colorScheme.secondary,
-        child: Stack(
-          alignment: Alignment(0.0, -0.2),  // Slightly to the top
-          children: [
-            SingleChildScrollView(child: mainContent),
-            Positioned(
-                bottom: 16,
-                left: 16,
-                right: 16,
-                child: bottomContent,
-            ),
-          ],
+        child: SafeArea(
+          top: false,
+          child: Stack(
+            alignment: const Alignment(0.0, -0.2),  // Slightly to the top
+            children: [
+              SingleChildScrollView(child: mainContent),
+              Positioned(
+                  bottom: 16,
+                  left: 16,
+                  right: 16,
+                  child: bottomContent,
+              ),
+            ],
+          ),
         ),
       ),
     );

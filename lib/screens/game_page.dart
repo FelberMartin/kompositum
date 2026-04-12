@@ -454,6 +454,7 @@ abstract class GamePageState extends State<GamePage> {
           child: MyBackground(),
         ),
         Scaffold(
+          extendBody: true,
           appBar: levelSetup == null
               ? null
               : TopRow(
