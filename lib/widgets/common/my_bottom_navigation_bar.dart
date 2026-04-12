@@ -56,27 +56,32 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      bottom: false,
-      child: Container(
-        height: 66 + MediaQuery.of(context).padding.bottom,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(CornerRadius.large),
-          ),
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.secondary,
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(CornerRadius.large),
         ),
-        clipBehavior: Clip.antiAlias,
-        child: BottomNavigationBar(
-          items: items,
-          onTap: (index) {
-            onItemSelected(index);
-          },
-          currentIndex: widget.selectedIndex,
-          backgroundColor: Theme.of(context).colorScheme.secondary,
-          selectedItemColor: Theme.of(context).colorScheme.onSecondary,
-          unselectedItemColor: MyColorPalette.of(context).textSecondary,
-          showUnselectedLabels: false,
-          showSelectedLabels: false,
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: SafeArea(
+        top: false,
+        child: SizedBox(
+          height: 66,
+          child: BottomNavigationBar(
+            items: items,
+            onTap: (index) {
+              onItemSelected(index);
+            },
+            currentIndex: widget.selectedIndex,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            selectedItemColor: Theme.of(context).colorScheme.onSecondary,
+            unselectedItemColor: MyColorPalette.of(context).textSecondary,
+            showUnselectedLabels: false,
+            showSelectedLabels: false,
+            type: BottomNavigationBarType.fixed,
+          ),
         ),
       ),
     );
