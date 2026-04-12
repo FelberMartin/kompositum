@@ -32,7 +32,7 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace "com.development_felber.compose"
     compileSdkVersion 36
-    ndkVersion flutter.ndkVersion
+    ndkVersion "26.1.10909125"
 
     compileOptions {
         // Flag to enable support for the new language APIs
@@ -88,14 +88,4 @@ dependencies {
     implementation 'androidx.window:window:1.2.0'
     implementation 'androidx.window:window-java:1.2.0'
     implementation 'androidx.multidex:multidex:2.0.1'
-}
-
-configurations.all {
-    resolutionStrategy {
-        eachDependency {
-            if ((requested.group == "org.jetbrains.kotlin") && (requested.name.startsWith("kotlin-stdlib"))) {
-                useVersion("1.8.10")
-            }
-        }
-    }
 }
