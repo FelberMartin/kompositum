@@ -1,11 +1,17 @@
 # How to build and distribute the app
 
-## Android
+### Update the Version
+
+In `pubspec.yaml`
+
+## How to create a new app release file to upload
+
+### Android
 
 - In Android Studio, go to "Build">"Flutter">"Build App Bundle".
 - Then drag the created .aab file into the Google Play Dashboard (Create new internal release).
 
-## iOS
+### iOS
 
 - In the terminal, run `flutter build ipa` (takes ages)
 - Open the `build/ios/archive/MyApp.archive` with XCode
